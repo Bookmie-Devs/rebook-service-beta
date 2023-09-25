@@ -20,11 +20,15 @@ class HostelProfile(models.Model):
     hostel_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     hostel_code = models.CharField(max_length=50, null=True)
     hostel_image = models.ImageField(upload_to='Hostel_Profiles', default='unavailable.jpg')
+
     type_of_hostel = models.CharField(max_length=15,
-                                    verbose_name='Type',
-                                    blank=False, choices=Hostel_Type)
+                                     verbose_name='Type',default='Hostel',
+                                     blank=False, choices=Hostel_Type)
+    
     class_of_hostel = models.CharField(max_length=20, choices=Category,
-                                       verbose_name='class')
+                                       verbose_name='class',
+                                       default='First Class')
+    
     hostel_rating = models.IntegerField(default=0)
     price_range = models.CharField(max_length=50, default='unavailable', blank=True)
     hostel_motto = models.CharField(max_length=2000, blank=True)
