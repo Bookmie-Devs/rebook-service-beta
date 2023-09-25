@@ -4,27 +4,26 @@ from campus_app.models import CampusProfile
 import uuid
 from accounts.models import CustomUser
 
-rating = [('⭐⭐⭐⭐','⭐⭐⭐⭐'),
-           ('⭐⭐⭐','⭐⭐⭐'),
-           ('⭐⭐','⭐⭐'),
-           ('⭐','⭐')]
+rating = [('⭐⭐⭐⭐','⭐⭐⭐⭐'),('⭐⭐⭐','⭐⭐⭐'),
+           ('⭐⭐','⭐⭐'), ('⭐','⭐')]
 
-Hostel_Type =[
-              ('Hostel🏢','Hostel'),
-              ('Homestel🏠','Homestel'),
-              ('Apartment💰','Apartment')]
+category =[('Hostel','Hostel'),('Homestel','Homestel'),
+            ('Apartment','Apartment')]
 
 class HostelProfile(models.Model): 
     '''Hostel model for database'''
     hostel_name = models.CharField(max_length=50)
-    hostel_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
+
+    hostel_id = models.UUIDField(primary_key=True, default=uuid.uuid4, 
+                                 editable=False, unique=True)
+    
     hostel_code = models.CharField(max_length=50, null=True)
     hostel_image = models.ImageField(upload_to='Hostel_Profiles', default='unavailable.jpg')
 
-    type_of_hostel = models.CharField(max_length=15,
-                                     verbose_name='Type',default='Hostel',
-                                     blank=False, choices=Hostel_Type)
-    
+    category = models.CharField(max_length=15,
+                                    verbose_name='type',default='Hostel',
+                                    blank=False, choices=category)
+
     rating = models.CharField(max_length=10,choices=rating, verbose_name='Stars',
                                        default='⭐')
     
@@ -32,8 +31,10 @@ class HostelProfile(models.Model):
     hostel_motto = models.CharField(max_length=2000, blank=True)
     number_of_rooms = models.IntegerField(default=5)
     campus = models.ForeignKey(CampusProfile, on_delete=models.SET_NULL, null=True)
+
     hostel_manager = models.ForeignKey(CustomUser, on_delete=models.SET_NULL,
                                        related_name='hostels', null=True,)
+    
     hostel_email = models.EmailField(blank=True)
     bank_details = models.CharField(max_length=20)
     mobile_money = models.CharField(max_length=14)
