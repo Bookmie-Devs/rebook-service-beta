@@ -1,0 +1,39 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% translate 'Page Not Found' %}</title>
+    <style>
+        /* Your custom CSS styles go here */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000000;
+        }
+        .container {
+            text-align: center;
+            padding: 100px;
+        }
+        h1 {
+            font-size: 48px;
+            color: #ffb10a;
+        }
+        p {
+            font-size: 18px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <br>
+    <div style="text-align: center;">
+    <h1>Sorry Bro😿</h1>
+    </div>
+    <div class="container">
+        <p>The page you're looking for doesn't exist. Let's get you back on track</p>
+        <h1>{% translate '😢Oops! Page Not Found' %}</h1>
+        <!-- <a href="/" style="text-decoration: none; color: #ff5733;">Go to Homepage</a> -->
+    </div>
+</body>
+</html>

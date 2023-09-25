@@ -1,0 +1,118 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>{{ HostelPro.HostelName }}@Rebook</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="{% static 'QueryDetails/assets/favicon.ico' %}" />
+        <link rel="icon" type="image/x-icon" href="BaseStaticFiles/QueryDetails/assets/favicon.ico" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{% static 'QueryDetails/css/styles.css' %}" rel="stylesheet" />
+        <link href="BaseStaticFiles/QueryDetails/css/styles.css" rel="stylesheet" />
+    </head>
+    <body>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="#!">Get Direction</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'Core:Base' pk_campus=Campus.Campus_ID %}">Home</a></li>
+                    </ul>
+                    <!-- <form class="d-flex"> -->
+                </div>
+            </div>
+        </nav>
+        <!-- Product section-->
+        <section class="py-5">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="row gx-4 gx-lg-5 align-items-center">
+                    <div class="col-md-6"><a href="{{ HostelPro.Hostel_Pic.url }}"><img class="card-img-top mb-5 mb-md-0" src="{{ HostelPro.Hostel_Pic.url }}" alt="..." /></a></div>
+                    <div class="col-md-6">
+                        <div class="small mb-1"><h6>&#x2713;Registered to {{ HostelPro.Campus_of_Hostel }}</h6> </div>
+                        <h1 class="display-5 fw-bolder">{{ HostelPro.HostelName }}</h1>
+                        <h4 class="fw-bolder">{{ HostelPro.Hostel_Phone }}</h4>
+                        <h4 class="fw-bolder">Hostel Rating🏢 {{ HostelPro.class_Of_Hostel }}</h4>
+                        <div class="fs-5 mb-5">
+                            <!-- <span class="text-decoration-line-through">$45.00</span> -->
+                            <span><strong>{{ HostelPro.Price_Range }}</strong></span>
+                            <div>
+                            <a href="{% url 'HostelApp:HostelRooms' pk_HostelName=HostelPro.HostelName %}">
+                            <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                                <i class="bi bi-house-check"></i>
+                                {{ HostelPro.Number_Of_Rooms }} Rooms
+                            </button>
+                            </a>
+                            </div>
+                        </div>
+                        <p class="lead"><h2>Hostel Profile</h2>Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium at dolorem quidem modi. Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius blanditiis delectus ipsam minima ea iste laborum vero?</p>
+                        <div class="d-flex">
+                            <a href="{% url 'HostelApp:HostelRooms' pk_HostelName=HostelPro.HostelName %}">
+                            <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                                <i class="bi bi-house-check"></i>
+                                View Rooms Available
+                            </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- <section>
+        <iframe src="{{ HostelPro.On_map_location }}"></iframe>
+        </section> -->
+        <!-- Related items section-->
+        <section class="py-5 bg-light">
+           
+            <div class="container px-4 px-lg-5 mt-5">
+                <h2 class="fw-bolder mb-4">On_map_location--Click to get direction</h2>
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                    {% for room in Hostel_rooms %}
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <!-- Product image-->
+                            <img class="card-img-top" src="{{ room.Room_img.url }}" alt="..." />
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder">{{ room.Room_Category }}</h5>
+                                    <div class="d-flex justify-content-center small text-warning mb-2">
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                    </div>
+                                    <h5 class="fw-bolder">{{ room.Room_Capacity }} in a Room</h5>
+                                    <!-- Product price-->
+                                    GHS {{ room.Room_Price }}
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+        <!-- Footer-->
+        <footer class="py-5 bg-dark">
+            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Rebook 2023</p></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="{% static 'js/scripts.js' %}"></script>
+    </body>
+</html>

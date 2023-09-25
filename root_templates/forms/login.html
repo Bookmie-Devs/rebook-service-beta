@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'FormStatic/css/styles.css' %}" />
+    <title>Log in</title>
+  </head>
+  <body>
+    <header>
+        <h1>GuudNyt</h1>
+    </header>
+    
+    <div class="container">
+      <h2>log in <span>into your account</span></h2>
+      {% if messages %}
+        {% for message in messages %}
+            <h4 style="color: aliceblue;">{{message}}</h4>
+        {% endfor %}
+      {% endif %}
+      <form action="{% url 'accounts:login' %}" method="POST">
+        {% csrf_token %}
+        <div class="input-container">
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Email"
+            required
+          />
+        </div>
+        <div class="input-container">
+            <input
+              type="text"
+              id="student-id"
+              name="student_id"
+              placeholder="Student ID Number"
+              required
+            />
+          </div>
+        <div class="input-container">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Password"
+            required
+          />
+        </div>
+        
+        <div class="btn">
+          <button type="submit">Log In</button>
+        </div>
+        <div class="log">
+            <p>Are you new here? <a href="{% url 'accounts:signup' %}">Sign up</a></p>
+            <p><a href="{% url 'reset_password' %}">Forgotten password?</a></p>
+        </div>
+      </form>
+    </div>
+    <footer>
+        <span>Copyright &copy; Your Website 2023</span>
+    </footer>
+  </body>
+</html>

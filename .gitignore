@@ -1,0 +1,23 @@
+project_env/
+
+__pycache__/
+
+Token.txt
+
+Media/
+
+Pre_Host.txt
+
+VerificationFiles/
+
+iframe.html
+
+db.sqlite3
+
+Api_Docs.txt
+
+.evn/
+
+venv/
+
+All Templates from Roland/

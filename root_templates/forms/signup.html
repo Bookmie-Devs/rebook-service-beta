@@ -1,0 +1,115 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'FormStatic/css/signup.css' %}" />
+    <title>Sign Up</title>
+  </head>
+  <body>
+    <header>
+        <h1>Book Up</h1>
+    </header>
+    <div class="container">
+      <h2>Sign Up <span>with us</span></h2>
+      {% if messages %}
+        {% for message in messages %}
+          <h4 style="color: aliceblue;">{{message}}</h4>
+            {% endfor %}
+      {% endif %}
+      <form action="{% url 'accounts:signup' %}" method="POST">
+        {% csrf_token %}
+        <div class="input-container">
+          <input
+            type="text"
+            id="first-name"
+            name="first_name"
+            placeholder="First Name"
+            required
+          />
+        </div>
+        <div class="input-container">
+          <input
+            type="text"
+            id="middle-name"
+            name="middle_name"
+            placeholder="Middle Name(Optional)"
+          />
+        </div>
+        <div class="input-container">
+          <input
+            type="text"
+            id="last-name"
+            name="last_name"
+            placeholder="Last Name"
+            required
+          />
+        </div>
+        <div class="input-container">
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Email"
+            required
+          />
+        </div>
+        <div class="input-container">
+          <input
+            type="text"
+            id="phone"
+            name="phone"
+            placeholder="Phone No Eg.0233..."
+            required
+          />
+        </div>
+        <div class="input-container">
+            <input
+              type="text"
+              id="student-id"
+              name="student_id"
+              placeholder="Student ID Number"
+              required
+            />
+          </div>
+        <div class="input-container">
+            <select name="campus" id="campus" >
+              <option value="">Select Campus</option>
+              <option value="Knust">KNUST Campus</option>
+              <option value="UG Campus">UG Campus</option>
+              <option value="UHAS Campus">UHAS Campus</option>
+              <option value="UMAT Campus">UMAT Campus</option>
+            </select>
+          </div>
+        <div class="input-container">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Password"
+            required
+          />
+        </div>
+        <div class="input-container">
+          <input
+            type="password"
+            id="confirm-password"
+            name="confirm_password"
+            placeholder="Confirm Password"
+            required
+          />
+        </div>
+        <div class="btn">
+          <button type="submit">Get Started</button>
+        </div>
+        <div class="log">
+            <p>Already have an account? <a href="{% url 'accounts:login' %}">Log In</a></p>
+        </div>
+      </form>
+    </div>
+    <footer>
+        <span>Copyright &copy; Your Website 2023</span>
+    </footer>
+  </body>
+</html>

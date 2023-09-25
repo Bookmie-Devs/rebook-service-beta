@@ -1,0 +1,63 @@
+from django.db import models
+from django.contrib.auth.models import AbstractUser
+from rooms_app.models import RoomProfile
+from django.utils import timezone 
+from django.utils.timezone import timedelta
+from datetime import datetime
+from hostel_app.models import HostelProfile
+from campus_app.models import CampusProfile
+import asyncio
+from datetime import datetime
+import asyncio
+from accounts.models import CustomUser
+import uuid
+#Booking model
+# no
+class Booking(models.Model):
+    room = models.ForeignKey(RoomProfile, on_delete=models.CASCADE)
+    room_number = models.CharField(max_length=20)
+    hostel = models.ForeignKey(HostelProfile, on_delete=models.CASCADE)
+    campus = models.ForeignKey(CampusProfile, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    student_id = models.CharField(max_length=20)
+    booking_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
+    start_time = models.DateTimeField(auto_now_add=True)
+    end_time = models.DateTimeField()
+    status = models.CharField(max_length=20)
+    class Meta:
+        ordering = ('-start_time',)
+
+    def delete_if_not__valid(self):
+        query = Booking.objects.get(booking_id=self.booking_id)
+        query.delete()
+       
+    def __str__(self):
+        return f'{self.user} || {self.Room}'
+
+#Payed for booking
+class Tenant(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    tenant_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
+    booking = models.ForeignKey(Booking, on_delete=models.CASCADE)
+    room = models.ForeignKey(RoomProfile, on_delete=models.CASCADE)
+    hostel = models.ForeignKey(HostelProfile, on_delete=models.CASCADE)
+    payed = models.BooleanField(default=False)
+    checked_in = models.BooleanField(default=False)
+    start_date = models.DateTimeField(auto_now_add=True,)
+    end_date = models.DateTimeField()
+    class Meta:
+        ordering = ('-start_date',)
+
+    def save(self, *args, **kwargs):
+        self.end_date = self.start_date + timedelta(days=365)
+        return super().save(*args, **kwargs)
+    
+    def is_active(self):
+        return datetime.now() <= self.end_date
+    
+    def delete_if_expired(self):
+        if not self.is_active():
+            self.delete()
+    
+    def __str__(self):
+        return f'{self.user}'
