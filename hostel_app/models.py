@@ -4,10 +4,10 @@ from campus_app.models import CampusProfile
 import uuid
 from accounts.models import CustomUser
 
-Category = [('VIP✨🏅','VIP'),
-           ('First Class✨','First Class'),
-           ('Second Class✅','Second Class'),
-           ('Normal Class☑️','Normal Class')]
+rating = [('⭐⭐⭐⭐','4-stars'),
+           ('⭐⭐⭐','3-stars'),
+           ('⭐⭐','2-stars'),
+           ('⭐','1-star')]
 
 Hostel_Type =[
               ('Hostel🏢','Hostel'),
@@ -25,9 +25,9 @@ class HostelProfile(models.Model):
                                      verbose_name='Type',default='Hostel',
                                      blank=False, choices=Hostel_Type)
     
-    class_of_hostel = models.CharField(max_length=20, choices=Category,
-                                       verbose_name='class',
-                                       default='First Class')
+    rating = models.CharField(max_length=20, choices=rating,
+                                       verbose_name='Stars',
+                                       default='1-star')
     
     hostel_rating = models.IntegerField(default=0)
     price_range = models.CharField(max_length=50, default='unavailable', blank=True)

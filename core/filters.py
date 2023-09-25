@@ -12,5 +12,5 @@ class HostelFilter(django_filters.FilterSet):
 class RoomFilters(django_filters.FilterSet):
     class Meta:
         model = RoomProfile
-        fields = ['room_capacity', 'room_category', 'campus']
+        fields = ['room_capacity', 'rating', 'campus']
 

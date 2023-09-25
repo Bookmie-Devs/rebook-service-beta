@@ -10,7 +10,7 @@ class RoomListSerializer(serializers.ModelSerializer):
     detail_view_url = serializers.SerializerMethodField()
     class Meta:
         model=RoomProfile
-        fields =('detail_view_url','room_id','room_no','room_capacity', 'room_price','room_category', 'occupied', 'hostel')
+        fields =('detail_view_url','room_id','room_no','room_capacity', 'room_price', 'occupied', 'hostel')
 
     """Return the deatail url for the each room in the list """
     def get_detail_view_url(self, obj):
@@ -29,13 +29,13 @@ class TenantSerializer(serializers.ModelSerializer):
 class BookingSerializer(serializers.ModelSerializer):
     class Meta:
         model=Booking
-        fields=('user','Room_number','Hostel', 'Room' )
+        fields=('user','room_number','hostel', 'room' )
 
 
 class RoomDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = RoomProfile
-        fields =('room_no','room_capacity', 'room_price','room_category', 'occupied', 'hostel')
+        fields =('room_no','room_capacity', 'room_price', 'occupied', 'hostel')
 
 
 class HostelDetialsSerializer(serializers.ModelSerializer):

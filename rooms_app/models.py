@@ -2,7 +2,7 @@ from django.db import models
 from hostel_app.models import HostelProfile
 from campus_app.models import CampusProfile
 from accounts.models import CustomUser
-from hostel_app.models import Category
+from hostel_app.models import rating
 import uuid
 from datetime import datetime
 
@@ -16,7 +16,9 @@ class RoomProfile(models.Model):
     room_capacity = models.PositiveIntegerField(default=0)
     room_img = models.ImageField(upload_to='RoomImages', default='unavailable.jpg')
     room_price = models.DecimalField(blank=False, decimal_places=1, max_digits=7 )
-    room_category = models.CharField(choices=Category ,blank=False, max_length=15)
+    
+    rating = models.CharField(choices=rating ,blank=False, default='1-star',
+                                                            max_length=15)
     occupied = models.BooleanField(default=False)
 
 
