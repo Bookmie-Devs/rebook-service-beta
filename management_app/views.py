@@ -20,7 +20,7 @@ from rest_framework import authentication
 
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated, DjangoModelPermissions])    
+# @permission_classes([IsAuthenticated, DjangoModelPermissions])    
 def get_rooms(request):
 
     """Gets a list of all rooms related to 
@@ -28,9 +28,9 @@ def get_rooms(request):
 
     try:
         if request.method == 'POST':
-            pk_hostel_code = request.data.get('hostel_code')
-            get_hostel=HostelProfile.objects.get(hostel_code=pk_hostel_code)
-            get_rooms = RoomProfile.objects.filter(Hostel=get_hostel)
+            hostel_code = request.data.get('hostel_code')
+            get_hostel=HostelProfile.objects.get(hostel_code=hostel_code)
+            get_rooms = RoomProfile.objects.filter(hostel=get_hostel)
             serializer = RoomListSerializer(get_rooms, many=True)
             return Response(serializer.data)
         

@@ -29,7 +29,7 @@ class RoomProfile(models.Model):
         db_table = "room_profiles"
 
     def __str__(self):
-        return f'Room {self.room_no} in {self.Hostel} @{self.rooms_campus}' 
+        return f'Room {self.room_no} in {self.hostel} @{self.campus}' 
     
 
 

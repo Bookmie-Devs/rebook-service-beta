@@ -7,18 +7,30 @@ from rest_framework.reverse import reverse
 
 class RoomListSerializer(serializers.ModelSerializer):
     #gets and return the method "get_detail_view_url" into the fileds
-    detail_view_url = serializers.SerializerMethodField()
+    detail_url = serializers.SerializerMethodField()
+    hostel_name = serializers.SerializerMethodField()
     class Meta:
         model=RoomProfile
-        fields =('detail_view_url','room_id','room_no','room_capacity', 'room_price', 'occupied', 'hostel')
+        fields =('hostel_name',
+                 'room_id',
+                 'room_no',
+                 'room_capacity',
+                 'room_price',
+                 'occupied',
+                 'detail_url')
 
-    """Return the deatail url for the each room in the list """
-    def get_detail_view_url(self, obj):
+    #Return the deatail url for the each room in the list
+    def get_detail_url(self, obj):
+
         request = self.context.get('request')
-
-        return reverse( viewname='api_app:room-detail',
+        
+        return reverse(viewname='management:room-details',
                         kwargs={'room_id':obj.room_id},
                         request=request)
+    
+    #Returns the hostel name
+    def get_hostel_name(self, obj):
+        return obj.hostel.hostel_name
 
 class TenantSerializer(serializers.ModelSerializer):
     class Meta:
@@ -33,16 +45,30 @@ class BookingSerializer(serializers.ModelSerializer):
 
 
 class RoomDetailSerializer(serializers.ModelSerializer):
+    hostel = serializers.SerializerMethodField()
     class Meta:
         model = RoomProfile
-        fields =('room_no','room_capacity', 'room_price', 'occupied', 'hostel')
+        fields =('room_no',
+                 'room_capacity', 
+                 'room_price',
+                 'occupied',
+                 'hostel')
+
+    #Returns the hostel name
+    def get_hostel(self, obj):
+        return obj.hostel.hostel_name
 
 
 class HostelDetialsSerializer(serializers.ModelSerializer):
     class Meta:
         model = HostelProfile
-        fields = ('hostel_name','mangers_contact' ,'hostel_image',
-                  'phone','other_phone','bank_details','mobile_money',
-                  'hostel_email','price_range',
-
-                  'hostel_main_site','address','')
+        fields = ('hostel_name',
+                  'mangers_contact' ,
+                  'hostel_image',
+                  'phone','other_phone',
+                  'bank_details',
+                  'mobile_money',
+                  'hostel_email',
+                  'price_range',
+                  'hostel_main_site',
+                  'address','')
