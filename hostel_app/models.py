@@ -32,10 +32,10 @@ class HostelProfile(models.Model):
     hostel_manager = models.ForeignKey(CustomUser, on_delete=models.SET_NULL,
                                        related_name='hostels', null=True,)
     hostel_email = models.EmailField(blank=True)
-    hostel_bank_details = models.CharField(max_length=20)
-    hostel_mobile_money_details = models.CharField(max_length=14)
+    bank_details = models.CharField(max_length=20)
+    mobile_money = models.CharField(max_length=14)
     managers_contact = models.CharField(max_length=10, blank=True)
-    hostel_phone = models.CharField(max_length=10)
+    phone = models.CharField(max_length=10)
     hostel_location_specification = models.CharField(max_length=500, blank=True)
     other_phone = models.CharField(max_length=10, blank=True)
     on_map_location = models.CharField(max_length=10000,default='unavailable')
