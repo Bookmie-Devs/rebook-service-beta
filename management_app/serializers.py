@@ -63,7 +63,7 @@ class HostelDetialsSerializer(serializers.ModelSerializer):
     class Meta:
         model = HostelProfile
         fields = ('hostel_name',
-                  'mangers_contact' ,
+                  'mangers_contact',
                   'hostel_image',
                   'phone','other_phone',
                   'bank_details',
@@ -71,4 +71,4 @@ class HostelDetialsSerializer(serializers.ModelSerializer):
                   'hostel_email',
                   'price_range',
                   'hostel_main_site',
-                  'address','')
+                  'address',)

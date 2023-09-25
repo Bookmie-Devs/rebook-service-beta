@@ -32,23 +32,25 @@ def index(request):
     return render(request, 'home/index.html')
 
 
-@if_user_is_login
-@login_required(login_url='Core:login')
-def CampusHostels(request, campus_code):
+# @if_user_is_login
+@login_required(login_url='accounts:login')
+def hostels(request):
     
-    """Get hostel that are related to particular campus and displsy it
+    """Get hostel that are related to particular campus and display it
     to the client"""
-    Campus = CampusProfile.objects.get(campus_code=campus_code)
-    Campushostels = HostelProfile.objects.filter(campus_of_hostel=Campus)
+    campus = CampusProfile.objects.get(campus_code=
+                                       request.user.campus.campus_code)
+    
+    campus_hostels = HostelProfile.objects.filter(campus=campus)
 
     #context for the page
-    context={'Campushostels':Campushostels, 
-             'Campus':Campus, 'myform': HostelFilter}
+    context={'hostels':campus_hostels, 
+              'campus':campus, 'myform': HostelFilter}
     
-    return render(request, 'home/CampusHostels.html', context)
+    return render(request, 'campus_hostels.html', context)
 
 
-@login_required(login_url='Core:login')
+@login_required(login_url='accounts:login')
 def book_room(request, room_id):
     room = RoomProfile.objects.get(room_id=room_id)
     bookings_count =Booking.objects.filter(Room = room).count()

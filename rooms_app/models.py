@@ -30,19 +30,5 @@ class RoomProfile(models.Model):
 
     def __str__(self):
         return f'Room {self.room_no} in {self.hostel} @{self.campus}' 
-    
 
-
-class RoomForSale(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    username = models.CharField(max_length=100)
-    seller_ID = models.UUIDField(primary_key=True, default=uuid.uuid4, unique=True)
-    room = models.ForeignKey(RoomProfile, on_delete=models.CASCADE)
-    hostel = models.ForeignKey(HostelProfile, on_delete=models.CASCADE)
-    new_price = models.IntegerField()
-    valid = models.BooleanField(default=False)
-    info = models.TextField(blank=True)
-
-    def __str__(self):
-        return f'Seller {self.username}'
 
