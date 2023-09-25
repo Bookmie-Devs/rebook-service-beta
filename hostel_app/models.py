@@ -19,16 +19,17 @@ class HostelProfile(models.Model):
     hostel_name = models.CharField(max_length=50)
     hostel_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     hostel_code = models.CharField(max_length=50, null=True)
-    hostel_pic = models.ImageField(upload_to='Hostel_Profiles', default='unavailable.jpg')
+    hostel_image = models.ImageField(upload_to='Hostel_Profiles', default='unavailable.jpg')
     type_of_hostel = models.CharField(max_length=15,
                                     verbose_name='Type',
                                     blank=False, choices=Hostel_Type)
-    class_Of_Hostel = models.CharField(max_length=20, choices=Category)
+    class_of_hostel = models.CharField(max_length=20, choices=Category,
+                                       verbose_name='class')
     hostel_rating = models.IntegerField(default=0)
     price_range = models.CharField(max_length=50, default='unavailable', blank=True)
     hostel_motto = models.CharField(max_length=2000, blank=True)
     number_of_rooms = models.IntegerField(default=5)
-    campus_of_hostel = models.ForeignKey(CampusProfile, on_delete=models.SET_NULL, null=True)
+    campus = models.ForeignKey(CampusProfile, on_delete=models.SET_NULL, null=True)
     hostel_manager = models.ForeignKey(CustomUser, on_delete=models.SET_NULL,
                                        related_name='hostels', null=True,)
     hostel_email = models.EmailField(blank=True)

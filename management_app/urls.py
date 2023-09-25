@@ -10,6 +10,10 @@ urlpatterns=[
     path('obtain-token/', TokenObtainPairView.as_view(), name=''),
     path('change-price/', views.change_room_price, name='change-price'),
     path('token-refresh/', TokenRefreshView.as_view(), name='token-refresh'),
+
+    path('hostel-profile/<str:host_code>/', views.HostelProfileView.as_view(),
+                                                name='hostel-profile-view'),
+                                                
     path('get-rooms/', views.get_rooms, name='get-rooms'),
     path('get-room-details/', views.RoomDetailView.as_view(), name="room-detail"),
     path('verify-tenant/', views.verify_tenant, name='verify-tenant'),

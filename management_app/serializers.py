@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from rooms_app.models import RoomProfile
 from core.models import Tenant
+from hostel_app.models import HostelProfile
 from core.models import Booking
 from rest_framework.reverse import reverse
 
@@ -35,3 +36,13 @@ class RoomDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = RoomProfile
         fields =('room_no','room_capacity', 'room_price','room_category', 'occupied', 'hostel')
+
+
+class HostelDetialsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HostelProfile
+        fields = ('hostel_name','mangers_contact' ,'hostel_image',
+                  'phone','other_phone','bank_details','mobile_money',
+                  'hostel_email','price_range',
+
+                  'hostel_main_site','address','')

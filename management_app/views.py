@@ -3,7 +3,8 @@ from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
 from .serializers import (RoomListSerializer,
-                          RoomDetailSerializer)
+                          RoomDetailSerializer,
+                          HostelDetialsSerializer)
 from core.models import Booking
 from .serializers import TenantSerializer
 from .serializers import BookingSerializer
@@ -41,6 +42,13 @@ class RoomDetailView(generics.RetrieveAPIView, generics.UpdateAPIView):
     queryset = RoomProfile
     lookup_field = "room_id"
     permission_classes = [IsAuthenticated]
+
+
+class HostelProfileView(generics.RetrieveAPIView,generics.UpdateAPIView):
+    serializer_class = HostelDetialsSerializer
+    queryset = HostelProfile
+    lookup_field = 'hostel_code'
+    parser_classes = [IsAuthenticated, DjangoModelPermissions]
 
 
 @api_view(['PUT'])
