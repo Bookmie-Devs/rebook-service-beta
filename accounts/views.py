@@ -81,7 +81,7 @@ def login(request):
                 return redirect('core:index')
             else:
                 messages.error(request, 'Credentials invalid')
-                return redirect('core:login')
+                return redirect('accounts:login')
         else:
             messages.error(request, 'Invalid student ID')
             return redirect('accounts:login')
