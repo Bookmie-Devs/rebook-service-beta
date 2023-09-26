@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Evandy@Rebook</title>
+    <title>{{ hostel.hostel_name }}-GuudNyt</title>
     <!-- Favicon-->
     <!-- <link rel="icon" type="image/x-icon" href="{% static 'home/assets/favicon.ico' %}"/> -->
     <link rel="icon" type="image/x-icon" href="list_staticfiles/assets/favicon.ico"/>
@@ -20,7 +20,7 @@
     <!-- Navigation-->
     <nav class="nav navbar navbar-expand-lg navbar-light ">
       <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="{% url 'core:index' %}">Rebook</a>
+        <a class="navbar-brand" style="color: rgb(254, 161, 22);" href="{% url 'core:index' %}">GuudNyt</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -75,7 +75,7 @@
         <div class="text-center text-white filter">
          
             <div>
-              <h1 class="display-4 fw-bolder"> <a style="color: rgb(254, 161, 22);" href="{% url 'hostels:profile' hostel_id=hostel.hostel_id %}">Welcome To Evandy Hostel</a>🏢</h1>
+              <h1 class="display-4 fw-bolder"> <a style="color: rgb(254, 161, 22);" href="{% url 'hostels:profile' hostel_id=hostel.hostel_id %}">Welcome To {{ hostel.hostel_name }}</a>🏢</h1>
               {% for message in messages %}
 
                 <!-- room selection messages -->
@@ -86,9 +86,9 @@
               {% endfor %}
             </div>
           <!-- <h2 class="lead fw-normal text-white-50 mb-0">{{ HostelPro.class_Of_Hostel }}</h2> -->
-          <h2 class="lead fw-normal text-white-50 mb-0">First class</h2>
-          <h3 class="lead fw-normal text-white-50 mb-0">Call us on 0203838922📲</h3>
-          <p class="lead fw-normal text-white-50 mb-0">Sleep well</p>
+          <h2 class="lead fw-normal text-white-50 mb-0">{{ hostel.rating }} stars hostel</h2>
+          <h3 class="lead fw-normal text-white-50 mb-0">Call {{ hostel.contact }} for more details</h3>
+          <p class="lead fw-normal text-white-50 mb-0">{{ hostel.hostel_email }}</p>
         </div>
       </div>
     </header>
@@ -119,19 +119,20 @@
                   <h5 class="fw-bolder">Rm-{{ room.room_no }}</h5>
                   <h5 class="fw-bolder">{{ room.rating }}</h5>
                   <div
-                    class="d-flex justify-content-center small text-warning mb-2">
-                    <div class="bi-star-fill"></div>
-                    <div class="bi-star-fill"></div>
-                    <div class="bi-star-fill"></div>
-                    <div class="bi-star-fill"></div>
-                    <div class="bi-star-fill"></div>
+                      class="d-flex justify-content-center small text-warning mb-2">
+                        <div class="bi-star-fill"></div>
+                        <div class="bi-star-fill"></div>
+                        <div class="bi-star-fill"></div>
+                        <div class="bi-star-fill"></div>
+                        <div class="bi-star-fill"></div>
                   </div>
                   <h5 class="fw-bolder">3 in a Room🏠</h5>
                   <!-- Product price-->
                   &#8373;1334💵
                 </div>
               </div>
-              <!-- Product actions-->
+
+              <!--booking form for each room-->
               <form
                 action="{% url 'core:book' room_id=room.room_id %}" method="POST">
                 {% csrf_token %}
@@ -147,48 +148,8 @@
             </div>
           </div>
           </a>
-          <!-- {% endfor %} -->
-        
-         
-       <!-- NEXT ROOM container -->
-
-          <div class="col mb-5">
-            <div class="card h-100">
-              <!-- Product image-->
-              <img
-                class="card-img-top"
-                src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg"
-                alt="..."
-              />
-              <!-- Product details-->
-              <div class="card-body p-4">
-                <div class="text-center">
-                  <!-- Product name-->
-                  <h5 class="fw-bolder">Room container</h5>
-                  <!-- Product reviews-->
-                  <div
-                    class="d-flessx justify-content-center small text-warning mb-2"
-                  >
-                    <div class="bi-star-fill"></div>
-                    <div class="bi-star-fill"></div>
-                    <div class="bi-star-fill"></div>
-                    <div class="bi-star-fill"></div>
-                    <div class="bi-star-fill"></div>
-                  </div>
-                  <!-- Product price-->
-                  $40.00
-                </div>
-              </div>
-              <!-- Product actions-->
-              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center">
-                  <a class="btn btn-outline-dark mt-auto" href="#"
-                    >Add to cart</a
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
+          {% endfor %}
+                    <!-- NEXT ROOM container -->
         </div>
       </div>
     </section>

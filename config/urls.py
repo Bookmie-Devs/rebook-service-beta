@@ -8,8 +8,8 @@ from django.conf.urls import handler404, handler500
 from django.views.generic import TemplateView
 from django.contrib.auth import views as auth_view
 
-handler404 = TemplateView.as_view(template_name='404.html')
-handler500 = TemplateView.as_view(template_name='500.html')
+handler404 = TemplateView.as_view(template_name='error/404.html')
+handler500 = TemplateView.as_view(template_name='error/500.html')
 
 app_name='main'
 urlpatterns = [
@@ -22,7 +22,8 @@ urlpatterns = [
     path('reviews/', include('reviews_app.urls'), name='review_urls'),
     path('map/', include('maps_app.urls'), name='map'),
     path('management/', include('management_app.urls'), name='management'),
-    #Account related urls
+
+    #Account related urls for reseting passwords
     path('change-password/done/', auth_view.PasswordChangeDoneView.as_view(), name='password_change_done'),
     path('change-password/', auth_view.PasswordChangeView.as_view(), name='change_password'),
     path('reset-password/', auth_view.PasswordResetView.as_view(template_name='forms/password_reset_email_form.html'), name='reset_password'),

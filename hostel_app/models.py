@@ -39,10 +39,10 @@ class HostelProfile(models.Model):
     bank_details = models.CharField(max_length=20)
     mobile_money = models.CharField(max_length=14)
     managers_contact = models.CharField(max_length=10, blank=True)
-    phone = models.CharField(max_length=10)
-    hostel_location_specification = models.CharField(max_length=500, blank=True)
+    contact = models.CharField(max_length=10)
+    location = models.CharField(max_length=500, default="location unavailable")
     other_phone = models.CharField(max_length=10, blank=True)
-    on_map_location = models.CharField(max_length=10000,default='unavailable')
+    map_location = models.CharField(max_length=10000, default='unavailable')
     hostel_main_site = models.URLField(null=True, blank=True)
     #Location of hostel base on Google map API
     address = models.CharField(max_length=255)

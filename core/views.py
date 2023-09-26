@@ -20,6 +20,7 @@ from io import BytesIO
 from django.conf import settings
 from reportlab.lib import colors
 from .filters import HostelFilter
+from django.http import HttpRequest
 from .qrcode import generate_qrcode
 from .filters import HostelFilter
 from django.shortcuts import render
@@ -53,30 +54,30 @@ def hostels(request):
 @login_required(login_url='accounts:login')
 def book_room(request, room_id):
     room = RoomProfile.objects.get(room_id=room_id)
-    bookings_count =Booking.objects.filter(Room = room).count()
-    number_left = room.Room_Capacity - bookings_count
+    bookings_count =Booking.objects.filter(room = room).count()
+    number_left = room.room_capacity - bookings_count
 
     #check if room is full
     if  Booking.objects.filter(user=request.user).exists():
         get_booking = Booking.objects.get(user = request.user)
         messages.info(request, 'Already Booked for a room please proceed to payment!!!')
-        return redirect('PaymentApp:init_payment', kwargs={'room_id':get_booking.room.room_id})
+        return redirect('payments:init-payment', get_booking.room.room_id)
     
     #Checking if room is full
-    elif bookings_count >= room.Room_Capacity:
+    elif bookings_count >= room.room_capacity:
         messages.info(request, 'Room if full for booking try again in 24 hrs')
-        return redirect('HostelApp:HostelRooms', pk_HostelName=room.Hostel.hostel_name)
+        return redirect('hostels:hostel_rooms', hostel_id=room.hostel.hostel_id)
 
     #Creating booking for user
     elif request.method =='POST':
         student_id = request.user.student_id  
         booked_room = RoomProfile.objects.get(room_id=request.POST.get('room_id')) 
         #Saving booking info
-        Book = Booking.objects.create(Room=booked_room, user=request.user, room_number=booked_room.room_No, Hostel=booked_room.Hostel, 
-               student_id=student_id, status='Booked', end_time=(timezone.now() + timedelta(seconds=40)), Campus=booked_room.Rooms_campus).save()
+        Book = Booking.objects.create(room=booked_room, user=request.user, room_number=booked_room.room_no, hostel=booked_room.hostel, 
+               student_id=student_id, status='Booked', end_time=(timezone.now() + timedelta(seconds=40)), campus=booked_room.campus).save()
 
         get_booking = Booking.objects.get(user = request.user)
-        template = render_to_string('TextTemplates/booking_email.html', {'name':request.user.username, 'booking':get_booking})
+        template = render_to_string('emails/booking_email.html', {'name':request.user.username, 'booking':get_booking})
         subject = f'Booking was successfull Mr. {request.user.username}'
         message = template
         from_email = settings.EMAIL_HOST_USER
@@ -86,11 +87,11 @@ def book_room(request, room_id):
             room.save()
             pass
         get_room_members = Tenant.objects.filter(room=room)
-        return redirect('Core:booking_ver', booking_id=Book.booking_id)
+        return redirect('core:booking_auth', booking_id=Book.booking_id)
         # return redirect('PaymentApp:room-payment', room_id=room.Room_ID )s
     
 @login_required(login_url='Core:login')
-def booking_success(request, booking_id) -> HttpResponse:
+def booking_success(request: HttpRequest, booking_id) -> HttpResponse:
     get_user = request.user.username
     user = request.user
     get_booking = Booking.objects.get(booking_id=booking_id)
@@ -156,7 +157,17 @@ def booking_success(request, booking_id) -> HttpResponse:
 def search(request):
     all_hotels = HostelProfile.objects.all()
     search_data = HostelFilter(request.POST, queryset=all_hotels)
-    query = search_data.qs
-    return render(request, 'home/search.html', {'query':query,'Campus':request.user.campus})
+    query =HostelProfile.objects.filter(hostel_name__icontains=request.POST['search_data']).all()
+
+    campus = CampusProfile.objects.get(campus_code=
+                                       request.user.campus.campus_code)
+    
+    campus_hostels = HostelProfile.objects.filter(campus=campus)
+
+    #context for the page
+    context={'hostels':query, 
+              'campus':campus, 'myform': HostelFilter}
+    
+    return render(request, 'search.html', context)
 
     # return render(request, 'home/search.html', {'query':query, 'Campus':request.user.campus})

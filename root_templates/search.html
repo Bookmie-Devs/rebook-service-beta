@@ -26,17 +26,17 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                         
                          <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'core:index' %}">Home</a></li>
-                        <li class="nav-item"><a class="nav-link active" href="{% url 'accounts:profile'%}" >Your Profile<i class="bi bi-person-circle"></i></a></li>
+                        <li class="nav-item"><a class="nav-link active" href="{% url 'core:hostels' %}" >Go back to hostels page<i class="bi bi-person-circle"></i></a></li>
                       
                     </ul>
                     <nav class="navbar ">
-                        <div class="container-fluid">
+                        <!-- <div class="container-fluid">
                           <form action="{% url 'core:search' %}" class="d-flex" role="search" method="POST">
                             {% csrf_token %}
                             <input class="form-control me-2" type="search" name="search_data" placeholder="Search" aria-label="Search">
                             <button class="drop btn " type="submit">Search</button>
                           </form>
-                        </div>
+                        </div> -->
                       </nav>
                     <a href="{% url 'rooms:filter-rooms' %}">
                     <button class="drop btn btn-outline-dark" type="submit">

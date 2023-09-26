@@ -16,9 +16,8 @@ def signup(request):
 
     if request.method == 'POST':
         try:
-            print(request.POST.get('campus').upper())
             ##Getting campus model for quering hostels related to it
-            get_campus=CampusProfile.objects.get(campus_code=request.POST.get('campus').upper())
+            get_campus=CampusProfile.objects.get(campus_code=str(request.POST.get('campus')).upper())
 
             ##checks if password if equal
             if request.POST.get('password') == request.POST.get('confirm_password'):
@@ -58,14 +57,14 @@ def signup(request):
                     subject=f'Congrats {request.user.username}. Your Sign Up seccessfull', 
                     message=render_to_string('TextTemplates/signup_congrat.html',{'user':request.user}),
                     fail_silently=True)
-                    return redirect('core:home') 
+                    return redirect('core:index') 
             else:
                 messages.error(request, 'Password is not matching')
-                return redirect('Core:signup')
+                return redirect('core:signup')
             
         except CampusProfile.DoesNotExist:
             messages.info(request, 'BookUp is not yet registered on your campus')
-            return redirect('Core:signup')
+            return redirect('core:signup')
         
     return render(request, 'forms/signup.html')  
 
@@ -79,10 +78,10 @@ def login(request):
             login_user = auth.authenticate(email=email, password=password)
             if login_user is not None:
                 auth.login(request, login_user)
-                return redirect('Core:Base', kwargs={"campus_code":request.user.campus.campus_code})
+                return redirect('core:index')
             else:
                 messages.error(request, 'Credentials invalid')
-                return redirect('Core:login')
+                return redirect('core:login')
         else:
             messages.error(request, 'Invalid student ID')
             return redirect('accounts:login')

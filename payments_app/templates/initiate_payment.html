@@ -7,10 +7,10 @@
                     {% for message in messages %}
                     <div class="alert alert-danger" role="alert">
                         {{message}}.
-                        <a href="{%url 'Core:profile' %}" class="alert-link">Terminate booking here!!</a> Or scroll down to pay   
+                        <a href="{% url 'accounts:profile' %}" class="alert-link">Terminate booking here!!</a> Or scroll down to pay   
                     </div>
                 {% endfor %}
-                {% endif %}
+                {% endif %} 
                 <div><h1 class="display-4 fw-bolder">Initiate Payment</h1>
                 <div><h6 class="display-4 fw-bolder">Price of room: GHC{{ room.Room_Price }}</h6></div>
                 </div>
