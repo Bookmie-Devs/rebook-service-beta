@@ -5,7 +5,6 @@ from core.models import Tenant
 from django.conf import settings
 from django.shortcuts import get_object_or_404
 import requests
-# from Core.froms import PaymentForm
 from django.template.loader import render_to_string
 from django.conf import settings
 from .tenant_auth import (tenant_auth_details, 
