@@ -52,7 +52,6 @@ def make_payment(request, room_id):
                             'paystack_public_key':settings.PAYSTACK_PUBLIC_KEY })
 
 
-
 @login_required(login_url='accounts:login')
 def verify_payment_success(request, reference):   
     get_response = requests.get()
