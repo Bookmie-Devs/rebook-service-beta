@@ -32,13 +32,12 @@ class Booking(models.Model):
         query.delete()
        
     def __str__(self):
-        return f'{self.user} || {self.Room}'
+        return f'{self.user} || {self.room}'
 
 #Payed for booking
 class Tenant(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     tenant_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
-    booking = models.ForeignKey(Booking, on_delete=models.CASCADE)
     room = models.ForeignKey(RoomProfile, on_delete=models.CASCADE)
     hostel = models.ForeignKey(HostelProfile, on_delete=models.CASCADE)
     payed = models.BooleanField(default=False)

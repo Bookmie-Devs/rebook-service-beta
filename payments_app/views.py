@@ -3,6 +3,7 @@ from .models import PaymentHistory
 from rooms_app.models import RoomProfile
 from core.models import Tenant
 from django.conf import settings
+from django.shortcuts import get_object_or_404
 import requests
 # from Core.froms import PaymentForm
 from django.template.loader import render_to_string
@@ -23,37 +24,50 @@ from core.qrcode import generate_qrcode
 
 
 # stripe.
-paystack_endpoint = ''
-PaymentHistory.amount
+@login_required(login_url="accounts:login")
 def initiate_payment(request, room_id):
     get_room = RoomProfile.objects.get(room_id=room_id)
-    if request.method == 'POST': 
-        # if request.POST.get('amount') == str(get_room.Room_Price):
-        Payment = PaymentHistory.objects.create(user=request.user, amount=get_room.Room_Price, 
-        room=get_room, hostel=get_room.Hostel, email=request.user.email)
-        Payment.save()
-        return render(request, 'make_payment.html', 
-                              {'room':get_room, 'form':forms.PaymentForm, 
-                               'payment':Payment, 'user':request.user, 
-                               'paystack_public_key':settings.PAYSTACK_PUBLIC_KEY })
-    
-    return render(request, 'initiate_payment.html',{'room':get_room, 'form':forms.PaymentForm,  'user':request.user })
 
-def make_payment(request, reference):
-    pass
+    if request.method == 'POST':
+        #save payment deatails
+        payment = PaymentHistory.objects.create(user=request.user,email=request.user.email,
+                                                amount=get_room.room_price,
+                                                account_payed_to=get_room.hostel.bank_details,
+                                                room=get_room,
+                                                hostel=get_room.hostel,
+                                                ).save()
+        return redirect('payments:make-payment', get_room.room_id )
+        # return redirect
+    return render(request, 'payments/initiate_payment.html',
+                                    {'room':get_room, 'form':forms.PaymentForm,  
+                                    'user':request.user,})
+
+@login_required(login_url="accounts:login")
+def make_payment(request, room_id):
+    get_room = RoomProfile.objects.get(room_id=room_id)
+    payment = PaymentHistory.objects.get(user=request.user)
+    return render(request, 'payments/make_payment.html', 
+                            {'room':get_room,
+                             'reference':payment.reference, 
+                            'user':request.user, 
+                            'paystack_public_key':settings.PAYSTACK_PUBLIC_KEY })
+
 
 
 @login_required(login_url='accounts:login')
 def verify_payment_success(request, reference):
     get_response = requests.get(paystack_endpoint)
     # status = requests.get
-    
+    PaymentHistory.reference
+    payment = get_object_or_404(PaymentHistory, reference=reference)
     if get_response.status_code == 200:
-        pass
+        tenant = Tenant.objects.create(user=request.user, room=payment.room,
+                                       hostel=payment.hostel, payed=True,
+                                       ).save()
 
-    subject=f'Congratulation {request.user.username}'
-    body = render_to_string('text_templates/tenant_email.html', {'name':request.user.username})
-    send_mail(subject=subject, message=body,from_email=settings.EMAIL_HOST_USER,recipient_list=['request.user.email'])
+        subject=f'Congratulation {request.user.username}'
+        body = render_to_string('text_templates/tenant_email.html', {'name':request.user.username})
+        send_mail(subject=subject, message=body,from_email=settings.EMAIL_HOST_USER,recipient_list=['request.user.email'])
     pass
 
     subject = f''

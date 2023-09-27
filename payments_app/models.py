@@ -10,8 +10,8 @@ class PaymentHistory(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)
     email = models.EmailField()
     amount = models.DecimalField(decimal_places=1, max_digits=7)
-    reference = models.CharField(max_length=500)
-    account_payed_to = models.CharField(max_length=500)
+    reference = models.CharField(max_length=300)
+    account_payed_to = models.CharField(max_length=300)
     room = models.ForeignKey(RoomProfile, on_delete=models.SET_NULL, null=True)
     hostel = models.ForeignKey(HostelProfile, on_delete=models.SET_NULL, null=True)
     successfull = models.BooleanField(default=False)
@@ -22,7 +22,7 @@ class PaymentHistory(models.Model):
 
     def save(self, *args, **kwargs):
         while not self.reference:
-            reference = secrets.token_urlsafe(407)
+            reference = secrets.token_urlsafe(100)
             there_exits_same_ref=PaymentHistory.objects.filter(reference=reference)
             if not there_exits_same_ref:
                 self.reference=reference
