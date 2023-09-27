@@ -20,6 +20,7 @@ from reportlab.pdfgen import canvas
 from django.conf import settings
 from reportlab.lib import colors
 from core.qrcode import generate_qrcode
+from .payStack import paystack_verification
 
 
 # stripe.
@@ -35,6 +36,7 @@ def initiate_payment(request, room_id):
                                                 room=get_room,
                                                 hostel=get_room.hostel,
                                                 ).save()
+        return redirect('payments:make-payment', get_room.room_id)
         # return redirect
     return render(request, 'payments/initiate_payment.html',
                                     {'room':get_room, 'form':forms.PaymentForm,  
@@ -51,20 +53,20 @@ def make_payment(request, room_id):
                             'paystack_public_key':settings.PAYSTACK_PUBLIC_KEY })
 
 
+
 @login_required(login_url='accounts:login')
 def verify_payment(request, reference):   
-    get_response = requests.get()
+    paystack_verification(reference)
     # status = requests.get
-    PaymentHistory.reference
-    payment = get_object_or_404(PaymentHistory, reference=reference)
-    if get_response.status_code == 200:
-        tenant = Tenant.objects.create(user=request.user, room=payment.room,
-                                       hostel=payment.hostel, payed=True,
-                                       ).save()
+    # payment = get_object_or_404(PaymentHistory, =reference)
+    # if get_response.status_code == 200:
+    #     tenant = Tenant.objects.create(user=request.user, room=payment.room,
+    #                                    hostel=payment.hostel, payed=True,
+    #                                    ).save()
 
-        subject=f'Congratulation {request.user.username}'
-        body = render_to_string('text_templates/tenant_email.html', {'name':request.user.username})
-        send_mail(subject=subject, message=body,from_email=settings.EMAIL_HOST_USER,recipient_list=['request.user.email'])
+    subject=f'Congratulation {request.user.username}'
+    body = render_to_string('text_templates/tenant_email.html', {'name':request.user.username})
+    send_mail(subject=subject, message=body,from_email=settings.EMAIL_HOST_USER,recipient_list=['request.user.email'])
     pass
 
     subject = f''
