@@ -35,7 +35,6 @@ def initiate_payment(request, room_id):
                                                 room=get_room,
                                                 hostel=get_room.hostel,
                                                 ).save()
-        return redirect('payments:make-payment', get_room.room_id )
         # return redirect
     return render(request, 'payments/initiate_payment.html',
                                     {'room':get_room, 'form':forms.PaymentForm,  
@@ -53,7 +52,7 @@ def make_payment(request, room_id):
 
 
 @login_required(login_url='accounts:login')
-def verify_payment_success(request, reference):   
+def verify_payment(request, reference):   
     get_response = requests.get()
     # status = requests.get
     PaymentHistory.reference
