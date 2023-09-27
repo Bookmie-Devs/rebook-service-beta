@@ -40,20 +40,14 @@ def initiate_payment(request, room_id):
         # return redirect
     return render(request, 'payments/initiate_payment.html',
                                     {'room':get_room, 'form':forms.PaymentForm,  
-                                    'user':request.user,
-                                    'paystack_public_key':settings.PAYSTACK_PUBLIC_KEY  })
+                                    'user':request.user,})
 
 @login_required(login_url="accounts:login")
 def make_payment(request, room_id):
     get_room = RoomProfile.objects.get(room_id=room_id)
     payment = PaymentHistory.objects.get(user=request.user)
-    # if request.method == 'POST': 
-    #    
-    #     return render(request, 'payments/make_payment.html', {'room':get_room, 'form':forms.PaymentForm, 
-    #                         'payment':Payment,'user':request.user, 
-    #                         'paystack_public_key':settings.PAYSTACK_PUBLIC_KEY })
-    return render(request, 'payments/make_payment.html', {'room':get_room,
-                             'form':forms.PaymentForm,
+    return render(request, 'payments/make_payment.html', 
+                            {'room':get_room,
                              'reference':payment.reference, 
                             'user':request.user, 
                             'paystack_public_key':settings.PAYSTACK_PUBLIC_KEY })

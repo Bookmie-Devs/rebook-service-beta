@@ -10,39 +10,51 @@
     <h1>Make Payment of {{ room.room_price }}</h1>
     <br>
     <form id="paymentForm">
-        <!-- {% csrf_token %} -->
-        <!-- <div class="form-group">
-          <label for="email">Email Address</label>
-          <input type="email" id="email-address" value="{{ user.email }}" required />
-        </div> -->
-        <div class="form-submit">
-          <button type="submit" onclick="payWithPaystack()">Pay</button>
-          <!-- <button type="submit"> Proceed </button> -->
-        </div>
-      </form>
-      
-      <script src="https://js.paystack.co/v1/inline.js"></script>
+      <div class="form-group">
+        <!-- <label for="email">Email Address</label> -->
+        <input type="email" id="email-address" required hidden />
+      </div>
+      <div class="form-group">
+        <!-- <label for="amount">Amount</label> -->
+        <input type="tel" id="amount" required hidden/>
+      </div>
+      <div class="form-group">
+        <!-- <label for="first-name">First Name</label> -->
+        <input type="text" id="first-name" hidden />
+      </div>
+      <div class="form-group">
+        <!-- <label for="last-name">Last Name</label> -->
+        <input type="text" id="last-name" hidden />
+      </div>
+      <div class="form-submit">
+        <button type="submit" onclick="payWithPaystack()"> Pay </button>
+      </div>
+    </form>
+    
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+          
     <script>
-        var paymentForm = document.getElementById('paymentForm');
-        paymentForm.addEventListener('submit', payWithPaystack, false);
-    function payWithPaystack() {
-            var handler = PaystackPop.setup({
-                key: '{{ paystack_public_key }}', // Replace with your public key
-                email: '{{ user.email }}',
-                amount: '{{ room.room_price }}' * 100, // the amount value is multiplied by 100 to convert to the lowest currency unit
-                currency: 'GHS', // Use GHS for Ghana Cedis or USD for US Dollars
-                ref: '{{ reference }}', // Replace with a reference you generated
-                callback: function(response) {
-                //this happens after the payment is completed successfully
-                var reference = response.reference;
-                alert('Payment complete! Reference: ' + reference);
-                // Make an AJAX call to your server with the reference to verify the transaction
-                },
-                onClose: function() {
-                alert('Transaction was not completed, window closed.');
-                },
-            });
-            handler.openIframe();}
+          var paymentForm = document.getElementById('paymentForm');
+      paymentForm.addEventListener('submit', payWithPaystack, false);
+      function payWithPaystack() {
+        var handler = PaystackPop.setup({
+          key: '{{ paystack_public_key }}', // Replace with your public key
+          email: '{{ user.email }}',
+          amount: '{{ room.room_price }}' * 100, // the amount value is multiplied by 100 to convert to the lowest currency unit
+          currency: 'GHS', // Use GHS for Ghana Cedis or USD for US Dollars
+          ref: '{{ reference }}', // Replace with a reference you generated
+          callback: function(response) {
+            //this happens after the payment is completed successfully
+            var reference = response.reference;
+            alert('Payment complete! Reference: ' + reference);
+            // Make an AJAX call to your server with the reference to verify the transaction
+          },
+          onClose: function() {
+            alert('Transaction was not completed, window closed.');
+          },
+        });
+        handler.openIframe();
+      }
     </script>
 </body>
 </html>

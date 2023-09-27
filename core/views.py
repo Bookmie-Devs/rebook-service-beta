@@ -61,7 +61,7 @@ def book_room(request, room_id):
     if  Booking.objects.filter(user=request.user).exists():
         get_booking = Booking.objects.get(user = request.user)
         messages.info(request, 'Already Booked for a room please proceed to payment!!!')
-        return redirect('payments:init-payment', get_booking.room.room_id)
+        return redirect('payments:make-payment', get_booking.room.room_id)
     
     #Checking if room is full
     elif bookings_count >= room.room_capacity:
