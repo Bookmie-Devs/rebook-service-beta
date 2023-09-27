@@ -82,14 +82,14 @@ def book_room(request, room_id):
             subject = f'Booking was successfull Mr. {request.user.username}'
             message = template
             from_email = settings.EMAIL_HOST_USER
+            
             send_mail(fail_silently=True ,subject=subject, message=message, from_email=from_email, recipient_list=[request.user.email])
-            if bookings_count == room.Room_Capacity:
+            if bookings_count == room.room_capacity:
                 room.Occupied=True
                 room.save()
                 pass
             get_room_members = Tenant.objects.filter(room=room)
-            return redirect('core:booking_auth', booking_id=Book.booking_id)
-        # return redirect('PaymentApp:room-payment', room_id=room.Room_ID )s
+            return redirect('payments:init-payment', room_id=room.room_id )
     
 @login_required(login_url='Core:login')
 def booking_success(request: HttpRequest, booking_id) -> HttpResponse:

@@ -47,15 +47,15 @@ def make_payment(request, room_id):
     payment = PaymentHistory.objects.get(user=request.user)
     return render(request, 'payments/make_payment.html', 
                             {'room':get_room,
-                             'reference':payment.reference, 
+                             'reference':payment.payment_id, 
                             'user':request.user, 
                             'paystack_public_key':settings.PAYSTACK_PUBLIC_KEY })
 
 
 
 @login_required(login_url='accounts:login')
-def verify_payment_success(request, reference):
-    get_response = requests.get(paystack_endpoint)
+def verify_payment_success(request, reference):   
+    get_response = requests.get()
     # status = requests.get
     PaymentHistory.reference
     payment = get_object_or_404(PaymentHistory, reference=reference)
@@ -76,10 +76,10 @@ def verify_payment_success(request, reference):
 
             
      
-def tenat_auth(request):
+def tenant_auth(request):
     tenant_id = Tenant.objects.get(user=request.user).tenant_id
     get_tenant = Tenant.objects.get(tenant_id=tenant_id)
-    room = get_tenant.Room
+    room = get_tenant.room
 
     #qrcode name for user after payments
     qrcode_name = f'VerificationFiles/Ver_Qrcodes/{request.user.username} qrcode.png'
