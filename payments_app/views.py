@@ -30,15 +30,19 @@ def initiate_payment(request, room_id):
     get_room = RoomProfile.objects.get(room_id=room_id)
 
     if request.method == 'POST':
-        #save payment deatails
-        payment = PaymentHistory.objects.create(user=request.user,email=request.user.email,
-                                                amount=get_room.room_price,
-                                                account_payed_to=get_room.hostel.bank_details,
-                                                room=get_room,
-                                                hostel=get_room.hostel,
-                                                ).save()
-        return redirect('payments:make-payment', get_room.room_id)
-        # return redirect
+        if PaymentHistory.objects.filter(user=request.user).exists():
+            return redirect('payments:make-payment', get_room.room_id)
+        
+        else:
+            #save payment deatails
+            payment = PaymentHistory.objects.create(user=request.user,email=request.user.email,
+                                                    amount=get_room.room_price,
+                                                    account_payed_to=get_room.hostel.bank_details,
+                                                    room=get_room,
+                                                    hostel=get_room.hostel,
+                                                    ).save()
+            return redirect('payments:make-payment', get_room.room_id)
+    # return redirect
     return render(request, 'payments/initiate_payment.html',
                                     {'room':get_room, 'form':forms.PaymentForm,  
                                     'user':request.user,})
@@ -77,6 +81,7 @@ def verify_payment(request, reference):
         payment.save()
         pass
     else:
+        messages.info(request, "payment was not successfull")
         return redirect('payments:init-payment', payment.room.room_id)
 
 
@@ -85,10 +90,11 @@ def verify_payment(request, reference):
     send_mail(subject=subject, message=body,from_email=settings.EMAIL_HOST_USER,recipient_list=['request.user.email'])
     pass
 
-    subject = f''
+    subject = f'Congratulations'
     send_mail(from_email=settings.EMAIL_HOST_USER, fail_silently=True,
     recipient_list=[request.user.email], subject=subject, 
     message=render_to_string('emails/tenant_eamil.html',{"user":request.user}))
+    return redirect('payments:tenant-authentication')
 
             
      

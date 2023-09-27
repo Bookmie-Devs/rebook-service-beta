@@ -9,6 +9,11 @@
     <br>
     <h1>Initiate Payment of {{ room.room_price }}</h1>
     <br>
+    {% if messages %}
+    {% for message in messages %}
+        <h1>{{ message }}</h1>
+    {% endfor %}
+    {% endif %}
     <form id="paymentForm" method="POST" action="{% url 'payments:init-payment' room_id=room.room_id %}">
         {% csrf_token %}
         <div class="form-group">
