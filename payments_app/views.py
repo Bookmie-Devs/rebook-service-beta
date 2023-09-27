@@ -19,7 +19,7 @@ from io import BytesIO
 from reportlab.pdfgen import canvas
 from django.conf import settings
 from reportlab.lib import colors
-from core.qrcode import generate_qrcode
+from config.qrcode import generate_qrcode
 
 
 # stripe.
@@ -50,7 +50,6 @@ def make_payment(request, room_id):
                              'reference':payment.payment_id, 
                             'user':request.user, 
                             'paystack_public_key':settings.PAYSTACK_PUBLIC_KEY })
-
 
 
 @login_required(login_url='accounts:login')

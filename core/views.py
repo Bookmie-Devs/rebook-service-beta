@@ -10,7 +10,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
 from .models import Booking
-from .decorators import if_user_is_login
+from ..config.decorators import if_user_is_login
 from .models import Tenant
 from reportlab.pdfgen import canvas
 from django.core.mail import send_mail
@@ -21,7 +21,7 @@ from django.conf import settings
 from reportlab.lib import colors
 from .filters import HostelFilter
 from django.http import HttpRequest
-from .qrcode import generate_qrcode
+from ..config.qrcode import generate_qrcode
 from .filters import HostelFilter
 from django.shortcuts import render
 from . import booking_info as booking_verifications
