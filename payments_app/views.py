@@ -19,7 +19,7 @@ from io import BytesIO
 from reportlab.pdfgen import canvas
 from django.conf import settings
 from reportlab.lib import colors
-from config.qrcode import generate_qrcode
+from core.qrcode import generate_qrcode
 
 
 # stripe.
