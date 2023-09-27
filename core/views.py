@@ -28,9 +28,7 @@ from . import booking_info as booking_verifications
 
 
 def index(request):
-    # context = {'user':request.user}
-    # return render(request, 'index/index.html', context)
-    return render(request, 'home/index.html')
+    return render(request, 'index.html')
 
 
 # @authenticated_or_not

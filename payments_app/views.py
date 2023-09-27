@@ -7,6 +7,7 @@ from django.shortcuts import get_object_or_404
 import requests
 from django.template.loader import render_to_string
 from django.conf import settings
+from core.models import Booking
 from .tenant_auth import (tenant_auth_details, 
                           tenant_auth_message)
 from reportlab.lib.pagesizes import letter
@@ -56,23 +57,38 @@ def make_payment(request, room_id):
 
 @login_required(login_url='accounts:login')
 def verify_payment(request, reference):   
-    paystack_verification(reference)
-    # status = requests.get
-    # payment = get_object_or_404(PaymentHistory, =reference)
-    # if get_response.status_code == 200:
-    #     tenant = Tenant.objects.create(user=request.user, room=payment.room,
-    #                                    hostel=payment.hostel, payed=True,
-    #                                    ).save()
+    payment = get_object_or_404(PaymentHistory, payment_id=reference)
+    print("my code",paystack_verification(reference).json()['data']['amount'])
+
+    #checkout validation from api response
+    if (paystack_verification(reference).json()['message']=='Verification successful'
+        and paystack_verification(reference).json()['status']==True and 
+        paystack_verification(reference).json()['status']==payment.room.room_price ):
+
+    # create tenent object if reponse is positive
+        tenant = Tenant.objects.create(user=request.user, room=payment.room,
+                                       hostel=payment.hostel, payed=True,
+                                       ).save()
+        
+        # Booking.objects.get(user=request.user).delete()
+
+        #DECLARE SUCCESSFULL TRUE if PAYMENT WAS A SUCCESS
+        payment.successfull = True
+        payment.save()
+        pass
+    else:
+        return redirect('payments:init-payment', payment.room.room_id)
+
 
     subject=f'Congratulation {request.user.username}'
-    body = render_to_string('text_templates/tenant_email.html', {'name':request.user.username})
+    body = render_to_string('emails/tenant_email.html', {'name':request.user.username})
     send_mail(subject=subject, message=body,from_email=settings.EMAIL_HOST_USER,recipient_list=['request.user.email'])
     pass
 
     subject = f''
-    send_mail(from_email=settings.EMAIL_HOST_USER, 
+    send_mail(from_email=settings.EMAIL_HOST_USER, fail_silently=True,
     recipient_list=[request.user.email], subject=subject, 
-    message=render_to_string('TextTemplates/TenantEamil.html',{"user":request.user}))
+    message=render_to_string('emails/tenant_eamil.html',{"user":request.user}))
 
             
      
