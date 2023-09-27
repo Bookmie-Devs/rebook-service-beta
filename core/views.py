@@ -10,7 +10,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
 from .models import Booking
-from .decorators import if_user_is_login
+from .decorators import authenticated_or_not
 from .models import Tenant
 from reportlab.pdfgen import canvas
 from django.core.mail import send_mail
@@ -33,7 +33,7 @@ def index(request):
     return render(request, 'home/index.html')
 
 
-# @if_user_is_login
+# @authenticated_or_not
 @login_required(login_url='accounts:login')
 def hostels(request):
     
@@ -165,10 +165,9 @@ def search(request):
     
     campus_hostels = HostelProfile.objects.filter(campus=campus)
 
-    #context for the page
+    #context containg search query page
     context={'hostels':query, 
               'campus':campus, 'myform': HostelFilter}
     
     return render(request, 'search.html', context)
 
-    # return render(request, 'home/search.html', {'query':query, 'Campus':request.user.campus})
