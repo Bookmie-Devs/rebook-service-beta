@@ -42,13 +42,13 @@ class Tenant(models.Model):
     hostel = models.ForeignKey(HostelProfile, on_delete=models.CASCADE)
     payed = models.BooleanField(default=False)
     checked_in = models.BooleanField(default=False)
-    start_date = models.DateTimeField(auto_now_add=True,)
+    start_date = models.DateTimeField(auto_now_add=True)
     end_date = models.DateTimeField()
     class Meta:
         ordering = ('-start_date',)
 
     def save(self, *args, **kwargs):
-        self.end_date = self.start_date + timedelta(days=365)
+        self.end_date = (timezone.now()+timedelta(days=365))
         return super().save(*args, **kwargs)
     
     def is_active(self):

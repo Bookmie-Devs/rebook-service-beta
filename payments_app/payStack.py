@@ -14,5 +14,4 @@ def paystack_verification(reference):
 
     response = requests.get(url=paystack_url,headers=heeaders,)
 
-    if response.status_code == 200:
-        return print(response.json()["status"], response.json()["message"], response.json()["data"])
+    return response
