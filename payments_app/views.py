@@ -77,7 +77,10 @@ def verify_payment(request, reference):
                                        hostel=payment.hostel, payed=True,
                                        ).save()
         
-        # Booking.objects.get(user=request.user).delete()
+        # SET BOOKING STATUS TO PAYED
+        booking = Booking.objects.get(user=request.user)
+        booking.payed =True
+        booking.save()
 
         #DECLARE SUCCESSFULL TRUE if PAYMENT WAS A SUCCESS
         payment.successfull = True
