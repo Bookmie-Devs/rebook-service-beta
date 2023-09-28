@@ -8,7 +8,9 @@ def tenant_auth_details(user=None, tenant=None, room=None):
             f'Payment made to: {room.hostel.bank_details}',
             f'Hostel Momo: {room.hostel.mobile_money}',
 
-            f'This authentication pdf must be sent to the hostel for authentication',
+            f'This authentication pdf must', 
+            f'be sent to {tenant.hostel.hostel_name}', 
+            'the hostel for authentication',
 
             'Note: AUTHENTICATION IS VALID FOR A YEAR',
             f'VALID TILL {tenant.end_date.date()}  @{tenant.end_date.hour}:{tenant.end_date.minute}!!!']
