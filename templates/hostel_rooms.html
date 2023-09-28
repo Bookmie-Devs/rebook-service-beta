@@ -79,9 +79,11 @@
 
                 <!-- room selection messages -->
                 <div class="alert alert-danger" role="alert">
-                  {{ message }} !! Please select a different category<a href="#" class="alert-link"></a>.
+                  {{ message }}<a href="#" class="alert-link"></a>.
                 </div> 
-             
+                <script>
+                  alert('{{ message }}')
+                </script>
               {% endfor %}
             </div>
           <!-- <h2 class="lead fw-normal text-white-50 mb-0">{{ HostelPro.class_Of_Hostel }}</h2> -->

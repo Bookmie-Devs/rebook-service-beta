@@ -52,6 +52,6 @@ def filter_rooms(request, capacity, hostel_id):
         context = {'hostel': hostel,
                    'campus': campus,
                    'hostel_rooms':rooms,}
-        messages.info(request, f"All {capacity} in a room are full")
+        messages.info(request, f"Category is full please select a different category")
         return render(request, 'hostel_rooms.html', context)
     

@@ -24,6 +24,7 @@ class Booking(models.Model):
     start_time = models.DateTimeField(auto_now_add=True)
     end_time = models.DateTimeField()
     status = models.CharField(max_length=20)
+    payed = models.BooleanField(default=False) 
     class Meta:
         ordering = ('-start_time',)
 

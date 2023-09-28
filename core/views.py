@@ -23,6 +23,7 @@ from django.conf import settings
 from reportlab.lib import colors
 from .filters import HostelFilter
 from django.http import HttpRequest
+from .models import Tenant
 from .qrcode import generate_qrcode
 
 from .filters import HostelFilter
@@ -59,11 +60,16 @@ def book_room(request, room_id):
 
     if request.method == 'POST':
     #check if room is full
-        if  Booking.objects.filter(user=request.user).exists():
+        if  Booking.objects.filter(user=request.user, payed=False).exists():
             get_booking = Booking.objects.get(user = request.user)
             messages.info(request, 'Already Booked for a room please proceed to payment!!!')
             return redirect('payments:make-payment', get_booking.room.room_id)
         
+        #check if tenant exits
+        elif Tenant.objects.filter(user=request.user).exists():
+            messages.info(request, 'You already payed for a room')
+            return redirect('hostels:hostel-rooms', hostel_id=room.hostel.hostel_id)
+
         #Checking if room is full
         elif bookings_count >= room.room_capacity:
             messages.info(request, 'Room if full for booking try again in 24 hrs')
@@ -87,7 +93,7 @@ def book_room(request, room_id):
                                                            from_email=from_email, 
                                                            recipient_list=[request.user.email])
             if bookings_count == room.room_capacity:
-                room.Occupied=True
+                room.occupied=True
                 room.save()
                 pass
             
