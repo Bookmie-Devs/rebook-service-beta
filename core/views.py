@@ -2,26 +2,29 @@ from django.utils import timezone
 from django.utils.timezone import timedelta
 from django.http import HttpResponse
 from django.shortcuts import render
+
 from django.shortcuts import redirect
 from rooms_app.models import RoomProfile
 from campus_app.models import CampusProfile
 from hostel_app.models import HostelProfile
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
 from .models import Booking
-from .decorators import authenticated_or_not
-from .models import Tenant
 from reportlab.pdfgen import canvas
+
 from django.core.mail import send_mail
 from reportlab.lib.pagesizes import letter
 from django.shortcuts import HttpResponse
 from io import BytesIO
 from django.conf import settings
+
 from reportlab.lib import colors
 from .filters import HostelFilter
 from django.http import HttpRequest
 from .qrcode import generate_qrcode
+
 from .filters import HostelFilter
 from django.shortcuts import render
 from . import booking_info as booking_verifications
@@ -31,7 +34,6 @@ def index(request):
     return render(request, 'index.html')
 
 
-# @authenticated_or_not
 @login_required(login_url='accounts:login')
 def hostels(request):
     
@@ -81,12 +83,15 @@ def book_room(request, room_id):
             message = template
             from_email = settings.EMAIL_HOST_USER
             
-            send_mail(fail_silently=True ,subject=subject, message=message, from_email=from_email, recipient_list=[request.user.email])
+            send_mail(fail_silently=True ,subject=subject, message=message,
+                                                           from_email=from_email, 
+                                                           recipient_list=[request.user.email])
             if bookings_count == room.room_capacity:
                 room.Occupied=True
                 room.save()
                 pass
-            get_room_members = Tenant.objects.filter(room=room)
+            
+            #redirect user for payment
             return redirect('payments:init-payment', room_id=room.room_id )
     
 @login_required(login_url='Core:login')

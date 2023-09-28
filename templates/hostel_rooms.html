@@ -44,10 +44,10 @@
                   No. of Roommates
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="{% url 'hostels:filter-hostel-rooms' filter_opt=1  hostel_id=hostel.hostel_id %}">One in a Room🥇</a></li>
-                  <li><a class="dropdown-item" href="{% url 'hostels:filter-hostel-rooms' filter_opt=2  hostel_id=hostel.hostel_id %}">Two in a Room🥈</a></li>
-                  <li><a class="dropdown-item" href="{% url 'hostels:filter-hostel-rooms' filter_opt=3  hostel_id=hostel.hostel_id %}">Three in a Room🥉</a></li> 
-                  <li><a class="dropdown-item" href="{% url 'hostels:filter-hostel-rooms' filter_opt=4  hostel_id=hostel.hostel_id %}">Four in a Room✅</a></li> 
+                  <li><a class="dropdown-item" href="{% url 'hostels:filter-rooms' capacity=1  hostel_id=hostel.hostel_id %}">One in a Room🥇</a></li>
+                  <li><a class="dropdown-item" href="{% url 'hostels:filter-rooms' capacity=2  hostel_id=hostel.hostel_id %}">Two in a Room🥈</a></li>
+                  <li><a class="dropdown-item" href="{% url 'hostels:filter-rooms' capacity=3  hostel_id=hostel.hostel_id %}">Three in a Room🥉</a></li> 
+                  <li><a class="dropdown-item" href="{% url 'hostels:filter-rooms' capacity=4  hostel_id=hostel.hostel_id %}">Four in a Room✅</a></li> 
                 </ul>
               </div>
             </div>
@@ -127,7 +127,7 @@
                         <div class="bi-star-fill"></div>
                         <div class="bi-star-fill"></div>
                   </div> -->
-                  <h5 class="fw-bolder">3 in a Room🏠</h5>
+                  <h5 class="fw-bolder">{{ room.room_capacity }} in a Room🏠</h5>
                   <!-- Room price-->
                   &#8373;{{ room.room_price }}💵
                 </div>

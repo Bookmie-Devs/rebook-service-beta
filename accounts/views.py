@@ -5,12 +5,14 @@ from campus_app.models import CampusProfile
 from django.contrib import messages
 from django.conf import settings
 from django.contrib import auth
+from core.decorators import authenticated_or_not
 from django.core.mail import send_mail
 from .models import CustomUser
 from django.template.loader import render_to_string
 #user profile
 
 
+@authenticated_or_not
 def signup(request):
     """ CustomUser signup View"""
 
@@ -68,7 +70,8 @@ def signup(request):
         
     return render(request, 'forms/signup.html')  
 
-# @if_user_is_login
+
+@authenticated_or_not
 def login(request):
     if request.method == 'POST':
         email = request.POST['email']
@@ -78,7 +81,7 @@ def login(request):
             login_user = auth.authenticate(email=email, password=password)
             if login_user is not None:
                 auth.login(request, login_user)
-                return redirect('core:index')
+                return redirect('core:hostels')
             else:
                 messages.error(request, 'Credentials invalid')
                 return redirect('accounts:login')

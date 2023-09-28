@@ -8,44 +8,50 @@ from core.models import Booking
 
 def hostel_profile(request, hostel_id):
     hostel_profile = HostelProfile.objects.get(hostel_id = hostel_id)
-    Hostel_rooms = RoomProfile.objects.filter(Hostel = hostel_profile, Occupied=False)
+    rooms = RoomProfile.objects.filter(Hostel=hostel_profile, Occupied=False)
 
-    Campus = hostel_profile.campus
+    campus = hostel_profile.campus
     context = {'hostel_profile': hostel_profile,
-               'Campus': Campus,
-               'Hostel_rooms':Hostel_rooms,}
+               'Campus': campus,
+               'Hostel_rooms':rooms,}
     return render(request, 'HostelProfile.html', context)
+
 
 @login_required(login_url='accounts:login')
 def hostel_rooms(request, hostel_id):
-    # HostelProfile.Occupied
+
     hostel_profile = HostelProfile.objects.get(hostel_id = hostel_id)
+    
+    #get all unoccupied rooms in the hostel
     hostel_rooms = RoomProfile.objects.filter(hostel=hostel_profile, occupied=False)
-    # full = bookings_count == Hostel_rooms.
-    campus = hostel_profile.campus
-    context ={
-        'user':request.user,
-        'hostel':hostel_profile,
-        'hostel_rooms':hostel_rooms, 
-        'Campus':campus}
+
+    context ={'user':request.user,
+            'hostel':hostel_profile,
+            'hostel_rooms':hostel_rooms, 
+            'campus':hostel_profile.campus}
+    
     return render(request, 'hostel_rooms.html', context)
 
 
 @login_required(login_url='Core:login')
-def filter_rooms_in_hostel(request, filter_opt, hostelName):
-    get_campus = request.user.campus
-    get_hostel = HostelProfile.objects.get(HostelName=hostelName)
-    get_rooms = RoomProfile.objects.filter(Room_Capacity=filter_opt, Hostel=get_hostel, Occupied=False)
-    if get_rooms.exists():
-        context = {'hostel_profile': get_hostel,
-                   'Campus': get_campus,
-                   'Hostel_rooms':get_rooms,}
-        return render(request, 'HostelRooms.html', context)
+def filter_rooms(request, capacity, hostel_id):
+
+    campus = request.user.campus
+    hostel = HostelProfile.objects.get(hostel_id=hostel_id)
+
+    #query rooms per requirements
+    rooms = RoomProfile.objects.filter(room_capacity=capacity, hostel=hostel, occupied=False)
+
+    if rooms.exists():
+        context = {'hostel': hostel,
+                   'campus': campus,
+                   'hostel_rooms':rooms,}
+        return render(request, 'hostel_rooms.html', context)
     
     else:  
-        context = {'hostel_profile': get_hostel,
-                   'Campus': get_campus,
-                   'Hostel_rooms':get_rooms,}
-        messages.info(request, f"All {filter_opt} in a room are full")
-        return render(request, 'HostelRooms.html', context)
+        context = {'hostel': hostel,
+                   'campus': campus,
+                   'hostel_rooms':rooms,}
+        messages.info(request, f"All {capacity} in a room are full")
+        return render(request, 'hostel_rooms.html', context)
     

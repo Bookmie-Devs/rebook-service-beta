@@ -10,6 +10,8 @@
     <h1>Make Payment of {{ room.room_price }}</h1>
     <br>
     <form id="paymentForm">
+
+      <!-- div should not be deleted in order for payStack to work -->
       <div class="form-group">
         <input type="email" id="email-address" required hidden />
       </div>
@@ -35,7 +37,7 @@
             var reference = response.reference;
             alert(`Payment complete! with Reference ${reference}` );
 
-            window.location.href = "{% url 'payments:verify-payment' reference=reference %}"
+            window.location.href = "{% url 'payments:verify-payment' reference %}"
             // Make an AJAX call to your server with the reference to verify the transaction
           },
           onClose: function() {
