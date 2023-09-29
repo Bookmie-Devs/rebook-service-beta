@@ -228,6 +228,9 @@ body {
 
 .nav {
   background: var(--dark) !important;
+  z-index: 1 !important;
+  width: 100%;
+  position: fixed !important;
 }
 
 .collapse .navbar-nav{

@@ -35,7 +35,7 @@
           <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
             <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'core:index' %}">Home</a></li> 
             <li class="nav-item"><a class="nav-link active" href="{% url 'core:hostels' %}">Hostels</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'accounts:profile' %}">Your Profile<i class="bi bi-person-circle"></i></a></li> 
+            <li class="nav-item"><a class="nav-link" href="{% url 'accounts:profile' %}">Your Profile</a></li> 
           </ul>
           <nav class="navbar">
             <div class="container-fluid">
@@ -78,12 +78,10 @@
               {% for message in messages %}
 
                 <!-- room selection messages -->
-                <div class="alert alert-danger" role="alert">
-                  {{ message }}<a href="#" class="alert-link"></a>.
-                </div> 
                 <script>
                   alert('{{ message }}')
                 </script>
+                
               {% endfor %}
             </div>
           <!-- <h2 class="lead fw-normal text-white-50 mb-0">{{ HostelPro.class_Of_Hostel }}</h2> -->

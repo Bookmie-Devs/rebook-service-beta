@@ -36,8 +36,10 @@ class HostelProfile(models.Model):
                                        related_name='hostels', null=True,)
     
     hostel_email = models.EmailField(blank=True)
-    bank_details = models.CharField(max_length=20)
-    mobile_money = models.CharField(max_length=14)
+    account_number = models.CharField(max_length=50, default='unavailable')
+    bank_code = models.CharField(max_length=50, default='unavailable')
+
+    mobile_money = models.CharField(max_length=14, default='unavailable')
     managers_contact = models.CharField(max_length=10, blank=True)
     contact = models.CharField(max_length=10)
     location = models.CharField(max_length=500, default="location unavailable")

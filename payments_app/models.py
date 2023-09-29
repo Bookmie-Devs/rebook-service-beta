@@ -29,3 +29,21 @@ class PaymentHistory(models.Model):
     
     def amount_value(self) -> int:
         return self.amount*100
+
+
+class PaystackSubAccount(models.Model):
+    hostel = models.OneToOneField(HostelProfile, on_delete=models.CASCADE) 
+    bussiness_name = models.CharField(max_length=50)
+    account_number = models.CharField(max_length=30)
+    subaccount_code = models.CharField(max_length=50, default="unavailable")
+    bank_code = models.CharField(max_length=20, default="unavailable")
+    percentage_charge = models.DecimalField(max_digits=5, 
+                                            decimal_places=2,
+                                            default=0)
+
+    class Meta:
+        db_table = 'paystack_sub_accounts'
+
+
+    def __str__(self) -> str:
+        return f'{self.hostel} SubAccount'

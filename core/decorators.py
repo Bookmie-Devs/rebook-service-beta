@@ -7,7 +7,7 @@ User.get_group_permissions
 def authenticated_or_not(view_function):
     def wrapper_function(request, *args, **kwargs):
         if request.user.is_authenticated:
-             return redirect('core:index')
+             return redirect('core:hostels')
         else:
             return view_function(request, *args, **kwargs)
     return wrapper_function
