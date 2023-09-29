@@ -26,10 +26,9 @@ from core.qrcode import generate_qrcode
 from .payStack import (paystack_verification, 
                        redirect_payment)
 
-from .models import PaystackSubAccount
 
 
-# stripe.
+
 @login_required(login_url="accounts:login")
 def initiate_payment(request, room_id):
     get_room = RoomProfile.objects.get(room_id=room_id)
