@@ -35,11 +35,14 @@ class PaystackSubAccount(models.Model):
     hostel = models.OneToOneField(HostelProfile, on_delete=models.CASCADE) 
     bussiness_name = models.CharField(max_length=50)
     account_number = models.CharField(max_length=30)
+
     subaccount_code = models.CharField(max_length=50, default="unavailable")
-    bank_code = models.CharField(max_length=20, default="unavailable")
+    bank_code = models.CharField(max_length=50, default="unavailable")
+    settlement_bank = models.CharField(max_length=80, default="unavailable")
     percentage_charge = models.DecimalField(max_digits=5, 
                                             decimal_places=2,
                                             default=0)
+    account_verified = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'paystack_sub_accounts'

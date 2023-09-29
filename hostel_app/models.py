@@ -37,6 +37,8 @@ class HostelProfile(models.Model):
     
     hostel_email = models.EmailField(blank=True)
     account_number = models.CharField(max_length=50, default='unavailable')
+
+    #Bank code for momo is MTN IF not specified
     bank_code = models.CharField(max_length=50, default='unavailable')
 
     mobile_money = models.CharField(max_length=14, default='unavailable')
@@ -54,8 +56,10 @@ class HostelProfile(models.Model):
 
     class Meta:
         db_table = 'hostel_profiles'
+        
+        ordering = ('-hostel_name',)
 
     def __str__(self):
-        return f'{self.hostel_name} Profile'
+        return f'{self.hostel_name}'
     
 
