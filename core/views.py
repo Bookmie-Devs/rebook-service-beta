@@ -1,6 +1,5 @@
 from django.utils import timezone
 from django.utils.timezone import timedelta
-from django.http import HttpResponse
 from django.shortcuts import render
 
 from django.shortcuts import redirect
@@ -10,25 +9,16 @@ from hostel_app.models import HostelProfile
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.template.loader import render_to_string
+
 from .models import Booking
-from reportlab.pdfgen import canvas
-
-from django.core.mail import send_mail
-from reportlab.lib.pagesizes import letter
-from django.shortcuts import HttpResponse
-from io import BytesIO
 from django.conf import settings
-
-from reportlab.lib import colors
 from .filters import HostelFilter
-from django.http import HttpRequest
 from .models import Tenant
-from .qrcode import generate_qrcode
+
 
 from .filters import HostelFilter
 from django.shortcuts import render
-from . import booking_info as booking_verifications
+from .booking_info import booking_email
 
 
 def index(request):
@@ -83,86 +73,18 @@ def book_room(request, room_id):
             Book = Booking.objects.create(room=booked_room, user=request.user, room_number=booked_room.room_no, hostel=booked_room.hostel, 
                 student_id=student_id, status='Booked', end_time=(timezone.now() + timedelta(seconds=40)), campus=booked_room.campus).save()
 
-            get_booking = Booking.objects.get(user = request.user)
-            template = render_to_string('emails/booking_email.html', {'name':request.user.username, 'booking':get_booking})
-            subject = f'Booking was successfull Mr. {request.user.username}'
-            message = template
-            from_email = settings.EMAIL_HOST_USER
-            
-            send_mail(fail_silently=True ,subject=subject, message=message,
-                                                           from_email=from_email, 
-                                                           recipient_list=[request.user.email])
             if bookings_count == room.room_capacity:
                 room.occupied=True
                 room.save()
                 pass
             
+            #send email to user
+            booking_email(user=request.user,booking_id=Booking.booking_id,
+                          EMAIL_HOST_USER=settings.EMAIL_HOST_USER)
+            
             #redirect user for payment
             return redirect('payments:init-payment', room_id=room.room_id )
     
-@login_required(login_url='Core:login')
-def booking_success(request: HttpRequest, booking_id) -> HttpResponse:
-    get_user = request.user.username
-    user = request.user
-    get_booking = Booking.objects.get(booking_id=booking_id)
-    room = get_booking.Room
-
-    #qrcode name for user
-    qrcode_name = f'VerificationFiles/Ver_Qrcodes/{get_user} qrcode.png'
-
-    #tittle of pdf page to be generated
-    title = f"{get_user} Booking details"
-
-    #subtittle of the pdf 
-    subtitle = 'www.GuudNyt.com'
-
-    """Fucntions to generate a list strings containing booking details for every user"""
-    booker_details= booking_verifications.booking_details_function(user=user, 
-                                                room=room, booking=get_booking)
-    text_template = booking_verifications.booking_text_message_function(user=user, 
-                                                    room=room, booking=get_booking)
-    
-    
-    """CODES THAT GENERATE BOOKING PDF USING REPORT-LAB"""
-    buffer = BytesIO()
-    pdf = canvas.Canvas(buffer, pagesize=letter)
-    #Title
-    pdf.setTitle(title)
-    pdf.setFont("Helvetica", 20)
-    pdf.drawString(145, 730, title)
-
-    #Subtitle
-    pdf.setFont('Helvetica', 15)
-    pdf.drawString(250, 699, subtitle)
-
-    #booker_details
-    details = pdf.beginText(290, 660)
-    details.setFont('Helvetica', 18)
-    details.setFillColor(colors.black)
-    ##############################
-    for detail in booker_details:
-        details.textLine(detail)
-    pdf.drawText(details)
-
-    #Main content of pdf
-    text = pdf.beginText(57, 440)
-    text.setFont('Helvetica', 18)
-    text.setFillColor(colors.black)
-    for line in text_template:
-        text.textLine(line)
-    pdf.drawText(text)
-
-    #generates qrcode for user
-    qr_code_image = generate_qrcode(booking_id)
-    qr_code_image.save(qrcode_name)  # Save the QR code image
-    pdf.drawImage(qrcode_name, 50, 490, width=200, height=200)
-    pdf.showPage()
-    pdf.save()
-    buffer.seek(0)
-
-    response = HttpResponse(content_type='application/pdf') 
-    response.write(buffer.getvalue())
-    return response
 
 def search(request):
     all_hotels = HostelProfile.objects.all()

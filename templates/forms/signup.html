@@ -12,7 +12,7 @@
         <h1>Book Up</h1>
     </header>
     <div class="container">
-      <h2>Sign Up <span>with us</span></h2>
+      <h2>Get Started<span>with us</span></h2>
       {% if messages %}
         {% for message in messages %}
           <h4 style="color: aliceblue;">{{message}}</h4>
@@ -20,6 +20,15 @@
       {% endif %}
       <form action="{% url 'accounts:signup' %}" method="POST">
         {% csrf_token %}
+        <div class="input-container">
+          <select name="campus" id="campus" >
+            <option value="">Your Campus</option>
+            <option value="KUNST">KNUST Campus</option>
+            <option value="UG">UG Campus</option>
+            <option value="UHAS">UHAS Campus</option>
+            <option value="UMAT">UMAT Campus</option>
+          </select>
+        </div>
         <div class="input-container">
           <input
             type="text"
@@ -74,15 +83,6 @@
             />
           </div>
         <div class="input-container">
-            <select name="campus" id="campus" >
-              <option value="">Select Campus</option>
-              <option value="Knust">KNUST Campus</option>
-              <option value="UG Campus">UG Campus</option>
-              <option value="UHAS Campus">UHAS Campus</option>
-              <option value="UMAT Campus">UMAT Campus</option>
-            </select>
-          </div>
-        <div class="input-container">
           <input
             type="password"
             id="password"
@@ -101,7 +101,7 @@
           />
         </div>
         <div class="btn">
-          <button type="submit">Get Started</button>
+          <button type="submit">Proceed</button>
         </div>
         <div class="log">
             <p>Already have an account? <a href="{% url 'accounts:login' %}">Log In</a></p>
