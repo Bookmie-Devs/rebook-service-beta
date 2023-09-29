@@ -23,7 +23,8 @@ from reportlab.pdfgen import canvas
 from django.conf import settings
 from reportlab.lib import colors
 from core.qrcode import generate_qrcode
-from .payStack import paystack_verification
+from .payStack import (paystack_verification, 
+                       redirect_payment)
 
 
 # stripe.
@@ -39,7 +40,7 @@ def initiate_payment(request, room_id):
             #save payment deatails
             payment = PaymentHistory.objects.create(user=request.user,email=request.user.email,
                                                     amount=get_room.room_price,
-                                                    account_payed_to=get_room.hostel.bank_details,
+                                                    account_payed_to=get_room.hostel.account_number,
                                                     room=get_room,
                                                     hostel=get_room.hostel,
                                                     ).save()
@@ -65,29 +66,42 @@ def make_payment(request, room_id):
 def verify_payment(request, reference):   
     payment = get_object_or_404(PaymentHistory, payment_id=reference)
 
-    #checkout validation from api response
-    if (paystack_verification(reference).json()['message']=='Verification successful'
-        
-        and paystack_verification(reference).json()['status']==True and 
+    account = redirect_payment(customer=request.user, 
+                                        room=payment.room,
+                                        hostel=payment.hostel)
+    print(payment)
 
-        paystack_verification(reference).json()['data']['amount']==payment.room.room_price*100):
+    # checkout validation from api response
+    verify = paystack_verification(reference)
 
+    if (verify.status_code==200 and 
+        verify.json().get('message')=='Verification successful' and
+        verify.json()['data']['amount']==payment.room.room_price*100):
+
+    # check if payment was redirected to hostel account
+            if (redirect_payment(account.status_code == 200
+                                 and account.json()['status']==True)):
+            
     # create tenent object if reponse is positive
-        tenant = Tenant.objects.create(user=request.user, room=payment.room,
-                                       hostel=payment.hostel, payed=True,
-                                       ).save()
+                tenant = Tenant.objects.create(user=request.user, room=payment.room,
+                                            hostel=payment.hostel, payed=True,
+                                            ).save()
         
-        # SET BOOKING STATUS TO PAYED
-        booking = Booking.objects.get(user=request.user)
-        booking.payed =True
-        booking.save()
+                # SET BOOKING STATUS TO PAYED
+                booking = Booking.objects.get(user=request.user)
+                booking.payed =True
+                booking.save()
 
-        #DECLARE SUCCESSFULL TRUE if PAYMENT WAS A SUCCESS
-        payment.successfull = True
-        payment.save()
-        pass
-
+                #DECLARE SUCCESSFULL TRUE if PAYMENT WAS A SUCCESS
+                payment.successfull = True
+                payment.save()
+                pass
+            else:
+                payment.delete()
+                messages.info(request, "payment was not successfull")
+                return redirect('payments:init-payment', payment.room.room_id)
     else:
+        payment.delete()
         messages.info(request, "payment was not successfull")
         return redirect('payments:init-payment', payment.room.room_id)
 

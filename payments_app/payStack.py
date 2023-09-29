@@ -1,9 +1,10 @@
 import requests
 from django.conf import settings
+from .models import PaystackSubAccount
+from hostel_app.models import HostelProfile
 
 
-
-heeaders = {
+headers = {
     "Authorization" : f"Bearer {settings.PAYSTACK_SECRET_KEY}",
     "Content-Type" : "application/json",
 }
@@ -12,7 +13,7 @@ def paystack_verification(reference):
 
     paystack_url = f"https://api.paystack.co/transaction/verify/{reference}"
 
-    response = requests.get(url=paystack_url,headers=heeaders,)
+    response = requests.get(url=paystack_url,headers=headers,)
 
     return response
 
@@ -22,25 +23,35 @@ def create_subaccount(hostel=None):
 
     data = {
         "business_name": str(hostel.hostel_name).upper(), 
-        "bank_code": hostel.bank_code, 
-        "account_number": hostel.account_number, 
-        "percentage_charge": 0.95 
-    }
+        "bank_code": str(hostel.bank_code), 
+        "account_number": str(hostel.account_number), 
 
-    response = requests.post(url=paystack_url,headers=heeaders, data=data)
+        #the percenetage charge for every hostel sub account
+        "percentage_charge": 0.95, ############################
+    }
+    #  "business_name": "Cheese Sticks", 
+    #   "bank_code": "058", 
+    #   "account_number": "0123456789", 
+    #   "percentage_charge": 0.2 
+
+    response = requests.post(url=paystack_url,headers=headers,json=data)
 
     return response
 
 def redirect_payment(customer=None, room=None, hostel=None):
     
+    #get hostel sub account
+    hostel_sub_account = PaystackSubAccount.objects.get(hostel=hostel)
+
+    # paystack transaction endpoint
     paystack_url = 'https://api.paystack.co/transaction/initialize'
 
     data = {
         "email": customer.email, 
-        "amount": room.romm_price, 
-        "subaccount": hostel.sub_account_code
+        "amount": room.room_price, 
+        "subaccount": hostel_sub_account.subaccount_code
     }
 
-    response = requests.post(url=paystack_url,headers=heeaders, data=data)
+    response = requests.post(url=paystack_url,headers=headers, json=data)
 
     return response
