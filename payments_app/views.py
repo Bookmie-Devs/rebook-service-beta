@@ -114,7 +114,7 @@ def verify_payment(request, reference):
     return redirect('payments:tenant-authentication')
 
             
-     
+@login_required(login_url='accounts:login')
 def tenant_auth(request):
     tenant_id = Tenant.objects.get(user=request.user).tenant_id
     get_tenant = Tenant.objects.get(tenant_id=tenant_id)

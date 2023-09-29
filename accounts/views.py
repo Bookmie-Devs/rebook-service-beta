@@ -5,6 +5,7 @@ from campus_app.models import CampusProfile
 from django.contrib import messages
 from django.conf import settings
 from django.contrib import auth
+from django.contrib.auth.forms import UserCreationForm
 from core.decorators import authenticated_or_not
 from django.core.mail import send_mail
 from .models import CustomUser
@@ -12,7 +13,6 @@ from django.template.loader import render_to_string
 #user profile
 
 
-@authenticated_or_not
 def signup(request):
     """ CustomUser signup View"""
 

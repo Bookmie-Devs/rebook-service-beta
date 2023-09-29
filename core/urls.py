@@ -12,5 +12,4 @@ urlpatterns =[
 
     path('booking/<str:room_id>/', views.book_room, name='book'),
     path('search/',views.search, name='search'),
-    path('booking-verification/<str:booking_id>/', views.booking_success, name='booking_auth')
 ]
