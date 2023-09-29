@@ -5,7 +5,7 @@ from rooms_app.models import RoomProfile
 import uuid
 
 class PaymentHistory(models.Model):
-    payment_id = models.UUIDField(unique=True, editable=False, default=uuid.uuid4 )
+    payment_id = models.UUIDField(primary_key=True, unique=True, editable=False, default=uuid.uuid4)
     user = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)
     email = models.EmailField()
     amount = models.DecimalField(decimal_places=1, max_digits=7)
@@ -32,10 +32,9 @@ class PaymentHistory(models.Model):
 
 
 class PaystackSubAccount(models.Model):
-    hostel = models.OneToOneField(HostelProfile, on_delete=models.CASCADE) 
+    hostel = models.OneToOneField(HostelProfile,on_delete=models.CASCADE) 
     bussiness_name = models.CharField(max_length=50)
     account_number = models.CharField(max_length=30)
-
     subaccount_code = models.CharField(max_length=50, default="unavailable")
     bank_code = models.CharField(max_length=50, default="unavailable")
     settlement_bank = models.CharField(max_length=80, default="unavailable")

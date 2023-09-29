@@ -26,6 +26,8 @@ from core.qrcode import generate_qrcode
 from .payStack import (paystack_verification, 
                        redirect_payment)
 
+from .models import PaystackSubAccount
+
 
 # stripe.
 @login_required(login_url="accounts:login")
@@ -66,10 +68,10 @@ def make_payment(request, room_id):
 def verify_payment(request, reference):   
     payment = get_object_or_404(PaymentHistory, payment_id=reference)
 
-    account = redirect_payment(customer=request.user, 
-                                        room=payment.room,
-                                        hostel=payment.hostel)
-    print(payment)
+    #redirecting payment
+    account = redirect_payment(customer_email=request.user.email, 
+                                room_price=payment.room.room_price,
+                                hostel=payment.hostel)
 
     # checkout validation from api response
     verify = paystack_verification(reference)
@@ -79,8 +81,7 @@ def verify_payment(request, reference):
         verify.json()['data']['amount']==payment.room.room_price*100):
 
     # check if payment was redirected to hostel account
-            if (redirect_payment(account.status_code == 200
-                                 and account.json()['status']==True)):
+            if (account.status_code == 200 and account.json()['status']==True):
             
     # create tenent object if reponse is positive
                 tenant = Tenant.objects.create(user=request.user, room=payment.room,
@@ -95,7 +96,14 @@ def verify_payment(request, reference):
                 #DECLARE SUCCESSFULL TRUE if PAYMENT WAS A SUCCESS
                 payment.successfull = True
                 payment.save()
+
+                # send emails
+                subject = f'Congratulations'
+                send_mail(from_email=settings.EMAIL_HOST_USER, fail_silently=True,
+                recipient_list=[request.user.email], subject=subject, 
+                message=render_to_string('emails/tenant_email.html',{"user":request.user}))
                 pass
+
             else:
                 payment.delete()
                 messages.info(request, "payment was not successfull")
@@ -104,12 +112,6 @@ def verify_payment(request, reference):
         payment.delete()
         messages.info(request, "payment was not successfull")
         return redirect('payments:init-payment', payment.room.room_id)
-
-    #send email
-    subject = f'Congratulations'
-    send_mail(from_email=settings.EMAIL_HOST_USER, fail_silently=True,
-    recipient_list=[request.user.email], subject=subject, 
-    message=render_to_string('emails/tenant_email.html',{"user":request.user}))
 
     return redirect('payments:tenant-authentication')
 
