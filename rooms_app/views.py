@@ -37,7 +37,7 @@ def filter_of_rooms(request):
     all_rooms = RoomProfile.objects.all()
     all_hostels = HostelProfile.objects.all()
     
-    print(request.POST)
+    # print(request.POST)
     search = RoomFilters(request.POST, queryset=all_rooms)
     query_set = search.qs
     get_campus = request.user.campus

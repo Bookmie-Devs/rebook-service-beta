@@ -2,25 +2,27 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
+
 from .serializers import (RoomListSerializer,
                           RoomDetailSerializer,
                           HostelDetialsSerializer)
+
 from core.models import Booking
 from .serializers import TenantSerializer
 from .serializers import BookingSerializer
 from core.models import Tenant
 from rest_framework import status
 from hostel_app.models import HostelProfile
-from rest_framework.permissions import IsAuthenticated, DjangoModelPermissions
+from rest_framework.permissions import (IsAuthenticated, 
+                                        DjangoModelPermissions)
 from rest_framework.decorators import permission_classes
 from rooms_app.models import RoomProfile
-# from django.db.models import Q
+from django.db.models import Q
 from rest_framework import generics
-from rest_framework import authentication
 
 
 @api_view(['POST'])
-# @permission_classes([IsAuthenticated, DjangoModelPermissions])    
+@permission_classes([IsAuthenticated, DjangoModelPermissions])    
 def get_rooms(request):
 
     """Gets a list of all rooms related to 

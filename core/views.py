@@ -58,12 +58,12 @@ def book_room(request, room_id):
         #check if tenant exits
         elif Tenant.objects.filter(user=request.user).exists():
             messages.info(request, 'You already payed for a room')
-            return redirect('hostels:hostel-rooms', hostel_id=room.hostel.hostel_id)
+            return redirect('hostels:hostel-rooms', room.hostel.hostel_id)
 
         #Checking if room is full
         elif bookings_count >= room.room_capacity:
             messages.info(request, 'Room if full for booking try again in 24 hrs')
-            return redirect('hostels:hostel_rooms', hostel_id=room.hostel.hostel_id)
+            return redirect('hostels:hostel_rooms', room.hostel.hostel_id)
 
         #Creating booking for user
         else:
@@ -83,7 +83,7 @@ def book_room(request, room_id):
                           EMAIL_HOST_USER=settings.EMAIL_HOST_USER)
             
             #redirect user for payment
-            return redirect('payments:init-payment', room_id=room.room_id )
+            return redirect('payments:init-payment', room.room_id )
     
 
 def search(request):

@@ -7,5 +7,6 @@ class PaymentsappConfig(AppConfig):
 
     verbose_name = 'PAYMENTS'
 
+    # signal for subaccount creation for paystack 
     def ready(self) -> None:
         import payments_app.payment_signals
