@@ -21,29 +21,33 @@ from django.db.models import Q
 from rest_framework import generics
 
 
-@api_view(['POST'])
-@permission_classes([IsAuthenticated, DjangoModelPermissions])    
-def get_rooms(request):
+class RoomListView(generics.ListAPIView):
+    queryset = HostelProfile.objects.all()
+    serializer_class = RoomListSerializer
+    permission_classes = [IsAuthenticated, DjangoModelPermissions]
 
-    """Gets a list of all rooms related to 
+    def get(self, request, *args, **kwargs):
+
+        """Gets a list of all rooms related to 
     a particular hostel after getting the hostel code from the person who logs in"""
-
-    try:
-        if request.method == 'POST':
+        
+        try:
             hostel_code = request.data.get('hostel_code')
-            get_hostel=HostelProfile.objects.get(hostel_code=hostel_code)
+            get_hostel=HostelProfile.objects.get(hostel_manager=request.user)
             get_rooms = RoomProfile.objects.filter(hostel=get_hostel)
             serializer = RoomListSerializer(get_rooms, many=True)
             return Response(serializer.data)
         
-    except HostelProfile.DoesNotExist:
-        return Response({'detail':'Hostel Does not exist'}, status=status.HTTP_404_NOT_FOUND)
+        except HostelProfile.DoesNotExist:
+
+            return Response({'detail':'Hostel Does not exist'}, status=status.HTTP_404_NOT_FOUND)
+        
 
 class RoomDetailView(generics.RetrieveAPIView, generics.UpdateAPIView):
     serializer_class = RoomDetailSerializer
     queryset = RoomProfile
     lookup_field = "room_id"
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, DjangoModelPermissions]
 
 
 class HostelProfileView(generics.RetrieveAPIView,generics.UpdateAPIView):

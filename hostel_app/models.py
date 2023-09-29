@@ -32,7 +32,7 @@ class HostelProfile(models.Model):
     number_of_rooms = models.IntegerField(default=5)
     campus = models.ForeignKey(CampusProfile, on_delete=models.SET_NULL, null=True)
 
-    hostel_manager = models.ForeignKey(CustomUser, on_delete=models.SET_NULL,
+    hostel_manager = models.OneToOneField(CustomUser, on_delete=models.SET_NULL,
                                        related_name='hostels', null=True,)
     
     hostel_email = models.EmailField(blank=True)
