@@ -14,7 +14,7 @@ urlpatterns=[
     path('hostel-profile/<str:host_code>/', views.HostelProfileView.as_view(),
                                                 name='hostel-profile-view'),
                                                 
-    path('rooms/', views.get_rooms, name='get-rooms'),
+    path('rooms/', views.RoomListView.as_view(), name='get-rooms'),
     path('room-details/<str:room_id>', views.RoomDetailView.as_view(), name="room-details"),
     path('verify-tenant/', views.verify_tenant, name='verify-tenant'),
     path('verify-booking/', views.get_booking, name='verify-booking'),

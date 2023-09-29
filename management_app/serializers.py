@@ -12,7 +12,6 @@ class RoomListSerializer(serializers.ModelSerializer):
     class Meta:
         model=RoomProfile
         fields =('hostel_name',
-                 'room_id',
                  'room_no',
                  'room_capacity',
                  'room_price',
@@ -24,7 +23,7 @@ class RoomListSerializer(serializers.ModelSerializer):
 
         request = self.context.get('request')
         
-        return reverse(viewname='management:room-details',
+        return reverse('management:room-details',
                         kwargs={'room_id':obj.room_id},
                         request=request)
     
