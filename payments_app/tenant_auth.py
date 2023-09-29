@@ -5,7 +5,7 @@ def tenant_auth_details(user=None, tenant=None, room=None):
             f'Student ID: {user.student_id}',
             f'Room Number: {room.room_no}',
             f'Hostel: {room.hostel.hostel_name}',
-            f'Payment made to: {room.hostel.bank_details}',
+            f'Payment made to: {room.hostel.account_number}',
             f'Hostel Momo: {room.hostel.mobile_money}',
 
             f'This authentication pdf must', 

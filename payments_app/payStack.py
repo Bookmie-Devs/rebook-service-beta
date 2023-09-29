@@ -1,8 +1,7 @@
 import requests
 from django.conf import settings
-from .models import PaystackSubAccount
 from hostel_app.models import HostelProfile
-
+from .models import PaystackSubAccount
 
 headers = {
     "Authorization" : f"Bearer {settings.PAYSTACK_SECRET_KEY}",
@@ -29,26 +28,24 @@ def create_subaccount(hostel=None):
         #the percenetage charge for every hostel sub account
         "percentage_charge": 0.95, ############################
     }
-    #  "business_name": "Cheese Sticks", 
-    #   "bank_code": "058", 
-    #   "account_number": "0123456789", 
-    #   "percentage_charge": 0.2 
+
 
     response = requests.post(url=paystack_url,headers=headers,json=data)
 
     return response
 
-def redirect_payment(customer=None, room=None, hostel=None):
-    
-    #get hostel sub account
+def redirect_payment(customer_email=None, room_price=None, hostel=None):
+
+    #   get hostel sub account
     hostel_sub_account = PaystackSubAccount.objects.get(hostel=hostel)
 
     # paystack transaction endpoint
     paystack_url = 'https://api.paystack.co/transaction/initialize'
 
+    #data for redirecting
     data = {
-        "email": customer.email, 
-        "amount": room.room_price, 
+        "email": customer_email, 
+        "amount": room_price, 
         "subaccount": hostel_sub_account.subaccount_code
     }
 
