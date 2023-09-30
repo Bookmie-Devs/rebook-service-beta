@@ -12,8 +12,9 @@ from campus_app.models import CampusProfile
 @login_required(login_url='Core:login')
 def room_profile(request, room_id):
     room = RoomProfile.objects.get(room_id=room_id)
-    room_bookers = Booking.objects.filter(Room=room).all()
+    room_bookers = Booking.objects.filter(room=room).all()
     return render(request, 'RoomProfile.html', {'Room':room, 'room_bookers':room_bookers})
+
 
 
 @login_required(login_url='Core:login')

@@ -2,6 +2,7 @@ from django.db import models
 from campus_app.models import CampusProfile
 # from geoposition.fields import GeopositionField
 import uuid
+from django.urls import reverse
 from accounts.models import CustomUser
 
 rating = [('⭐⭐⭐⭐','⭐⭐⭐⭐'),('⭐⭐⭐','⭐⭐⭐'),
@@ -58,6 +59,14 @@ class HostelProfile(models.Model):
         db_table = 'hostel_profiles'
         
         ordering = ('-hostel_name',)
+
+    def get_profile_url(self):
+        return reverse("hostels:profile", kwargs={'hostel_id':self.hostel_id})
+
+
+    def get_rooms(self):
+        return reverse("hostels:hostel-rooms", kwargs={"hostel_id":self.hostel_id})
+    
 
     def __str__(self):
         return f'{self.hostel_name}'

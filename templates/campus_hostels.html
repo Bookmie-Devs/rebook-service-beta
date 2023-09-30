@@ -70,7 +70,7 @@
                         <div class="card h-100">
                             <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem"><a style="text-decoration: none; color: rgb(255, 255, 255);" href="">Get Direction</a></div>
                             <!-- Product image-->
-                            <a href="{% url 'hostels:profile' hostel_id=hostel.hostel_id %}">
+                            <a href="{{ hostel.get_profile_url }}">
                             <img class="card-img-top" src="{{ hostel.hostel_pic.url }}" alt="..." />
                             </a>
                             <!-- Product details-->
@@ -95,7 +95,7 @@
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{% url 'hostels:hostel-rooms' hostel_id=hostel.hostel_id  %}">View Rooms🏠</a></div>
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{ hostel.get_rooms  }}">View Rooms🏠</a></div>
                             </div>
                         </div>
                     </div>
