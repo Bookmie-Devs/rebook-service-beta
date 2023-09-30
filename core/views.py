@@ -6,6 +6,7 @@ from django.shortcuts import redirect
 from rooms_app.models import RoomProfile
 from campus_app.models import CampusProfile
 from hostel_app.models import HostelProfile
+from django.db.models import Q
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -88,8 +89,11 @@ def book_room(request, room_id):
 
 def search(request):
     all_hotels = HostelProfile.objects.all()
-    search_data = HostelFilter(request.POST, queryset=all_hotels)
-    query =HostelProfile.objects.filter(hostel_name__icontains=request.POST['search_data']).all()
+    search_data = request.GET['search_data']
+    search_data = HostelFilter(request.GET, queryset=all_hotels)
+
+    # if search_data:
+    query = HostelProfile.objects.filter(Q(hostel_name__icontains=search_data) & Q(location__icontains=search_data))
 
     campus = CampusProfile.objects.get(campus_code=
                                        request.user.campus.campus_code)

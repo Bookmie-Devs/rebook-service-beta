@@ -31,8 +31,7 @@
                     </ul>
                     <nav class="navbar ">
                         <div class="container-fluid">
-                          <form action="{% url 'core:search' %}" class="d-flex" role="search" method="POST">
-                            {% csrf_token %}
+                          <form action="{% url 'core:search' %}" class="d-flex" role="search" method="GET">
                             <input class="form-control me-2" type="search" required name="search_data" placeholder="Search" aria-label="Search">
                             <button class="drop btn " type="submit">Search</button>
                           </form>
