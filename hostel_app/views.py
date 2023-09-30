@@ -23,7 +23,7 @@ def hostel_rooms(request, hostel_id):
     hostel_profile = HostelProfile.objects.get(hostel_id = hostel_id)
     
     #get all unoccupied rooms in the hostel
-    hostel_rooms = RoomProfile.objects.filter(hostel=hostel_profile, occupied=False)
+    hostel_rooms = RoomProfile.objects.filter(hostel=hostel_profile, occupied=False).order_by('room_no')
 
     context ={'user':request.user,
             'hostel':hostel_profile,
@@ -40,7 +40,7 @@ def filter_rooms(request, capacity, hostel_id):
     hostel = HostelProfile.objects.get(hostel_id=hostel_id)
 
     #query rooms per requirements
-    rooms = RoomProfile.objects.filter(room_capacity=capacity, hostel=hostel, occupied=False)
+    rooms = RoomProfile.objects.filter(room_capacity=capacity, hostel=hostel, occupied=False).all()
 
     if rooms.exists():
         context = {'hostel': hostel,
