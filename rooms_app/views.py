@@ -35,9 +35,9 @@ def all_available_rooms(request, filter_opt):
 
 @login_required(login_url='Core:login')
 def filter_of_rooms(request):
-    all_rooms = RoomProfile.objects.all()
+    all_rooms = RoomProfile.objects.filter(campus=request.user.campus).all()
     all_hostels = HostelProfile.objects.all()
-    
+    # print(request.GET)
     search = RoomFilters(request.GET, queryset=all_rooms)
     query_set = search.qs
     get_campus = request.user.campus
@@ -49,7 +49,7 @@ def filter_of_rooms(request):
                                 'myForm':RoomFilters})
     else:  
         messages.info(request, f"All's a in room are full")
-        return render(request, 'filter_rooms.html')
+        return render(request, 'filter_rooms.html', {'room_filter':RoomFilters })
     
 
 
