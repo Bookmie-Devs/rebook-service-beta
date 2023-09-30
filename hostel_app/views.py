@@ -8,11 +8,10 @@ from core.models import Booking
 
 def hostel_profile(request, hostel_id):
     hostel_profile = HostelProfile.objects.get(hostel_id = hostel_id)
-    rooms = RoomProfile.objects.filter(Hostel=hostel_profile, Occupied=False)
 
     context = {'hostel_profile': hostel_profile,
-               'Campus': hostel_profile.campus,
-               'Hostel_rooms':rooms,}
+               'Campus': hostel_profile.campus,}
+    
     return render(request, 'HostelProfile.html', context)
 
 
