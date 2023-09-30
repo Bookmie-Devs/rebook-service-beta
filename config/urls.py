@@ -7,17 +7,17 @@ from django.contrib.auth.decorators import permission_required
 from django.conf.urls import handler404, handler500
 from django.views.generic import TemplateView
 from django.contrib.auth import views as auth_view
-
 handler404 = TemplateView.as_view(template_name='error/404.html')
 handler500 = TemplateView.as_view(template_name='error/500.html')
 
 app_name='main'
 urlpatterns = [
+    # url(r'^docs/', include('rest_framework_swagger.urls')), 
     path('admin/', admin.site.urls),
     path('', include('core.urls'), name='core_urls'),
     path('hostel/', include('hostel_app.urls'), name='hostel_urls'),
     path('room/', include('rooms_app.urls'), name= 'room_urls'),
-    path('accounts/', include('accounts.urls'), name='users_urls'),
+    path('accounts/', include('accounts.urls'), name='accounts_urls'),
     path('payments/', include('payments_app.urls'), name='payment_urls'),
     path('reviews/', include('reviews_app.urls'), name='review_urls'),
     path('map/', include('maps_app.urls'), name='map'),

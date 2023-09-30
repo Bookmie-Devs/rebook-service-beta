@@ -10,9 +10,8 @@ def hostel_profile(request, hostel_id):
     hostel_profile = HostelProfile.objects.get(hostel_id = hostel_id)
     rooms = RoomProfile.objects.filter(Hostel=hostel_profile, Occupied=False)
 
-    campus = hostel_profile.campus
     context = {'hostel_profile': hostel_profile,
-               'Campus': campus,
+               'Campus': hostel_profile.campus,
                'Hostel_rooms':rooms,}
     return render(request, 'HostelProfile.html', context)
 
