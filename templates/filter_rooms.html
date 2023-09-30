@@ -83,42 +83,38 @@
             </div>
             {% endfor %}
             <a class="nav-link active" aria-current="page" href=""><h2 class="display-4 fw-bolder" href="#!"style="color: orange;">Feel free to filter our Rooms🏠</h2></a>
-                      <!-- <form action="" method="POST">
-                        {% csrf_token %}
-                          {{ myForm.form }}
-                          <div class="col-auto btns">
-                            <button type="submit" class="drop btn ">Filter our Rooms</button>
-                          </div>
-                      </form> -->
             <form class="row gx-3 gy-2 align-items-center" action="" method="GET">
               <div class="col-sm-3">
-                <!-- <label class="visually-hidden" for="specificSizeSelect">Preference</label> -->
+                <label class="visually-hidden" for="specificSizeSelect">Preference</label>
                 <select name="room_capacity" class="form-select" id="specificSizeSelect">
-                  <option selected value="1">One in a room</option>
+                  <option value="">All</option>
+                  <option value="1">One in a room</option>
                   <option value="2">Two in a room</option>
                   <option value="3">Three in a room</option>
-                  <option value="4">Four in a room</option>
+                  <option selected value="4">Four in a room</option>
                 </select>
-              </div>
+              </div> 
+
               <div class="col-sm-3">
-                <select name="" class="form-select" id="specificSizeSelect">
-                  <option selected value="1">1000-3000</option>
-                  <option value="1">3100-5000</option>
-                  <option value="2">5100-7000</option>
-                  <option value="3">7100++</option>
-                </select>
+                <input class="form-control" 
+                type="number"
+                name="room_price_min"
+                placeholder="Lowest price">
               </div>
+
               <div class="col-sm-3">
-                <select name="" class="form-select" id="specificSizeSelect">
-                  <option value="1">⭐ star room</option>
-                  <option value="2">⭐⭐ star room</option>
-                  <option value="3">⭐⭐⭐ star room</option>
-                  <option value="3">⭐⭐⭐⭐ star room</option>
-                </select>
+                <input class="form-control"
+                type="number"
+                name="room_price_max"
+                placeholder="Highest price">
               </div>
+              
               <div class="col-auto btns">
                 <button type="submit" class="drop btn">Search</button>
               </div>
+
+              <!-- {{ myForm.form }}
+              <button>HUH</button> -->
             </form>
         </div>
       </div>
