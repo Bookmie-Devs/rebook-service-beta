@@ -19,7 +19,9 @@ class HostelProfile(models.Model):
                                  editable=False, unique=True)
     
     hostel_code = models.CharField(max_length=50, null=True)
-    hostel_image = models.ImageField(upload_to='Hostel_Profiles', default='unavailable.jpg')
+
+    hostel_image = models.ImageField(upload_to='Hostel_Profiles',
+                                      default='unavailable.jpg')
 
     category = models.CharField(max_length=15,
                                     verbose_name='type',default='Hostel',
@@ -28,13 +30,16 @@ class HostelProfile(models.Model):
     rating = models.CharField(max_length=10,choices=rating, verbose_name='Stars',
                                        default='⭐')
     
-    price_range = models.CharField(max_length=50, default='unavailable', blank=True)
+    price_range = models.CharField(max_length=50, 
+                                   default='unavailable', 
+                                   blank=True)
+    
     hostel_motto = models.CharField(max_length=2000, blank=True)
     number_of_rooms = models.IntegerField(default=5)
     campus = models.ForeignKey(CampusProfile, on_delete=models.SET_NULL, null=True)
 
     hostel_manager = models.OneToOneField(CustomUser, on_delete=models.SET_NULL,
-                                       related_name='hostels', null=True,)
+                                          related_name='hostels', null=True,)
     
     hostel_email = models.EmailField(blank=True)
     account_number = models.CharField(max_length=50, default='unavailable')
@@ -49,6 +54,7 @@ class HostelProfile(models.Model):
     other_phone = models.CharField(max_length=10, blank=True)
     map_location = models.CharField(max_length=10000, default='unavailable')
     hostel_main_site = models.URLField(null=True, blank=True)
+    
     #Location of hostel base on Google map API
     address = models.CharField(max_length=255)
     # Hostel_Location = GeopositionField(blank = True)
