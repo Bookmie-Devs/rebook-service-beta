@@ -39,12 +39,14 @@ def initiate_payment(request, room_id):
         
         else:
             #save payment deatails
-            payment = PaymentHistory.objects.create(user=request.user,email=request.user.email,
-                                                    amount=get_room.room_price,
-                                                    account_payed_to=get_room.hostel.account_number,
-                                                    room=get_room,
-                                                    hostel=get_room.hostel,
-                                                    ).save()
+            payment = PaymentHistory.objects.create(user=request.user,
+                                email=request.POST.get('email'),
+                                amount=get_room.room_price,
+                                account_payed_to=get_room.hostel.account_number,
+                                room=get_room,
+                                hostel=get_room.hostel,
+                                ).save()
+            
             return redirect('payments:make-payment', get_room.room_id)
     # return redirect
     return render(request, 'payments/initiate_payment.html',

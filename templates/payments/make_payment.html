@@ -1,30 +1,48 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment | guudnyt</title>
-   
-</head>
-<body>
-    <br>
-    <h1>Make Payment of {{ room.room_price }}</h1>
-    <br>
-    <form id="paymentForm">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'payment/css/Pay.css' %}" />
+    <title>Pay</title>
+  </head>
+  <body>
+    <header>
+        <h1>Book Up</h1>
+    </header>
+    <div class="container">
+
+      {% if messages %}
+      {% for message in messages %}
+
+          <h5 style="color: rgb(255, 174, 0)">{{ message }}
+          <a style="color: rgb(143, 30, 30);" href="#">
+            Terminate booking
+          </a>
+        </h5>
+      
+      {% endfor %}
+      {% endif %}
+      <form action="#" method="POST">
+        <h2>Make Payment Of ₵{{ room.room_price }}</h2>
+        <div class="btn">
+          <button type="submit" onclick="payWithPaystack()">Pay💳</button>
+        </div>
 
       <!-- div should not be deleted in order for payStack to work -->
       <div class="form-group">
         <input type="email" id="email-address" required hidden />
       </div>
-      <div class="form-submit">
-        <button type="submit" onclick="payWithPaystack()"> Pay </button>
-      </div>
-    </form>
-    
+        
+      </form>
+    </div>
+
+    <!-- paystack js script-->
     <script src="https://js.paystack.co/v1/inline.js"></script>
-          
+
     <script>
-          var paymentForm = document.getElementById('paymentForm');
+      var paymentForm = document.getElementById('paymentForm');
       paymentForm.addEventListener('submit', payWithPaystack, false);
       function payWithPaystack() {
         var handler = PaystackPop.setup({
@@ -48,7 +66,8 @@
         handler.openIframe();
       }
     </script>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-</body>
+    <footer>
+        <span>Copyright &copy; Your Website 2023</span>
+    </footer>
+  </body>
 </html>
