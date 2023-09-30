@@ -90,8 +90,7 @@
                             <button type="submit" class="drop btn ">Filter our Rooms</button>
                           </div>
                       </form> -->
-            <form class="row gx-3 gy-2 align-items-center" action="" method="POST">
-              {% csrf_token %}
+            <form class="row gx-3 gy-2 align-items-center" action="" method="GET">
               <div class="col-sm-3">
                 <!-- <label class="visually-hidden" for="specificSizeSelect">Preference</label> -->
                 <select name="room_capacity" class="form-select" id="specificSizeSelect">
