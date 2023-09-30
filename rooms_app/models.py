@@ -4,6 +4,7 @@ from campus_app.models import CampusProfile
 from accounts.models import CustomUser
 from hostel_app.models import rating
 import uuid
+from django.urls import reverse
 from datetime import datetime
 
 class RoomProfile(models.Model):
@@ -27,6 +28,9 @@ class RoomProfile(models.Model):
 
     class Meta:
         db_table = "room_profiles"
+
+    def get_profile_url(self):
+        return reverse("rooms:profile", kwargs={'room_id':self.room_id})
 
     def __str__(self):
         return f'Room {self.room_no} in {self.hostel} @{self.campus}' 
