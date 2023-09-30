@@ -20,8 +20,9 @@ from .models import Tenant
 from .filters import HostelFilter
 from django.shortcuts import render
 from .booking_info import booking_email
+from django.views.decorators.http import require_http_methods
 
-
+@require_http_methods(['GET'])
 def index(request):
     return render(request, 'index.html')
 
@@ -87,22 +88,22 @@ def book_room(request, room_id):
             return redirect('payments:init-payment', room.room_id )
     
 
+@login_required(login_url='accounts:login')
 def search(request):
-    all_hotels = HostelProfile.objects.all()
     search_data = request.GET['search_data']
-    search_data = HostelFilter(request.GET, queryset=all_hotels)
-
-    # if search_data:
-    query = HostelProfile.objects.filter(Q(hostel_name__icontains=search_data) & Q(location__icontains=search_data))
 
     campus = CampusProfile.objects.get(campus_code=
                                        request.user.campus.campus_code)
-    
-    campus_hostels = HostelProfile.objects.filter(campus=campus)
 
+    #query of search 
+    query = HostelProfile.objects.filter(Q(campus=campus) & 
+                                    (Q(hostel_name__icontains=search_data)
+                                    | Q(location__icontains=search_data)))
+    
     #context containg search query page
     context={'hostels':query, 
-              'campus':campus, 'myform': HostelFilter}
+             'campus':campus,
+             'myform': HostelFilter}
     
     return render(request, 'search.html', context)
 
