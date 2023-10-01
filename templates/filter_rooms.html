@@ -158,7 +158,7 @@
               </div>
               <!-- Product actions-->
               <form
-                action="{% url 'core:book' room_id=room.room_id %}"
+                action="{% url 'core:booking'  %}"
                 method="POST"
               >
                 {% csrf_token %}

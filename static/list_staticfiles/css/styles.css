@@ -263,6 +263,13 @@ body {
   gap: 5px;
 }
 
+/* make curve straigth on phone */
+@media screen and (max-width:480px) {
+  .custom-shape-divider-bottom-1695574293 svg{
+    width: 0px !important;
+  } 
+}
+
 hr {
   margin: 1rem 0;
   color: inherit;
