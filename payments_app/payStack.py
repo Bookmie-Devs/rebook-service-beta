@@ -45,7 +45,10 @@ def redirect_payment(customer_email=None, room_price=None, hostel=None):
     #data for redirecting
     data = {
         "email": customer_email, 
-        "amount": room_price, 
+
+        # change decimal value to float
+        "amount": float(room_price), # to make it json seriable
+        
         "subaccount": hostel_sub_account.subaccount_code
     }
 
