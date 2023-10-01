@@ -5,11 +5,11 @@ import uuid
 from django.urls import reverse
 from accounts.models import CustomUser
 
-rating = [(5,'⭐⭐⭐⭐'),(3,'⭐⭐⭐'),
-           (2,'⭐⭐'), (1,'⭐')]
+rating = [(4,'⭐⭐⭐⭐'),(3,'⭐⭐⭐'),
+                 (2,'⭐⭐'), (1,'⭐')]
 
 category =[('Hostel','Hostel'),('Homestel','Homestel'),
-            ('Apartment','Apartment')]
+                             ('Apartment','Apartment')]
 
 class HostelProfile(models.Model): 
     '''Hostel model for database'''
