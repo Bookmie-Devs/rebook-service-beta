@@ -6,4 +6,15 @@
 // This file is intentionally blank
 // Use this file to add JavaScript to your project
 
+let bookingButton = document.getElementById("booking-button")
 
+document.addEventListener('click', () => {
+    bookingButton.innerHTML="HDHD"
+
+    console.log("{{ room.room_price }}")
+})
+
+bookingButton.onclick = () => {
+
+    bookingButton.innerText = "Pay";
+}
