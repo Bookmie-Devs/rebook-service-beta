@@ -45,47 +45,50 @@ def hostels(request):
 
 
 @login_required(login_url='accounts:login')
-def book_room(request, room_id):
+
+# allow strictly only POST
+@require_http_methods(['POST'])
+def book_room(request):     
+    room_id = request.POST.get('room_id')
     room = RoomProfile.objects.get(room_id=room_id)
     bookings_count =Booking.objects.filter(room = room).count()
     number_left = room.room_capacity - bookings_count
 
-    if request.method == 'POST':
     #check if room is full
-        if  Booking.objects.filter(user=request.user, payed=False).exists():
-            get_booking = Booking.objects.get(user = request.user)
-            messages.info(request, 'Already Booked for a room please proceed to payment!!!')
-            return redirect('payments:make-payment', get_booking.room.room_id)
+    if  Booking.objects.filter(user=request.user, payed=False).exists():
+        get_booking = Booking.objects.get(user = request.user)
+        messages.info(request, 'Already Booked for a room please proceed to payment!!!')
+        return redirect('payments:make-payment', get_booking.room.room_id)
+    
+    #check if tenant exits
+    elif Tenant.objects.filter(user=request.user).exists():
+        messages.info(request, 'You already payed for a room')
+        return redirect('hostels:hostel-rooms', room.hostel.hostel_id)
+
+    #Checking if room is full
+    elif bookings_count >= room.room_capacity:
+        messages.info(request, 'Room if full for booking try again in 24 hrs')
+        return redirect('hostels:hostel_rooms', room.hostel.hostel_id)
+
+    #Creating booking for user
+    else:
+        student_id = request.user.student_id  
+        booked_room = RoomProfile.objects.get(room_id=request.POST.get('room_id')) 
+        #Saving booking info
+        Book = Booking.objects.create(room=booked_room, user=request.user, room_number=booked_room.room_no, hostel=booked_room.hostel, 
+            student_id=student_id, status='Booked', end_time=(timezone.now() + timedelta(seconds=40)), campus=booked_room.campus).save()
+
+        if bookings_count == room.room_capacity:
+            room.occupied=True
+            room.save()
+            pass
         
-        #check if tenant exits
-        elif Tenant.objects.filter(user=request.user).exists():
-            messages.info(request, 'You already payed for a room')
-            return redirect('hostels:hostel-rooms', room.hostel.hostel_id)
-
-        #Checking if room is full
-        elif bookings_count >= room.room_capacity:
-            messages.info(request, 'Room if full for booking try again in 24 hrs')
-            return redirect('hostels:hostel_rooms', room.hostel.hostel_id)
-
-        #Creating booking for user
-        else:
-            student_id = request.user.student_id  
-            booked_room = RoomProfile.objects.get(room_id=request.POST.get('room_id')) 
-            #Saving booking info
-            Book = Booking.objects.create(room=booked_room, user=request.user, room_number=booked_room.room_no, hostel=booked_room.hostel, 
-                student_id=student_id, status='Booked', end_time=(timezone.now() + timedelta(seconds=40)), campus=booked_room.campus).save()
-
-            if bookings_count == room.room_capacity:
-                room.occupied=True
-                room.save()
-                pass
-            
-            #send email to user
-            booking_email(user=request.user,booking_id=Booking.booking_id,
-                          EMAIL_HOST_USER=settings.EMAIL_HOST_USER)
-            
-            #redirect user for payment
-            return redirect('payments:init-payment', room.room_id )
+        #send email to user
+        booking_email(user=request.user,booking_id=Booking.booking_id,
+                        EMAIL_HOST_USER=settings.EMAIL_HOST_USER)
+        
+        #redirect user for payment
+        return redirect('payments:init-payment', room.room_id )
     
 
 @login_required(login_url='accounts:login')

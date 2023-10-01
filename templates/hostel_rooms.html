@@ -107,14 +107,13 @@
               <div class="card-body p-4">
                 <div class="text-center">
                   <!-- Sale badge-->
+                <!-- <a href="{{ room.get_profile_url }}"> -->
                   <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">
-                  <!-- {% if room.Occupied %} -->
-                     Full
-                  <!-- {% else %} -->
-                    Not Full
-                  <!-- {% endif %} -->
+                      View specs
                   </div>
-                  <!-- Product name-->
+                <!-- </a>  -->
+                <br>
+                  <!-- ROOM NUMBER-->
                   <h5 class="fw-bolder">Rm-{{ room.room_no }}</h5>
                   <!-- <h5 class="fw-bolder">{{ room.rating }}</h5> -->
 
@@ -135,7 +134,7 @@
 
               <!--booking form for each room-->
               <form
-                action="{% url 'core:book' room_id=room.room_id %}" method="POST">
+                action="{% url 'core:booking' %}" method="POST">
                 {% csrf_token %}
                 <input type="hidden", name="room_id" value="{{ room.room_id }}">
                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
@@ -149,7 +148,7 @@
             </div>
           </div>
           </a>
-          {% endfor %}
+        {% endfor %}
                     <!-- NEXT ROOM container -->
         </div>
       </div>
