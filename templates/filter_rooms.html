@@ -75,13 +75,6 @@
 
       <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-white filter">
-          {% for message in messages %}
-            <div>
-              <h1 class="display-4 fw-bolder">
-                {{ message }}
-              </h1>
-            </div>
-            {% endfor %}
             <a class="nav-link active" aria-current="page" href=""><h2 class="display-4 fw-bolder" href="#!"style="color: orange;">Feel free to filter our Rooms🏠</h2></a>
             <form class="row gx-3 gy-2 align-items-center" action="" method="GET">
               <div class="col-sm-3">
@@ -116,6 +109,15 @@
               <!-- {{ myForm.form }}
               <button>HUH</button> -->
             </form>
+            {% if messages %}
+            {% for message in messages %}
+                <div>
+                  <script>
+                      alert("{{ message }}")
+                  </script>            
+                </div>
+              {% endfor %}
+            {% endif %}
         </div>
       </div>
     </header>
@@ -139,8 +141,8 @@
                   </div>
                   <!-- Product name-->
                   <h5 class="fw-bolder">{{ room.hostel.hostel_name }}</h5>
-                  <h5 class="fw-bolder">{{ room.rating }}</h5>
-                  <!-- <div
+                  <!-- <h5 class="fw-bolder">{{ room.rating }}</h5> -->
+                  <div
                     class="d-flex justify-content-center small text-warning mb-2"
                   >
                     <div class="bi-star-fill"></div>
@@ -148,7 +150,7 @@
                     <div class="bi-star-fill"></div>
                     <div class="bi-star-fill"></div>
                     <div class="bi-star-fill"></div>
-                  </div> -->
+                  </div>
                   <h5 class="fw-bolder">{{ room.room_capacity }} in a Room</h5>
                   <!-- Product price-->
                   {{ room.room_price }}

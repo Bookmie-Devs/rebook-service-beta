@@ -37,19 +37,18 @@ def all_available_rooms(request, filter_opt):
 def filter_of_rooms(request):
     all_rooms = RoomProfile.objects.filter(campus=request.user.campus).all()
     all_hostels = HostelProfile.objects.all()
-    # print(request.GET)
     search = RoomFilters(request.GET, queryset=all_rooms)
     query_set = search.qs
     get_campus = request.user.campus
-    if query_set is not None:
+    if query_set.exists():
         return render(request,  'filter_rooms.html', 
                                 {'get_rooms': query_set,
                                 'Campus':get_campus, 
                                 'hostels':all_hostels,
                                 'myForm':RoomFilters})
     else:  
-        messages.info(request, f"All's a in room are full")
-        return render(request, 'filter_rooms.html', {'room_filter':RoomFilters })
+        messages.info(request, "No rooms with such details available")
+        return redirect('rooms:filter-rooms')
     
 
 
