@@ -10,14 +10,14 @@ def tenant_auth_details(user=None, tenant=None, room=None):
 
             f'This authentication pdf must', 
             f'be sent to {tenant.hostel.hostel_name}', 
-            'the hostel for authentication',
-            'Note: AUTHENTICATION IS VALID FOR A YEAR',
-            f'VALID TILL {tenant.end_date.date()}  @{tenant.end_date.hour}:{tenant.end_date.minute}!!!']
-
+            'the hostel for authentication',]
+           
 def tenant_auth_message(user=None, tenant=None, room=None):
 
     return [f'Congratulation {user.username}',
             f'Welcome to {tenant.hostel.hostel_name}',
             f'Note that authentication is valid for a year!!!',
             f'{tenant.end_date.date()}  @{tenant.end_date.hour}:{tenant.end_date.minute}!!!',
+             'Note: AUTHENTICATION IS VALID FOR A YEAR',
+            f'VALID TILL {tenant.end_date.date()}  @{tenant.end_date.hour}:{tenant.end_date.minute}!!!'
             f'Enjoy your stay............']

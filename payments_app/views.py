@@ -26,9 +26,6 @@ from core.qrcode import generate_qrcode
 from .payStack import (paystack_verification, 
                        redirect_payment)
 
-
-
-
 @login_required(login_url="accounts:login")
 def initiate_payment(request, room_id):
     get_room = RoomProfile.objects.get(room_id=room_id)
@@ -119,7 +116,13 @@ def verify_payment(request, reference):
             
 @login_required(login_url='accounts:login')
 def tenant_auth(request):
-    tenant_id = Tenant.objects.get(user=request.user).tenant_id
+    try:
+        tenant_id = Tenant.objects.get(user=request.user).tenant_id
+    
+    except Tenant.DoesNotExist:
+        messages.info(request, "You are not a tenant to get verification")
+        redirect('core:hostels')
+
     get_tenant = Tenant.objects.get(tenant_id=tenant_id)
     room = get_tenant.room
 

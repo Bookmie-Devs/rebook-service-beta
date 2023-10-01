@@ -10,6 +10,6 @@ urlpatterns =[
     #generate campus related hostels to user base campus
     path('hostels/', views.hostels, name='hostels'),
 
-    path('booking/<str:room_id>/', views.book_room, name='book'),
+    path('booking/', views.book_room, name='booking'),
     path('search/',views.search, name='search'),
 ]
