@@ -26,19 +26,19 @@ def signup(request):
                 ##checks if password if long enough
                 if len( request.POST.get('password')) < 2:
                     messages.error(request, 'Password is too short')
-                    return redirect('Core:signup')
+                    return redirect('accounts:signup')
                 #existance of phone number 
                 elif CustomUser.objects.filter(phone=request.POST.get('phone')).exists():
                     messages.info(request, 'Phone Number already registered')
-                    return redirect('Core:signup')
+                    return redirect('accounts:signup')
                 
                 elif CustomUser.objects.filter(email=request.POST.get('email')).exists():
                     messages.info(request, 'Eamil has already been registered')
-                    return redirect('Core:signup')
+                    return redirect('accounts:signup')
                 
                 elif CustomUser.objects.filter(student_id = request.POST.get('student_id')).exists():
                     messages.info(request, 'Stundent has already been registered')
-                    return redirect('Core:signup')
+                    return redirect('accounts:signup')
 
                 else:
                     """Creation of user model with details submitted"""
@@ -57,7 +57,7 @@ def signup(request):
                     send_mail(from_email=settings.EMAIL_HOST_USER, 
                     recipient_list=[request.user.email], 
                     subject=f'Congrats {request.user.username}. Your Sign Up seccessfull', 
-                    message=render_to_string('TextTemplates/signup_congrat.html',{'user':request.user}),
+                    message=render_to_string('emails/signup_congrat.html',{'user':request.user}),
                     fail_silently=True)
                     return redirect('core:index') 
             else:
@@ -66,7 +66,7 @@ def signup(request):
             
         except CampusProfile.DoesNotExist:
             messages.info(request, 'BookUp is not yet registered on your campus')
-            return redirect('core:signup')
+            return redirect('accounts:signup')
         
     return render(request, 'forms/signup.html')  
 
