@@ -5,8 +5,8 @@ import uuid
 from django.urls import reverse
 from accounts.models import CustomUser
 
-rating = [('⭐⭐⭐⭐','⭐⭐⭐⭐'),('⭐⭐⭐','⭐⭐⭐'),
-           ('⭐⭐','⭐⭐'), ('⭐','⭐')]
+rating = [(5,'⭐⭐⭐⭐'),(3,'⭐⭐⭐'),
+           (2,'⭐⭐'), (1,'⭐')]
 
 category =[('Hostel','Hostel'),('Homestel','Homestel'),
             ('Apartment','Apartment')]
@@ -20,14 +20,14 @@ class HostelProfile(models.Model):
     
     hostel_code = models.CharField(max_length=50, null=True)
 
-    hostel_image = models.ImageField(upload_to='Hostel_Profiles',
+    hostel_image = models.ImageField(upload_to='HostelProfiles',
                                       default='unavailable.jpg')
 
     category = models.CharField(max_length=15,
                                     verbose_name='type',default='Hostel',
                                     blank=False, choices=category)
 
-    rating = models.CharField(max_length=10,choices=rating, verbose_name='Stars',
+    rating = models.IntegerField(choices=rating, verbose_name='Stars',
                                        default='⭐')
     
     price_range = models.CharField(max_length=50, 

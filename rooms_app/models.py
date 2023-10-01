@@ -21,8 +21,8 @@ class RoomProfile(models.Model):
     room_img = models.ImageField(upload_to='RoomImages', default='unavailable.jpg')
     room_price = models.DecimalField(blank=False, decimal_places=1, max_digits=7 )
     
-    rating = models.CharField(choices=rating ,blank=False, default='⭐',
-                                                            max_length=15)
+    rating = models.IntegerField(choices=rating ,blank=False, 
+                                 default='⭐', )
     occupied = models.BooleanField(default=False)
 
 
