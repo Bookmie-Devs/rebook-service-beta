@@ -83,7 +83,9 @@ def book_room(request):
             room.save()
             pass
         
-        #send email to user
+        # send email to user 
+        # dont delete mailing booking-mail-service
+        
         # booking_email(user=request.user,booking_id=Booking.booking_id,
         #                 EMAIL_HOST_USER=settings.EMAIL_HOST_USER)
         
