@@ -8,13 +8,13 @@
 
 let bookingButton = document.getElementById("booking-button")
 
-document.addEventListener('click', () => {
-    bookingButton.innerHTML="HDHD"
+// document.addEventListener('click', () => {
+//     bookingButton.innerHTML="HDHD"
 
-    console.log("{{ room.room_price }}")
-})
+//     console.log("{{ room.room_price }}")
+// })
 
 bookingButton.onclick = () => {
-
-    bookingButton.innerText = "Pay";
+    
+    bookingButton.innerText = "Payment";
 }

@@ -100,7 +100,8 @@ def verify_payment(request, reference):
                 send_mail(from_email=settings.EMAIL_HOST_USER, fail_silently=True,
                 recipient_list=[request.user.email], subject=subject, 
                 message=render_to_string('emails/tenant_email.html',{"user":request.user}))
-                pass
+
+                return render(request, 'successful.html')
 
             else:
                 payment.delete()
@@ -110,8 +111,6 @@ def verify_payment(request, reference):
         payment.delete()
         messages.info(request, "payment was not successfull")
         return redirect('payments:init-payment', payment.room.room_id)
-
-    return redirect('payments:tenant-authentication')
 
             
 @login_required(login_url='accounts:login')
