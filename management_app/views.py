@@ -57,13 +57,14 @@ class HostelProfileView(generics.RetrieveAPIView,generics.UpdateAPIView):
     parser_classes = [IsAuthenticated, DjangoModelPermissions]
 
 
+# update room prices
 class UpdateRoomPrice(generics.UpdateAPIView):
     permission_classes = [IsAuthenticated, DjangoModelPermissions]
     queryset =RoomProfile.objects.all()
 
     def update(self, request, *args, **kwargs):
-        room_capacity = request.data['room_capacity']
-        new_price = request.data['new_price']
+        room_capacity = request.data['room_capacity'] #room with capacity
+        new_price = request.data['new_price'] #price for those rooms
         hostel = HostelProfile.objects.get(hostel_manager=request.user)
         try:
             update_room = RoomProfile.objects.filter(hostel=hostel, room_capacity=room_capacity)
@@ -160,9 +161,8 @@ def verify_tenant(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def view_tenants(request):
-    hostelCode = request.GET['hostelCode']
     try:
-        get_hostel = HostelProfile.objects.get(hostel_code=hostelCode)
+        get_hostel = HostelProfile.objects.get(hostel_code=request.user)
         get_tenants = Tenant.objects.filter(hostel=get_booking).all()
         ser_tenants = TenantSerializer(get_tenants, many=True)
         return Response(ser_tenants.data)
