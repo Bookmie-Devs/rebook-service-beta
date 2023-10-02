@@ -24,7 +24,7 @@ from rest_framework import generics
 class RoomListView(generics.ListAPIView):
     queryset = HostelProfile.objects.all()
     serializer_class = RoomListSerializer
-    permission_classes = [IsAuthenticated, DjangoModelPermissions]
+    authentication_classes = [IsAuthenticated, DjangoModelPermissions]
 
     def get(self, request, *args, **kwargs):
 
@@ -57,19 +57,22 @@ class HostelProfileView(generics.RetrieveAPIView,generics.UpdateAPIView):
     parser_classes = [IsAuthenticated, DjangoModelPermissions]
 
 
-@api_view(['PUT'])
-def change_room_price(request):
-    if request.method == 'PUT':
+class UpdateRoomPrice(generics.UpdateAPIView):
+    permission_classes = [IsAuthenticated, DjangoModelPermissions]
+    queryset =RoomProfile.objects.all()
+
+    def update(self, request, *args, **kwargs):
         room_capacity = request.data['room_capacity']
         new_price = request.data['new_price']
         hostel = HostelProfile.objects.get(hostel_manager=request.user)
         try:
-            update_room = RoomProfile.objects.filter(Hostel=hostel, Room_Capacity=room_capacity)
-            update_room.update(Room_Price=new_price)
+            update_room = RoomProfile.objects.filter(hostel=hostel, room_capacity=room_capacity)
+            update_room.update(room_price=new_price)
             return Response({'detail':'Room price have been updated'})
 
         except RoomProfile.DoesNotExist:
             return Response({'detail':'Room does not exist'})
+        
 
 @api_view(['GET','PUT'])
 @permission_classes([IsAuthenticated])

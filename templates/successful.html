@@ -1,11 +1,20 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="{% static 'payment/css/make_payment.css' %}" />
 </head>
 <body>
+
+    <!-- loader for loading -->
+    <div class="loader-wrapper">
+        <div class="loader"></div>
+    </div>
+    
+      
     <h1>
         Payment was succesfull
         proceed to getting the your authentcation
@@ -19,5 +28,7 @@
     <br>
     <a style="font-size: larger;" href="{% url 'payments:tenant-authentication' %}">GET Credentials for room
     </a>
+
+    <script src="{% static 'payment/js/scripts.js' %}"></script>
 </body>
 </html>
