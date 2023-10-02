@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{% static 'payment/css/Pay.css' %}" />
+    <link rel="stylesheet" href="{% static 'payment/css/make_payment.css' %}" />
     <title>Pay</title>
   </head>
   <body>
@@ -17,7 +17,7 @@
       {% for message in messages %}
 
           <h5 style="color: rgb(255, 174, 0)">{{ message }}
-          <a style="color: rgb(143, 30, 30);" href="#">
+          <a id="terminate-message" href="#">
             Terminate booking
           </a>
         </h5>
