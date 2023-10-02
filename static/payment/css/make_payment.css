@@ -23,6 +23,11 @@ body {
     min-height: 100vh;
 }
 
+.terminate-message{
+    color: rgb(143, 30, 30);
+}
+
+
 h1{
     font-size: 50px;
     color: var(--primary);
