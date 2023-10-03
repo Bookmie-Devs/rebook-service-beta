@@ -50,19 +50,21 @@
           <nav class="navbar ">
             <div class="container-fluid">
               <form action="{% url 'hostels:filter-rooms' %}" class="d-flex" role="search">
-                <input class="form-control me-2" type="number" required name="capacity" placeholder="Room capacity" aria-label="Search">
+                <input class="form-control me-2" type="number" required name="capacity" placeholder="4 in a room..." aria-label="Search">
                 <input hidden value="{{ hostel.hostel_id }}" name="hostel">
                 <button class="drop btn" id="search-button" type="submit">Search</button>
               </form>
             </div>
           </nav>
 
-            <a href="{% url 'accounts:logout' %}">
+            <!-- commented for a developement -->
+
+            <!-- <a href="{% url 'accounts:logout' %}">
             <button class="drop btn btn-outline-dark" type="submit">
               <i class="bi bi-wifi-off"></i>
               logout
             </button>
-            </a>
+            </a> -->
             
         </div>
       </div>
