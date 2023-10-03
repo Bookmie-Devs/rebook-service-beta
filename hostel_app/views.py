@@ -6,6 +6,7 @@ from rooms_app.models import RoomProfile
 from django.contrib import messages
 from core.models import Booking
 
+@login_required()
 def hostel_profile(request, hostel_id):
     hostel_profile = HostelProfile.objects.get(hostel_id = hostel_id)
 
@@ -15,7 +16,7 @@ def hostel_profile(request, hostel_id):
     return render(request, 'HostelProfile.html', context)
 
 
-@login_required(login_url='accounts:login')
+@login_required()
 def hostel_rooms(request, hostel_id):
 
     hostel_profile = HostelProfile.objects.get(hostel_id = hostel_id)
@@ -31,7 +32,7 @@ def hostel_rooms(request, hostel_id):
     return render(request, 'hostel_rooms.html', context)
 
 
-@login_required(login_url='Core:login')
+@login_required()
 def filter_rooms(request):
 
     campus = request.user.campus

@@ -90,6 +90,7 @@ REST_FRAMEWORK = {
     # ]
 }
 
+LOGIN_URL = 'accounts:login'
 
 
 SIMPLE_JWT = {

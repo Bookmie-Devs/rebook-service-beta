@@ -90,7 +90,7 @@ def login(request):
             return redirect('accounts:login')
     return render(request, 'forms/login.html')
 
-@login_required(login_url='Core:login')
+@login_required()
 def logout(request):
     auth.logout(request)
     return redirect('accounts:login')

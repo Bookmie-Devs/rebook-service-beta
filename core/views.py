@@ -27,7 +27,7 @@ def index(request):
     return render(request, 'index.html')
 
 
-@login_required(login_url='accounts:login')
+@login_required()
 def hostels(request):
     
     """Get hostel that are related to particular campus and display it
@@ -44,7 +44,7 @@ def hostels(request):
     return render(request, 'campus_hostels.html', context)
 
 
-@login_required(login_url='accounts:login')
+@login_required()
 
 # allow strictly only POST
 @require_http_methods(['POST'])
@@ -92,7 +92,7 @@ def book_room(request):
         return redirect('payments:init-payment', room.room_id )
     
 
-@login_required(login_url='accounts:login')
+@login_required()
 def search(request):
     search_data = request.GET['search_data']
 
