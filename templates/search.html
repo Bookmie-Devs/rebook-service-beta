@@ -12,10 +12,19 @@
         <link rel="icon" type="image/x-icon" href="BaseStaticFiles/home/assets/favicon.ico" />
         <!-- Bootstrap icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{% static 'list_staticfiles/css/styles.css' %}" rel="stylesheet" />
     </head>
     <body>
+        <!-- Loader -->
+        <div class="load">
+            <div class="loader">
+            <div class="spinner"></div>
+            <!-- <p>searching...</p> -->
+            </div>
+        </div>  
+
         <!-- Navigation-->
         <nav class=" nav navbar navbar-expand-lg navbar-light ">
             
@@ -33,7 +42,7 @@
                         <div class="container-fluid">
                           <form action="{% url 'core:search' %}" class="d-flex" role="search">
                             <input class="form-control me-2" type="search" name="search_data" placeholder="Search" aria-label="Search">
-                            <button class="drop btn " type="submit">Search</button>
+                            <button class="drop btn" id="search-button" type="submit">Search</button>
                           </form>
                         </div>
                       </nav>
@@ -119,7 +128,8 @@
         </footer>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
         <!-- Core theme JS-->
-        <!-- <script src="{% static 'home/js/scripts.js' %}"></script> -->
+        <script src="{% static 'list_staticfiles/js/scripts.js' %}"></script>
     </body>
 </html> 

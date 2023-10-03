@@ -6,15 +6,18 @@
 // This file is intentionally blank
 // Use this file to add JavaScript to your project
 
-let bookingButton = document.getElementById("booking-button")
+const bookingButton = document.getElementById("booking-button");
+const Load  =document.querySelector('.load' );
+const searchButton = document.getElementById('search-button')
 
-// document.addEventListener('click', () => {
-//     bookingButton.innerHTML="HDHD"
 
-//     console.log("{{ room.room_price }}")
-// })
+// upon submit
+document.addEventListener('submit', () => {
+    Load.style.display = "flex";
+})
 
-bookingButton.onclick = () => {
-    
-    bookingButton.innerText = "Payment";
+
+
+function loading(){
+    return Load.style.display = "flex";   
 }

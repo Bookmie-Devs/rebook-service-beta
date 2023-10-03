@@ -85,9 +85,8 @@ def book_room(request):
         
         # send email to user 
         # dont delete mailing booking-mail-service
-        
-        # booking_email(user=request.user,booking_id=Booking.booking_id,
-        #                 EMAIL_HOST_USER=settings.EMAIL_HOST_USER)
+        booking_email(user=request.user,booking_id=Booking.booking_id,
+                        EMAIL_HOST_USER=settings.EMAIL_HOST_USER)
         
         #redirect user for payment
         return redirect('payments:init-payment', room.room_id )

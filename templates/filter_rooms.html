@@ -28,6 +28,17 @@
   </head>
   </head>
   <body>
+
+
+      <!-- Loader -->
+      <div class="load">
+        <div class="loader">
+          <div class="spinner"></div>
+          <!-- <p>searching...</p> -->
+        </div>
+      </div>  
+  
+
     <!-- Navigation-->
     <nav class="nav navbar navbar-expand-lg navbar-light ">
       <div class="container px-4 px-lg-5">
@@ -103,7 +114,7 @@
               </div>
               
               <div class="col-auto btns">
-                <button type="submit" class="drop btn">Search</button>
+                <button type="submit" id="search-button" class="drop btn">Search</button>
               </div>
 
               <!-- {{ myForm.form }}
@@ -192,7 +203,8 @@
     </footer>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
     <!-- Core theme JS-->
-    <!-- <script src="{% static 'home/js/scripts.js' %}"></script> -->
+    <script src="{% static 'list_staticfiles/js/scripts.js' %}"></script>
   </body>
 </html>
