@@ -46,21 +46,17 @@
             <li class="nav-item"><a class="nav-link active" href="{% url 'core:hostels' %}">Hostels</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url 'accounts:profile' %}">Your Profile</a></li> 
           </ul>
-          <nav class="navbar">
+
+          <nav class="navbar ">
             <div class="container-fluid">
-              <div class="dropdown">
-                <a class="btn btn-secondary dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  No. of Roommates
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="{% url 'hostels:filter-rooms' capacity=1  hostel_id=hostel.hostel_id %}">One in a Room🥇</a></li>
-                  <li><a class="dropdown-item" href="{% url 'hostels:filter-rooms' capacity=2  hostel_id=hostel.hostel_id %}">Two in a Room🥈</a></li>
-                  <li><a class="dropdown-item" href="{% url 'hostels:filter-rooms' capacity=3  hostel_id=hostel.hostel_id %}">Three in a Room🥉</a></li> 
-                  <li><a class="dropdown-item" href="{% url 'hostels:filter-rooms' capacity=4  hostel_id=hostel.hostel_id %}">Four in a Room✅</a></li> 
-                </ul>
-              </div>
+              <form action="{% url 'hostels:filter-rooms' %}" class="d-flex" role="search">
+                <input class="form-control me-2" type="number" required name="capacity" placeholder="Room capacity" aria-label="Search">
+                <input hidden value="{{ hostel.hostel_id }}" name="hostel">
+                <button class="drop btn" id="search-button" type="submit">Search</button>
+              </form>
             </div>
           </nav>
+
             <a href="{% url 'accounts:logout' %}">
             <button class="drop btn btn-outline-dark" type="submit">
               <i class="bi bi-wifi-off"></i>
