@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{% static 'payment/css/make_payment.css' %}" />
+    <link rel="stylesheet" href="{% static 'payment/css/make_p.css' %}" />
     <title>Pay</title>
   </head>
   <body>
@@ -14,12 +14,6 @@
 
 
     <!-- loader for laoding -->
-
-    <div class="loader-wrapper">
-      <div class="loader"></div>
-  </div>
-
-
     <div class="container">
 
       {% if messages %}
@@ -36,7 +30,7 @@
       <form action="#" method="POST">
         <h2>Make Payment Of ₵{{ room.room_price }}</h2>
         <div class="btn">
-          <button type="submit" onclick="payWithPaystack()">Pay💳</button>
+          <button type="submit" id="pay" onclick="payWithPaystack()">Pay💳</button>
         </div>
 
       <!-- div should not be deleted in order for payStack to work -->
@@ -76,7 +70,15 @@
       }
     </script>
 
-    <script src="{% static 'payment/js/scripts.js' %}"></script>
+      <!-- Loader -->
+      <div class="load">
+        <div class="loader">
+          <div class="spinner"></div>
+          <p>Confirming...</p>
+        </div>
+      </div>
+
+    <script src="{% static 'payment/js/script.js' %}"></script>
 
     <footer>
         <span>Copyright &copy; Your Website 2023</span>
