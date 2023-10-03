@@ -54,7 +54,7 @@ def initiate_payment(request, room_id):
 def make_payment(request, room_id):
     get_room = RoomProfile.objects.get(room_id=room_id)
     payment = PaymentHistory.objects.get(user=request.user)
-    
+
     return render(request, 'payments/make_payment.html', 
                             {'room':get_room,
                              'reference':payment.payment_id, 

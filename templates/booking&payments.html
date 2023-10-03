@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        a{
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <h1> Still in developement</h1>
+    <hr>
+    <div>
+        <h1>{{ user.username }}</h1>
+        <hr>
+        <!-- <h1 style="float: ri;">Your booking details</h1> -->
+        <div>
+            <h1>{{ booking.room }}</h1>
+            <br>
+            <h1>
+             Room {{ booking.room.room_no }}
+            </h1>
+            <br>
+            <h1>{{ booking.room.hostel.hostel_name}}</h1>
+            <br>
+            <h1>{{ booking.room.room_price }}</h1>
+
+            <a href="#">
+                <button>Delete booking</button>
+            </a>
+
+            <a href="{% url 'payments:init-payment' booking.room.room_id %}">
+                <button>Pay for room</button>
+            </a>
+        </div>
+    </div>
+<!-- 
+    <div style="float:right;
+    margin-bottom: 400%;">
+        
+        <hr>
+        <div>
+            <h1>Room 1</h1>
+            <br>
+            <h1>hostel name</h1>
+            <br>
+            <h1>room price</h1>
+            <button>pay</button>
+        </div>
+    </div> -->
+</body>
+</html>

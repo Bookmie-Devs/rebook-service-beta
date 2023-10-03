@@ -13,17 +13,22 @@
     </header>
     <div class="container">
 
-      {% if messages %}
+      <!-- {% if messages %}
       {% for message in messages %}
 
-          <h1>{{ message }}</h1>
+          <h4 style="color: aliceblue;">{{ message }} 
+            or
+            <a id="terminate-message" href="#">
+              Terminate booking
+            </a>
+          </h4>
 
       {% endfor %}
-      {% endif %}
+      {% endif %} -->
 
         <div class="first-content">
             <div class="container1">
-                <h2>Ready To Make Payment? Hover</h2>
+                <h2>Hover to pay...</h2> 
                 <!-- Card -->
                 <div class="left-side">
                  <div class="card">
@@ -43,7 +48,7 @@
           </div>
           <div class="second-content">
           <!-- Second Page -->
-      <h2>Initiate Payment Of ₵{{ room.room_price }}</h2>
+      <h2>Initiate Payment of ₵{{ room.room_price }} to {{ room.hostel.hostel_name}}</h2>
       <form id="paymentForm" method="POST" action="{% url 'payments:init-payment' room.room_id %}">
         {% csrf_token %}
         <div class="input-container">
@@ -58,9 +63,13 @@
         
         
         <div class="btn">
-          <a href="{% url 'core:hostels' %}">
-            <button>Cancel</button>
-          </a>
+          
+            <button>
+              <a  id="hold-on" href="{% url 'core:hostels' %}">
+                Hold On
+              </a>
+            </button>
+        
           <button type="submit">Proceed</button>
         </div>  
       </div>
