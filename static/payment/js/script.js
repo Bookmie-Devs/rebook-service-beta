@@ -17,7 +17,7 @@ Pay.addEventListener('click', () => {
     // For example, you can submit the form data using AJAX or perform any other action.
     
     // After processing, you can redirect or show a success message as needed.
-    }, 5000); // 5 seconds delay in this example
+    }, 7000); // 7 seconds delay in this example
 });
 
 // Pay.onclick = () => {
