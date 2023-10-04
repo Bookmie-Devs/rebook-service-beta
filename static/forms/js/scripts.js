@@ -1,11 +1,17 @@
-// Variables
 
-const Pay = document.getElementById('pay');
+// get sign-up button
+const signUpButton = document.getElementById("signup-button");
+
+
+// get login button
+const loginButton = document.getElementById("login-button")
+
+
+// loader
 const Load = document.querySelector('.load');
 
 
-// Event Listener
-Pay.addEventListener('click', () => {
+document.addEventListener('submit', () => {
     Load.style.display = "flex";
 
     // Simulate a delay (you can replace this with your actual form submission logic)
@@ -17,10 +23,6 @@ Pay.addEventListener('click', () => {
     // For example, you can submit the form data using AJAX or perform any other action.
     
     // After processing, you can redirect or show a success message as needed.
-    }, 5000); // 5 seconds delay in this example
-});
-
-// Pay.onclick = () => {
-//     Load.style.display = "flex";
-// }
+    }, 6000); // 6 seconds delay in this example
+})
 

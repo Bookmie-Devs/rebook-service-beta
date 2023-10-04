@@ -10,6 +10,7 @@ from core.decorators import authenticated_or_not
 from django.core.mail import send_mail
 from .models import CustomUser
 from django.template.loader import render_to_string
+from core.models import Booking, Tenant
 #user profile
 
 
@@ -59,10 +60,11 @@ def signup(request):
                     subject=f'Congrats {request.user.username}. Your Sign Up seccessfull', 
                     message=render_to_string('emails/signup_congrat.html',{'user':request.user}),
                     fail_silently=True)
-                    return redirect('core:index') 
+
+                    return redirect('core:hostels') 
             else:
                 messages.error(request, 'Password is not matching')
-                return redirect('core:signup')
+                return redirect('accounts:signup')
             
         except CampusProfile.DoesNotExist:
             messages.info(request, 'BookUp is not yet registered on your campus')
@@ -90,14 +92,27 @@ def login(request):
             return redirect('accounts:login')
     return render(request, 'forms/login.html')
 
-@login_required(login_url='Core:login')
+@login_required()
 def logout(request):
     auth.logout(request)
     return redirect('accounts:login')
 
 
-def profile(request):
+def booking_and_payments(request):
     get_user = CustomUser.objects.get(id=request.user.id)
-    context={'user':get_user,'user_profile':''}
-    return render(request, 'home/profile.html', context)
+    Booking.objects.filter(user=request.user).exists
+      
+    try:
+        booking = Booking.objects.get(user=request.user)
+
+        context = {'user':get_user, 
+                  'booking': booking}
+        
+        return render(request, 'booking&payments.html',context =  context)
+
+    except:
+        pass
+
+     
+    return render(request, 'booking&payments.html',context =  context)
 

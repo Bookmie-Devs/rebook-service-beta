@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from campus_app.models import CampusProfile
 
-@login_required(login_url='Core:login')
+@login_required()
 def room_profile(request, room_id):
     room = RoomProfile.objects.get(room_id=room_id)
     room_bookers = Booking.objects.filter(room=room).all()
@@ -17,7 +17,7 @@ def room_profile(request, room_id):
 
 
 
-@login_required(login_url='Core:login')
+@login_required()
 def all_available_rooms(request, filter_opt):
     CampusProfile.Campus_ID
     campus = CampusProfile.objects.get(Campus_ID=request.user.campus)
@@ -33,7 +33,7 @@ def all_available_rooms(request, filter_opt):
 
 
 
-@login_required(login_url='Core:login')
+@login_required()
 def filter_of_rooms(request):
     all_rooms = RoomProfile.objects.filter(campus=request.user.campus).all()
     all_hostels = HostelProfile.objects.all()

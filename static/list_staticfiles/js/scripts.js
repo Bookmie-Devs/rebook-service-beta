@@ -6,15 +6,29 @@
 // This file is intentionally blank
 // Use this file to add JavaScript to your project
 
-let bookingButton = document.getElementById("booking-button")
+const bookingButton = document.getElementById("booking-button");
+const Load  =document.querySelector('.load' );
+const searchButton = document.getElementById('search-button')
 
-// document.addEventListener('click', () => {
-//     bookingButton.innerHTML="HDHD"
 
-//     console.log("{{ room.room_price }}")
-// })
+// upon submit
+document.addEventListener('submit', () => {
+    Load.style.display = "flex";
 
-bookingButton.onclick = () => {
+    // Simulate a delay (you can replace this with your actual form submission logic)
+    setTimeout(function () {
+    // Hide the loader after the delay
+    Load.style.display = 'none';
+
+    // Now you can proceed with your form submission logic
+    // For example, you can submit the form data using AJAX or perform any other action.
     
-    bookingButton.innerText = "Payment";
+    // After processing, you can redirect or show a success message as needed.
+    }, 6000); // 6 seconds delay in this example
+})
+
+
+
+function loading(){
+    return Load.style.display = "flex";   
 }

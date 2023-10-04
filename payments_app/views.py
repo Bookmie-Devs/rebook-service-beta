@@ -26,7 +26,7 @@ from core.qrcode import generate_qrcode
 from .payStack import (paystack_verification, 
                        redirect_payment)
 
-@login_required(login_url="accounts:login")
+@login_required()
 def initiate_payment(request, room_id):
     get_room = RoomProfile.objects.get(room_id=room_id)
 
@@ -50,11 +50,11 @@ def initiate_payment(request, room_id):
                                     {'room':get_room, 'form':forms.PaymentForm,  
                                     'user':request.user,})
 
-@login_required(login_url="accounts:login")
+@login_required()
 def make_payment(request, room_id):
     get_room = RoomProfile.objects.get(room_id=room_id)
     payment = PaymentHistory.objects.get(user=request.user)
-    
+
     return render(request, 'payments/make_payment.html', 
                             {'room':get_room,
                              'reference':payment.payment_id, 
@@ -62,7 +62,7 @@ def make_payment(request, room_id):
                             'paystack_public_key':settings.PAYSTACK_PUBLIC_KEY })
 
 
-@login_required(login_url='accounts:login')
+@login_required()
 def verify_payment(request, reference):   
     payment = get_object_or_404(PaymentHistory, payment_id=reference)
 
@@ -113,7 +113,7 @@ def verify_payment(request, reference):
         return redirect('payments:init-payment', payment.room.room_id)
 
             
-@login_required(login_url='accounts:login')
+@login_required()
 def tenant_auth(request):
     try:
         tenant_id = Tenant.objects.get(user=request.user).tenant_id
