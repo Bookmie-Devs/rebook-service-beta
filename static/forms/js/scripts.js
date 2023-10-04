@@ -23,6 +23,6 @@ document.addEventListener('submit', () => {
     // For example, you can submit the form data using AJAX or perform any other action.
     
     // After processing, you can redirect or show a success message as needed.
-    }, 6000); // 6 seconds delay in this example
+    }, 7000); // 7 seconds delay in this example
 })
 
