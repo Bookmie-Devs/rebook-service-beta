@@ -28,6 +28,16 @@ document.addEventListener('submit', () => {
 })
 
 
+document.addEventListener("DOMContentLoaded", function () {
+      Load.style.display = "flex";
+    
+    // Hide the loader when all page assets (including images, scripts, etc.) are loaded
+    window.addEventListener("load", function () {
+        Load.style.display = "none";
+    });
+});
+
+
 
 function loading(){
     return Load.style.display = "flex";   
