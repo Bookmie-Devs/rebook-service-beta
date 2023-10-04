@@ -68,7 +68,7 @@ def book_room(request):
     #Checking if room is full
     elif bookings_count >= room.room_capacity:
         messages.info(request, 'Room if full for booking try again in 24 hrs')
-        return redirect('hostels:hostel_rooms', room.hostel.hostel_id)
+        return redirect('hostels:hostel-rooms', room.hostel.hostel_id)
 
     #Creating booking for user
     else:
@@ -91,6 +91,14 @@ def book_room(request):
         #redirect user for payment
         return redirect('payments:init-payment', room.room_id )
     
+    
+@login_required()
+def delete_booking(request):
+    booking = Booking.objects.get(user=request.user)
+    
+    booking.delete()
+    return redirect('accounts:booking-and-payments')
+
 
 @login_required()
 def search(request):

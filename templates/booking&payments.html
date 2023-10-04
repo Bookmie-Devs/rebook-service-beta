@@ -17,25 +17,31 @@
         <h1>{{ user.username }}</h1>
         <hr>
         <!-- <h1 style="float: ri;">Your booking details</h1> -->
-        <div>
-            <h1>{{ booking.room }}</h1>
-            <br>
-            <h1>
-             Room {{ booking.room.room_no }}
-            </h1>
-            <br>
-            <h1>{{ booking.room.hostel.hostel_name}}</h1>
-            <br>
-            <h1>{{ booking.room.room_price }}</h1>
+        {% if booking %}
+            <div>
+                <h1>{{ booking.room }}</h1>
+                <br>
+                <h1>
+                Room {{ booking.room.room_no }}
+                </h1>
+                <br>
+                <h1>{{ booking.room.hostel.hostel_name}}</h1>
+                <br>
+                <h1>{{ booking.room.room_price }}</h1>
 
-            <a href="#">
-                <button>Delete booking</button>
-            </a>
+                <a href="{% url 'core:delete-booking' %}">
+                    <button>Delete booking</button>
+                </a>
 
-            <a href="{% url 'payments:init-payment' booking.room.room_id %}">
-                <button>Pay for room</button>
-            </a>
-        </div>
+                <a href="{% url 'payments:init-payment' booking.room.room_id %}">
+                    <button>Pay for room</button>
+                </a>
+            </div>
+        {% else %}
+
+            <h1>No bookings to show</h1>
+
+        {% endif %}
     </div>
 <!-- 
     <div style="float:right;

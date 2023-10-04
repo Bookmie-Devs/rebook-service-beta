@@ -100,11 +100,19 @@ def logout(request):
 
 def booking_and_payments(request):
     get_user = CustomUser.objects.get(id=request.user.id)
-    booking = Booking.objects.get(user=request.user)
+    Booking.objects.filter(user=request.user).exists
+      
+    try:
+        booking = Booking.objects.get(user=request.user)
 
-    context = {'user':get_user, 
-               'booking': booking}
+        context = {'user':get_user, 
+                  'booking': booking}
+        
+        return render(request, 'booking&payments.html',context =  context)
 
+    except:
+        pass
 
+     
     return render(request, 'booking&payments.html',context =  context)
 
