@@ -42,7 +42,7 @@ def filter_of_rooms(request):
     get_campus = request.user.campus
     if query_set.exists():
         return render(request,  'filter_rooms.html', 
-                                {'get_rooms': query_set,
+                                {'rooms': query_set,
                                 'Campus':get_campus, 
                                 'hostels':all_hostels,
                                 'myForm':RoomFilters})

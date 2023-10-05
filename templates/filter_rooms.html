@@ -9,7 +9,7 @@
     />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Available Rooms @Rebook</title>
+    <title>Available Rooms | Rebook</title>
     <!-- Favicon-->
     <link
       rel="icon"
@@ -31,12 +31,11 @@
 
 
       <!-- Loader -->
-      <div class="load">
-        <div class="loader">
-          <div class="spinner"></div>
-          <p>Searching...</p>
-        </div>
-      </div>  
+    <div class="load">
+      <div class="loader">
+        <div class="spinner"></div>
+       </div>
+    </div>  
   
 
     <!-- Navigation-->
@@ -63,7 +62,7 @@
                 href="{% url 'core:index' %}"
                 >Home</a>
             </li>
-            <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'accounts:booking-and-payments' %}">Booking/Payments</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url 'core:hostels' %}">Hostels</a></li>
              
           </ul>
@@ -136,7 +135,7 @@
     <section class="py-5">
       <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-          {% for room in get_rooms %}
+          {% for room in rooms %}
           <a style="text-decoration:none; color:rgb(48, 45, 45);" href="{% url 'rooms:profile' room_id=room.room_id %}">
           <div class="col mb-5">
             <div class="card h-100">
@@ -146,10 +145,10 @@
                   <!-- Sale badge-->
                   <div
                     class="badge bg-dark text-white position-absolute"
-                    style="top: 0.5rem; right: 0.5rem"
-                  >
-                    Sale
+                    style="top: 0.5rem; right: 0.5rem">
+                    View specs
                   </div>
+                  <br>
                   <!-- Product name-->
                   <h5 class="fw-bolder">{{ room.hostel.hostel_name }}</h5>
                   <!-- <h5 class="fw-bolder">{{ room.rating }}</h5> -->
@@ -162,9 +161,9 @@
                     <div class="bi-star-fill"></div>
                     <div class="bi-star-fill"></div>
                   </div>
-                  <h5 class="fw-bolder">{{ room.room_capacity }} in a Room</h5>
+                  <h5 class="fw-bolder">{{ room.room_capacity }} in a Room🏠</h5>
                   <!-- Product price-->
-                  {{ room.room_price }}
+                  {{ room.room_price }}💵
                 </div>
               </div>
               <!-- Product actions-->
@@ -173,10 +172,11 @@
                 method="POST"
               >
                 {% csrf_token %}
+                <input type="hidden", name="room_id" value="{{ room.room_id }}">
                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                   <div class="text-center">
                     <button type="submit" class="btn btn-outline-dark mt-auto">
-                      Book
+                      Book🏷️
                     </button>
                   </div>
                 </div>
