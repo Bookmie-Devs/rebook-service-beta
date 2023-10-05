@@ -8,7 +8,7 @@ from .models import CustomUser
 # custom admin panel (altered)
 class CustomAdminPanel(UserAdmin):
     # list of fields on admin
-    list_display = ("email","username", "student_id", "first_name", "is_staff")
+    list_display = ("email","username", "student_id", "first_name", "is_hostel_manager", "is_staff")
 
     fieldsets = (
         (None, {"fields": ("email", "password")}),
@@ -25,6 +25,7 @@ class CustomAdminPanel(UserAdmin):
                     "is_active",
                     "is_staff",
                     "is_superuser",
+                    "is_hostel_manager",
                     "groups",
                     "user_permissions",
                 ),
@@ -32,6 +33,11 @@ class CustomAdminPanel(UserAdmin):
         ),
         (_("Important dates"), {"fields": ("last_login", "date_joined")}),
     )
+    # custom filter list
+    list_filter = ("is_staff", "is_superuser", "is_active", "groups",'is_hostel_manager',)
+
+    # custom search_fields
+    search_fields = ("username", "first_name", "last_name", "email",'student_id',)
 
 ## custom add fieldset for custom admin
     add_fieldsets = (
@@ -46,6 +52,7 @@ class CustomAdminPanel(UserAdmin):
                              "is_active", "is_staff",
                             "is_superuser","groups",
                             "user_permissions",
+                            "is_hostel_manager"
                              ),
             },
         ),
