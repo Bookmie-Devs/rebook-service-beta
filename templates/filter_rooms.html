@@ -9,7 +9,7 @@
     />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Available Rooms @Rebook</title>
+    <title>Available Rooms | Rebook</title>
     <!-- Favicon-->
     <link
       rel="icon"
@@ -31,12 +31,11 @@
 
 
       <!-- Loader -->
-      <div class="load">
-        <div class="loader">
-          <div class="spinner"></div>
-          <p>Searching...</p>
-        </div>
-      </div>  
+    <div class="load">
+      <div class="loader">
+        <div class="spinner"></div>
+       </div>
+    </div>  
   
 
     <!-- Navigation-->
@@ -63,7 +62,7 @@
                 href="{% url 'core:index' %}"
                 >Home</a>
             </li>
-            <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'accounts:booking-and-payments' %}">Booking/Payments</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url 'core:hostels' %}">Hostels</a></li>
              
           </ul>
@@ -173,6 +172,7 @@
                 method="POST"
               >
                 {% csrf_token %}
+                <input type="hidden", name="room_id" value="{{ room.room_id }}">
                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                   <div class="text-center">
                     <button type="submit" class="btn btn-outline-dark mt-auto">

@@ -8,12 +8,16 @@
 
 const bookingButton = document.getElementById("booking-button");
 const Load  =document.querySelector('.load' );
-const searchButton = document.getElementById('search-button')
-
+const searchButton = document.getElementById('search-button');
+const loadingOption = document.getElementById('loading-option');
+const hostelLoader = document.getElementById('hostel-loader')
 
 // upon submit
 document.addEventListener('submit', () => {
     Load.style.display = "flex";
+
+    // change p-tag depending on loading option
+    loadingOption.innerHTML = "Searching..."
 
     // Simulate a delay (you can replace this with your actual form submission logic)
     setTimeout(function () {
@@ -28,13 +32,20 @@ document.addEventListener('submit', () => {
 })
 
 
-document.addEventListener("DOMContentLoaded", function () {
-      Load.style.display = "flex";
+
+window.addEventListener("load", function () {
+    hostelLoader.style.display = "flex";
+
+    // Simulate a delay (you can replace this with your actual form submission logic)
+    setTimeout(function () {
+        // Hide the loader after the delay
+        hostelLoader.style.display = 'none';
     
-    // Hide the loader when all page assets (including images, scripts, etc.) are loaded
-    window.addEventListener("load", function () {
-        Load.style.display = "none";
-    });
+        // Now you can proceed with your form submission logic
+        // For example, you can submit the form data using AJAX or perform any other action.
+        
+        // After processing, you can redirect or show a success message as needed.
+        }, 1500); // 1.5 seconds delay in this example
 });
 
 
