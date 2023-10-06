@@ -53,7 +53,8 @@ class HostelProfile(models.Model):
     location = models.CharField(max_length=500, default="location unavailable")
     other_phone = models.CharField(max_length=10, blank=True)
     map_location = models.CharField(max_length=10000, default='unavailable')
-    hostel_main_site = models.URLField(null=True, blank=True)
+    main_website = models.URLField(null=True, blank=True, 
+                                verbose_name='Hostel Website')
     
     #Location of hostel base on Google map API
     address = models.CharField(max_length=255)
