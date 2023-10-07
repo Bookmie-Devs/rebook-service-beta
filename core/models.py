@@ -45,9 +45,9 @@ class Tenant(models.Model):
     checked_in = models.BooleanField(default=False)
 
     # verification_code for tenant
-    verification_code = models.CharField(max_length=300,
-                                        null=True, unique=True,
-                                         blank=True,)
+    verification_code = models.CharField(max_length=700,
+                                        default='unavailable', 
+                                        unique=True,)
     
     start_date = models.DateTimeField(auto_now_add=True)
     end_date = models.DateTimeField()
@@ -58,7 +58,7 @@ class Tenant(models.Model):
         self.end_date = (timezone.now()+timedelta(days=365))
 
         # verification code
-        self.verification_code=f'#Hosabella-{self.user.first_name}-{self.tenant_id}-{self.user.student_id}-{self.user.last_name}#'
+        self.verification_code = f'{self.hostel.hostel_code}-{self.tenant_id}-{self.user.first_name.upper()}-{self.user.student_id}-{self.user.last_name.upper()}-@-{self.start_date}'
 
         return super().save(*args, **kwargs)
     
