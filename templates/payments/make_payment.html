@@ -12,8 +12,6 @@
         <h1>Book Up</h1>
     </header>
 
-
-    <!-- loader for laoding -->
     <div class="container">
 
       {% if messages %}
@@ -69,14 +67,15 @@
         handler.openIframe();
       }
     </script>
-
-      <!-- Loader -->
-      <div class="load">
-        <div class="loader">
-          <div class="spinner"></div>
-          <p>Confirming...</p>
-        </div>
+      
+     <!-- Loader -->
+     <div class="load">
+      <div class="loader">
+        <div class="spinner"></div>
+        <p id="loading-option">Confirming...</p>
       </div>
+    </div>
+
 
     <script src="{% static 'payment/js/script.js' %}"></script>
 

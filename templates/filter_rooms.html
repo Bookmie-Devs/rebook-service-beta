@@ -34,6 +34,7 @@
     <div class="load">
       <div class="loader">
         <div class="spinner"></div>
+        <p id="loading-option"></p>
        </div>
     </div>  
   
@@ -86,7 +87,7 @@
       <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-white filter">
             <a class="nav-link active" aria-current="page" href=""><h2 class="display-4 fw-bolder" href="#!"style="color: orange;">Feel free to filter our Rooms🏠</h2></a>
-            <form class="row gx-3 gy-2 align-items-center" action="{% url 'rooms:filter-rooms' %}" method="GET">
+            <form data-action="Searching..." class="row gx-3 gy-2 align-items-center" action="{% url 'rooms:filter-rooms' %}" method="GET">
               <div class="col-sm-3">
                 <label class="visually-hidden" for="specificSizeSelect">Preference</label>
                 <select name="room_capacity" class="form-select" id="specificSizeSelect">
@@ -166,8 +167,10 @@
                   {{ room.room_price }}💵
                 </div>
               </div>
-              <!-- Product actions-->
+
+              <!-- Booking form-->
               <form
+                data-action="Booking..."
                 id="booking-form"
                 action="{% url 'core:booking'  %}"
                 method="POST"

@@ -22,6 +22,7 @@
     <div class="load">
       <div class="loader">
         <div class="spinner"></div>
+        <p id="loading-option"></p>
       </div>
     </div>  
 
@@ -48,7 +49,7 @@
 
           <nav class="navbar ">
             <div class="container-fluid">
-              <form action="{% url 'hostels:filter-rooms' %}" class="d-flex" role="search">
+              <form data-action="Searching..." action="{% url 'hostels:filter-rooms' %}" class="d-flex" role="search">
                 <input class="form-control me-2" type="number" required name="capacity" placeholder="4 in a room..." aria-label="Search">
                 <input hidden value="{{ hostel.hostel_id }}" name="hostel">
                 <button class="drop btn" id="search-button" type="submit">Search</button>
@@ -139,7 +140,7 @@
               </div>
 
               <!--booking form for each room-->
-              <form id="booking-form"
+              <form data-action="Booking..." id="booking-form"
                 action="{% url 'core:booking' %}" method="POST">
                 {% csrf_token %}
                 <input type="hidden" name="room_id" value="{{ room.room_id }}">
