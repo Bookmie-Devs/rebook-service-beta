@@ -23,6 +23,11 @@ class RoomProfile(models.Model):
     
     rating = models.IntegerField(choices=rating ,blank=False, 
                                  default='⭐', )
+    
+    # occupied by users who booked but not payed yet
+    booking_occupied = models.BooleanField(default=False)
+
+    # actually occupied by tenants
     occupied = models.BooleanField(default=False)
 
 

@@ -63,10 +63,13 @@ def make_payment(request, room_id):
 
 
 @login_required()
-def verify_payment(request, reference):   
+def verify_payment(request, reference):  
     payment = get_object_or_404(PaymentHistory, payment_id=reference)
 
-    #redirecting payment
+    # count tenants in th room 
+    count_members = Tenant.objects.filter(room=payment.room).count()
+
+    # redirecting payment
     account = redirect_payment(customer_email=request.user.email, 
                                 room_price=payment.room.room_price,
                                 hostel=payment.hostel)
@@ -85,6 +88,12 @@ def verify_payment(request, reference):
                 tenant = Tenant.objects.create(user=request.user, room=payment.room,
                                             hostel=payment.hostel, payed=True,
                                             ).save()
+                
+                # SET ROOM TO FULL IF CAPACITY HAS TRUE
+                if payment.room.room_capacity == count_members:
+                    payment.room.occupied = True
+                    payment.room.save()
+                    pass
         
                 # SET BOOKING STATUS TO PAYED
                 booking = Booking.objects.get(user=request.user)
@@ -120,7 +129,7 @@ def tenant_auth(request):
     
     except Tenant.DoesNotExist:
         messages.info(request, "You are not a tenant to get verification")
-        redirect('core:hostels')
+        redirect('accounts:booking-and-payments')
 
     get_tenant = Tenant.objects.get(tenant_id=tenant_id)
     room = get_tenant.room

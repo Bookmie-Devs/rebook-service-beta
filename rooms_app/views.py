@@ -35,7 +35,7 @@ def all_available_rooms(request, filter_opt):
 
 @login_required()
 def filter_of_rooms(request):
-    all_rooms = RoomProfile.objects.filter(campus=request.user.campus).all()
+    all_rooms = RoomProfile.objects.filter(campus=request.user.campus, occupied=False).all()
     all_hostels = HostelProfile.objects.all()
     search = RoomFilters(request.GET, queryset=all_rooms)
     query_set = search.qs
