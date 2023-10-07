@@ -180,7 +180,8 @@ def tenant_auth(request):
         pdf.drawText(text)
 
         #generates qrcode for user
-        qr_code_image = generate_qrcode(get_tenant.tenant_id)
+        qr_code_image = generate_qrcode(verification_code=get_tenant.verification_code)
+        
         qr_code_image.save(qrcode_name)  # Save the QR code image
         pdf.drawImage(qrcode_name, 50, 490, width=200, height=200)
         pdf.showPage()
