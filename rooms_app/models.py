@@ -8,7 +8,12 @@ from django.urls import reverse
 from datetime import datetime
 
 class RoomProfile(models.Model):
+    # room number
     room_no = models.CharField(max_length=20,default=000)
+
+    # floor number of room
+    floor_no = models.CharField(max_length=20, default=0)
+
     room_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     hostel = models.ForeignKey(HostelProfile, on_delete=models.CASCADE, 
                                related_name='rooms')
@@ -29,6 +34,16 @@ class RoomProfile(models.Model):
 
     # actually occupied by tenants
     occupied = models.BooleanField(default=False)
+
+    #room features
+    contains_kitchen = models.BooleanField(default=False)
+    shared_kitchen = models.BooleanField(default=False)
+
+    """ if room does not contain bathroom then it is shared """
+    contains_bathroom = models.BooleanField(default=False)
+
+    air_condition = models.BooleanField(default=False)
+
 
 
     class Meta:
