@@ -47,8 +47,7 @@ class HostelProfile(models.Model):
     hostel_email = models.EmailField(blank=True)
 
     account_number = models.CharField(max_length=70,
-                                      default='unavailable',
-                                      unique=True)
+                                      default='unavailable',)
 
     #Bank code for momo is MTN IF not specified
     bank_code = models.CharField(max_length=50, default='unavailable')
