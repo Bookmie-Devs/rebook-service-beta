@@ -86,16 +86,16 @@
 
       <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-white filter">
-          {% if messages %}
-
-             {% for message in messages %}
-             <a class="nav-link active" aria-current="page" href=""><h2 class="display-4 fw-bolder" href="#!"style="color: orange;">{{ message }}</h2></a>
-          {% endfor %}
-
-              {% else %}
-              <a class="nav-link active" aria-current="page" href=""><h2 class="display-4 fw-bolder" href="#!"style="color: orange;">Lets Help You Get A Room🏠</h2></a>
-          {% endif %}
+          <a class="nav-link active" aria-current="page" href=""><h2 class="display-4 fw-bolder" href="#!"style="color: orange;">Lets Help You Get A Room🏠</h2></a>
             <hr>
+            <hr>
+
+          {% if messages %}
+            {% for message in messages %}
+              <a class="nav-link active" aria-current="page" href=""><h4 style="color: rgb(255, 30, 0);">{{ message }}</h4></a>
+            {% endfor %}
+          {% endif %}
+
             <hr>
             <form data-action="Searching..." class="row gx-3 gy-2 align-items-center" action="{% url 'rooms:filter-rooms' %}" method="GET">
               <div class="col-sm-3">
@@ -150,13 +150,7 @@
               {{ myForm.form }}
               <button type="submit">HUH</button>
             </form> -->
-      
-                <div>
-                  <script>
-                      alert("{{ message }}")
-                  </script>            
-                </div>
-      
+
         </div>
       </div>
     </header>

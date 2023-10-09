@@ -107,7 +107,7 @@ def booking_and_payments(request):
         booking = Booking.objects.get(user=request.user)
         context = {'user':get_user, 
                 'booking': booking}
-        return render(request, 'booking-and-payments.html',context=context)
+        return render(request, 'booking&payments.html',context=context)
     
     except Booking.DoesNotExist:
 
@@ -115,5 +115,5 @@ def booking_and_payments(request):
         context = {'user':get_user, 
                 'booking': booking}
 
-        return render(request, 'booking-and-payments.html',context=context)
+        return render(request, 'booking&payments.html',context=context)
 
