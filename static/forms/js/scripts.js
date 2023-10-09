@@ -12,8 +12,7 @@ window.addEventListener("load", function () {
     setTimeout(function () {
         // Hide the loader after the delay
         Load.style.display = 'none';
-    
-        // After processing, you can redirect or show a success message as needed.
+        
         }, 2000); // 2 seconds delay in this example
 });
 

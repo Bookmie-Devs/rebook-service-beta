@@ -1,11 +1,17 @@
 // Variables
 
-const Pay = document.getElementById('pay');
+const payButton = document.getElementById('pay');
 const Load = document.querySelector('.load');
+
+// get the p-tag for the loader
+const loadingOption = document.querySelector('#loading-option');
+
+
+
 
 
 // Event Listener
-Pay.addEventListener('click', () => {
+payButton.addEventListener('click', () => {
     Load.style.display = "flex";
 
     // Simulate a delay (you can replace this with your actual form submission logic)
@@ -13,14 +19,8 @@ Pay.addEventListener('click', () => {
     // Hide the loader after the delay
     Load.style.display = 'none';
 
-    // Now you can proceed with your form submission logic
-    // For example, you can submit the form data using AJAX or perform any other action.
-    
     // After processing, you can redirect or show a success message as needed.
-    }, 7000); // 7 seconds delay in this example
+    }, 17000); // 17 seconds delay in this example
 });
 
-// Pay.onclick = () => {
-//     Load.style.display = "flex";
-// }
 

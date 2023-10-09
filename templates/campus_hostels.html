@@ -44,18 +44,12 @@
                     </ul>
                     <nav class="navbar ">
                         <div class="container-fluid">
-                          <form action="{% url 'core:search' %}" class="d-flex" role="search">
+                          <form data-action="Searching..."  action="{% url 'core:search' %}" class="d-flex" role="search">
                             <input class="form-control me-2" type="search" required name="search_data" placeholder="Search for hostels" aria-label="Search">
                             <button class="drop btn" id="search-button" type="submit">Search</button>
                           </form>
                         </div>
                       </nav>
-                    {% comment %} <a href="{% url 'rooms:filter-rooms' %}">
-                    <button class="drop btn btn-outline-dark" type="submit">
-                        <i class="bi bi-house-gear-fill"></i>
-                        Flexible Rooms
-                    </button>
-                    </a> {% endcomment %}
                 </div>
             </div>
         </nav>

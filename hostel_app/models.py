@@ -12,13 +12,16 @@ category =[('Hostel','Hostel'),('Homestel','Homestel'),
                              ('Apartment','Apartment')]
 
 class HostelProfile(models.Model): 
+
     '''Hostel model for database'''
     hostel_name = models.CharField(max_length=50)
 
-    hostel_id = models.UUIDField(primary_key=True, default=uuid.uuid4, 
+    hostel_id = models.UUIDField(default=uuid.uuid4, 
                                  editable=False, unique=True)
     
-    hostel_code = models.CharField(max_length=50, null=True)
+    hostel_code = models.CharField(max_length=100,
+                                   null=True, blank=True,
+                                   unique=True)
 
     hostel_image = models.ImageField(upload_to='HostelProfiles',
                                       default='unavailable.jpg')
@@ -42,12 +45,18 @@ class HostelProfile(models.Model):
                                           related_name='hostels', null=True,)
     
     hostel_email = models.EmailField(blank=True)
-    account_number = models.CharField(max_length=50, default='unavailable')
+
+    account_number = models.CharField(max_length=70,
+                                      default='unavailable',
+                                      unique=True)
 
     #Bank code for momo is MTN IF not specified
     bank_code = models.CharField(max_length=50, default='unavailable')
 
-    mobile_money = models.CharField(max_length=14, default='unavailable')
+    mobile_money = models.CharField(max_length=14,
+                                    default='unavailable',
+                                    unique=True,)
+    
     managers_contact = models.CharField(max_length=10, blank=True)
     contact = models.CharField(max_length=10)
     location = models.CharField(max_length=500, default="location unavailable")
@@ -66,6 +75,15 @@ class HostelProfile(models.Model):
         db_table = 'hostel_profiles'
         
         ordering = ('-hostel_name',)
+    
+
+    def save(self, *args, **kwargs):
+
+        #  create hostel code on save
+        self.hostel_code = f'{self.hostel_name[:3].upper()}{self.pk}'
+
+        return super().save(*args, **kwargs)
+
 
     def get_profile_url(self):
         return reverse("hostels:profile", kwargs={'hostel_id':self.hostel_id})
@@ -78,4 +96,3 @@ class HostelProfile(models.Model):
     def __str__(self):
         return f'{self.hostel_name}'
     
-

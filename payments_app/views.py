@@ -63,10 +63,13 @@ def make_payment(request, room_id):
 
 
 @login_required()
-def verify_payment(request, reference):   
+def verify_payment(request, reference):  
     payment = get_object_or_404(PaymentHistory, payment_id=reference)
 
-    #redirecting payment
+    # count tenants in th room 
+    count_members = Tenant.objects.filter(room=payment.room).count()
+
+    # redirecting payment
     account = redirect_payment(customer_email=request.user.email, 
                                 room_price=payment.room.room_price,
                                 hostel=payment.hostel)
@@ -85,6 +88,12 @@ def verify_payment(request, reference):
                 tenant = Tenant.objects.create(user=request.user, room=payment.room,
                                             hostel=payment.hostel, payed=True,
                                             ).save()
+                
+                # SET ROOM TO FULL IF CAPACITY HAS TRUE
+                if payment.room.room_capacity == count_members:
+                    payment.room.occupied = True
+                    payment.room.save()
+                    pass
         
                 # SET BOOKING STATUS TO PAYED
                 booking = Booking.objects.get(user=request.user)
@@ -117,72 +126,76 @@ def verify_payment(request, reference):
 def tenant_auth(request):
     try:
         tenant_id = Tenant.objects.get(user=request.user).tenant_id
+        get_tenant = Tenant.objects.get(tenant_id=tenant_id)
+
+        # room of tenant
+        room = get_tenant.room
+
+        #qrcode name for user after payments
+        qrcode_name = f'VerificationFiles/Ver_Qrcodes/{request.user.username} qrcode.png'
+
+        #tittle of pdf page to be generated
+        title = f"{request.user.username} Authentication details"
+
+        #subtittle of the pdf 
+        subtitle = 'www.GuudNyt.com'
+
+        """Fucntions to generate a list strings containing booking details for every user"""
+        booker_details= tenant_auth_details(user=request.user, 
+                                            room=room, tenant=get_tenant)
+
+        text_template = tenant_auth_message(user=request.user, 
+                                            room=room, tenant=get_tenant)
+
+
+        """CODES THAT GENERATE BOOKING PDF USING REPORT-LAB"""
+        buffer = BytesIO()
+        pdf = canvas.Canvas(buffer, pagesize=letter)
+
+        #Title of auth pdf
+        pdf.setTitle(title)
+        pdf.setFont("Helvetica", 20)
+        pdf.drawString(145, 730, title)
+
+        #Subtitle of auth pdf
+        pdf.setFont('Helvetica', 15)
+        pdf.drawString(250, 699, subtitle)
+
+        #tenant_details
+        details = pdf.beginText(290, 660)
+        details.setFont('Helvetica', 18)
+        details.setFillColor(colors.black)
+        ##############################
+        #looping over a list of strings
+        for detail in booker_details:
+            details.textLine(detail)
+        pdf.drawText(details)
+
+        #Main content of pdf
+        text = pdf.beginText(57, 440)
+        text.setFont('Helvetica', 18)
+        text.setFillColor(colors.black)
+        for line in text_template:
+            text.textLine(line)
+        pdf.drawText(text)
+
+        #generates qrcode for user
+        qr_code_image = generate_qrcode(verification_code=get_tenant.verification_code)
+        
+        qr_code_image.save(qrcode_name)  # Save the QR code image
+        pdf.drawImage(qrcode_name, 50, 490, width=200, height=200)
+        pdf.showPage()
+        pdf.save()
+        buffer.seek(0)
+
+        #reponse to client with generated pdf
+        response = HttpResponse(content_type='application/pdf') 
+        response.write(buffer.getvalue())
+        return response
     
     except Tenant.DoesNotExist:
         messages.info(request, "You are not a tenant to get verification")
-        redirect('core:hostels')
+        return redirect('accounts:booking-and-payments')
 
-    get_tenant = Tenant.objects.get(tenant_id=tenant_id)
-    room = get_tenant.room
-
-    #qrcode name for user after payments
-    qrcode_name = f'VerificationFiles/Ver_Qrcodes/{request.user.username} qrcode.png'
-
-    #tittle of pdf page to be generated
-    title = f"{request.user.username} Authentication details"
-
-    #subtittle of the pdf 
-    subtitle = 'www.GuudNyt.com'
-
-    """Fucntions to generate a list strings containing booking details for every user"""
-    booker_details= tenant_auth_details(user=request.user, 
-                                        room=room, tenant=get_tenant)
-    
-    text_template = tenant_auth_message(user=request.user, 
-                                        room=room, tenant=get_tenant)
-    
-    
-    """CODES THAT GENERATE BOOKING PDF USING REPORT-LAB"""
-    buffer = BytesIO()
-    pdf = canvas.Canvas(buffer, pagesize=letter)
-
-    #Title of auth pdf
-    pdf.setTitle(title)
-    pdf.setFont("Helvetica", 20)
-    pdf.drawString(145, 730, title)
-
-    #Subtitle of auth pdf
-    pdf.setFont('Helvetica', 15)
-    pdf.drawString(250, 699, subtitle)
-
-    #tenant_details
-    details = pdf.beginText(290, 660)
-    details.setFont('Helvetica', 18)
-    details.setFillColor(colors.black)
-    ##############################
-    #looping over a list of strings
-    for detail in booker_details:
-        details.textLine(detail)
-    pdf.drawText(details)
-
-    #Main content of pdf
-    text = pdf.beginText(57, 440)
-    text.setFont('Helvetica', 18)
-    text.setFillColor(colors.black)
-    for line in text_template:
-        text.textLine(line)
-    pdf.drawText(text)
-
-    #generates qrcode for user
-    qr_code_image = generate_qrcode(get_tenant.tenant_id)
-    qr_code_image.save(qrcode_name)  # Save the QR code image
-    pdf.drawImage(qrcode_name, 50, 490, width=200, height=200)
-    pdf.showPage()
-    pdf.save()
-    buffer.seek(0)
-
-    #reponse to client with generated pdf
-    response = HttpResponse(content_type='application/pdf') 
-    response.write(buffer.getvalue())
-    return response
+  
 

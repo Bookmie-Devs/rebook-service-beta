@@ -5,7 +5,7 @@ from .models import HostelProfile
 class CustomHostelAdminPanel(admin.ModelAdmin):
 
     fieldsets = (
-        ('General', {"fields":('hostel_name','hostel_code',
+        ('General', {"fields":('hostel_name',
                           'hostel_image',
                           'category',
                           'rating',
@@ -23,6 +23,9 @@ class CustomHostelAdminPanel(admin.ModelAdmin):
                                     'bank_code',)}),
 
         ('verification', {"fields": ('verified',)}),
+
+        #forbid
+        ('Forbbiden',{'fields':('hostel_code',)}),
     )
     search_fields = ('hostel_name','hostel_code')
 

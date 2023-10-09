@@ -11,10 +11,14 @@
     </style>
 </head>
 <body>
-    <h1> Still in developement</h1>
+    <h1> Still in developement</h1> 
+    {% for message in messages %}
+        <h1>{{ message }}</h1>
+    {% endfor %}
     <hr>
     <a href="{% url 'core:hostels' %}">Home</a>
     <hr>
+    <a href="{% url 'payments:tenant-authentication' %}">Get Verification</a>
     <div>
         <h1>{{ user.username }}</h1>
         <hr>

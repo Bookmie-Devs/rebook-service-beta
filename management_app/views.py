@@ -129,9 +129,9 @@ def get_booking(request):
 @api_view(['POST', 'DELETE'])
 @permission_classes([IsAuthenticated])
 def verify_tenant(request):
-    tenant_id = request.POST['tenant_id']
+    verification_code = request.POST['verification_code']
     try:
-        get_tenant = Tenant.objects.get(tenant_id=tenant_id)
+        get_tenant = Tenant.objects.get(verification_code=verification_code)
         if request.method == 'GET':
         #if already checked in
             if get_tenant.checked_in == True:

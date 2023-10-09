@@ -8,20 +8,42 @@ const load  = document.querySelector('.load' );
 const loadingOption = document.getElementById('loading-option');
 
 
-// upon submit
-document.addEventListener('submit', () => {
-    load.style.display = "flex";
 
-    // change p-tag of loader in campus hostel page during submission
-    loadingOption.innerHTML = "Searching..."
+document.querySelectorAll('form').forEach(function(form){
+    console.log(form.dataset.loadingOption)
 
-    // Simulate a delay (you can replace this with your actual form submission logic)
-    setTimeout(function () {
-    // Hide the loader after the delay
-    load.style.display = 'none';
+    form.onsubmit = () => {
+        
+        load.style.display = "flex";
+
+        // change p-tag of loader in campus hostel page during submission
+        loadingOption.innerHTML = form.dataset.action;
     
-    }, 7000); // 7 seconds delay 
+        // Simulate a delay (you can replace this with your actual form submission logic)
+        setTimeout(function () {
+        // Hide the loader after the delay
+        load.style.display = 'none';
+        
+        }, 8000); // 8 seconds delay 
+    }
+
 })
+
+
+// upon submit
+// document.submit = () => {
+//     load.style.display = "flex";
+
+//     // change p-tag of loader in campus hostel page during submission
+//     loadingOption.innerHTML = "Searching..."
+
+//     // Simulate a delay (you can replace this with your actual form submission logic)
+//     setTimeout(function () {
+//     // Hide the loader after the delay
+//     load.style.display = 'none';
+    
+//     }, 7000); // 7 seconds delay 
+// }
 
 
 

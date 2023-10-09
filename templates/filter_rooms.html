@@ -34,6 +34,7 @@
     <div class="load">
       <div class="loader">
         <div class="spinner"></div>
+        <p id="loading-option"></p>
        </div>
     </div>  
   
@@ -85,8 +86,18 @@
 
       <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-white filter">
-            <a class="nav-link active" aria-current="page" href=""><h2 class="display-4 fw-bolder" href="#!"style="color: orange;">Feel free to filter our Rooms🏠</h2></a>
-            <form class="row gx-3 gy-2 align-items-center" action="{% url 'rooms:filter-rooms' %}" method="GET">
+          {% if messages %}
+
+             {% for message in messages %}
+             <a class="nav-link active" aria-current="page" href=""><h2 class="display-4 fw-bolder" href="#!"style="color: orange;">{{ message }}</h2></a>
+          {% endfor %}
+
+              {% else %}
+              <a class="nav-link active" aria-current="page" href=""><h2 class="display-4 fw-bolder" href="#!"style="color: orange;">Lets Help You Get A Room🏠</h2></a>
+          {% endif %}
+            <hr>
+            <hr>
+            <form data-action="Searching..." class="row gx-3 gy-2 align-items-center" action="{% url 'rooms:filter-rooms' %}" method="GET">
               <div class="col-sm-3">
                 <label class="visually-hidden" for="specificSizeSelect">Preference</label>
                 <select name="room_capacity" class="form-select" id="specificSizeSelect">
@@ -99,11 +110,13 @@
               </div> 
 
               <div class="col-sm-3">
-                <input class="form-control" 
-                type="number"
-                name="room_price_min"
-                placeholder="Lowest price">
-              </div>
+                <label class="visually-hidden" for="specificSizeSelect">Preference</label>
+                <select name="contains_bathroom" class="form-select" id="specificSizeSelect">
+                  <option value="unknown">Any</option>
+                  <option selected value="true">Contains bathroom</option>
+                  <option value="false">Shared bathroom</option>
+                </select>
+              </div> 
 
               <div class="col-sm-3">
                 <input class="form-control"
@@ -112,22 +125,38 @@
                 placeholder="Highest price">
               </div>
               
-              <div class="col-auto btns">
-                <button type="submit" id="search-button" class="drop btn">Search</button>
+              <div class="col-sm-3">
+                <input class="form-control"
+                type="number"
+                name="room_price_max"
+                placeholder="Highest price">
               </div>
 
-              <!-- {{ myForm.form }}
-              <button>HUH</button> -->
+              <!-- smaller search button -->
+              <!-- <div class="col-auto btns">
+                <button type="submit" id="search-button" class="drop btn">Search</button>
+              </div> -->
+
+              <hr>
+                <button class="drop btn btn-outline-dark" type="submit">
+                  <i class="bi-cart-fill me-1"></i>
+                  Search
+                </button>
             </form>
-            {% if messages %}
-            {% for message in messages %}
+
+            <!-- for testing -->
+            <!-- <form>
+
+              {{ myForm.form }}
+              <button type="submit">HUH</button>
+            </form> -->
+      
                 <div>
                   <script>
                       alert("{{ message }}")
                   </script>            
                 </div>
-              {% endfor %}
-            {% endif %}
+      
         </div>
       </div>
     </header>
@@ -166,8 +195,10 @@
                   {{ room.room_price }}💵
                 </div>
               </div>
-              <!-- Product actions-->
+
+              <!-- Booking form-->
               <form
+                data-action="Booking..."
                 id="booking-form"
                 action="{% url 'core:booking'  %}"
                 method="POST"
