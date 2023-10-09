@@ -1,4 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponseRedirect
+from django.urls import reverse
+
 from hostel_app.models import HostelProfile
 from .models import RoomProfile
 from core.models import Booking
@@ -23,16 +25,35 @@ def filter_of_rooms(request):
     search = RoomFilters(request.GET, queryset=all_rooms)
     query_set = search.qs
     get_campus = request.user.campus
-    if query_set.exists():
-        return render(request,  'filter_rooms.html', 
-                                    {'rooms': query_set,
-                                    'Campus':get_campus, 
-                                    'hostels':all_hostels,
-                                    'myForm':RoomFilters})
-    else:   
-        messages.info(request, "No rooms with such details available")
-        return redirect('rooms:filter-rooms')
+    # if query_set.exists():
+    #     return render(request,  'filter_rooms.html', 
+    #                                 {'rooms': query_set,
+    #                                 'Campus':get_campus, 
+    #                                 'hostels':all_hostels,
+    #                                 'myForm':RoomFilters})
+       
+    # messages.info(request, "No rooms with such details available")
+    # return render(request,  'filter_rooms.html', 
+                                    # {'rooms': all_rooms,
+                                    # 'Campus':get_campus, 
+                                    # 'hostels':all_hostels,
+                                    # 'myForm':RoomFilters})
     
+    if not query_set.exists():
+        messages.info(request, "No products match your search criteria.")
+        return redirect('rooms:filter-rooms')  # Redirect back to the product list page
+
+    return render(
+        request,
+        'filter_rooms.html',
+        {'rooms': all_rooms,
+        'Campus':get_campus, 
+        'hostels':all_hostels,
+        'myForm':RoomFilters} )
+
+    
+
+
 
 
 

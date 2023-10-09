@@ -30,7 +30,14 @@ class RoomFilters(django_filters.FilterSet):
 
 
 
+import django_filters
 
+class ProductFilter(django_filters.FilterSet):
+    name = django_filters.CharFilter(lookup_expr='icontains')
+
+    class Meta:
+        # model = Product
+        fields = ['name', 'category', 'price']  # Define the fields you want to filter on
 
 
 
