@@ -45,12 +45,18 @@ class HostelProfile(models.Model):
                                           related_name='hostels', null=True,)
     
     hostel_email = models.EmailField(blank=True)
-    account_number = models.CharField(max_length=50, default='unavailable')
+
+    account_number = models.CharField(max_length=70,
+                                      default='unavailable',
+                                      unique=True)
 
     #Bank code for momo is MTN IF not specified
     bank_code = models.CharField(max_length=50, default='unavailable')
 
-    mobile_money = models.CharField(max_length=14, default='unavailable')
+    mobile_money = models.CharField(max_length=14,
+                                    default='unavailable',
+                                    unique=True,)
+    
     managers_contact = models.CharField(max_length=10, blank=True)
     contact = models.CharField(max_length=10)
     location = models.CharField(max_length=500, default="location unavailable")
