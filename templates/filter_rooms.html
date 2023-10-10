@@ -89,14 +89,15 @@
           <a class="nav-link active" aria-current="page" href=""><h2 class="display-4 fw-bolder" href="#!"style="color: orange;">Lets Help You Get A Room🏠</h2></a>
             <hr>
             <hr>
+            {% if messages %}
 
-          {% if messages %}
             {% for message in messages %}
-              <a class="nav-link active" aria-current="page" href=""><h4 style="color: rgb(255, 30, 0);">{{ message }}</h4></a>
+            <h2 href="#!"style="color: orange;">{{ message }}</h2>
             {% endfor %}
+      
+          {% else %}
           {% endif %}
-
-            <hr>
+           <hr>
             <form data-action="Searching..." class="row gx-3 gy-2 align-items-center" action="{% url 'rooms:filter-rooms' %}" method="GET">
               <div class="col-sm-3">
                 <label class="visually-hidden" for="specificSizeSelect">Preference</label>
@@ -211,6 +212,7 @@
           </div>
         </a>
           {% endfor %}
+          
       </div>
     </section>
     <!-- Footer-->
