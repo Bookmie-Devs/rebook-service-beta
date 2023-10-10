@@ -25,38 +25,20 @@ def filter_of_rooms(request):
     search = RoomFilters(request.GET, queryset=all_rooms)
     query_set = search.qs
     get_campus = request.user.campus
-    # if query_set.exists():
-    #     return render(request,  'filter_rooms.html', 
-    #                                 {'rooms': query_set,
-    #                                 'Campus':get_campus, 
-    #                                 'hostels':all_hostels,
-    #                                 'myForm':RoomFilters})
-       
-    # messages.info(request, "No rooms with such details available")
-    # return render(request,  'filter_rooms.html', 
-                                    # {'rooms': all_rooms,
-                                    # 'Campus':get_campus, 
-                                    # 'hostels':all_hostels,
-                                    # 'myForm':RoomFilters})
+
+    context = {'rooms': query_set,'Campus':get_campus, 
+               'hostels':all_hostels,'myForm':RoomFilters}
     
-    if not query_set.exists():
-        messages.info(request, "No products match your search criteria.")
-        return redirect('rooms:filter-rooms')  # Redirect back to the product list page
-
-    return render(
-        request,
-        'filter_rooms.html',
-        {'rooms': all_rooms,
-        'Campus':get_campus, 
-        'hostels':all_hostels,
-        'myForm':RoomFilters} )
-
-    
-
-
-
-
-
+    if request.GET:
+        if query_set.exists():
+            return render(request,  'filter_rooms.html', context)
+        
+        else:
+            messages.info(request, "No rooms with such details available")
+            # return redirect('rooms:filter-rooms')
+            return render(request,  'filter_rooms.html',)
+        
+    return render(request,  'filter_rooms.html', context)
 
 
 

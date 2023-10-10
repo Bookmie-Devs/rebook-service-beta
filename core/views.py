@@ -104,6 +104,7 @@ def delete_booking(request):
 def search(request):
     search_data = request.GET['search_data']
 
+    data = HostelFilter
     campus = CampusProfile.objects.get(campus_code=
                                        request.user.campus.campus_code)
 
