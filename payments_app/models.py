@@ -6,6 +6,8 @@ import uuid
 
 class PaymentHistory(models.Model):
     payment_id = models.UUIDField(primary_key=True, unique=True, editable=False, default=uuid.uuid4)
+    reference = models.CharField(max_length=500, unique=True, editable=False,
+                                 default='unavailable')
     user = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)
     email = models.EmailField()
     amount = models.DecimalField(decimal_places=1, max_digits=7)
@@ -19,12 +21,9 @@ class PaymentHistory(models.Model):
         return f'{self.user} payed on {self.date_of_payment.date()} @{self.date_of_payment.hour}:{self.date_of_payment.minute}'
 
     def save(self, *args, **kwargs):
-        while not self.payment_id:
-            payment_id = uuid.uuid4()
-
-            #checks if uuid exits
-            if not PaymentHistory.objects.filter(payment_id=payment_id).exists:
-                self.payment_id = payment_id
+        
+        # reference for payment with datatime of payment
+        self.reference = f'Pay-{self.date_of_payment}-{self.payment_id}-{self.user.first_name}-{self.user.student_id}-{self.user.last_name}'
         super().save(*args, **kwargs)
     
     def amount_value(self) -> int:

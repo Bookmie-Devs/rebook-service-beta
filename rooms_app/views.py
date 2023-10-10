@@ -31,6 +31,7 @@ def filter_of_rooms(request):
     
     if request.GET:
         if query_set.exists():
+            messages.info(request, "Scroll down for results")
             return render(request,  'filter_rooms.html', context)
         
         else:
