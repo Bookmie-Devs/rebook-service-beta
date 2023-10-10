@@ -43,7 +43,7 @@ def initiate_payment(request, room_id):
                                 room=get_room,
                                 hostel=get_room.hostel,
                                 ).save()
-            
+                        
             return redirect('payments:make-payment', get_room.room_id)
     # return redirect
     return render(request, 'payments/initiate_payment.html',
@@ -54,17 +54,16 @@ def initiate_payment(request, room_id):
 def make_payment(request, room_id):
     get_room = RoomProfile.objects.get(room_id=room_id)
     payment = PaymentHistory.objects.get(user=request.user)
-
     return render(request, 'payments/make_payment.html', 
                             {'room':get_room,
-                             'reference':payment.payment_id, 
+                             'reference':payment.reference, 
                             'user':request.user, 
                             'paystack_public_key':settings.PAYSTACK_PUBLIC_KEY })
 
 
 @login_required()
 def verify_payment(request, reference):  
-    payment = get_object_or_404(PaymentHistory, payment_id=reference)
+    payment = get_object_or_404(PaymentHistory, reference=reference)
 
     # count tenants in th room 
     count_members = Tenant.objects.filter(room=payment.room).count()
