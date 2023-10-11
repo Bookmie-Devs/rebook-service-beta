@@ -29,7 +29,6 @@
         <h2>Make Payment Of ₵{{ room.room_price }}</h2>
         <div class="btn">
           <button type="submit" id="pay" onclick="payWithPaystack()">Pay💳</button>
-          <a href="{% url 'accounts:booking-and-payments' %}"> Cancel</a>
         </div>
 
       <!-- div should not be deleted in order for payStack to work -->

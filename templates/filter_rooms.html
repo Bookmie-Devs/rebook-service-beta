@@ -92,7 +92,10 @@
             {% if messages %}
 
             {% for message in messages %}
-            <h2 href="#!"style="color: orange;">{{ message }}</h2>
+            </div>
+              <div class="alert alert-danger" role="alert">
+                    {{ message }}
+              </div>
             {% endfor %}
       
           {% else %}
