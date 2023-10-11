@@ -40,7 +40,7 @@ class RoomProfile(models.Model):
     #room features
     contains_kitchen = models.BooleanField(default=False)
     shared_kitchen = models.BooleanField(default=False)
-
+    contains_toilet = models.BooleanField(default=False)
     """ if room does not contain bathroom then it is shared """
     contains_bathroom = models.BooleanField(default=False)
 
@@ -51,7 +51,7 @@ class RoomProfile(models.Model):
     class Meta:
         db_table = "room_profiles"
 
-    def get_profile_url(self):
+    def get_detail_url(self):
         return reverse("rooms:profile", kwargs={'room_id':self.room_id})
 
     def __str__(self):

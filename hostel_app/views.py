@@ -10,10 +10,10 @@ from core.models import Booking
 def hostel_profile(request, hostel_id):
     hostel_profile = HostelProfile.objects.get(hostel_id = hostel_id)
 
-    context = {'hostel_profile': hostel_profile,
+    context = {'hostel': hostel_profile,
                'Campus': hostel_profile.campus,}
     
-    return render(request, 'HostelProfile.html', context)
+    return render(request, 'hostel_profile.html', context)
 
 
 @login_required()
