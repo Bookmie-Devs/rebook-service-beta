@@ -104,7 +104,7 @@
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
 
           {% for room in hostel_rooms %}
-          <a style="text-decoration:none; color:rgb(48, 45, 45);" href="{{ hostel.get_profile_url }}">
+          <a style="text-decoration:none; color:rgb(48, 45, 45);" href="{{ room.get_detail_url }}">
           <div class="col mb-5">
             <div class="card h-100">
               <!-- Product image-->
