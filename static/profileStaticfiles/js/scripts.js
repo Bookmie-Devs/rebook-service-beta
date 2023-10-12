@@ -1,7 +1,13 @@
-/*!
-* Start Bootstrap - Shop Item v5.0.6 (https://startbootstrap.com/template/shop-item)
-* Copyright 2013-2023 Start Bootstrap
-* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-shop-item/blob/master/LICENSE)
-*/
-// This file is intentionally blank
-// Use this file to add JavaScript to your project
+
+// Variables
+
+let image = document.querySelector('.img').src;
+let url = "url('" + image + "')";
+let bkg = document.querySelector('.section');
+
+// Dynamic Background
+
+bkg.style.background = 'linear-gradient(rgba(0, 0, 0, 0.486), rgba(0, 0, 0, 0.801))'+' ,' + url;
+bkg.style.backgroundPosition = 'center';
+bkg.style.backgroundRepeat = 'no-repeat';
+bkg.style.backgroundSize = 'cover';

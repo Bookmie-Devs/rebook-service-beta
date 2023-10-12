@@ -24,7 +24,7 @@ document.querySelectorAll('form').forEach(function(form){
         // Hide the loader after the delay
         load.style.display = 'none';
         
-        }, 8000); // 8 seconds delay 
+        }, 6000); // 6 seconds delay 
     }
 
 })

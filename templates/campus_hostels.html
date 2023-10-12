@@ -44,10 +44,8 @@
                     </ul>
                     <nav class="navbar ">
                         <div class="container-fluid">
-                          <form data-action="Searching..."  action="{% url 'core:search' %}" class="d-flex" role="search">
-                            <input class="form-control me-2" type="search" required name="search_data" placeholder="Search for hostels" aria-label="Search">
-                            <button class="drop btn" id="search-button" type="submit">Search</button>
-                          </form>
+                            <button                             
+                            class="drop btn" id="search-button" type="submit">logout</button>
                         </div>
                       </nav>
                 </div>
@@ -61,9 +59,20 @@
                 </svg>
             </div>
 
+        
+
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-center text-white filter">
+               
                     <h1 class="display-4 fw-bolder" style="color: rgb(254, 161, 22);">Welcome to GuudNyt @{{ campus.campus_name }}</h1>
+                    
+                    <div class="container-fluid">
+                        <form data-action="Searching..."  action="{% url 'core:search' %}" class="d-flex" role="search">
+                          <input class="form-control me-2" type="search" required name="search_data" placeholder="Search for hostels" aria-label="Search">
+                          <button class="drop btn" id="search-button" type="submit">Search</button>
+                        </form>
+                      </div>
+
                     <p class="lead fw-normal text-white-50 mb-0">Want a room🤔??? we got you covered!!!</p>
                 </div>
             </div>
