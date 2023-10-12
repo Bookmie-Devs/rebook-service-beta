@@ -58,7 +58,7 @@ def book_room(request):
     if  Booking.objects.filter(user=request.user, payed=False).exists():
         get_booking = Booking.objects.get(user = request.user)
         messages.info(request, 'Already Booked for a room please proceed to payment!!!')
-        return redirect('payments:init-payment', get_booking.room.room_id)
+        return redirect('accounts:booking-and-payments')
     
     #check if tenant exits
     elif Tenant.objects.filter(user=request.user).exists():
@@ -89,7 +89,7 @@ def book_room(request):
                         EMAIL_HOST_USER=settings.EMAIL_HOST_USER)
         
         #redirect user for payment
-        return redirect('payments:init-payment', room.room_id )
+        return redirect('accounts:booking-and-payments')
     
     
 @login_required()

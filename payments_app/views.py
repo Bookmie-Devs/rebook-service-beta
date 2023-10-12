@@ -94,10 +94,9 @@ def verify_payment(request, reference):
                     payment.room.save()
                     pass
         
-                # SET BOOKING STATUS TO PAYED
+                # DELETE BOOKING FOR USER
                 booking = Booking.objects.get(user=request.user)
-                booking.payed =True
-                booking.save()
+                booking.delete()
 
                 #DECLARE SUCCESSFULL TRUE if PAYMENT WAS A SUCCESS
                 payment.successfull = True

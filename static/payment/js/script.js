@@ -13,14 +13,7 @@ const loadingOption = document.querySelector('#loading-option');
 // Event Listener
 payButton.addEventListener('click', () => {
     Load.style.display = "flex";
-
-    // Simulate a delay (you can replace this with your actual form submission logic)
-    setTimeout(function () {
-    // Hide the loader after the delay
-    Load.style.display = 'none';
-
-    // After processing, you can redirect or show a success message as needed.
-    }, 17000); // 17 seconds delay in this example
 });
+
 
 

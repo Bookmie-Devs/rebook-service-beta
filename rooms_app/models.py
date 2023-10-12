@@ -13,7 +13,7 @@ class RoomProfile(models.Model):
                                verbose_name='Room number')
 
     # floor number of room
-    floor_no = models.CharField(max_length=20, default=0,
+    floor_no = models.IntegerField(default=0,
                                 verbose_name='Floor number')
 
     room_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)

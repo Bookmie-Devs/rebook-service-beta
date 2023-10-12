@@ -88,16 +88,16 @@
         <div class="text-center text-white filter">
           <a class="nav-link active" aria-current="page" href=""><h2 class="display-4 fw-bolder" href="#!"style="color: orange;">Lets Help You Get A Room🏠</h2></a>
             <hr>
-            <hr>
             {% if messages %}
 
             {% for message in messages %}
-            <h2 href="#!"style="color: orange;">{{ message }}</h2>
+              <div class="alert alert-danger" role="alert">
+                    {{ message }}
+              </div>
             {% endfor %}
       
           {% else %}
           {% endif %}
-           <hr>
             <form data-action="Searching..." class="row gx-3 gy-2 align-items-center" action="{% url 'rooms:filter-rooms' %}" method="GET">
               <div class="col-sm-3">
                 <label class="visually-hidden" for="specificSizeSelect">Preference</label>
@@ -125,7 +125,7 @@
                 name="room_price_max"
                 placeholder="Highest price">
               </div>
-              
+
               <div class="col-sm-3">
                 <input class="form-control"
                 type="number"
@@ -133,16 +133,12 @@
                 placeholder="Highest price">
               </div>
 
-              <!-- smaller search button -->
-              <!-- <div class="col-auto btns">
-                <button type="submit" id="search-button" class="drop btn">Search</button>
-              </div> -->
-
-              <hr>
-                <button class="drop btn btn-outline-dark" type="submit">
-                  <i class="bi-cart-fill me-1"></i>
-                  Search
-                </button>
+              <button type="submit" 
+              id="search-button" 
+              class="drop btn btn-success">
+              <i class="bi-cart-fill me-1"></i>
+              Search
+            </button>
             </form>
 
             <!-- for testing -->
@@ -176,7 +172,7 @@
                   <!-- Product name-->
                   <h5 class="fw-bolder">{{ room.hostel.hostel_name }}</h5>
                   <!-- <h5 class="fw-bolder">{{ room.rating }}</h5> -->
-                  <div
+                  {% comment %} <div
                     class="d-flex justify-content-center small text-warning mb-2"
                   >
                     <div class="bi-star-fill"></div>
@@ -184,7 +180,7 @@
                     <div class="bi-star-fill"></div>
                     <div class="bi-star-fill"></div>
                     <div class="bi-star-fill"></div>
-                  </div>
+                  </div> {% endcomment %}
                   <h5 class="fw-bolder">{{ room.room_capacity }} in a Room🏠</h5>
                   <!-- Product price-->
                   {{ room.room_price }}💵

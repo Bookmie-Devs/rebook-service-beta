@@ -82,14 +82,7 @@
          
             <div>
               <h1 class="display-4 fw-bolder"> <a style="color: rgb(254, 161, 22);" href="{% url 'hostels:profile' hostel_id=hostel.hostel_id %}">Welcome To {{ hostel.hostel_name }}</a>🏢</h1>
-              {% for message in messages %}
-
-                <!-- room selection messages -->
-                <script>
-                  alert('{{ message }}')
-                </script>
-                
-              {% endfor %}
+          
             </div>
           <!-- <h2 class="lead fw-normal text-white-50 mb-0">{{ HostelPro.class_Of_Hostel }}</h2> -->
           <h2 class="lead fw-normal text-white-50 mb-0">{{ hostel.rating }} stars hostel</h2>
@@ -125,14 +118,14 @@
                   <!-- <h5 class="fw-bolder">{{ room.rating }}</h5> -->
 
                   <!-- stars for looping through room rating -->
-                  <div
+                  {% comment %} <div
                       class="d-flex justify-content-center small text-warning mb-2">
                         <div class="bi-star-fill"></div>
                         <div class="bi-star-fill"></div>
                         <div class="bi-star-fill"></div>
                         <div class="bi-star-fill"></div>
                         <div class="bi-star-fill"></div>
-                  </div>
+                  </div> {% endcomment %}
                   <h5 class="fw-bolder">{{ room.room_capacity }} in a Room🏠</h5>
                   <!-- Room price-->
                   &#8373;{{ room.room_price }}💵
