@@ -93,19 +93,24 @@ def book_room(request):
     
 @login_required()
 def delete_booking(request):
-    booking = Booking.objects.get(user=request.user)
-    booking.delete()
 
-    #  delete any payment history id any
-    from payments_app.models import PaymentHistory
+    try:
+        booking = Booking.objects.get(user=request.user)
+        booking.delete()
+        
+        #  delete any payment history id any
+        from payments_app.models import PaymentHistory
 
-    if PaymentHistory.objects.filter(user=request.user).exists():
-        PaymentHistory.objects.get(user=request.user).delete()
-        pass
-    else:
-        pass
-
-    return redirect('accounts:booking-and-payments')
+        if PaymentHistory.objects.filter(user=request.user).exists():
+            PaymentHistory.objects.get(user=request.user).delete()
+            pass
+        else:
+            pass
+        return redirect('accounts:booking-and-payments')
+    
+    except Booking.DoesNotExist:
+        messages.info(request, 'No booking exits for this user')
+        return redirect('accounts:booking-and-payments')
 
 
 @login_required()
