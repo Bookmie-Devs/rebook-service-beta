@@ -19,6 +19,7 @@ from .models import Tenant
 
 from .filters import HostelFilter
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
 from .booking_info import booking_email
 from django.views.decorators.http import require_http_methods
 
@@ -58,17 +59,22 @@ def book_room(request):
     if  Booking.objects.filter(user=request.user, payed=False).exists():
         get_booking = Booking.objects.get(user = request.user)
         messages.info(request, 'Already Booked for a room please proceed to payment!!!')
+        # print(request.META.get(''))    
+        # return redirect(request.META.get('HTTP_REFERER'))
         return redirect('accounts:booking-and-payments')
     
     #check if tenant exits
     elif Tenant.objects.filter(user=request.user).exists():
         messages.info(request, 'You already payed for a room')
-        return redirect('hostels:hostel-rooms', room.hostel.hostel_id)
+        return redirect('accounts:booking-and-payments')
+        # print(request.META.get('HTTP_REFERER'))    
+        # return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
     #Checking if room is full
     elif bookings_count >= room.room_capacity:
         messages.info(request, 'Room if full for booking try again in 24 hrs')
-        return redirect('hostels:hostel-rooms', room.hostel.hostel_id)
+        # return redirect('hostels:hostel-rooms', room.hostel.hostel_id)
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
     #Creating booking for user
     else:
@@ -95,8 +101,17 @@ def book_room(request):
 @login_required()
 def delete_booking(request):
     booking = Booking.objects.get(user=request.user)
-    
     booking.delete()
+
+    #  delete any payment history id any
+    from payments_app.models import PaymentHistory
+
+    if PaymentHistory.objects.filter(user=request.user).exists():
+        PaymentHistory.objects.get(user=request.user).delete()
+        pass
+    else:
+        pass
+
     return redirect('accounts:booking-and-payments')
 
 
@@ -120,3 +135,8 @@ def search(request):
     
     return render(request, 'search.html', context)
 
+
+
+def success_message(request):
+
+    return render(request, 'successful.html')
