@@ -65,17 +65,10 @@ def book_room(request):
     
     #check if tenant exits
     elif Tenant.objects.filter(user=request.user).exists():
-        messages.info(request, 'You already payed for a room')
+        messages.info(request, 'Tenants can not book after payment')
         return redirect('accounts:booking-and-payments')
-        # print(request.META.get('HTTP_REFERER'))    
-        # return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
-    #Checking if room is full
-    elif bookings_count >= room.room_capacity:
-        messages.info(request, 'Room if full for booking try again in 24 hrs')
-        # return redirect('hostels:hostel-rooms', room.hostel.hostel_id)
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
+    
     #Creating booking for user
     else:
         student_id = request.user.student_id  

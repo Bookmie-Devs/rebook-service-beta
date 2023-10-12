@@ -113,6 +113,17 @@
                   </div>
                 <!-- </a>  -->
                 <br>
+
+                {% if messages %}
+
+                {% for message in messages %}
+                  <div class="alert alert-danger" role="alert">
+                        {{ message }}
+                  </div>
+                {% endfor %}
+          
+              {% else %}
+              {% endif %}
                   <!-- ROOM NUMBER-->
                   <h5 class="fw-bolder">Rm-{{ room.room_no }}</h5>
                   <!-- <h5 class="fw-bolder">{{ room.rating }}</h5> -->
