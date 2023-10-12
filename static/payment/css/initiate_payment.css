@@ -312,7 +312,7 @@ span{
     transition-delay: 1.5s;
   }
 
-h2 {
+.label {
     color: var(--primary);
     margin-bottom: 20px;
 }

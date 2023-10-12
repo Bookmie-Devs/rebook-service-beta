@@ -16,6 +16,8 @@ class CustomTenantAdminPanel(admin.ModelAdmin):
 
     search_fields = ('user',)
 
+    list_filter = ('payed','checked_in',)
+
     list_display = ('user','room','checked_in','start_date','end_date','payed',)
 
 
