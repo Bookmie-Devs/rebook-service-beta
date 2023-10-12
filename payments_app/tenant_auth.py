@@ -19,5 +19,5 @@ def tenant_auth_message(user=None, tenant=None, room=None):
             f'Note that authentication is valid for a year!!!',
             f'{tenant.end_date.date()}  @{tenant.end_date.hour}:{tenant.end_date.minute}!!!',
              'Note: AUTHENTICATION IS VALID FOR A YEAR',
-            f'VALID TILL {tenant.end_date.date()}  @{tenant.end_date.hour}:{tenant.end_date.minute}!!!'
+            f'VALID TILL {tenant.end_date.date()}  @{tenant.end_date.hour}:{tenant.end_date.minute}!!!',
             f'Enjoy your stay............']

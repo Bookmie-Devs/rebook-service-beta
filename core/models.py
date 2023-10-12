@@ -58,7 +58,7 @@ class Tenant(models.Model):
         self.end_date = (timezone.now()+timedelta(days=365))
 
         # verification code
-        self.verification_code = f'{self.hostel.hostel_code}-031r0-{self.user.first_name[:2]}-005b0-{self.user.last_name[:3]}-{self.tenant_id}-{self.user.first_name.lower()}-{self.user.student_id}-023k0-{self.user.last_name.lower()}-R'
+        self.verification_code = f'{self.hostel.hostel_code}-031r0-{self.user.first_name[:2]}-005b0-{self.user.last_name[:3]}-{self.tenant_id}-{self.user.first_name.lower()}-{self.user.student_id}-023k0-{self.user.last_name.lower()}-Grj'
 
         return super().save(*args, **kwargs)
     
