@@ -8,11 +8,9 @@ from rest_framework.reverse import reverse
 class RoomListSerializer(serializers.ModelSerializer):
     #gets and return the method "get_detail_view_url" into the fileds
     detail_url = serializers.SerializerMethodField(read_only=True)
-    hostel_name = serializers.SerializerMethodField(read_only=True)
     class Meta:
         model=RoomProfile
-        fields =('hostel_name',
-                 'room_no',
+        fields =('room_no',
                  'room_capacity',
                  'room_price',
                  'occupied',
@@ -24,12 +22,8 @@ class RoomListSerializer(serializers.ModelSerializer):
         request = self.context.get('request')
         
         return reverse('management:room-details',
-                        kwargs={'room_id':obj.room_id},
-                        request=request)
-    
-    #Returns the hostel name
-    def get_hostel_name(self, obj):
-        return obj.hostel.hostel_name
+                        request=request,
+                        kwargs={'room_id':obj.room_id})
 
 class TenantSerializer(serializers.ModelSerializer):
     class Meta:
