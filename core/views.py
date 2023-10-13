@@ -76,11 +76,6 @@ def book_room(request):
         #Saving booking info
         Book = Booking.objects.create(room=booked_room, user=request.user, room_number=booked_room.room_no, hostel=booked_room.hostel, 
             student_id=student_id, status='Booked', end_time=(timezone.now() + timedelta(seconds=40)), campus=booked_room.campus).save()
-
-        if bookings_count == room.room_capacity:
-            room.occupied=True
-            room.save()
-            pass
         
         # send email to user 
         # dont delete mailing booking-mail-service
