@@ -14,7 +14,7 @@ class PaymentHistory(models.Model):
     account_payed_to = models.CharField(max_length=300)
     room = models.ForeignKey(RoomProfile, on_delete=models.SET_NULL, null=True)
     hostel = models.ForeignKey(HostelProfile, on_delete=models.SET_NULL, null=True)
-    successfull = models.BooleanField(default=False)
+    successful = models.BooleanField(default=False)
     date_of_payment = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:

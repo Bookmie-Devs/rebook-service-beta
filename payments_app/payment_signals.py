@@ -15,7 +15,7 @@ def create_sub_account(sender, instance, created, **kwargs):
                                           account_number = instance.account_number,)
         sub_account.save()
 
-        #creat paystack sub account
+        #create paystack sub account for hostel
         paystack_auth = create_subaccount(hostel=instance)
 
         if paystack_auth.status_code == 201:

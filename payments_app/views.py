@@ -99,7 +99,7 @@ def verify_payment(request, reference):
                 booking.delete()
 
                 #DECLARE SUCCESSFULL TRUE if PAYMENT WAS A SUCCESS
-                payment.successfull = True
+                payment.successful = True
                 payment.save()
 
                 # send emails

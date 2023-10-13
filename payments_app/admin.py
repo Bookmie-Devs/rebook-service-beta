@@ -12,6 +12,11 @@ class CustomPaystackSubAccountAdminPanel(admin.ModelAdmin):
                     'percentage_charge',
                     'account_verified',)
     
+class CustomPaymentsAdminPanel(admin.ModelAdmin):
+
+    list_display = (
+        'user', 'amount', 'successful','date_of_payment',
+    )
 
 admin.site.register(PaymentHistory)
 
