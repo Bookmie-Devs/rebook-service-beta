@@ -134,7 +134,7 @@ def search(request):
     return render(request, 'search.html', context)
 
 
-
+@login_required()
 def success_message(request):
 
     return render(request, 'successful.html')
