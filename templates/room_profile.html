@@ -50,7 +50,7 @@
                     <div class="col-md-6 text-center">
                         <div class="small mb-1">SKU: BST-498</div>
                         <h1 style="color: orange;">Room {{ room.room_no }}</h1>
-                        <h3 style="color: orange;">Floor {{ room.hostel.hostel_name }}</h3>
+                        <h3 style="color: orange;">Hostel: {{ room.hostel.hostel_name }}</h3>
                         <h3 style="color: orange;">Floor {{ room.floor_no }}</h3>
                         {% comment %} <!-- <a href="{% url 'hostels:hostel-rooms' hostel.hostel_id %}"> --> {% endcomment %}
                         {% comment %} <!-- <h1 class="display-5 fw-bolder">{{ room.hostel.hostel_name }}</h1></a> --> {% endcomment %}
