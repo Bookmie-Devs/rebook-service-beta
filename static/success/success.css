@@ -45,10 +45,20 @@ a:hover {
   background-color: #0056b3;
 }
 
-.terms {
-  font-size: 16px;
+.profile-button {
+  font-size: 20px;
+  text-decoration: none;
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  display: inline-block;
   margin-top: 20px;
-  color: #333;
+  transition: background-color 0.3s;
+}
+
+.profile-button:hover {
+  background-color: #000;
 }
 
 @media screen and (max-width: 768px) {
