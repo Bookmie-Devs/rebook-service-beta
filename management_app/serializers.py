@@ -6,24 +6,29 @@ from core.models import Booking
 from rest_framework.reverse import reverse
 
 class RoomListSerializer(serializers.ModelSerializer):
+    
     #gets and return the method "get_detail_view_url" into the fileds
-    detail_url = serializers.SerializerMethodField(read_only=True)
+    dettail_url = serializers.SerializerMethodField(
+        method_name= 'get_detail_url',
+        read_only=True)
     class Meta:
         model=RoomProfile
         fields =('room_no',
                  'room_capacity',
                  'room_price',
                  'occupied',
-                 'detail_url')
+                 'dettail_url',
+                 'room_id',)
 
     #Return the deatail url for the each room in the list
     def get_detail_url(self, obj):
 
         request = self.context.get('request')
-        
+
         return reverse('management:room-details',
+                        kwargs={'room_id':obj.room_id},
                         request=request,
-                        kwargs={'room_id':obj.room_id})
+                        )
 
 class TenantSerializer(serializers.ModelSerializer):
     class Meta:
@@ -56,12 +61,11 @@ class HostelDetialsSerializer(serializers.ModelSerializer):
     class Meta:
         model = HostelProfile
         fields = ('hostel_name',
-                  'mangers_contact',
+                  'manager_contact',
                   'hostel_image',
-                  'phone','other_phone',
-                  'bank_details',
+                  'contact','other_phone',
                   'mobile_money',
                   'hostel_email',
                   'price_range',
-                  'hostel_main_site',
+                  'main_website',
                   'address',)

@@ -31,7 +31,7 @@ class HostelProfile(models.Model):
                                     blank=False, choices=category)
 
     rating = models.IntegerField(choices=rating, verbose_name='Stars',
-                                       default='⭐')
+                                       default=1)
     
     price_range = models.CharField(max_length=50, 
                                    default='unavailable', 
@@ -55,8 +55,11 @@ class HostelProfile(models.Model):
     mobile_money = models.CharField(max_length=14,
                                     default='unavailable',)
     
-    managers_contact = models.CharField(max_length=10, blank=True)
-    contact = models.CharField(max_length=10)
+    manager_contact = models.CharField(max_length=10, blank=True,
+                                       verbose_name="Manager's Contact")
+
+    contact = models.CharField(max_length=10, verbose_name="Hostel's Contact")
+
     location = models.CharField(max_length=500, default="location unavailable")
     other_phone = models.CharField(max_length=10, blank=True)
     map_location = models.CharField(max_length=10000, default='unavailable')

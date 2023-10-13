@@ -7,6 +7,7 @@ from .serializers import (RoomListSerializer,
                           RoomDetailSerializer,
                           HostelDetialsSerializer)
 
+from rest_framework.authentication import SessionAuthentication
 from core.models import Booking
 from .serializers import TenantSerializer
 from .serializers import BookingSerializer
@@ -24,6 +25,10 @@ from rest_framework import generics
 class RoomListView(generics.ListAPIView):
     queryset = HostelProfile.objects.all()
     serializer_class = RoomListSerializer
+
+    # SessionAuthentication for testing
+    authentication_classes = [SessionAuthentication]
+
     permission_classes = [IsAuthenticated, DjangoModelPermissions]
 
     def get(self, request, *args, **kwargs):
@@ -45,22 +50,47 @@ class RoomListView(generics.ListAPIView):
 
 class RoomDetailView(generics.RetrieveAPIView, generics.UpdateAPIView):
     serializer_class = RoomDetailSerializer
-    queryset = RoomProfile
+    queryset = RoomProfile.objects.all()
     lookup_field = "room_id"
+
+     # SessionAuthentication for testing
+    authentication_classes = [SessionAuthentication]
+    
     permission_classes = [IsAuthenticated, DjangoModelPermissions]
 
 
 class HostelProfileView(generics.RetrieveAPIView,generics.UpdateAPIView):
     serializer_class = HostelDetialsSerializer
-    queryset = HostelProfile
-    lookup_field = 'hostel_code'
-    parser_classes = [IsAuthenticated, DjangoModelPermissions]
+    queryset = HostelProfile.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        hostel = HostelProfile.objects.get(hostel_manager=request.user)
+        #serialized data
+        serializer = HostelDetialsSerializer(hostel)   
+
+        return Response(serializer.data)
+    
+    def update(self, request, *args, **kwargs):
+        hostel = HostelProfile.objects.get(hostel_manager=request.user)
+
+        serializer = HostelDetialsSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        serializer.update(instance=hostel, validated_data=request.data)
+
+        return Response(serializer.data)
+    
+    # SessionAuthentication for testing
+    authentication_classes = [SessionAuthentication]
+
+    permission_classes = [IsAuthenticated, DjangoModelPermissions]
 
 
 # update room prices
 class UpdateRoomPrice(generics.UpdateAPIView):
     permission_classes = [IsAuthenticated, DjangoModelPermissions]
     queryset =RoomProfile.objects.all()
+
 
     def update(self, request, *args, **kwargs):
         room_capacity = request.data['room_capacity'] #room with capacity
@@ -69,40 +99,11 @@ class UpdateRoomPrice(generics.UpdateAPIView):
         try:
             update_room = RoomProfile.objects.filter(hostel=hostel, room_capacity=room_capacity)
             update_room.update(room_price=new_price)
-            return Response({'detail':'Room price have been updated'})
+            return Response({'detail':'Rooms price have been updated'}, status=status.HTTP_201_CREATED)
 
         except RoomProfile.DoesNotExist:
-            return Response({'detail':'Room does not exist'})
+            return Response({'detail':'Rooms does not exist'}, status=status.HTTP_404_NOT_FOUND)
         
-
-@api_view(['GET','PUT'])
-@permission_classes([IsAuthenticated])
-def edit_room_deatails(request):
-    hostel_code = request.GET['hostelCode']
-    room_no = request.GET['room_no']
-    try:
-        get_hostel = HostelProfile.objects.get(hostel_code=hostel_code)
-        get_room = RoomProfile.objects.get(hostel=get_hostel, room_no=room_no)
-
-    except RoomProfile.DoesNotExist:
-          return Response({'messages':'Room Does not exist'}, status=status.HTTP_404_NOT_FOUND)
-
-    except HostelProfile.DoesNotExist:
-        return Response({'messages':'Hostel Does not exist'}, status=status.HTTP_404_NOT_FOUND)
-    
-    if request.method == 'GET':
-        ser_room = RoomListSerializer(get_room, many=False)
-        return Response(ser_room.data, status=status.HTTP_200_OK)    
-    
-    elif request.method == 'PUT':
-
-        """Change the price of a specific room"""
-
-        room_price = request.data['Room_Price']
-        get_room.room_price = room_price
-        get_room.save()
-        ser_room = RoomListSerializer(get_room, many=False)
-        return Response(ser_room.data)
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])

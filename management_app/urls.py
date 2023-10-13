@@ -11,7 +11,7 @@ urlpatterns=[
     path('update-room-price/', views.UpdateRoomPrice.as_view(), name='change-price'),
     path('token-refresh/', TokenRefreshView.as_view(), name='token-refresh'),
 
-    path('hostel-profile/<str:host_code>/', views.HostelProfileView.as_view(),
+    path('hostel-profile/', views.HostelProfileView.as_view(),
                                                 name='hostel-profile-view'),
                                                 
     path('rooms/', views.RoomListView.as_view(), name='get-rooms'),
