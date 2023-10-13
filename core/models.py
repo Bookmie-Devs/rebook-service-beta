@@ -47,7 +47,8 @@ class Tenant(models.Model):
     # verification_code for tenant
     verification_code = models.CharField(max_length=700,
                                         default='unavailable', 
-                                        unique=True,)
+                                        unique=True,
+                                        editable=False)
     
     start_date = models.DateTimeField(auto_now_add=True)
     end_date = models.DateTimeField()

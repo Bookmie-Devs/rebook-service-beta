@@ -23,7 +23,7 @@ class PaymentHistory(models.Model):
     def save(self, *args, **kwargs):
         
         # reference for payment with datatime of payment
-        self.reference = f'pay00r-{self.payment_id}-{self.user.first_name.lower()[:3]}-{self.user.student_id}-{self.user.last_name.lower()[:2]}-{self.user.first_name.lower()}-009bk-{self.user.last_name.lower()}'
+        self.reference = f'py010ref-{self.payment_id}-{self.user.first_name.lower()[:3]}-{self.user.student_id}-{self.user.last_name.lower()[:2]}-{self.user.first_name.lower()}-009pay-to-rbk-{self.user.last_name.lower()}'
         super().save(*args, **kwargs)
     
     def amount_value(self) -> int:
