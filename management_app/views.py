@@ -106,36 +106,33 @@ class UpdateRoomPrice(generics.UpdateAPIView):
             return Response({'detail':'Rooms does not exist'}, status=status.HTTP_404_NOT_FOUND)
         
     
-@api_view(['POST', 'DELETE'])
+@api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def verify_tenant(request):
     verification_code = request.data.get('verification_code')
     try:
         get_tenant = Tenant.objects.get(verification_code=verification_code)
-        if request.method == 'GET':
-        #if already checked in
-            if get_tenant.checked_in == True:
-                response={'Student':get_tenant.user.username,
-                        'student-ID': get_tenant.user.student_id,
-                        'Room Number':get_tenant.room.room_no,
-                        'Hostel':get_tenant.hostel.hostel_name,
-                        'Verified':'Already Checked In'}
-                return Response(response, status=status.HTTP_200_OK)
-            else:
-                response={'Student':get_tenant.user.username,
-                        'Room Number':get_tenant.room.room_no,
-                        'Hostel':get_tenant.hostel.hostel_name,
-                        'Verified':'Verified'}
-                get_tenant.checked_in = True
-                get_tenant.save()
-                return Response(response, status=status.HTTP_200_OK)
 
-        elif request.method == 'DELETE':
-            get_tenant.delete()
-            return Response({'message':'Tenant has been deleted'}) 
+        #if already checked in
+        if get_tenant.checked_in == True:
+            response={'Student':get_tenant.user.username,
+                    'student-ID': get_tenant.user.student_id,
+                    'Room Number':get_tenant.room.room_no,
+                    'Hostel':get_tenant.hostel.hostel_name,
+                    'Verified':'Already Checked In'}
+            return Response(response, status=status.HTTP_200_OK)
         
+        else:
+            response={'Student':get_tenant.user.username,
+                    'Room Number':get_tenant.room.room_no,
+                    'Hostel':get_tenant.hostel.hostel_name,
+                    'Verified':'Verified'}
+            get_tenant.checked_in = True
+            get_tenant.save()
+            return Response(response, status=status.HTTP_200_OK)
+
     except Tenant.DoesNotExist:
-        info={'info':'Tenant is not verified'}
+        info={'message':'Tenant is not verified'}
         return Response(info, status=status.HTTP_404_NOT_FOUND)
    
 @api_view(['GET'])
