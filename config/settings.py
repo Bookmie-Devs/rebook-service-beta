@@ -53,19 +53,22 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # third party libs
     'corsheaders',
-    'management_app',
     'rest_framework',
+    'rest_framework_simplejwt',
+    'django_filters',
+
+    # platform apps
     'maps_app',
     'core',
+    'management_app',
     'hostel_app',
     'campus_app',
     'reviews_app',
     'rooms_app',
     'accounts',
     'payments_app',
-    'rest_framework_simplejwt',
-    'django_filters',
 ]
 
 MIDDLEWARE = [
