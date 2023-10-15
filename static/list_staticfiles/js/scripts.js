@@ -27,7 +27,7 @@ document.querySelectorAll('form').forEach((form) => {
         // Hide the loader after the delay
         load.style.display = 'none';
         
-        }, 2000); // 2 seconds delay 
+        }, 3000); // 3 seconds delay 
     }
 
 })
