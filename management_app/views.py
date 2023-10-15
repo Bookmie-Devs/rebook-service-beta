@@ -110,9 +110,14 @@ class UpdateRoomPrice(generics.UpdateAPIView):
 @permission_classes([IsAuthenticated])
 def verify_tenant(request):
     verification_code = request.data.get('verification_code')
-    try:
-        get_tenant = Tenant.objects.get(verification_code=verification_code)
 
+    # hostel of login manager 
+    hostel = HostelProfile.objects.get(hostel_manager=request.user)
+
+    try:
+        get_tenant = Tenant.objects.get(
+                            verification_code=verification_code,
+                            hostel=hostel)
         #if already checked in
         if get_tenant.checked_in == True:
             response={'Student':get_tenant.user.username,
