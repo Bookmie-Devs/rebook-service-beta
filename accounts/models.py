@@ -17,6 +17,7 @@ class CustomUser(AbstractUser):
     gender = models.CharField(max_length=7, null=True, blank=True)
     student_id = models.CharField(max_length=20, blank=False)
     
+    # is a hostel manager ot not
     is_hostel_manager = models.BooleanField(default=False, verbose_name="manager")
 
 

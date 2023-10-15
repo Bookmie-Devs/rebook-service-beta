@@ -31,9 +31,34 @@ class RoomListSerializer(serializers.ModelSerializer):
                         )
 
 class TenantSerializer(serializers.ModelSerializer):
+    
+    """method serializers"""
+    # tenant name
+    name = serializers.SerializerMethodField(method_name='get_tenant_name',
+                                             read_only=True)
+    # room number
+    room_number = serializers.SerializerMethodField(read_only=True)
+    # student ID
+    student_id = serializers.SerializerMethodField(read_only=True)
     class Meta:
         model = Tenant
-        fields ='__all__'
+        fields = (
+            'name',
+            'room_number',
+            'student_id',
+            'payed',
+            'checked_in',
+        )
+
+    """Serializer methods"""
+    def get_tenant_name(self, obj):
+        return obj.user.username
+    
+    def get_room_number(self, obj):
+        return obj.room.room_no
+    
+    def get_student_id(self, obj):
+        return obj.user.student_id
 
 
 class BookingSerializer(serializers.ModelSerializer):
