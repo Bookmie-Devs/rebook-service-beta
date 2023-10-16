@@ -34,7 +34,7 @@ class CustomAdminPanel(UserAdmin):
         (_("Important dates"), {"fields": ("last_login", "date_joined")}),
     )
     # custom filter list
-    list_filter = ("is_staff", "is_superuser", "is_active", "groups",'is_hostel_manager',)
+    list_filter = ("is_staff", "is_superuser", "is_active", "groups",'is_hostel_manager','is_hostel_worker',)
 
     # custom search_fields
     search_fields = ("username", "first_name", "last_name", "email",'student_id',)

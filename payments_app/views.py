@@ -99,7 +99,7 @@ def verify_payment(request, reference):
                 booking.delete()
 
                 #DECLARE SUCCESSFULL TRUE if PAYMENT WAS A SUCCESS
-                payment.successfull = True
+                payment.successful = True
                 payment.save()
 
                 # send emails
@@ -108,7 +108,7 @@ def verify_payment(request, reference):
                 recipient_list=[request.user.email], subject=subject, 
                 message=render_to_string('emails/tenant_email.html',{"user":request.user}))
 
-                return render(request, 'successful.html')
+                return redirect('core:success')
 
             else:
                 payment.delete()

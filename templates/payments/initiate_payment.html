@@ -24,7 +24,7 @@
     
         <div class="first-content">
             <div class="container1">
-                <h2>Hover to pay... <button>
+                <h2 class="label">Tap to pay... <button>
                   <a  id="hold-on" href="{% url 'accounts:booking-and-payments' %}">
                      Hold On
                   </a>
@@ -48,7 +48,7 @@
           </div>
           <div class="second-content">
           <!-- Second Page -->
-      <h2>Initiate Payment of ₵{{ room.room_price }} to {{ room.hostel.hostel_name}}</h2>
+      <h4 class="label">₵{{ room.room_price }} to {{ room.hostel.hostel_name}}</h4>
       <form data-action="Proceeding.." id="paymentForm" method="POST" action="{% url 'payments:init-payment' room.room_id %}">
         {% csrf_token %}
         <div class="input-container">

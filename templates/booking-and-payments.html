@@ -3,74 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>{{ user.username }} | Hosabella</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <style>
-        a{
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .left-half, .right-half {
+            flex: 1;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        a {
             text-decoration: none;
+            color: #007BFF;
+            text-align: center;
+        }
+
+        .alert {
+            background-color: #dc3545;
+            color: #fff;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+
+        .btn {
+            padding: 5px 10px;
+            margin: 5px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        hr {
+            border: 1px solid #333;
+        }
+
+        .user-info {
+            margin: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
 <body>
-    <h1> Still in developement</h1> 
-    {% for message in messages %}
-
-    <!-- room selection messages -->
-        <div class="alert alert-danger" role="alert">
-        {{ message }}
-        </div>
-  
-  {% endfor %}
     <hr>
+    <h1 style="text-align: center;">Still in development</h1>
     <a href="{% url 'core:hostels' %}">Home</a>
     <hr>
-    <a href="{% url 'payments:tenant-authentication' %}">Get Verification</a>
-    <div>
-        <h1>{{ user.username }}</h1>
-        <hr>
-        <hr>
-        <!-- <h1 style="float: ri;">Your booking details</h1> -->
-        {% if booking %}
-            <div>
-                <div>
-                    <a href="{% url 'core:delete-booking' %}">
-                        <button  type="button" class="btn btn-danger">Delete booking</button>
-                    </a>
-            
-                    <a href="{% url 'payments:init-payment' booking.room.room_id %}">
-                        <button type="button" class="btn btn-success">Pay for room</button>
-                    </a>
-                </div>
-                <h1>{{ booking.room }}</h1>
-                <br>
-                <h1>
-                Room {{ booking.room.room_no }}
-                </h1>
-                <br>
-                <h1>{{ booking.room.hostel.hostel_name}}</h1>
-                <br>
-                <h1>{{ booking.room.room_price }}</h1>
-
-            </div>
-        {% else %}
-
-            <h1>No bookings to show</h1>
-
-        {% endif %}
-    </div>
-<!-- 
-    <div style="float:right;
-    margin-bottom: 400%;">
-        
-        <hr>
-        <div>
-            <h1>Room 1</h1>
-            <br>
-            <h1>hostel name</h1>
-            <br>
-            <h1>room price</h1>
-            <button>pay</button>
+        {% for message in messages %}
+        <!-- Room selection messages -->
+        <div class="alert">
+            {{ message }}
         </div>
-    </div> -->
+        {% endfor %}
+    <hr>
+    <div class="container">
+        
+        <div class="left-half">
+            <div class="user-info">
+                <hr>
+                {% if booking %}
+                    <div>
+                        <div>
+                            <a href="{% url 'core:delete-booking' %}">
+                                <button type="button" class="btn btn-danger">Delete Booking</button>
+                            </a>
+                            <a href="{% url 'payments:init-payment' booking.room.room_id %}">
+                                <button type="button" class="btn btn-success">Pay for Room</button>
+                            </a>
+                        </div>
+                        <h1>{{ booking.room }}</h1>
+                        <br>
+                        <h1>Room {{ booking.room.room_no }}</h1>
+                        <br>
+                        <h1>{{ booking.room.hostel.hostel_name }}</h1>
+                        <br>
+                        <h1>{{ booking.room.room_price }}</h1>
+                    </div>
+                {% else %}
+                    <h1>No Bookings to Show</h1>
+                {% endif %}
+                <hr>
+            </div>
+        </div>
+
+        <div class="right-half">
+            <hr>
+            {% if tenant %}
+                <div>
+                    <h1>Tenant Details</h1>
+                        {% if tenant.checked_in %}
+                            <h4>Status: Checked in</h4>
+                        {% else %}
+                            <h4>Status: Not yet checked in</h4>
+                        {% endif %}
+                    <div>
+                        <a href="{% url 'core:delete-booking' %}">
+                            <button type="button" class="btn btn-danger">Delete Booking</button>
+                        </a>
+                        <a href="{% url 'payments:tenant-authentication' %}">
+                            <button type="button" class="btn btn-success">Get User Credentials</button>
+                        </a>
+                    </div>
+                    <hr>
+                    <h1>{{ tenant.room }}</h1>
+                    <br>
+                    <h1>Room {{ tenant.room.room_no }}</h1>
+                    <br>
+                    <h1>{{ tenant.room.hostel.hostel_name }}</h1>
+                    <br>
+                    <h1>{{ tenant.room.room_price }}</h1>
+                </div>
+                {% else %}
+                    <h1>No Tenant profile to Show</h1>
+                {% endif %}
+            <hr>
+        </div>
+    </div>
 </body>
 </html>

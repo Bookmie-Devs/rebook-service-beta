@@ -14,7 +14,7 @@ class PaymentHistory(models.Model):
     account_payed_to = models.CharField(max_length=300)
     room = models.ForeignKey(RoomProfile, on_delete=models.SET_NULL, null=True)
     hostel = models.ForeignKey(HostelProfile, on_delete=models.SET_NULL, null=True)
-    successfull = models.BooleanField(default=False)
+    successful = models.BooleanField(default=False)
     date_of_payment = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
@@ -23,7 +23,7 @@ class PaymentHistory(models.Model):
     def save(self, *args, **kwargs):
         
         # reference for payment with datatime of payment
-        self.reference = f'pay-{self.payment_id}-{self.user.first_name.upper()}-{self.user.student_id}-{self.user.last_name.upper()}'
+        self.reference = f'py010ref-{self.payment_id}-{self.user.first_name.lower()[:3]}-{self.user.student_id}-{self.user.last_name.lower()[:2]}-3369-{self.user.first_name.lower()}-009-{self.user.last_name.lower()}-001-pay-to-rbk'
         super().save(*args, **kwargs)
     
     def amount_value(self) -> int:

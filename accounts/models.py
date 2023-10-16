@@ -17,8 +17,11 @@ class CustomUser(AbstractUser):
     gender = models.CharField(max_length=7, null=True, blank=True)
     student_id = models.CharField(max_length=20, blank=False)
     
+    # is a hostel manager ot not
     is_hostel_manager = models.BooleanField(default=False, verbose_name="manager")
 
+    # is a hostel worker not manager(work at the hostel/Porter)
+    is_hostel_worker = models.BooleanField(default=False, verbose_name='Hostel Woker')
 
     def __str__(self) -> str:
         return f'{self.username}'

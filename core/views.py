@@ -19,6 +19,7 @@ from .models import Tenant
 
 from .filters import HostelFilter
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
 from .booking_info import booking_email
 from django.views.decorators.http import require_http_methods
 
@@ -58,18 +59,16 @@ def book_room(request):
     if  Booking.objects.filter(user=request.user, payed=False).exists():
         get_booking = Booking.objects.get(user = request.user)
         messages.info(request, 'Already Booked for a room please proceed to payment!!!')
+        # print(request.META.get(''))    
+        # return redirect(request.META.get('HTTP_REFERER'))
         return redirect('accounts:booking-and-payments')
     
     #check if tenant exits
     elif Tenant.objects.filter(user=request.user).exists():
-        messages.info(request, 'You already payed for a room')
-        return redirect('hostels:hostel-rooms', room.hostel.hostel_id)
-
-    #Checking if room is full
-    elif bookings_count >= room.room_capacity:
-        messages.info(request, 'Room if full for booking try again in 24 hrs')
-        return redirect('hostels:hostel-rooms', room.hostel.hostel_id)
-
+        messages.info(request, 'Tenants can not book after payment')
+        return redirect('accounts:booking-and-payments')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    
     #Creating booking for user
     else:
         student_id = request.user.student_id  
@@ -77,11 +76,6 @@ def book_room(request):
         #Saving booking info
         Book = Booking.objects.create(room=booked_room, user=request.user, room_number=booked_room.room_no, hostel=booked_room.hostel, 
             student_id=student_id, status='Booked', end_time=(timezone.now() + timedelta(seconds=40)), campus=booked_room.campus).save()
-
-        if bookings_count == room.room_capacity:
-            room.occupied=True
-            room.save()
-            pass
         
         # send email to user 
         # dont delete mailing booking-mail-service
@@ -94,10 +88,24 @@ def book_room(request):
     
 @login_required()
 def delete_booking(request):
-    booking = Booking.objects.get(user=request.user)
+
+    try:
+        booking = Booking.objects.get(user=request.user)
+        booking.delete()
+        
+        #  delete any payment history id any
+        from payments_app.models import PaymentHistory
+
+        if PaymentHistory.objects.filter(user=request.user).exists():
+            PaymentHistory.objects.get(user=request.user).delete()
+            pass
+        else:
+            pass
+        return redirect('accounts:booking-and-payments')
     
-    booking.delete()
-    return redirect('accounts:booking-and-payments')
+    except Booking.DoesNotExist:
+        messages.info(request, 'No booking exits for this user')
+        return redirect('accounts:booking-and-payments')
 
 
 @login_required()
@@ -120,3 +128,8 @@ def search(request):
     
     return render(request, 'search.html', context)
 
+
+@login_required()
+def success_message(request):
+
+    return render(request, 'successful.html')

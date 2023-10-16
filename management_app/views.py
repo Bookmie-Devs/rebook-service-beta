@@ -7,24 +7,33 @@ from .serializers import (RoomListSerializer,
                           RoomDetailSerializer,
                           HostelDetialsSerializer)
 
-from core.models import Booking
+from rest_framework.authentication import SessionAuthentication
+# from core.models import Booking
 from .serializers import TenantSerializer
-from .serializers import BookingSerializer
 from core.models import Tenant
 from rest_framework import status
 from hostel_app.models import HostelProfile
-from rest_framework.permissions import (IsAuthenticated, 
-                                        DjangoModelPermissions)
-from rest_framework.decorators import permission_classes
+from rest_framework.permissions import (IsAuthenticatedOrReadOnly,
+                                        DjangoModelPermissions) 
+
+from rest_framework.decorators import (permission_classes,
+                                       authentication_classes)
 from rooms_app.models import RoomProfile
 from django.db.models import Q
 from rest_framework import generics
+
+# custom permissions
+from .custom_permissions import IsHostelManager
 
 
 class RoomListView(generics.ListAPIView):
     queryset = HostelProfile.objects.all()
     serializer_class = RoomListSerializer
-    permission_classes = [IsAuthenticated, DjangoModelPermissions]
+
+    # SessionAuthentication for testing
+    authentication_classes = [SessionAuthentication]
+
+    permission_classes = [DjangoModelPermissions]
 
     def get(self, request, *args, **kwargs):
 
@@ -44,23 +53,57 @@ class RoomListView(generics.ListAPIView):
         
 
 class RoomDetailView(generics.RetrieveAPIView, generics.UpdateAPIView):
+
+    # SessionAuthentication for testing
+    authentication_classes = [SessionAuthentication]
+    
+    permission_classes = [DjangoModelPermissions]
+
     serializer_class = RoomDetailSerializer
-    queryset = RoomProfile
+    queryset = RoomProfile.objects.all()
     lookup_field = "room_id"
-    permission_classes = [IsAuthenticated, DjangoModelPermissions]
 
 
-class HostelProfileView(generics.RetrieveAPIView,generics.UpdateAPIView):
+
+class HostelProfileView(generics.RetrieveUpdateAPIView):
+
+        # SessionAuthentication for testing
+    authentication_classes = [SessionAuthentication]
+
+    permission_classes = [IsHostelManager, DjangoModelPermissions]
+
     serializer_class = HostelDetialsSerializer
-    queryset = HostelProfile
-    lookup_field = 'hostel_code'
-    parser_classes = [IsAuthenticated, DjangoModelPermissions]
+    queryset = HostelProfile.objects.all()
 
+    def get(self, request, *args, **kwargs):
+        hostel = HostelProfile.objects.get(hostel_manager=request.user)
+        #serialized data
+        serializer = HostelDetialsSerializer(hostel)   
+
+        return Response(serializer.data)
+    
+    def update(self, request, *args, **kwargs):
+        hostel = HostelProfile.objects.get(hostel_manager=request.user)
+
+        serializer = HostelDetialsSerializer(instance=hostel, data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        # save and update
+        self.perform_update(serializer)
+
+        return Response(serializer.data)
+    
 
 # update room prices
 class UpdateRoomPrice(generics.UpdateAPIView):
-    permission_classes = [IsAuthenticated, DjangoModelPermissions]
+        
+    # SessionAuthentication for testing
+    authentication_classes = [SessionAuthentication]
+
+    permission_classes = [DjangoModelPermissions]
+
     queryset =RoomProfile.objects.all()
+
 
     def update(self, request, *args, **kwargs):
         room_capacity = request.data['room_capacity'] #room with capacity
@@ -69,105 +112,78 @@ class UpdateRoomPrice(generics.UpdateAPIView):
         try:
             update_room = RoomProfile.objects.filter(hostel=hostel, room_capacity=room_capacity)
             update_room.update(room_price=new_price)
-            return Response({'detail':'Room price have been updated'})
+            return Response({'detail':'Rooms price have been updated'}, status=status.HTTP_201_CREATED)
 
         except RoomProfile.DoesNotExist:
-            return Response({'detail':'Room does not exist'})
+            return Response({'detail':'Rooms does not exist'}, status=status.HTTP_404_NOT_FOUND)
         
-
-@api_view(['GET','PUT'])
-@permission_classes([IsAuthenticated])
-def edit_room_deatails(request):
-    hostel_code = request.GET['hostelCode']
-    room_no = request.GET['room_no']
-    try:
-        get_hostel = HostelProfile.objects.get(hostel_code=hostel_code)
-        get_room = RoomProfile.objects.get(hostel=get_hostel, room_no=room_no)
-
-    except RoomProfile.DoesNotExist:
-          return Response({'messages':'Room Does not exist'}, status=status.HTTP_404_NOT_FOUND)
-
-    except HostelProfile.DoesNotExist:
-        return Response({'messages':'Hostel Does not exist'}, status=status.HTTP_404_NOT_FOUND)
     
-    if request.method == 'GET':
-        ser_room = RoomListSerializer(get_room, many=False)
-        return Response(ser_room.data, status=status.HTTP_200_OK)    
-    
-    elif request.method == 'PUT':
+@api_view(['POST'])
 
-        """Change the price of a specific room"""
-
-        room_price = request.data['Room_Price']
-        get_room.room_price = room_price
-        get_room.save()
-        ser_room = RoomListSerializer(get_room, many=False)
-        return Response(ser_room.data)
-
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def get_booking(request):
-
-    """ Checking for a user booking """
-    #for testing purposes
-
-    booking_id = request.GET['booking_id']
-    try:
-        Booking.objects.filter(booking_id=booking_id).exists()
-        get_booking = Booking.objects.get(booking_id=booking_id)
-        info={'Student':get_booking.user.username,
-                'Room Number':get_booking.room.room_no,
-                'Hostel':get_booking.Hostel.hostel_name,
-                'Verified':'Verified'}
-        return Response(info)
-    
-    except Booking.DoesNotExist:
-        info={'info':'Booking is not here'}
-        return Response(info)
-    
-    
-@api_view(['POST', 'DELETE'])
-@permission_classes([IsAuthenticated])
+# SessionAuthentication for testing
+@authentication_classes([SessionAuthentication])
 def verify_tenant(request):
-    verification_code = request.POST['verification_code']
-    try:
-        get_tenant = Tenant.objects.get(verification_code=verification_code)
-        if request.method == 'GET':
-        #if already checked in
-            if get_tenant.checked_in == True:
-                response={'Student':get_tenant.user.username,
-                        'student-ID': get_tenant.user.student_id,
-                        'Room Number':get_tenant.room.room_no,
-                        'Hostel':get_tenant.hostel.hostel_name,
-                        'Verified':'Already Checked In'}
-                return Response(response, status=status.HTTP_200_OK)
-            else:
-                response={'Student':get_tenant.user.username,
-                        'Room Number':get_tenant.room.room_no,
-                        'Hostel':get_tenant.hostel.hostel_name,
-                        'Verified':'Verified'}
-                get_tenant.checked_in = True
-                get_tenant.save()
-                return Response(response, status=status.HTTP_200_OK)
+    verification_code = request.data.get('verification_code')
 
-        elif request.method == 'DELETE':
-            get_tenant.delete()
-            return Response({'message':'Tenant has been deleted'}) 
+    # hostel of login manager 
+    hostel = HostelProfile.objects.get(hostel_manager=request.user)
+
+    try:
+        get_tenant = Tenant.objects.get(
+                            verification_code=verification_code,
+                            hostel=hostel,
+                            payed=True)
         
+        #if already checked in
+        if get_tenant.checked_in == True:
+
+            response={'Verified':'Already Checked In',
+                     'Student':get_tenant.user.username,
+                     'student-ID': get_tenant.user.student_id,
+                     'Room Number':get_tenant.room.room_no,
+                     'Hostel':get_tenant.hostel.hostel_name,
+                    }
+            return Response(response, status=status.HTTP_200_OK)
+
+        else:
+            response={'Student':get_tenant.user.username,
+                    'Room Number':get_tenant.room.room_no,
+                    'Hostel':get_tenant.hostel.hostel_name,
+                    'Verified':'Verified'}
+            
+            # set check in if verified
+            get_tenant.checked_in = True
+            get_tenant.save()
+            return Response(response, status=status.HTTP_200_OK)
+
     except Tenant.DoesNotExist:
-        info={'info':'Tenant is not verified'}
+        info={'message':'Tenant is not verified or has not payed'}
         return Response(info, status=status.HTTP_404_NOT_FOUND)
    
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def view_tenants(request):
-    try:
-        get_hostel = HostelProfile.objects.get(hostel_code=request.user)
-        get_tenants = Tenant.objects.filter(hostel=get_booking).all()
-        ser_tenants = TenantSerializer(get_tenants, many=True)
-        return Response(ser_tenants.data)
+
+# List Tenant View
+class TenantListView(generics.ListAPIView):
+        
+    # SessionAuthentication for testing
+    authentication_classes = [SessionAuthentication]
+
+    permission_classes = [DjangoModelPermissions]
     
-    except HostelProfile.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+    queryset = Tenant.objects.all()
+    serializer_class = TenantSerializer
 
+    def get(self, request, *args, **kwargs):
+        try:
+            get_hostel = HostelProfile.objects.get(hostel_manager=request.user)
+            get_tenants = Tenant.objects.filter(hostel=get_hostel).all()
 
+            if get_tenants is not None:
+                serializer = TenantSerializer(get_tenants, many=True)
+                return Response(serializer.data)
+            
+            else:
+                return Response({"message":"No Tenants Yet"},status=status.HTTP_404_NOT_FOUND)
+
+    
+        except HostelProfile.DoesNotExist:
+            return Response({'message':'Hostel was not found'} ,status=status.HTTP_404_NOT_FOUND)

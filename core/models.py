@@ -47,7 +47,8 @@ class Tenant(models.Model):
     # verification_code for tenant
     verification_code = models.CharField(max_length=700,
                                         default='unavailable', 
-                                        unique=True,)
+                                        unique=True,
+                                        editable=False)
     
     start_date = models.DateTimeField(auto_now_add=True)
     end_date = models.DateTimeField()
@@ -58,7 +59,7 @@ class Tenant(models.Model):
         self.end_date = (timezone.now()+timedelta(days=365))
 
         # verification code
-        self.verification_code = f'{self.hostel.hostel_code}-{self.tenant_id}-{self.user.first_name.upper()}-{self.user.student_id}-{self.user.last_name.upper()}-@-{self.start_date}'
+        self.verification_code = f'{self.hostel.hostel_code}-031r0-{self.user.first_name[:2]}-005b0-{self.user.last_name[:3]}-{self.tenant_id}-{self.user.first_name.lower()}-{self.user.student_id}-023k0-{self.user.last_name.lower()}-Grj'
 
         return super().save(*args, **kwargs)
     

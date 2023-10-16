@@ -6,35 +6,59 @@ from core.models import Booking
 from rest_framework.reverse import reverse
 
 class RoomListSerializer(serializers.ModelSerializer):
+    
     #gets and return the method "get_detail_view_url" into the fileds
-    detail_url = serializers.SerializerMethodField(read_only=True)
-    hostel_name = serializers.SerializerMethodField(read_only=True)
+    dettail_url = serializers.SerializerMethodField(
+        method_name= 'get_detail_url',
+        read_only=True)
     class Meta:
         model=RoomProfile
-        fields =('hostel_name',
-                 'room_no',
+        fields =('room_no',
                  'room_capacity',
                  'room_price',
                  'occupied',
-                 'detail_url')
+                 'dettail_url',
+                 'room_id',)
 
     #Return the deatail url for the each room in the list
     def get_detail_url(self, obj):
 
         request = self.context.get('request')
-        
+
         return reverse('management:room-details',
                         kwargs={'room_id':obj.room_id},
-                        request=request)
-    
-    #Returns the hostel name
-    def get_hostel_name(self, obj):
-        return obj.hostel.hostel_name
+                        request=request,
+                        )
 
 class TenantSerializer(serializers.ModelSerializer):
+    
+    """method serializers"""
+    # tenant name
+    name = serializers.SerializerMethodField(method_name='get_tenant_name',
+                                             read_only=True)
+    # room number
+    room_number = serializers.SerializerMethodField(read_only=True)
+    # student ID
+    student_id = serializers.SerializerMethodField(read_only=True)
     class Meta:
         model = Tenant
-        fields ='__all__'
+        fields = (
+            'name',
+            'room_number',
+            'student_id',
+            'payed',
+            'checked_in',
+        )
+
+    """Serializer methods"""
+    def get_tenant_name(self, obj):
+        return obj.user.username
+    
+    def get_room_number(self, obj):
+        return obj.room.room_no
+    
+    def get_student_id(self, obj):
+        return obj.user.student_id
 
 
 class BookingSerializer(serializers.ModelSerializer):
@@ -62,12 +86,10 @@ class HostelDetialsSerializer(serializers.ModelSerializer):
     class Meta:
         model = HostelProfile
         fields = ('hostel_name',
-                  'mangers_contact',
-                  'hostel_image',
-                  'phone','other_phone',
-                  'bank_details',
+                  'manager_contact',
+                  'contact','other_phone',
                   'mobile_money',
                   'hostel_email',
                   'price_range',
-                  'hostel_main_site',
+                  'main_website',
                   'address',)

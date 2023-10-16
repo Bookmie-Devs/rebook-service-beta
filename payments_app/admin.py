@@ -12,7 +12,17 @@ class CustomPaystackSubAccountAdminPanel(admin.ModelAdmin):
                     'percentage_charge',
                     'account_verified',)
     
+# customize payment history admin panel
+class CustomPaymentsAdminPanel(admin.ModelAdmin):
 
-admin.site.register(PaymentHistory)
+    list_filter = (
+        'successful', 'date_of_payment',
+    )
+
+    list_display = (
+        'user', 'amount', 'successful','date_of_payment',
+    )
+
+admin.site.register(PaymentHistory, CustomPaymentsAdminPanel)
 
 admin.site.register(PaystackSubAccount, CustomPaystackSubAccountAdminPanel)
