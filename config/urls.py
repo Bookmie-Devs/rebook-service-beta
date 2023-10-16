@@ -7,6 +7,8 @@ from django.contrib.auth.decorators import permission_required
 from django.conf.urls import handler404, handler500
 from django.views.generic import TemplateView
 from django.contrib.auth import views as auth_view
+
+# error handlers
 handler404 = TemplateView.as_view(template_name='error/404.html')
 handler500 = TemplateView.as_view(template_name='error/500.html')
 
