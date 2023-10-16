@@ -23,7 +23,11 @@ class PaymentHistory(models.Model):
     def save(self, *args, **kwargs):
         
         # reference for payment with datatime of payment
-        self.reference = f'py010ref-{self.payment_id}-{self.user.first_name.lower()[:3]}-{self.user.student_id}-{self.user.last_name.lower()[:2]}-3369-{self.user.first_name.lower()}-009-{self.user.last_name.lower()}-001-pay-to-rbk'
+        """ the replace methods replace all spaces with closed
+        (makes sure there are no spaces to avoids reference
+                                       errors with paystack) """
+        
+        self.reference = f'py010ref-{self.payment_id}-{self.user.first_name.lower()[:3]}-{self.user.student_id}-{self.user.last_name.lower()[:2]}-3369-{self.user.first_name.lower()}-009-{self.user.last_name.lower()}-001-pay-to-rbk'.replace(" ","") 
         super().save(*args, **kwargs)
     
     def amount_value(self) -> int:
