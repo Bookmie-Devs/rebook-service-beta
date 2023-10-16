@@ -74,13 +74,12 @@ def book_room(request):
         student_id = request.user.student_id  
         booked_room = RoomProfile.objects.get(room_id=request.POST.get('room_id')) 
         #Saving booking info
-        Book = Booking.objects.create(room=booked_room, user=request.user, room_number=booked_room.room_no, hostel=booked_room.hostel, 
-            student_id=student_id, status='Booked', end_time=(timezone.now() + timedelta(seconds=40)), campus=booked_room.campus).save()
+        Book = Booking.objects.create(room=booked_room, user=request.user, 
+                                      room_number=booked_room.room_no, hostel=booked_room.hostel, 
+                                      student_id=student_id, status='Booked',
+                                      end_time=(timezone.now() + timedelta(seconds=40)),
+                                      campus=booked_room.campus).save()
         
-        # send email to user 
-        # dont delete mailing booking-mail-service
-        booking_email(user=request.user,booking_id=Booking.booking_id,
-                        EMAIL_HOST_USER=settings.EMAIL_HOST_USER)
         
         #redirect user for payment
         return redirect('accounts:booking-and-payments')
