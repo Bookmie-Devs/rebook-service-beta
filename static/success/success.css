@@ -45,7 +45,7 @@ a:hover {
   background-color: #0056b3;
 }
 
-.profile-button {
+.verification-button {
   font-size: 20px;
   text-decoration: none;
   background-color: #333;
@@ -57,7 +57,7 @@ a:hover {
   transition: background-color 0.3s;
 }
 
-.profile-button:hover {
+.verification-button:hover {
   background-color: #000;
 }
 
