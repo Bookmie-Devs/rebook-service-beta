@@ -12,10 +12,11 @@
         <h1>Payment Successful!</h1>
         <p>Congratulations on your successful payment. Proceed to get your authentication credentials.</p>
         <p><strong>Note:</strong> Do not share your credentials with anyone. Provide them when you get to the hostel for verification.</p>
-        <a class="profile-button" href="{% url 'accounts:booking-and-payments'%}">Return to Profile</a>
+
+        <a class="verification-button" href="{% url 'payments:tenant-authentication' %}">Get User Credentials</a>
         <br>
         <br>
-        <a href="{% url 'payments:tenant-authentication' %}">Get User Credentials</a>
+        <a href="{% url 'accounts:booking-and-payments'%}">Return to Profile</a>
      
         <p><a href="#">Terms and Conditions</a></p>
     </div>
