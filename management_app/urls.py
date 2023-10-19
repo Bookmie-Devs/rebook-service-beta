@@ -8,11 +8,11 @@ app_name='management'
 
 urlpatterns=[
     path('obtain-token/', TokenObtainPairView.as_view(), name=''),
-    path('update-room-price/', views.UpdateRoomPrice.as_view(), name='change-price'),
     path('token-refresh/', TokenRefreshView.as_view(), name='token-refresh'),
 
     path('hostel-profile/', views.HostelProfileView.as_view(),
                                                 name='hostel-profile-view'),
+    path('update-room-price/', views.UpdateRoomPrice.as_view(), name='change-price'),
                                                 
     path('rooms/', views.RoomListView.as_view(), name='get-rooms'),
     path('room-details/<str:room_id>', views.RoomDetailView.as_view(), name="room-details"),

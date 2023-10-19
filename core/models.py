@@ -51,20 +51,19 @@ class Tenant(models.Model):
                                         editable=False)
     
     start_date = models.DateTimeField(auto_now_add=True)
-    end_date = models.DateTimeField()
+    end_date = models.DateTimeField(editable=False)
     class Meta:
         ordering = ('-start_date',)
 
     def save(self, *args, **kwargs):
-        self.end_date = (timezone.now()+timedelta(days=365))
+        self.end_date = (self.start_date + timedelta(days=365))
 
-        # verification code
-        self.verification_code = f'{self.hostel.hostel_code}-031r0-{self.user.first_name[:2]}-005b0-{self.user.last_name[:3]}-{self.tenant_id}-{self.user.first_name.lower()}-{self.user.student_id}-023k0-{self.user.last_name.lower()}-Grj'.replace(" ","")
-
+        ############### ( ⚠️Critcal) verification code
+        self.verification_code = f'{self.hostel.hostel_code}-0{self.end_date.day}r0-{self.user.first_name[:2]}-0{self.end_date.month}b0-{self.user.last_name[:3]}-{self.tenant_id}-{self.user.first_name.lower()}-{self.user.student_id}-07{self.end_date.year}k0-{self.user.last_name.lower()}-{self.end_date.time()}-Grj'.replace(" ","")
         return super().save(*args, **kwargs)
     
     def is_active(self):
-        return datetime.now() <= self.end_date
+        return timezone.now().date() <= self.end_date.date()
     
     def delete_if_expired(self):
         if not self.is_active():

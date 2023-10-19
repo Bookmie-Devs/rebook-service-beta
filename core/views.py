@@ -1,5 +1,6 @@
 
 """Custom Imports"""
+from typing import Any
 from .models import Booking
 from .models import Tenant
 from .booking_info import booking_email
@@ -10,12 +11,12 @@ from hostel_app.models import HostelProfile
 
 """Built in Packages"""
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.views import generic
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.views.decorators.http import require_http_methods
 from django.conf import settings
 from django.utils import timezone
 from django.utils.timezone import timedelta
-from django.shortcuts import render
 from django.shortcuts import redirect
 from django.db.models import Q
 from django.contrib import messages
@@ -27,25 +28,28 @@ def index(request):
     return render(request, 'index.html')
 
 
+class HostelListView(generic.ListView):
+    
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+
+        """Get hostel that are related to particular campus and display it
+        to the client"""
+
+        campus = CampusProfile.objects.get(
+                campus_code=request.user.campus.campus_code
+                )
+
+        campus_hostels = HostelProfile.objects.filter(campus=campus)
+
+        #context for the page
+        context={'hostels':campus_hostels, 
+                  'campus':campus, 
+                  'myform': HostelFilter}
+
+        return render(request, 'campus_hostels.html', context)
+
+
 @login_required()
-def hostels(request):
-    
-    """Get hostel that are related to particular campus and display it
-    to the client"""
-    campus = CampusProfile.objects.get(campus_code=
-                                       request.user.campus.campus_code)
-    
-    campus_hostels = HostelProfile.objects.filter(campus=campus)
-
-    #context for the page
-    context={'hostels':campus_hostels, 
-              'campus':campus, 'myform': HostelFilter}
-    
-    return render(request, 'campus_hostels.html', context)
-
-
-@login_required()
-
 # allow strictly only POST
 @require_http_methods(['POST'])
 def book_room(request):     
