@@ -1,27 +1,26 @@
-from django.utils import timezone
-from django.utils.timezone import timedelta
-from django.shortcuts import render
 
-from django.shortcuts import redirect
+"""Custom Imports"""
+from .models import Booking
+from .models import Tenant
+from .booking_info import booking_email
+from .filters import HostelFilter
 from rooms_app.models import RoomProfile
 from campus_app.models import CampusProfile
 from hostel_app.models import HostelProfile
-from django.db.models import Q
 
+"""Built in Packages"""
+from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from django.views.decorators.http import require_http_methods
+from django.conf import settings
+from django.utils import timezone
+from django.utils.timezone import timedelta
+from django.shortcuts import render
+from django.shortcuts import redirect
+from django.db.models import Q
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-from .models import Booking
-from django.conf import settings
-from .filters import HostelFilter
-from .models import Tenant
-
-
-from .filters import HostelFilter
-from django.shortcuts import render
-from django.http import HttpResponseRedirect
-from .booking_info import booking_email
-from django.views.decorators.http import require_http_methods
 
 @require_http_methods(['GET'])
 def index(request):

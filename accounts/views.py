@@ -11,16 +11,19 @@ from django.core.mail import send_mail
 from .models import CustomUser
 from django.template.loader import render_to_string
 from core.models import Booking, Tenant
+from django.views.decorators.http import require_http_methods
 #user profile
 
+from config.sms import send_sms_message
 
+require_http_methods(["POST"])
 def signup(request):
     """ CustomUser signup View"""
 
     if request.method == 'POST':
         try:
             ##Getting campus model for quering hostels related to it
-            get_campus=CampusProfile.objects.get(campus_code=str(request.POST.get('campus')).upper())
+            get_campus=CampusProfile.objects.get(campus_code=str(request.POST.get('campus')).upper().strip())
 
             ##checks if password if equal
             if request.POST.get('password') == request.POST.get('confirm_password'):
@@ -70,7 +73,7 @@ def signup(request):
             messages.info(request, 'BookUp is not yet registered on your campus')
             return redirect('accounts:signup')
         
-    return render(request, 'forms/signup.html')  
+    return render(request, 'forms/signup.html', {'fom':UserCreationForm})  
 
 
 @authenticated_or_not
@@ -83,6 +86,7 @@ def login(request):
             login_user = auth.authenticate(email=email, password=password)
             if login_user is not None:
                 auth.login(request, login_user)
+                send_sms_message(user_contact=request.user.phone)
                 return redirect('core:hostels')
             else:
                 messages.error(request, 'Credentials invalid')

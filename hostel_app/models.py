@@ -81,7 +81,7 @@ class HostelProfile(models.Model):
     def save(self, *args, **kwargs):
 
         #  create hostel code on save
-        self.hostel_code = f'{self.hostel_name[:3].upper()}{self.pk}'
+        self.hostel_code = f'{self.hostel_name[:3].upper()}{str(self.hostel_id)[:4]}'
 
         return super().save(*args, **kwargs)
 
