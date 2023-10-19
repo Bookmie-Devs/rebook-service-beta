@@ -30,10 +30,7 @@ class RoomListView(generics.ListAPIView):
     queryset = HostelProfile.objects.all()
     serializer_class = RoomListSerializer
 
-    # SessionAuthentication for testing
-    authentication_classes = [SessionAuthentication]
-
-    permission_classes = [DjangoModelPermissions]
+    permission_classes = [IsHostelManager, DjangoModelPermissions]
 
     def get(self, request, *args, **kwargs):
 
@@ -41,7 +38,6 @@ class RoomListView(generics.ListAPIView):
     a particular hostel after getting the hostel code from the person who logs in"""
         
         try:
-            hostel_code = request.data.get('hostel_code')
             get_hostel=HostelProfile.objects.get(hostel_manager=request.user)
             get_rooms = RoomProfile.objects.filter(hostel=get_hostel)
             serializer = RoomListSerializer(get_rooms, many=True)
@@ -49,13 +45,13 @@ class RoomListView(generics.ListAPIView):
         
         except HostelProfile.DoesNotExist:
 
-            return Response({'detail':'Hostel Does not exist'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({'message':'Hostel Does not exist'}, status=status.HTTP_404_NOT_FOUND)
         
 
-class RoomDetailView(generics.RetrieveAPIView, generics.UpdateAPIView):
+class RoomDetailView(generics.RetrieveUpdateAPIView):
 
     # SessionAuthentication for testing
-    authentication_classes = [SessionAuthentication]
+    # authentication_classes = [SessionAuthentication]
     
     permission_classes = [DjangoModelPermissions]
 
@@ -97,31 +93,25 @@ class HostelProfileView(generics.RetrieveUpdateAPIView):
 # update room prices
 class UpdateRoomPrice(generics.UpdateAPIView):
         
-    # SessionAuthentication for testing
-    authentication_classes = [SessionAuthentication]
-
-    permission_classes = [DjangoModelPermissions]
+    permission_classes = [IsHostelManager , DjangoModelPermissions]
 
     queryset =RoomProfile.objects.all()
 
-
     def update(self, request, *args, **kwargs):
-        room_capacity = request.data['room_capacity'] #room with capacity
-        new_price = request.data['new_price'] #price for those rooms
+        room_capacity = request.data.get('room_capacity') #room with capacity
+        new_price = request.data.get('new_price') #price for those rooms
         hostel = HostelProfile.objects.get(hostel_manager=request.user)
-        try:
+        # check if room exist
+        if RoomProfile.objects.filter(hostel=hostel, room_capacity=room_capacity).exists():
             update_room = RoomProfile.objects.filter(hostel=hostel, room_capacity=room_capacity)
             update_room.update(room_price=new_price)
-            return Response({'detail':'Rooms price have been updated'}, status=status.HTTP_201_CREATED)
-
-        except RoomProfile.DoesNotExist:
-            return Response({'detail':'Rooms does not exist'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({'message':'Rooms price have been updated'}, status=status.HTTP_201_CREATED)
+        
+        else: 
+            return Response({'message':'Rooms does not exist'}, status=status.HTTP_404_NOT_FOUND)
         
     
 @api_view(['POST'])
-
-# SessionAuthentication for testing
-@authentication_classes([SessionAuthentication])
 def verify_tenant(request):
     verification_code = request.data.get('verification_code')
 

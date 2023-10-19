@@ -93,3 +93,5 @@ class HostelDetialsSerializer(serializers.ModelSerializer):
                   'price_range',
                   'main_website',
                   'address',)
+
+

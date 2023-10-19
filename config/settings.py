@@ -101,8 +101,8 @@ LOGIN_URL = 'accounts:login'
 
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=120),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=2),
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=2),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=5),
     "ROTATE_REFRESH_TOKENS": False,
     "BLACKLIST_AFTER_ROTATION": False,
     "UPDATE_LAST_LOGIN": False,
@@ -172,8 +172,19 @@ DATABASES = {
     }
 }
 
+# POSTGRESSQL
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": "mydatabase",
+#         "USER": "mydatabaseuser",
+#         "PASSWORD": "mypassword",
+#         "HOST": "127.0.0.1",
+#         "PORT": "5432",
+#     }
+# }
 
-#locally hosted database for testing before deployment
+#locally hosted database for testing before deployment(MYSQL)
 # DATABASES = {
 # 	'default': {
 # 		'ENGINE': 'django.db.backends.mysql',
@@ -250,3 +261,11 @@ EMAIL_HOST_PASSWORD=os.getenv('EMAIL_HOST_PASSWORD')
 PAYSTACK_PUBLIC_KEY = os.getenv('PAYSTACK_PUBLIC_KEY')
 PAYSTACK_SECRET_KEY= os.getenv('PAYSTACK_SECRET_KEY')
 
+
+# SMS API KEYS
+SMS_API_KEY = 'Ad2NeblMkLFcq7QoCsZadl92Z'
+
+SENDER_ID = 'Hosabella'
+# # SMS URL
+# Endpoint: https://apps.mnotify.net/smsapi?
+# key=xxxxxxxxxx&to=xxxxxxx&msg=xxxxxxxx&sender_id=xxxxx

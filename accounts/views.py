@@ -14,6 +14,7 @@ from core.models import Booking, Tenant
 from django.views.decorators.http import require_http_methods
 #user profile
 
+from config.sms import send_sms_message
 
 require_http_methods(["POST"])
 def signup(request):
@@ -85,6 +86,7 @@ def login(request):
             login_user = auth.authenticate(email=email, password=password)
             if login_user is not None:
                 auth.login(request, login_user)
+                send_sms_message(user_contact=request.user.phone)
                 return redirect('core:hostels')
             else:
                 messages.error(request, 'Credentials invalid')
