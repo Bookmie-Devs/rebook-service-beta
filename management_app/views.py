@@ -55,7 +55,7 @@ class RoomDetailView(generics.RetrieveUpdateAPIView):
     # SessionAuthentication for testing
     # authentication_classes = [SessionAuthentication]
     
-    permission_classes = [DjangoModelPermissions]
+    permission_classes = [IsHostelManager, DjangoModelPermissions]
 
     serializer_class = RoomDetailSerializer
     queryset = RoomProfile.objects.all()
@@ -66,7 +66,7 @@ class RoomDetailView(generics.RetrieveUpdateAPIView):
 class HostelProfileView(generics.RetrieveUpdateAPIView):
 
         # SessionAuthentication for testing
-    authentication_classes = [SessionAuthentication]
+    # authentication_classes = [SessionAuthentication]
 
     permission_classes = [IsHostelManager, DjangoModelPermissions]
 
