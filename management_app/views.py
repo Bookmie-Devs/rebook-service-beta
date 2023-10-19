@@ -12,7 +12,9 @@ from rest_framework.authentication import SessionAuthentication
 from .serializers import TenantSerializer
 from core.models import Tenant
 from rest_framework import status
+from .verify import verify
 from hostel_app.models import HostelProfile
+from django.utils import timezone
 from rest_framework.permissions import (IsAuthenticatedOrReadOnly,
                                         DjangoModelPermissions) 
 
@@ -114,48 +116,16 @@ class UpdateRoomPrice(generics.UpdateAPIView):
 @api_view(['POST'])
 def verify_tenant(request):
     verification_code = request.data.get('verification_code')
-
-    # hostel of login manager 
-    hostel = HostelProfile.objects.get(hostel_manager=request.user)
-
-    try:
-        get_tenant = Tenant.objects.get(
-                            verification_code=verification_code,
-                            hostel=hostel,
-                            payed=True)
-        
-        #if already checked in
-        if get_tenant.checked_in == True:
-
-            response={'Verified':'Already Checked In',
-                     'Student':get_tenant.user.username,
-                     'student-ID': get_tenant.user.student_id,
-                     'Room Number':get_tenant.room.room_no,
-                     'Hostel':get_tenant.hostel.hostel_name,
-                    }
-            return Response(response, status=status.HTTP_200_OK)
-
-        else:
-            response={'Student':get_tenant.user.username,
-                    'Room Number':get_tenant.room.room_no,
-                    'Hostel':get_tenant.hostel.hostel_name,
-                    'Verified':'Verified'}
-            
-            # set check in if verified
-            get_tenant.checked_in = True
-            get_tenant.save()
-            return Response(response, status=status.HTTP_200_OK)
-
-    except Tenant.DoesNotExist:
-        info={'message':'Tenant is not verified or has not payed'}
-        return Response(info, status=status.HTTP_404_NOT_FOUND)
-   
+    
+    # Verify Tenant
+    return verify(request=request, verification_code=verification_code)
+  
 
 # List Tenant View
 class TenantListView(generics.ListAPIView):
         
     # SessionAuthentication for testing
-    authentication_classes = [SessionAuthentication]
+    # authentication_classes = [SessionAuthentication]
 
     permission_classes = [DjangoModelPermissions]
     

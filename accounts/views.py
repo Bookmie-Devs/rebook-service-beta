@@ -1,21 +1,25 @@
+
+"""Custom imports"""
+from .models import CustomUser
+from core.decorators import authenticated_or_not
+from config.sms import send_sms_message
+from campus_app.models import CampusProfile
+from core.models import Booking, Tenant
+
+"""Built in packages"""
 from django.shortcuts import redirect
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from campus_app.models import CampusProfile
 from django.contrib import messages
 from django.conf import settings
 from django.contrib import auth
 from django.contrib.auth.forms import UserCreationForm
-from core.decorators import authenticated_or_not
 from django.core.mail import send_mail
-from .models import CustomUser
 from django.template.loader import render_to_string
-from core.models import Booking, Tenant
 from django.views.decorators.http import require_http_methods
+
+
 #user profile
-
-from config.sms import send_sms_message
-
 require_http_methods(["POST"])
 def signup(request):
     """ CustomUser signup View"""

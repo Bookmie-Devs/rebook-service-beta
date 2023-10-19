@@ -1,19 +1,24 @@
-from django.shortcuts import render, redirect
+
+"""Custom imports"""
 from .models import PaymentHistory
 from rooms_app.models import RoomProfile
+from core.qrcode import generate_qrcode
+from config.sms import send_sms_message
+from .payStack import (paystack_verification, 
+                       redirect_payment)
+from core import forms
 from core.models import Tenant
+from core.models import Booking
+from .tenant_auth import (tenant_auth_details, 
+                          tenant_auth_message)
+
+"""Packeges"""
+from reportlab.lib.pagesizes import letter
 from django.conf import settings
 from django.shortcuts import get_object_or_404
 import requests
 from django.template.loader import render_to_string
 from django.conf import settings
-from core.models import Booking
-
-from .tenant_auth import (tenant_auth_details, 
-                          tenant_auth_message)
-
-from reportlab.lib.pagesizes import letter
-from core import forms
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
@@ -21,10 +26,9 @@ from django.shortcuts import HttpResponse
 from io import BytesIO
 from reportlab.pdfgen import canvas
 from django.conf import settings
+from django.shortcuts import render, redirect
 from reportlab.lib import colors
-from core.qrcode import generate_qrcode
-from .payStack import (paystack_verification, 
-                       redirect_payment)
+
 
 @login_required()
 def initiate_payment(request, room_id):
@@ -101,6 +105,9 @@ def verify_payment(request, reference):
                 #DECLARE SUCCESSFULL TRUE if PAYMENT WAS A SUCCESS
                 payment.successful = True
                 payment.save()
+
+                # send sms
+                send_sms_message(user_contact=request.user.phone)
 
                 # send emails
                 subject = f'Congratulations'

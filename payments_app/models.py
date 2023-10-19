@@ -3,7 +3,10 @@ from accounts.models import CustomUser
 from hostel_app.models import HostelProfile
 from rooms_app.models import RoomProfile
 import uuid
+from django.utils import timezone
 
+# Date
+timing = timezone.now()
 class PaymentHistory(models.Model):
     payment_id = models.UUIDField(primary_key=True, unique=True, editable=False, default=uuid.uuid4)
     reference = models.CharField(max_length=500, unique=True, editable=False,
@@ -27,7 +30,7 @@ class PaymentHistory(models.Model):
         (makes sure there are no spaces to avoids reference
                                        errors with paystack) """
         
-        self.reference = f'py010ref-{self.payment_id}-{self.user.first_name.lower()[:3]}-{self.user.student_id}-{self.user.last_name.lower()[:2]}-3369-{self.user.first_name.lower()}-009-{self.user.last_name.lower()}-001-pay-to-rbk'.replace(" ","") 
+        self.reference = f'py0{timing.day}ref-{self.payment_id}-{self.user.first_name.lower()[:3]}-{self.user.student_id}-{self.user.last_name.lower()[:2]}-3369-{self.user.first_name.lower()}-0{timing.month}-{self.user.last_name.lower()}-0{timing.year}-pay-to-rbk'.replace(" ","") 
         super().save(*args, **kwargs)
     
     def amount_value(self) -> int:

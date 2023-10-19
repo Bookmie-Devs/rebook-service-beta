@@ -29,11 +29,12 @@ def index(request):
 
 
 class HostelListView(generic.ListView):
-
+    
     def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
 
         """Get hostel that are related to particular campus and display it
         to the client"""
+
         campus = CampusProfile.objects.get(
                 campus_code=request.user.campus.campus_code
                 )
@@ -42,7 +43,8 @@ class HostelListView(generic.ListView):
 
         #context for the page
         context={'hostels':campus_hostels, 
-                    'campus':campus, 'myform': HostelFilter}
+                  'campus':campus, 
+                  'myform': HostelFilter}
 
         return render(request, 'campus_hostels.html', context)
 
