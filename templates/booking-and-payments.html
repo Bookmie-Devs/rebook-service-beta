@@ -108,6 +108,7 @@
                                 <button type="button" class="btn btn-success">Pay for Room</button>
                             </a>
                         </div>
+                        <br>
                             <h1>{{ booking.room }}</h1>
                         <br>
                             <h1>Room {{ booking.room.room_no }}</h1>
@@ -133,6 +134,7 @@
                             {% else %}
                                 <h4>Status: Not yet checked in</h4>
                             {% endif %}
+                    <hr>
                     <div>
                         <a href="{% url 'core:delete-booking' %}">
                             <button type="button" class="btn btn-danger">Renew V-code</button>

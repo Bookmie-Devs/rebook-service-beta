@@ -14,6 +14,14 @@ class CustomBookingAdminPanel(admin.ModelAdmin):
 
 class CustomTenantAdminPanel(admin.ModelAdmin):
 
+    fieldsets = (('DO NOT EDIT OR SAVE ANY INSTANCE HERE',{"fields":(
+        'user',
+        'room',
+        'hostel',
+        'payed',
+        'checked_in',
+    )}),)
+
     search_fields = ('user',)
 
     list_filter = ('payed','checked_in',)
