@@ -11,7 +11,7 @@ class PaymentHistory(models.Model):
     payment_id = models.UUIDField(primary_key=True, unique=True, editable=False, default=uuid.uuid4)
     reference = models.CharField(max_length=500, unique=True, editable=False,
                                  default='unavailable')
-    user = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
     email = models.EmailField()
     amount = models.DecimalField(decimal_places=1, max_digits=7)
     account_payed_to = models.CharField(max_length=300)

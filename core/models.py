@@ -56,7 +56,12 @@ class Tenant(models.Model):
         ordering = ('-start_date',)
 
     def save(self, *args, **kwargs):
-        self.end_date = (self.start_date + timedelta(days=365))
+        
+        if self.start_date is None:
+            # use time zone if start-time is not set yet
+            self.end_date = (timezone.now() + timedelta(days=365))
+        else:
+            self.end_date = (self.start_date + timedelta(days=365))
 
         ############### ( ⚠️Critcal) verification code
         self.verification_code = f'{self.hostel.hostel_code}-0{self.end_date.day}r0-{self.user.first_name[:2]}-0{self.end_date.month}b0-{self.user.last_name[:3]}-{self.tenant_id}-{self.user.first_name.lower()}-{self.user.student_id}-07{self.end_date.year}k0-{self.user.last_name.lower()}-{self.end_date.time()}-Grj'.replace(" ","")
