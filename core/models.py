@@ -68,7 +68,8 @@ class Tenant(models.Model):
         return super().save(*args, **kwargs)
     
     def is_active(self):
-        return timezone.now().date() <= self.end_date.date()
+        # check if user time is up and needs to update V-code
+        return timezone.now().date() < self.end_date.date()
     
     def delete_if_expired(self):
         if not self.is_active():

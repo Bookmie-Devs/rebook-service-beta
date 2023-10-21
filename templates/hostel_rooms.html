@@ -8,8 +8,7 @@
     <meta name="author" content="" />
     <title>{{ hostel.hostel_name }} | GuudNyt</title>
     <!-- Favicon-->
-    <!-- <link rel="icon" type="image/x-icon" href="{% static 'home/assets/favicon.ico' %}"/> -->
-    <link rel="icon" type="image/x-icon" href="list_staticfiles/assets/favicon.ico"/>
+    <link rel="icon" type="image/x-icon" href="{% static 'home/assets/favicon.ico' %}"/>
     <!-- Bootstrap icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet"
     />
@@ -44,14 +43,14 @@
           <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
             <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'core:index' %}">Home</a></li> 
             <li class="nav-item"><a class="nav-link active" href="{% url 'core:hostels' %}">Hostels</a></li>
+            <li class="nav-item"><a class="nav-link active" href="{% url 'rooms:filter-rooms' %}">All Rooms</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url 'accounts:booking-and-payments' %}">Booking/Payments</a></li> 
           </ul>
 
           <nav class="navbar ">
             <div class="container-fluid">
-              <form data-action="Searching..." action="{% url 'hostels:filter-rooms' %}" class="d-flex" role="search">
-                <input class="form-control me-2" type="number" required name="capacity" placeholder="4 in a room..." aria-label="Search">
-                <input hidden value="{{ hostel.hostel_id }}" name="hostel">
+              <form class="d-flex" role="search">
+              
                 <button class="drop btn" id="search-button" type="submit">Search</button>
               </form>
             </div>
@@ -81,11 +80,37 @@
         <div class="text-center text-white filter">
          
             <div>
-              <h1 class="display-4 fw-bolder"> <a style="color: rgb(254, 161, 22);" href="{% url 'hostels:profile' hostel_id=hostel.hostel_id %}">Welcome To {{ hostel.hostel_name }}</a>🏢</h1>
-          
+              <h1 class="display-4 fw-bolder"> <a style="color: rgb(254, 161, 22);" href="{% url 'hostels:profile' hostel_id=hostel.hostel_id %}">{{ hostel.hostel_name }}</a>🏢</h1>
+
+              <!-- Room filter forms  -->
+              <div class="button-container">
+                <form data-action="Searching..." action="{% url 'hostels:filter-rooms' %}"  id="filter">
+                  <input type="hidden" value="1" name="capacity">
+                  <input hidden value="{{ hostel.hostel_id }}" name="hostel">
+                    <button class="btn btn-secondary">1 in a room</button>
+                </form>
+
+                <form data-action="Searching..." action="{% url 'hostels:filter-rooms' %}"  id="filter">
+                  <input type="hidden" value="2" name="capacity">
+                  <input hidden value="{{ hostel.hostel_id }}" name="hostel">
+                    <button class="btn btn-primary">2 in a room</button>
+                </form>
+
+                <form data-action="Searching..." action="{% url 'hostels:filter-rooms' %}"  id="filter">
+                  <input type="hidden" value="3" name="capacity">
+                  <input hidden value="{{ hostel.hostel_id }}" name="hostel">
+                    <button  class="btn btn-light">3 in a room</button>
+                </form>
+
+                <form data-action="Searching..." action="{% url 'hostels:filter-rooms' %}"  id="filter">
+                  <input type="hidden" name="capacity" value="4">
+                  <input hidden value="{{ hostel.hostel_id }}" name="hostel">
+                    <button type="submit" class="btn btn-light">4 in a room</button>
+                </form>
             </div>
-          <!-- <h2 class="lead fw-normal text-white-50 mb-0">{{ HostelPro.class_Of_Hostel }}</h2> -->
-          <h2 class="lead fw-normal text-white-50 mb-0">{{ hostel.rating }} stars hostel</h2>
+
+
+            </div>
           <h3 class="lead fw-normal text-white-50 mb-0">Call {{ hostel.contact }} for more details</h3>
           <p class="lead fw-normal text-white-50 mb-0">{{ hostel.hostel_email }}</p>
         </div>
@@ -95,71 +120,87 @@
     <section class="py-5">
       <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+          <!-- check if query is not none  -->
+          {% if hostel_rooms %}
 
-          {% for room in hostel_rooms %}
-          <a style="text-decoration:none; color:rgb(48, 45, 45);" href="{{ room.get_detail_url }}">
-          <div class="col mb-5">
-            <div class="card h-100">
-              <!-- Product image-->
-                <!-- <img width="150" height="180" class="card-img-top" src="{{ room.Room_img.url }}" alt="..."/> -->
-              <!-- </a> -->
-              <!-- Product details-->
-              <div class="card-body p-4">
+              {% for room in hostel_rooms %}
+              <a style="text-decoration:none; color:rgb(48, 45, 45);" href="{{ room.get_detail_url }}">
+              <div class="col mb-5">
+                <div class="card h-100">
+                  <!-- Product image-->
+                    <!-- <img width="150" height="180" class="card-img-top" src="{{ room.Room_img.url }}" alt="..."/> -->
+                  <!-- </a> -->
+                  <!-- Product details-->
+                  <div class="card-body p-4">
+                    <div class="text-center">
+                      <!-- Sale badge-->
+                    <!-- <a href="{{ room.get_profile_url }}"> -->
+                      <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">
+                          View specs
+                      </div>
+                    <!-- </a>  -->
+                      <!-- ROOM NUMBER-->
+                      <h5 class="fw-bolder">Rm-{{ room.room_no }}</h5>
+                      <!-- <h5 class="fw-bolder">{{ room.rating }}</h5> -->
+
+                      <!-- stars for looping through room rating -->
+                      {% comment %} <div
+                          class="d-flex justify-content-center small text-warning mb-2">
+                            <div class="bi-star-fill"></div>
+                            <div class="bi-star-fill"></div>
+                            <div class="bi-star-fill"></div>
+                            <div class="bi-star-fill"></div>
+                            <div class="bi-star-fill"></div>
+                      </div> {% endcomment %}
+                      <h5 class="fw-bolder">{{ room.room_capacity }} in a Room🏠</h5>
+                      <!-- Room price-->
+                      &#8373;{{ room.room_price }}💵
+                    </div>
+                  </div>
+
+                  <!--booking form for each room-->
+                  <form data-action="Booking..." id="booking-form"
+                    action="{% url 'core:booking' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="room_id" value="{{ room.room_id }}">
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                      <div class="text-center">
+                        <button type="submit" class="btn btn-outline-dark mt-auto">
+                          Book🏷️
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              </a>
+            {% endfor %}
+
+        {% else %}
+        <!-- message if there no room available -->
+        <a style="text-decoration: none; color: rgba(5, 5, 5, 0.938);" href="{% url 'rooms:filter-rooms' %}">
+        <div class="col mb-5">
+          <!-- class = "border border-danger" from boostrap -->
+          <div class="card h-100 border border-danger">
+            <div class="card-body p-4">
+              <div class="text-center">
+
+                <h5 class="fw-bolder">Category is full😭</h5>
+              </div>
+            </div>
+      
+              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                 <div class="text-center">
-                  <!-- Sale badge-->
-                <!-- <a href="{{ room.get_profile_url }}"> -->
-                  <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">
-                      View specs
-                  </div>
-                <!-- </a>  -->
-                <br>
-
-                {% if messages %}
-
-                {% for message in messages %}
-                  <div class="alert alert-danger" role="alert">
-                        {{ message }}
-                  </div>
-                {% endfor %}
-          
-              {% else %}
-              {% endif %}
-                  <!-- ROOM NUMBER-->
-                  <h5 class="fw-bolder">Rm-{{ room.room_no }}</h5>
-                  <!-- <h5 class="fw-bolder">{{ room.rating }}</h5> -->
-
-                  <!-- stars for looping through room rating -->
-                  {% comment %} <div
-                      class="d-flex justify-content-center small text-warning mb-2">
-                        <div class="bi-star-fill"></div>
-                        <div class="bi-star-fill"></div>
-                        <div class="bi-star-fill"></div>
-                        <div class="bi-star-fill"></div>
-                        <div class="bi-star-fill"></div>
-                  </div> {% endcomment %}
-                  <h5 class="fw-bolder">{{ room.room_capacity }} in a Room🏠</h5>
-                  <!-- Room price-->
-                  &#8373;{{ room.room_price }}💵
+                  <button type="submit" class="btn btn-outline-dark mt-auto">
+                    Search all rooms
+                  </button>
                 </div>
               </div>
 
-              <!--booking form for each room-->
-              <form data-action="Booking..." id="booking-form"
-                action="{% url 'core:booking' %}" method="POST">
-                {% csrf_token %}
-                <input type="hidden" name="room_id" value="{{ room.room_id }}">
-                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                  <div class="text-center">
-                    <button type="submit" class="btn btn-outline-dark mt-auto">
-                      Book🏷️
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
           </div>
-          </a>
-        {% endfor %}
+        </div>
+        </a>
+        {% endif %}
                     <!-- NEXT ROOM container -->
         </div>
       </div>

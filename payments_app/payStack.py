@@ -53,5 +53,5 @@ def redirect_payment(customer_email=None, room_price=None, hostel=None):
     }
 
     response = requests.post(url=paystack_url,headers=headers, json=data)
-
+    print(response.json())
     return response

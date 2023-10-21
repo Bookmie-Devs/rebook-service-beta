@@ -37,13 +37,13 @@
             text-align: center;
         }
 
-        .alert {
+        /* .alert {
             background-color: #dc3545;
             color: #fff;
             padding: 10px;
             margin: 10px 0;
             border-radius: 5px;
-        }
+        } */
 
         hr {
             border: 1px solid #333;
@@ -86,12 +86,14 @@
  <br>
  <br>
  <br>
- {% for message in messages %}
- <!-- Room selection messages -->
- <div class="alert">
-     {{ message }}
- </div>
- {% endfor %}
+    {% if messages %}
+        {% for message in messages %}
+            <!-- Room selection messages -->
+            <div class="alert alert-danger" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
     <div class="container">
         
         <br>
@@ -136,12 +138,16 @@
                             {% endif %}
                     <hr>
                     <div>
-                        <a href="{% url 'core:delete-booking' %}">
-                            <button type="button" class="btn btn-danger">Renew V-code</button>
-                        </a>
                         <a href="{% url 'payments:tenant-authentication' %}">
                             <button type="button" class="btn btn-success">Get User Credentials(V-code)</button>
                         </a>
+                            <br>
+                                <br>
+                        <form method="POST" action="{% url 'core:update-v-code' %}">
+                            {% csrf_token %}
+                                <input type="hidden" name="room_id" value="{{ tenant.room.room_id }}">
+                            <button type="submit" class="btn btn-primary">Update V-code</button>                           
+                        </form>
                     </div>
                     <hr>
                         <h1>{{ tenant.room }}</h1>
