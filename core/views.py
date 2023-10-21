@@ -87,10 +87,37 @@ def book_room(request):
         #redirect user for payment
         return redirect('accounts:booking-and-payments')
     
+def update_vcode(request):
+    """update tenant year of staying"""
+
+    # check if tenant is still active
+    try:
+        tenant = Tenant.objects.get(user=request.user)
+        if tenant.is_active():
+            messages.error(request,"Tenant V-code hasn't expired yet")
+            return redirect("accounts:booking-and-payments")
+        
+        else:
+            tenant.delete_if_expired()
+            booked_room = RoomProfile.objects.get(room_id=request.POST.get('room_id')) 
+            booking=Booking.objects.create(room=booked_room, user=request.user, 
+                                      room_number=booked_room.room_no, hostel=booked_room.hostel, 
+                                      student_id=request.user.student_id, status='Booked',
+                                      end_time=(timezone.now() + timedelta(seconds=40)),
+                                      campus=booked_room.campus)
+            booking.save()
+            messages.error(request,"Now Pay for room")
+            return redirect("accounts:booking-and-payments")
+            
+    except Tenant.DoesNotExist:
+        messages.error(request,"Not a Tenant at current hostel")
+        return redirect("accounts:booking-and-payments")
     
+    
+    
+# Tenant.objects.filter(is)
 @login_required()
 def delete_booking(request):
-
     try:
         booking = Booking.objects.get(user=request.user)
         booking.delete()

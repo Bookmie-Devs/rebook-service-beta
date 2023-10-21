@@ -87,17 +87,6 @@
       <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-white filter">
           <a class="nav-link active" aria-current="page" href=""><h2 class="display-4 fw-bolder" href="#!"style="color: orange;">Lets Help You Get A Room🏠</h2></a>
-            <hr>
-            {% if messages %}
-
-            {% for message in messages %}
-              <div class="alert alert-danger" role="alert">
-                    {{ message }}
-              </div>
-            {% endfor %}
-      
-          {% else %}
-          {% endif %}
             <form data-action="Searching..." class="row gx-3 gy-2 align-items-center" action="{% url 'rooms:filter-rooms' %}" method="GET">
               <div class="col-sm-3">
                 <label class="visually-hidden" for="specificSizeSelect">Preference</label>
@@ -155,6 +144,7 @@
     <section class="py-5">
       <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+        {% if rooms %}
           {% for room in rooms %}
           <a style="text-decoration:none; color:rgb(48, 45, 45);" href="{{ room.get_detail_url }}">
           <div class="col mb-5">
@@ -208,6 +198,21 @@
           </div>
         </a>
           {% endfor %}
+
+      {% else %}
+        <!-- message if there no room available -->
+        <a href="{% url 'rooms:filter-rooms' %}">
+        <div class="col mb-5">
+          <div class="card h-100">
+            <div class="card-body p-4">
+              <div class="text-center">
+                    <h5 class="fw-bolder">Category full😭</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+        </a>
+      {% endif %}
           
       </div>
     </section>

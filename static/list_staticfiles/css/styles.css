@@ -11062,3 +11062,17 @@ animation-duration: 3s;
 }
 }
 
+
+/* form for filtering Rooms */
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+#filter {
+  text-align: center;
+  margin: 10px 5px; /* Adjust margin for spacing */
+}

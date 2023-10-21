@@ -9,9 +9,15 @@
     <title>Pay</title>
   </head>
   <body>
+
+    <div id="modal" class="modal-dialog modal-dialog-centered">
+      ...
+    </div>
+    
     <header>
         <h1>Book Up</h1>
     </header>
+    
 
     <div class="container">
 
@@ -57,13 +63,15 @@
             //this happens after the payment is completed successfully
             var reference = response.reference;
 
-            alert(`Payment complete! with Reference ${reference}` );
+            // alert('Payment complete!');
 
             window.location.href = "{% url 'payments:verify-payment' reference %}"
             // Make an AJAX call to your server with the reference to verify the transaction
           },
           onClose: function() {
+
             alert('Transaction was not completed, window closed.');
+
           },
         });
         handler.openIframe();
