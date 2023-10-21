@@ -15,7 +15,5 @@ urlpatterns =[
     path('update-v-code/',views.update_vcode, name='update-v-code'),
     path('delete-booking/', views.delete_booking, name='delete-booking'),
 
-    path('search/',views.search, name='search'),
-
     path('verification/success/', views.success_message, name="success")
 ]
