@@ -31,21 +31,31 @@ def index(request):
 class HostelListView(generic.ListView):
     
     def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
-
         """Get hostel that are related to particular campus and display it
         to the client"""
-
         campus = CampusProfile.objects.get(
-                campus_code=request.user.campus.campus_code
-                )
-
+                campus_code=request.user.campus.campus_code)
         campus_hostels = HostelProfile.objects.filter(campus=campus)
 
+        """if user search for hostel"""
+        if request.GET:
+            search_data = request.GET['search_data']
+            data = HostelFilter
+            campus = CampusProfile.objects.get(
+            campus_code=request.user.campus.campus_code)
+            #query of search 
+            query = HostelProfile.objects.filter(Q(campus=campus) & 
+                                (Q(hostel_name__icontains=search_data)
+                                | Q(location__icontains=search_data)))
+            #context containg search query page
+            context={'hostels':query, 'campus':campus,
+                                      'myform': HostelFilter}
+            return render(request, 'campus_hostels.html', context)
+            
         #context for the page
         context={'hostels':campus_hostels, 
                   'campus':campus, 
                   'myform': HostelFilter}
-
         return render(request, 'campus_hostels.html', context)
 
 
@@ -135,28 +145,6 @@ def delete_booking(request):
     except Booking.DoesNotExist:
         messages.info(request, 'No booking exits for this user')
         return redirect('accounts:booking-and-payments')
-
-
-@login_required()
-def search(request):
-    search_data = request.GET['search_data']
-
-    data = HostelFilter
-    campus = CampusProfile.objects.get(campus_code=
-                                       request.user.campus.campus_code)
-
-    #query of search 
-    query = HostelProfile.objects.filter(Q(campus=campus) & 
-                                    (Q(hostel_name__icontains=search_data)
-                                    | Q(location__icontains=search_data)))
-    
-    #context containg search query page
-    context={'hostels':query, 
-             'campus':campus,
-             'myform': HostelFilter}
-    
-    return render(request, 'search.html', context)
-
 
 @login_required()
 def success_message(request):
