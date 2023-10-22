@@ -68,7 +68,7 @@ def signup(request):
                     message=render_to_string('emails/signup_congrat.html',{'user':request.user}),
                     fail_silently=True)
 
-                    return redirect('core:hostels') 
+                    return redirect('rooms:filter-rooms') 
             else:
                 messages.error(request, 'Password is not matching')
                 return redirect('accounts:signup')
