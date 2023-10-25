@@ -42,8 +42,8 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
             <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'core:index' %}">Home</a></li> 
-            <li class="nav-item"><a class="nav-link active" href="{% url 'core:hostels' %}">Hostels</a></li>
-            <li class="nav-item"><a class="nav-link active" href="{% url 'rooms:filter-rooms' %}">All Rooms</a></li>
+            <li class="nav-item"><a class="nav-link active" href="{% url 'core:hostels' hostel.campus.campus_code %}">Hostels</a></li>
+            <li class="nav-item"><a class="nav-link active" href="{% url 'rooms:campus-rooms' hostel.campus.campus_code %}">All Rooms</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url 'accounts:booking-and-payments' %}">Booking/Payments</a></li> 
           </ul>
 
@@ -136,6 +136,7 @@
                       <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">
                           View specs
                       </div>
+                      <br>
                     <!-- </a>  -->
                       <!-- ROOM NUMBER-->
                       <h5 class="fw-bolder">Rm-{{ room.room_no }}</h5>
@@ -176,7 +177,7 @@
 
         {% else %}
         <!-- message if there no room available -->
-        <a style="text-decoration: none; color: rgba(5, 5, 5, 0.938);" href="{% url 'rooms:filter-rooms' %}">
+        <a style="text-decoration: none; color: rgba(5, 5, 5, 0.938);" href="{% url 'rooms:campus-rooms' hostel.campus.campus_code %}">
         <div class="col mb-5">
           <!-- class = "border border-danger" from boostrap -->
           <div class="card h-100 border border-danger">

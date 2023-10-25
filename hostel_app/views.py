@@ -6,7 +6,7 @@ from rooms_app.models import RoomProfile
 from django.contrib import messages
 from core.models import Booking
 
-@login_required()
+
 def hostel_profile(request, hostel_id):
     hostel_profile = HostelProfile.objects.get(hostel_id = hostel_id)
 
@@ -16,7 +16,7 @@ def hostel_profile(request, hostel_id):
     return render(request, 'hostel_profile.html', context)
 
 
-@login_required()
+
 def hostel_rooms(request, hostel_id):
 
     hostel_profile = HostelProfile.objects.get(hostel_id = hostel_id)
@@ -24,15 +24,13 @@ def hostel_rooms(request, hostel_id):
     #get all unoccupied rooms in the hostel
     hostel_rooms = RoomProfile.objects.filter(hostel=hostel_profile, occupied=False).order_by('room_no')
 
-    context ={'user':request.user,
-            'hostel':hostel_profile,
+    context ={'hostel':hostel_profile,
             'hostel_rooms':hostel_rooms, 
             'campus':hostel_profile.campus}
     
     return render(request, 'hostel_rooms.html', context)
 
 
-@login_required()
 def filter_rooms(request):
 
     campus = request.user.campus

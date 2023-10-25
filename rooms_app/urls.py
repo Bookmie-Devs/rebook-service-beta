@@ -4,4 +4,5 @@ from . import views
 app_name = 'rooms'
 urlpatterns = [
     path('profile/<str:room_id>/', views.room_profile, name='profile' ),
-    path('filter-rooms/', views.filter_of_rooms, name='filter-rooms')]
+    path('campus-rooms/<str:campus_code>', views.CampusRoomListView.as_view(), name='campus-rooms')
+    ]

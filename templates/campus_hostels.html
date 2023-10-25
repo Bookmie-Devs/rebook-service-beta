@@ -38,7 +38,7 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                         
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'core:index' %}">Home</a></li>
-                        <li class="nav-item"><a class="nav-link active" href="{% url 'rooms:filter-rooms'%}">All Rooms</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="{% url 'rooms:campus-rooms' campus.campus_code %}">All Rooms</a></li>
                         <li class="nav-item"><a class="nav-link active" href="{% url 'accounts:booking-and-payments'%}" >Booking/Payments</a></li>
                       
                     </ul>
@@ -68,7 +68,7 @@
                     <p class="lead fw-normal text-white-50 mb-0">Want a room🤔??? we got you covered!!!</p>
                     <br>
                     <div class="container-fluid">
-                        <form data-action="Searching..."  action="{% url 'core:hostels' %}" class="d-flex" role="search">
+                        <form data-action="Searching..."  action="{% url 'core:hostels' campus.campus_code %}" class="d-flex" role="search">
                           <input class="form-control me-2" type="search" required name="search_data" placeholder="Search for hostels" aria-label="Search">
                           <button class="drop btn" id="search-button" type="submit">Search</button>
                         </form>
