@@ -1,0 +1,22 @@
+{% extends "home/main_campuses.html" %}
+
+
+{% block 'router' %}
+
+{% for campus in campuses %}
+<a href="{% url 'core:hostels' campus.campus_code %}">
+<div class="card border border-dark">
+  <div class="content">
+    <img src="{{ campus.flag.url }}" alt="">
+    <p class="heading">{{ campus.campus_name }}</p>
+    <!--<p class="para">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi
+      laboriosam at voluptas
+    </p> -->
+    <button class="btn">View Hostels Available</button>
+  </div>
+</div>
+</a>
+{% endfor %}
+
+{% endblock %}

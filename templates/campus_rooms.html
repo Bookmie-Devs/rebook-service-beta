@@ -62,7 +62,7 @@
                 href="{% url 'core:index' %}"
                 >Home</a>
             </li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'core:hostels' %}">Hostels</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'core:hostels' campus.campus_code %}">Hostels</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url 'accounts:booking-and-payments' %}">Booking/Payments</a></li>
              
           </ul>
@@ -83,7 +83,7 @@
       <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-white filter">
           <a class="nav-link active" aria-current="page" href=""><h2 class="display-4 fw-bolder" href="#!"style="color: orange;">Lets Help You Get A Room🏠</h2></a>
-            <form data-action="Searching..." class="row gx-3 gy-2 align-items-center" action="{% url 'rooms:filter-rooms' %}" method="GET">
+            <form data-action="Searching..." class="row gx-3 gy-2 align-items-center" action="{% url 'rooms:campus-rooms' campus.campus_code %}" method="GET">
               <div class="col-sm-3">
                 <label class="visually-hidden" for="specificSizeSelect">Preference</label>
                 <select name="room_capacity" class="form-select" id="specificSizeSelect">
@@ -202,7 +202,7 @@
     <!-- Dont display section with divs if room filter returns null -->
     {% else %}
         <!-- message if there no room available -->
-        <a href="{% url 'rooms:filter-rooms' %}">
+        <a href="{% url 'rooms:campus-rooms' campus.campus_code %}">
         <div class="col mb-5">
 
           <!-- class = "border border-danger" from boostrap -->

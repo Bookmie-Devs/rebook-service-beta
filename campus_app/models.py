@@ -1,18 +1,25 @@
+from collections.abc import Iterable
 from typing import Any, Type
 from django.db import models
+import uuid
 from django.db.models.manager import BaseManager
 # from geoposition.fields import GeopositionField
 # Create your models here.
 
 class CampusProfile(models.Model):
     campus_name = models.CharField(max_length=100)
-    campus_code = models.CharField(max_length=20)
+    campus_code = models.CharField(max_length=100)
     flag = models.ImageField(default='defaultFlag.jpg', upload_to='CampusFlag')
     address = models.CharField(max_length=255)
     # location= GeopositionField(max_length=42)
 
     def __str__(self) -> str:
         return f'{self.campus_name}'
+
+    def save(self, *args, **kwargs) -> None:
+        # campus code when saved
+        self.campus_code = f'{self.campus_code}-m310523'
+        return super().save(*args, **kwargs)
     
 
 

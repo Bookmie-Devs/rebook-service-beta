@@ -20,21 +20,31 @@ from django.utils.timezone import timedelta
 from django.shortcuts import redirect
 from django.db.models import Q
 from django.contrib import messages
+from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
+import random
+from campus_app.models import CampusProfile
 
 
 @require_http_methods(['GET'])
 def index(request):
-    return render(request, 'index.html')
+
+    campuses = CampusProfile.objects.all()
+    # print(random.sample(population=list(hostels),k=2))
+
+    # random a list of hostels to display
+    campuses = random.sample(population=list(campuses), k=len(list(campuses)))
+
+    return render(request, 'index.html', {'campuses':campuses})
 
 
 class HostelListView(generic.ListView):
     
-    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+    def get(self, request: HttpRequest, campus_code:str ,*args: Any, **kwargs: Any) -> HttpResponse:
         """Get hostel that are related to particular campus and display it
         to the client"""
         campus = CampusProfile.objects.get(
-                campus_code=request.user.campus.campus_code)
+                    campus_code=campus_code)
         campus_hostels = HostelProfile.objects.filter(campus=campus)
 
         """if user search for hostel"""
@@ -71,7 +81,7 @@ def book_room(request):
     #check if room is full
     if  Booking.objects.filter(user=request.user, payed=False).exists():
         get_booking = Booking.objects.get(user = request.user)
-        messages.info(request, 'Already Booked for a room please proceed to payment!!!')
+        messages.info(request, 'You already booked for a room please proceed to payment or delete booking!!!')
         # print(request.META.get(''))    
         # return redirect(request.META.get('HTTP_REFERER'))
         return redirect('accounts:booking-and-payments')
@@ -150,3 +160,12 @@ def delete_booking(request):
 def success_message(request):
 
     return render(request, 'successful.html')
+
+class ContactView(TemplateView):
+    
+    template_name = 'home/contact.html'
+
+
+class AboutView(TemplateView):
+
+    template_name = 'home/about.html'

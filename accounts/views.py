@@ -90,8 +90,8 @@ def login(request):
             login_user = auth.authenticate(email=email, password=password)
             if login_user is not None:
                 auth.login(request, login_user)
-                send_sms_message(user_contact=request.user.phone)
-                return redirect('core:hostels')
+                # send_sms_message(user_contact=request.user.phone)
+                return redirect('core:index')
             else:
                 messages.error(request, 'Credentials invalid')
                 return redirect('accounts:login')
@@ -103,8 +103,7 @@ def login(request):
 @login_required()
 def logout(request):
     auth.logout(request)
-    return redirect('accounts:login')
-
+    return redirect('core:index')
 
 
 @login_required()
@@ -123,8 +122,8 @@ def booking_and_payments(request):
         tenant = Tenant.objects.get(user=request.user)
         booking = False
         context = {'user':get_user, 
-                    'booking': booking,
-                    'tenant':tenant}
+                   'booking': booking,
+                   'tenant':tenant}
         return render(request, 'booking-and-payments.html',context=context)
     
     else:
