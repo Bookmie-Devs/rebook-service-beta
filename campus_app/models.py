@@ -8,7 +8,7 @@ from django.db.models.manager import BaseManager
 
 class CampusProfile(models.Model):
     campus_name = models.CharField(max_length=100)
-    campus_code = models.CharField(max_length=100)
+    campus_code = models.CharField(max_length=100, unique=True)
     flag = models.ImageField(default='defaultFlag.jpg', upload_to='CampusFlag')
     address = models.CharField(max_length=255)
     # location= GeopositionField(max_length=42)
@@ -17,8 +17,6 @@ class CampusProfile(models.Model):
         return f'{self.campus_name}'
 
     def save(self, *args, **kwargs) -> None:
-        # campus code when saved
-        self.campus_code = f'{self.campus_code}-m310523'
         return super().save(*args, **kwargs)
     
 
