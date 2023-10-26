@@ -48,7 +48,8 @@ def redirect_payment(customer_email=None, reference=None, room_price=None, hoste
         # change decimal value to float
         "amount": float(room_price), # to make it json seriable
 
-        # call back url when payment is completed
+        # call back url when payment is completed"""
+        # change domain in production
         "callback_url":"https://ethenatx.pythonanywhere.com/payments/verify-payment/",
 
         # refernce
