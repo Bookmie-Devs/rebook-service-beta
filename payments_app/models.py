@@ -20,12 +20,6 @@ class PaymentHistory(models.Model):
     successful = models.BooleanField(default=False)
     date_of_payment = models.DateTimeField(auto_now_add=True)
 
-    # info from paystack
-    trxref = models.CharField(max_length=500, unique=True, editable=False,
-                                 default='Not recieved')
-    access_code_used = models.CharField(max_length=500, unique=True, editable=False,
-                                 default='unavailable')
-
     def __str__(self) -> str:
         return f'{self.user} payed on {self.date_of_payment.date()} @{self.date_of_payment.hour}:{self.date_of_payment.minute}'
 
@@ -46,10 +40,11 @@ class PaymentHistory(models.Model):
 class PaystackSubAccount(models.Model):
     hostel = models.OneToOneField(HostelProfile,on_delete=models.CASCADE) 
     bussiness_name = models.CharField(max_length=50)
-    account_number = models.CharField(max_length=30)
+    account_number = models.CharField(max_length=50)
     subaccount_code = models.CharField(max_length=50, 
                                        default="unavailable",
                                        unique=True)
+    primary_contact_name = models.CharField(max_length=30, default="unavailable")
     bank_code = models.CharField(max_length=50, default="unavailable")
     settlement_bank = models.CharField(max_length=80, default="unavailable")
     percentage_charge = models.DecimalField(max_digits=5, 

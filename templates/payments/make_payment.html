@@ -9,41 +9,15 @@
     <title>Pay</title>
   </head>
   <body>
-
-    <div id="modal" class="modal-dialog modal-dialog-centered">
-      ...
-    </div>
-    
     <header>
         <h1>Book Up</h1>
     </header>
     
-
     <div class="container">
-
-      {% if messages %}
-      {% for message in messages %}
-
-          <h5 style="color: rgb(255, 174, 0)">{{ message }}
-          <a id="terminate-message" href="#">
-            Terminate booking
-          </a>
-        </h5>
-      
-      {% endfor %}
-      {% endif %}
-      <form action="#" method="POST">
         <h5>Make Payment Of ₵{{ room.room_price }}</h5>
-        <div class="btn">
-          <button type="submit" id="pay" onclick="payWithPaystack()">Pay💳</button>
-        </div>
-
-      <!-- div should not be deleted in order for payStack to work -->
-      <div class="form-group">
-        <input type="email" id="email-address" required hidden />
+      <div class="btn">
+        <button id="pay" onclick="payWithPaystack()">Pay💳</button>
       </div>
-        
-      </form>
     </div>
 
     <!-- paystack js script-->
@@ -59,25 +33,22 @@
           amount: '{{ room.room_price }}' * 100, // the amount value is multiplied by 100 to convert to the lowest currency unit
           currency: 'GHS', // Use GHS for Ghana Cedis or USD for US Dollars
           ref: '{{ reference }}', // Replace with a reference you generated
+          subaccount: '{{ subaccount }}',
           callback: function(response) {
             //this happens after the payment is completed successfully
             var reference = response.reference;
-
             // alert('Payment complete!');
-
             window.location.href = "{% url 'payments:verify-payment' reference %}"
-            // Make an AJAX call to your server with the reference to verify the transaction
+            //AJAX call to server with the reference to verify the transaction
           },
           onClose: function() {
 
             alert('Transaction was not completed, window closed.');
-
           },
         });
         handler.openIframe();
       }
     </script>
-      
      <!-- Loader -->
      <div class="load">
       <div class="loader">
@@ -85,7 +56,6 @@
         <p id="loading-option">Confirming...</p>
       </div>
     </div>
-
 
     <script src="{% static 'payment/js/script.js' %}"></script>
 
