@@ -68,7 +68,7 @@ def signup(request):
                     message=render_to_string('emails/signup_congrat.html',{'user':request.user}),
                     fail_silently=True)
 
-                    return redirect('rooms:filter-rooms') 
+                    return redirect('accounts:booking-and-payments') 
             else:
                 messages.error(request, 'Password is not matching')
                 return redirect('accounts:signup')
@@ -91,7 +91,7 @@ def login(request):
             if login_user is not None:
                 auth.login(request, login_user)
                 # send_sms_message(user_contact=request.user.phone)
-                return redirect('core:index')
+                return redirect('accounts:booking-and-payments')
             else:
                 messages.error(request, 'Credentials invalid')
                 return redirect('accounts:login')
@@ -116,7 +116,7 @@ def booking_and_payments(request):
         context = {'user':get_user, 
                    'tenant':tenant,
                    'booking': booking,}
-        return render(request, 'booking-and-payments.html',context=context)
+        return render(request, 'booking_and_payments.html',context=context)
 
     elif Tenant.objects.filter(user=request.user).exists():
         tenant = Tenant.objects.get(user=request.user)
@@ -124,7 +124,7 @@ def booking_and_payments(request):
         context = {'user':get_user, 
                    'booking': booking,
                    'tenant':tenant}
-        return render(request, 'booking-and-payments.html',context=context)
+        return render(request, 'booking_and_payments.html',context=context)
     
     else:
-        return render(request, 'booking-and-payments.html')
+        return render(request, 'booking_and_payments.html')

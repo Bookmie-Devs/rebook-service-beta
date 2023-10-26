@@ -1,4 +1,4 @@
-{% load static %}
+<!-- {% load static %} -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile | Hosabella</title>
     <link href="{% static 'profileStaticfiles/css/styles.css' %}" rel="stylesheet" />
-    <link href="https   ://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -37,13 +37,6 @@
             text-align: center;
         }
 
-        /* .alert {
-            background-color: #dc3545;
-            color: #fff;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-        } */
 
         hr {
             border: 1px solid #333;
@@ -62,7 +55,7 @@
 </head>
 <body>
    <!-- Navigation -->
-   <nav class="nav navbar navbar-expand-lg navbar-light ">
+   <!-- <nav class="nav navbar navbar-expand-lg navbar-light ">
 
     <div class="container px-4 px-lg-5">
         <a class="navbar-brand" href="#!" style="color: orange;">BookUp</a>
@@ -82,26 +75,26 @@
             </a>
         </div>
     </div>
-</nav>
+</nav> -->
  <br>
  <br>
  <br>
  <br>
-    {% if messages %}
-        {% for message in messages %}
+    <!-- {% if messages %} -->
+        <!-- {% for message in messages %} -->
             <!-- Room selection messages -->
             <div class="alert alert-danger" role="alert">
                 <h3 style="text-align: center;">{{ message }}</h3>
             </div>
-        {% endfor %}
-    {% endif %}
+        <!-- {% endfor %} -->
+    <!-- {% endif %} -->
     <div class="container">
         
         <br>
         <div class="left-half">
             <div class="user-info">
                 <hr>
-                {% if booking %}
+                <!-- {% if booking %} -->
                     <div>
                         <div>
                             <a href="{% url 'core:delete-booking' %}">
@@ -112,31 +105,31 @@
                             </a>
                         </div>
                         <br>
-                            <h1>{{ booking.room }}</h1>
+                            <h1>Room 34 at hostel_name</h1>
                         <br>
-                            <h1>Room {{ booking.room.room_no }}</h1>
+                            <h1>Room 45</h1>
                         <br>
-                            <h1>{{ booking.room.hostel.hostel_name }}</h1>
+                            <h1>Evandy</h1>
                         <br>
-                            <h1>{{ booking.room.room_price }}</h1>
+                            <h1>123.0.0 Cedis</h1>
                     </div>
-                {% else %}
+                <!-- {% else %} -->
                     <h1>No Bookings to Show</h1>
-                {% endif %}
+                <!-- {% endif %} -->
                 <hr>
             </div>
         </div>
 
         <div class="right-half">
             <hr>
-            {% if tenant %}
+            <!-- {% if tenant %} -->
                 <div>
                     <h1>Tenant Details</h1>
-                            {% if tenant.checked_in %}
+                            <!-- {% if tenant.checked_in %} -->
                                 <h4>Status: Checked in</h4>
-                            {% else %}
+                            <!-- {% else %} -->
                                 <h4>Status: Not yet checked in</h4>
-                            {% endif %}
+                            <!-- {% endif %} -->
                     <hr>
                     <div>
                         <a href="{% url 'payments:tenant-authentication' %}">
@@ -145,23 +138,23 @@
                             <br>
                                 <br>
                         <form method="POST" action="{% url 'core:update-v-code' %}">
-                            {% csrf_token %}
+                            <!-- {% csrf_token %} -->
                                 <input type="hidden" name="room_id" value="{{ tenant.room.room_id }}">
                             <button type="submit" class="btn btn-primary">Update V-code</button>                           
                         </form>
                     </div>
                     <hr>
-                        <h1>{{ tenant.room }}</h1>
+                        <h1>rm 45</h1>
                     <br>
-                        <h1>Room {{ tenant.room.room_no }}</h1>
+                        <h1>Room 45</h1>
                     <br>
-                        <h1>{{ tenant.room.hostel.hostel_name }}</h1>
+                        <h1>Evandy</h1>
                     <br>
-                        <h1>{{ tenant.room.room_price }}</h1>
+                        <h1>12.304</h1>
                 </div>
-                {% else %}
+                <!-- {% else %} -->
                     <h1>No Tenant profile to Show</h1>
-                {% endif %}
+                <!-- {% endif %} -->
             <hr>
         </div>
     </div>

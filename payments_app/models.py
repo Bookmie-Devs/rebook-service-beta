@@ -20,6 +20,12 @@ class PaymentHistory(models.Model):
     successful = models.BooleanField(default=False)
     date_of_payment = models.DateTimeField(auto_now_add=True)
 
+    # info from paystack
+    trxref = models.CharField(max_length=500, unique=True, editable=False,
+                                 default='Not recieved')
+    access_code_used = models.CharField(max_length=500, unique=True, editable=False,
+                                 default='unavailable')
+
     def __str__(self) -> str:
         return f'{self.user} payed on {self.date_of_payment.date()} @{self.date_of_payment.hour}:{self.date_of_payment.minute}'
 

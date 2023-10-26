@@ -11,7 +11,6 @@ class RoomProfile(models.Model):
     # room number
     room_no = models.CharField(max_length=20,default=000,
                                verbose_name='Room number')
-
     # floor number of room
     floor_no = models.IntegerField(default=0,
                                 verbose_name='Floor number')
@@ -25,6 +24,7 @@ class RoomProfile(models.Model):
                                 null=True)
     
     room_capacity = models.PositiveIntegerField(default=4)
+    capacity_left = models.PositiveIntegerField(default=0)
     room_img = models.ImageField(upload_to='RoomImages', default='unavailable.jpg')
     room_price = models.DecimalField(blank=False, decimal_places=1, max_digits=7 )
     

@@ -20,7 +20,7 @@ class CustomPaymentsAdminPanel(admin.ModelAdmin):
     )
 
     list_display = (
-        'user', 'amount', 'successful','date_of_payment',
+        'user', 'amount','access_code_used','successful','date_of_payment',
     )
 
 admin.site.register(PaymentHistory, CustomPaymentsAdminPanel)
