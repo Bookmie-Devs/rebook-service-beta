@@ -45,7 +45,9 @@ def initiate_payment(request, room_id):
                                 account_payed_to=get_room.hostel.account_number,
                                 room=get_room,
                                 hostel=get_room.hostel,
-                                ).save()
+                                )
+            payment.save()
+
                         
             return redirect('payments:make-payment', get_room.room_id)
     # return redirect
@@ -57,75 +59,80 @@ def initiate_payment(request, room_id):
 def make_payment(request, room_id):
     get_room = RoomProfile.objects.get(room_id=room_id)
     payment = PaymentHistory.objects.get(user=request.user)
-    return render(request, 'payments/make_payment.html', 
-                            {'room':get_room,
-                             'reference':payment.reference, 
-                            'user':request.user, 
-                            'paystack_public_key':settings.PAYSTACK_PUBLIC_KEY })
 
+    # redirecting payment
+    account = redirect_payment(customer_email=request.user.email, 
+                                room_price=payment.room.room_price,
+                                reference =payment.reference,
+                                hostel=payment.hostel)
+    # check if payment was redirected to hostel account
+    if (account.status_code == 200 and account.json()['status']==True):
+        # get access code
+        payment.access_code_used = account.json()['data']['access_code']
+        payment.save()
 
+        return redirect(account.json()["data"]["authorization_url"])
+
+    else:
+        payment.delete()
+        messages.info(request, "payment was not successfull")
+        return redirect('accounts:booking-and-payments')
+         
+
+# verify payment if payment is done
 @login_required()
-def verify_payment(request, reference):  
+def verify_payment(request):
+    # get trxref and ref from paystack callback
+    trxref = request.GET.get("trxref")  
+    reference = request.GET.get("reference")
+
     payment = get_object_or_404(PaymentHistory, reference=reference)
 
     # count tenants in th room 
     count_members = Tenant.objects.filter(room=payment.room).count()
 
-    # redirecting payment
-    account = redirect_payment(customer_email=request.user.email, 
-                                room_price=payment.room.room_price,
-                                hostel=payment.hostel)
-    
-    return redirect(account.json()["data"]["authorization_url"])
-
-    # checkout validation from api response
     verify = paystack_verification(reference)
 
     if (verify.status_code==200 and 
         verify.json().get('message')=='Verification successful' and
-        verify.json()['data']['amount']==payment.room.room_price*100):
-
-    # check if payment was redirected to hostel account
-            if (account.status_code == 200 and account.json()['status']==True):
-            
+        verify.json()['data']['amount']==payment.room.room_price and
+        verify.json()['data']['status']=="success"):
+               
     # create tenent object if reponse is positive
-                tenant = Tenant.objects.create(user=request.user, room=payment.room,
-                                            hostel=payment.hostel, payed=True,
-                                            ).save()
-                
-                # SET ROOM TO FULL IF CAPACITY HAS TRUE
-                if payment.room.room_capacity == count_members:
-                    payment.room.occupied = True
-                    payment.room.save()
-                    pass
-        
-                # DELETE BOOKING FOR USER
-                booking = Booking.objects.get(user=request.user)
-                booking.delete()
+            tenant = Tenant.objects.create(user=request.user, room=payment.room,
+                                        hostel=payment.hostel, payed=True,
+                                        ).save()
+            
+            # SET ROOM TO FULL IF CAPACITY HAS TRUE
+            if payment.room.room_capacity == count_members:
+                payment.room.occupied = True
+                # save trxref
+                payment.trxref = trxref
+                payment.room.save()
+                pass
+    
+            # DELETE BOOKING FOR USER
+            booking = Booking.objects.get(user=request.user)
+            booking.delete()
 
-                #DECLARE SUCCESSFULL TRUE if PAYMENT WAS A SUCCESS
-                payment.successful = True
-                payment.save()
+            #DECLARE SUCCESSFULL TRUE if PAYMENT WAS A SUCCESS
+            payment.successful = True
+            payment.save()
 
-                # send sms
-                send_sms_message(user_contact=request.user.phone)
+            # send sms
+            send_sms_message(user_contact=request.user.phone)
 
-                # send emails
-                subject = f'Congratulations'
-                send_mail(from_email=settings.EMAIL_HOST_USER, fail_silently=True,
-                recipient_list=[request.user.email], subject=subject, 
-                message=render_to_string('emails/tenant_email.html',{"user":request.user}))
+            # send emails
+            subject = f'Congratulations'
+            send_mail(from_email=settings.EMAIL_HOST_USER, fail_silently=True,
+            recipient_list=[request.user.email], subject=subject, 
+            message=render_to_string('emails/tenant_email.html',{"user":request.user}))
 
-                return redirect('core:success')
-
-            else:
-                payment.delete()
-                messages.info(request, "payment was not successfull")
-                return redirect('payments:init-payment', payment.room.room_id)
+            return redirect('core:success')
     else:
         payment.delete()
         messages.info(request, "payment was not successfull")
-        return redirect('payments:init-payment', payment.room.room_id)
+        return redirect('accounts:booking-and-payments')
 
             
 @login_required()
