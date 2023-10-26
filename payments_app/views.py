@@ -1,4 +1,3 @@
-
 """Custom imports"""
 from .models import PaymentHistory
 from rooms_app.models import RoomProfile
@@ -76,6 +75,8 @@ def verify_payment(request, reference):
     account = redirect_payment(customer_email=request.user.email, 
                                 room_price=payment.room.room_price,
                                 hostel=payment.hostel)
+    
+    return redirect(account.json()["data"]["authorization_url"])
 
     # checkout validation from api response
     verify = paystack_verification(reference)
