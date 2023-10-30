@@ -47,7 +47,8 @@ def initiate_payment(request, room_id):
                                 account_payed_to=get_room.hostel.account_number,
                                 room=get_room,
                                 hostel=get_room.hostel,
-                                ).save()
+                                )
+            payment.save()
                         
             return redirect('payments:make-payment', get_room.room_id)
     # return redirect
@@ -82,7 +83,6 @@ def verify_payment(request, reference):
 
     # checkout validation from api response
     verify = paystack_verification(reference)
-    print(verify.json())
     if (verify.status_code==200 and 
         verify.json().get('message')=='Verification successful' and
         verify.json()['data'].get('status')=="success" and
@@ -94,14 +94,25 @@ def verify_payment(request, reference):
     # create tenent object if reponse is positive
         tenant = Tenant.objects.create(user=request.user, room=payment.room,
                                             hostel=payment.hostel, payed=True,
-                                            ).save()
+                                            )
+        tenant.save()
             
-        # SET ROOM TO FULL IF CAPACITY HAS TRUE
-        if payment.room.room_capacity == count_members:
-            payment.room.occupied = True
-            payment.room.save()
+        # SET ROOM TO FULL IF CAPACITY HAS BEEN FIELED
+        if (tenant.room.room_capacity == count_members
+            or tenant.room.bed_space_left == 0):
+            tenant.room.occupied = True
+            tenant.room.save()
             pass
-    
+        else:
+            try:
+                #REDUCE BED SPACE LEFT
+                tenant.room.bed_space_left - 1
+                tenant.room.save()
+                pass
+
+            except:
+                pass
+
         # DELETE BOOKING FOR USER
         booking = Booking.objects.get(user=request.user)
         booking.delete()
@@ -109,7 +120,7 @@ def verify_payment(request, reference):
         #DECLARE SUCCESSFULL TRUE if PAYMENT WAS A SUCCESS
         payment.successful = True
         payment.save()
-
+        
         # send sms
         send_sms_message(user_contact=request.user.phone)
 

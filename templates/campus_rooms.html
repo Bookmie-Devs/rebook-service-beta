@@ -97,10 +97,10 @@
 
               <div class="col-sm-3">
                 <label class="visually-hidden" for="specificSizeSelect">Preference</label>
-                <select name="contains_bathroom" class="form-select" id="specificSizeSelect">
+                <select name="inbuilt_bathroom" class="form-select" id="specificSizeSelect">
                   <option value="unknown">Any</option>
-                  <option selected value="true">Contains bathroom</option>
-                  <option value="false">Shared bathroom</option>
+                  <option selected value="true">Inbuilt Bathroom</option>
+                  <option value="false">Shared Bathroom</option>
                 </select>
               </div> 
 
@@ -202,14 +202,14 @@
     <!-- Dont display section with divs if room filter returns null -->
     {% else %}
         <!-- message if there no room available -->
-        <a href="{% url 'rooms:campus-rooms' campus.campus_code %}">
+        <a style="text-decoration: none;" href="{% url 'rooms:campus-rooms' campus.campus_code %}">
         <div class="col mb-5">
 
           <!-- class = "border border-danger" from boostrap -->
           <div class="card h-100  border border-danger">
             <div class="card-body p-4">
               <div class="text-center">
-                    <h5 class="fw-bolder">Category full...😭</h5>
+                    <h5 class="fw-bolder">No Result/Category full...😭</h5>
               </div>
             </div>
           </div>

@@ -73,7 +73,7 @@ def signup(request):
                 messages.error(request, 'Password is not matching')
                 return redirect('accounts:signup')
             
-        except CampusProfile.DoesNotExist:
+        except:
             messages.info(request, 'BookUp is not yet registered on your campus')
             return redirect('accounts:signup')
         

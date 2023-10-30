@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
+
 <head>
   <!-- Basic -->
   <meta charset="utf-8" />
@@ -36,7 +37,7 @@
             <h2 class="h2">BookUp</h2>
           </a>
           <div class="navbar-collapse" id="">
-          
+            
 
             <div class="custom_menu-btn">
               <button onclick="openNav()">
@@ -52,11 +53,15 @@
               </button>
             </div>
             <div id="myNav" class="overlay">
-              <div class="overlay-content">
-                <a href="{% url 'core:index' %}"><i class="bi bi-house"></i> HOME</a>
-                <a href="{% url 'campus:campus-list' 'hostel-router' %}"><i class="bi bi-house-fill"></i> HOSTELS</a>
-                <a href="{% url 'core:contact' %}"><i class="bi bi-telephone"></i> CONTACT US</a>
-              </div>
+                <div class="overlay-content">
+                  <a href="{% url 'core:index' %}">HOME</a>
+                  <a href="{% url 'campus:campus-list' 'hostel-router' %}"><i class="bi bi-house-fill"></i>HOSTELS</a>
+                  <a href="{% url 'campus:campus-list' 'room-router' %}"><i class="bi bi-house-fill"></i>ALL ROOMS</a>
+                  <a href="{% url 'accounts:booking-and-payments' %}">BOOKING/PAYMENTS</a>
+                  <a href="{% url 'core:about' %}"><i class="bi bi-info-circle"></i> ABOUT</a>
+                  <a href="{% url 'core:contact' %}"><i class="bi bi-telephone"></i> CONTACT US</a>
+                </div>
+            </div>
             </div>
           </div>
         </nav>
@@ -65,33 +70,14 @@
     <!-- end header section -->
   </div>
 
-  <!-- sale section -->
 
-  <section class="sale_section layout_padding">
-    <div class="container-fluid">
-      <div class="heading_container">
-        <h2 class="h2">
-          Select your campus...
-        </h2>
-        <p>
-         Lets Help You Get a Room That Suits What Your like...
-         (Available anytime)
-        </p>
-      </div>
-      <div class="sale_container">
-
-        {% block 'router' %}
-
-        {% endblock %}
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- end sale section -->
+  <!--section -->
+{% block 'page' %}
 
 
+{% endblock %}
+
+  <!-- end section -->
 
   <!-- info section -->
   <section class="info_section ">
@@ -105,15 +91,15 @@
             </h5>
             <div>
               <div class="img-box">
-                <img src="images/location.png" width="18px" alt="">
+                <img src="{% static 'home/images/location.png' %}" width="18px" alt="">
               </div>
               <p>
-                Address
+               Kumasi
               </p>
             </div>
             <div>
               <div class="img-box">
-                <img src="images/phone.png" width="12px" alt="">
+                <img src="{% static 'home/images/phone.png' %}" width="12px" alt="">
               </div>
               <p>
                 +01 1234567890
@@ -121,7 +107,7 @@
             </div>
             <div>
               <div class="img-box">
-                <img src="images/mail.png" width="18px" alt="">
+                <img src="{% static 'home/images/mail.png' %}" width="18px" alt="">
               </div>
               <p>
                 demo@gmail.com
@@ -136,7 +122,8 @@
               <i class="bi bi-info-circle"></i>
             </h5>
             <p>
-              ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+              All rooms purchased on this platform will last a year until 
+              V-code is updated, else V-code will be deactivated after 1 month
             </p>
           </div>
         </div>
@@ -144,37 +131,18 @@
         <div class="col-md-3">
           <div class="info_links">
             <h5 class="h5">
-              Useful Link
+              Useful Links
             </h5>
             <ul>
               <li>
-                <a href="">
-                  There are many
+                <a href="{% url 'core:contact' %}">
+                 Report a Problem
                 </a>
               </li>
+
               <li>
                 <a href="">
-                  variations of
-                </a>
-              </li>
-              <li>
-                <a href="">
-                  passages of
-                </a>
-              </li>
-              <li>
-                <a href="">
-                  Lorem Ipsum
-                </a>
-              </li>
-              <li>
-                <a href="">
-                  available, but
-                </a>
-              </li>
-              <li>
-                <a href="">
-                  the i
+                  Request for Refund
                 </a>
               </li>
             </ul>
@@ -250,7 +218,7 @@
 
 
   <script type="text/javascript" src="{% static 'home/js/jquery-3.4.1.min.js' %}"></script>
-  <script type="text/javascript" src="{% static 'homejs/bootstrap.js' %}"></script>
+  <script type="text/javascript" src="{% static 'home/js/bootstrap.js' %}"></script>
   <script type="text/javascript" src="{% static 'home/js/custom.js' %}"></script>
 
 </body>

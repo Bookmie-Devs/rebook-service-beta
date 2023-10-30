@@ -92,9 +92,12 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
-    ]
+    #comment out because some of the api should not be protected
+    # to be able to accept info with being authenticated
+    
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    #     'rest_framework.permissions.IsAuthenticated',
+    # ]
 }
 
 LOGIN_URL = 'accounts:login'
@@ -176,10 +179,10 @@ DATABASES = {
 # DATABASES = {
 #     "default": {
 #         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": "mydatabase",
-#         "USER": "mydatabaseuser",
-#         "PASSWORD": "mypassword",
-#         "HOST": "127.0.0.1",
+#         "NAME": "bookup",
+#         "USER": "fl0user",
+        # "PASSWORD": os.getenv("DATABASE_PASSWORD"),
+#         "HOST": "ep-curly-tree-81078521.eu-central-1.aws.neon.fl0.io",
 #         "PORT": "5432",
 #     }
 # }

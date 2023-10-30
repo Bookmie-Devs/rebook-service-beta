@@ -23,15 +23,33 @@
             font-size: 18px;
             color: #555;
         }
+        .home-button {
+            font-size: 20px;
+            text-decoration: none;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+          }
+          
+          .home-button:hover {
+            background-color: #000;
+          }
     </style>
 </head>
 <body>
     <br>
     <div style="text-align: center;">
     <h1>Sorry Bro😿</h1>
+    <br>
+    <p>The page you're looking for doesn't exist. Let's get you back on track</p>
+    
+    <a class="home-button" href="{% url 'core:index' %}">Let Help You Back HOME !!!</a>
     </div>
     <div class="container">
-        <p>The page you're looking for doesn't exist. Let's get you back on track</p>
         <h1>{% translate '😢Oops! Page Not Found' %}</h1>
         <!-- <a href="/" style="text-decoration: none; color: #ff5733;">Go to Homepage</a> -->
     </div>
