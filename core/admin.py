@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import Booking
 from .models import Tenant
+# from .filters import IsActiveFilter
 
 
 class CustomBookingAdminPanel(admin.ModelAdmin):
@@ -22,11 +23,18 @@ class CustomTenantAdminPanel(admin.ModelAdmin):
         'checked_in',
     )}),)
 
+  
     search_fields = ('user',)
 
-    list_filter = ('payed','checked_in',)
+    list_filter = ('payed','checked_in','end_date',)
 
-    list_display = ('user','room','checked_in','start_date','end_date','payed',)
+    list_display = ('user','room','checked_in','start_date','end_date','payed','is_active_display',)
+
+    # display if user vcode is active
+    def is_active_display(self, obj):
+        return obj.is_active()
+    is_active_display.boolean = True
+    is_active_display.short_description = 'Is Active'
 
 
 admin.site.register(Booking, CustomBookingAdminPanel)

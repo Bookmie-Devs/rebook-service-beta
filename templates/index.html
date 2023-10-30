@@ -92,7 +92,7 @@
 
               <div class="btn-box">
                 <a href="{% url 'accounts:booking-and-payments' %}" class="">
-                  Booking/Payments
+                  Profile/Payments
                   <i class="bi bi-person-circle"></i>
                 </a>
               </div>
@@ -193,7 +193,7 @@
             </div>
             <p>
            We are the number one hostel booking platform that provides 100%
-           assurance that all our customers/users get rooms(No petching bro) and privacy.
+           assurance that all our customers/users get rooms and privacy.
            We have rooms available at various price ranges...
            Want your own room and comfort, We got u bro!!!
             </p>
@@ -271,7 +271,7 @@
           <div class="detail-box">
             <div class="heading_container">
               <h2 class="h2">
-                Very Good Deal For Hostels(No Petching Bro!!!)
+                Very Good Deal For Hostels!
               </h2>
             </div>
             <p>
@@ -317,7 +317,7 @@
                 1000+
               </h3>
               <h5 style="color: black;">
-                Years of House
+                Hostel Rooms
               </h5>
             </div>
           </div>
@@ -329,10 +329,10 @@
             </div>
             <div class="detail-box">
               <h3>
-                20000+
+                200+
               </h3>
               <h5 style="color: black;">
-                Projects Delivered
+                Recomendations
               </h5>
             </div>
           </div>
@@ -344,10 +344,10 @@
             </div>
             <div class="detail-box">
               <h3>
-                10000+
+                1000+
               </h3>
               <h5 style="color: black;">
-                Satisfied Customers
+                Satisfied Students
               </h5>
             </div>
           </div>
@@ -362,7 +362,7 @@
                 1500+
               </h3>
               <h5 style="color: black;">
-                Cheap Rates
+                Cheap Rooms
               </h5>
             </div>
           </div>
@@ -386,6 +386,8 @@
       <div class="client_container">
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
           <div class="carousel-inner">
+            
+            <!-- ACTIVE TAB/FEEDBACK -->
             <div class="carousel-item active">
               <div class="box">
                 <div class="img-box">
@@ -404,43 +406,29 @@
                 </div>
               </div>
             </div>
+
+            <!-- QUERY FROM DATABASE -->
+            {% for feedback in feedbacks %}
             <div class="carousel-item">
               <div class="box">
                 <div class="img-box">
-                  <img src="{% static 'home/images/client.jpg' %}" alt="">
+                  <img src="{{ feedback.image.url }}" alt="">
                 </div>
                 <div class="detail-box">
                   <h5>
-                    <span>Majority</span>
+                    <span>{{ feedback.name }}</span>
                     <hr>
                   </h5>
                   <p>
-                    There are many variations of passages of Lorem Ipsum available, but the majority have suffered
-                    alteration
-                    in some form, by injected humour, or randomised words which don't look even slightly believable.
+                    {{ feedback.reccomendation }}
                   </p>
                 </div>
               </div>
             </div>
-            <div class="carousel-item">
-              <div class="box">
-                <div class="img-box">
-                  <img src="{% static 'home/images/client.jpg' %}" alt="">
-                </div>
-                <div class="detail-box">
-                  <h5>
-                    <span>Majority</span>
-                    <hr>
-                  </h5>
-                  <p>
-                    There are many variations of passages of Lorem Ipsum available, but the majority have suffered
-                    alteration
-                    in some form, by injected humour, or randomised words which don't look even slightly believable.
-                  </p>
-                </div>
-              </div>
-            </div>
+            {% endfor %}
+            
           </div>
+
           <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
             <span class="sr-only">Previous</span>
           </a>
@@ -461,7 +449,7 @@
     <div class="container">
       <div class="heading_container">
         <h2 class="h2">
-          Get In Touch With Us And We Would Get Back To You
+          Your Feedback and Issues
           <i class="bi bi-chat-dots"></i>
         </h2>
       </div>
@@ -477,29 +465,30 @@
         </div>
         <div class="col-lg-4 col-md-5 ">
           <div class="form_container">
-            <form action="">
+            <form id="feedback-form">
+              {% csrf_token %}
               <div class="inputbox">
-                <input required="required" type="text">
+                <input name="name" id="username" required="required" type="text">
                 <span>Name</span>
                 <i></i>
             </div>
             <div class="inputbox">
-              <input required="required" type="text">
+              <input name="email" id="useremail" required="required" type="email">
               <span>Email</span>
               <i></i>
           </div>
           <div class="inputbox">
-            <input required="required" type="text">
+            <input name="phone" id="userphone" required="required" type="text">
             <span>Phone Number</span>
             <i></i>
         </div>
         <div class="inputbox">
-          <input required="required" type="text">
+          <input name="message" id="message" required="required" type="text">
           <span>Message</span>
           <i></i>
       </div>
               <div class="d-flex ">
-                <button>
+                <button id="feedback-button" type="submit">
                   Send
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
                     <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
@@ -533,7 +522,7 @@
                 <img src="{% static 'home/images/location.png' %}" width="18px" alt="">
               </div>
               <p>
-                Address
+                Kumasi
               </p>
             </div>
             <div>
@@ -561,7 +550,8 @@
               <i class="bi bi-info-circle"></i>
             </h5>
             <p>
-              ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+              All rooms purchased on this platform will last a year until 
+              V-code is updated, else V-code will be deactivated after 1 month
             </p>
           </div>
         </div>
@@ -573,33 +563,14 @@
             </h5>
             <ul>
               <li>
-                <a href="">
-                  There are many
+                <a href="{% url 'core:contact' %}">
+                 Report a Problem
                 </a>
               </li>
+
               <li>
                 <a href="">
-                  variations of
-                </a>
-              </li>
-              <li>
-                <a href="">
-                  passages of
-                </a>
-              </li>
-              <li>
-                <a href="">
-                  Lorem Ipsum
-                </a>
-              </li>
-              <li>
-                <a href="">
-                  available, but
-                </a>
-              </li>
-              <li>
-                <a href="">
-                  the i
+                  Request for Refund
                 </a>
               </li>
             </ul>

@@ -16,6 +16,7 @@ from .verify import verify
 from hostel_app.models import HostelProfile
 from django.utils import timezone
 from rest_framework.permissions import (IsAuthenticatedOrReadOnly,
+                                        IsAuthenticated,
                                         DjangoModelPermissions) 
 
 from rest_framework.decorators import (permission_classes,
@@ -32,7 +33,10 @@ class RoomListView(generics.ListAPIView):
     queryset = HostelProfile.objects.all()
     serializer_class = RoomListSerializer
 
-    permission_classes = [IsHostelManager, DjangoModelPermissions]
+    authentication_classes = [SessionAuthentication]
+    permission_classes = [IsAuthenticated,
+                          IsHostelManager, 
+                          DjangoModelPermissions]
 
     def get(self, request, *args, **kwargs):
 
@@ -55,7 +59,9 @@ class RoomDetailView(generics.RetrieveUpdateAPIView):
     # SessionAuthentication for testing
     # authentication_classes = [SessionAuthentication]
     
-    permission_classes = [IsHostelManager, DjangoModelPermissions]
+    permission_classes = [IsAuthenticated,
+                          IsHostelManager, 
+                          DjangoModelPermissions,]
 
     serializer_class = RoomDetailSerializer
     queryset = RoomProfile.objects.all()
@@ -68,7 +74,9 @@ class HostelProfileView(generics.RetrieveUpdateAPIView):
         # SessionAuthentication for testing
     # authentication_classes = [SessionAuthentication]
 
-    permission_classes = [IsHostelManager, DjangoModelPermissions]
+    permission_classes = [IsAuthenticated,
+                          IsHostelManager, 
+                          DjangoModelPermissions]
 
     serializer_class = HostelDetialsSerializer
     queryset = HostelProfile.objects.all()
@@ -95,7 +103,9 @@ class HostelProfileView(generics.RetrieveUpdateAPIView):
 # update room prices
 class UpdateRoomPrice(generics.UpdateAPIView):
         
-    permission_classes = [IsHostelManager , DjangoModelPermissions]
+    permission_classes = [IsAuthenticated,
+                          IsHostelManager, 
+                          DjangoModelPermissions]
 
     queryset =RoomProfile.objects.all()
 
@@ -127,7 +137,8 @@ class TenantListView(generics.ListAPIView):
     # SessionAuthentication for testing
     # authentication_classes = [SessionAuthentication]
 
-    permission_classes = [DjangoModelPermissions]
+    permission_classes = [IsAuthenticated, 
+                          DjangoModelPermissions]
     
     queryset = Tenant.objects.all()
     serializer_class = TenantSerializer

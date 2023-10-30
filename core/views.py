@@ -1,4 +1,3 @@
-
 """Custom Imports"""
 from typing import Any
 from .models import Booking
@@ -8,6 +7,7 @@ from .filters import HostelFilter
 from rooms_app.models import RoomProfile
 from campus_app.models import CampusProfile
 from hostel_app.models import HostelProfile
+from reviews_app.models import RecomendationFeedBacks
 
 """Built in Packages"""
 from django.shortcuts import render
@@ -34,8 +34,8 @@ def index(request):
 
     # random a list of hostels to display
     campuses = random.sample(population=list(campuses), k=len(list(campuses)))
-
-    return render(request, 'index.html', {'campuses':campuses})
+    feedbacks = RecomendationFeedBacks.objects.all()
+    return render(request, 'index.html', {'campuses':campuses,'feedbacks':feedbacks})
 
 
 class HostelListView(generic.ListView):

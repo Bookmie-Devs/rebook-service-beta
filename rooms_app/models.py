@@ -24,7 +24,8 @@ class RoomProfile(models.Model):
                                 null=True)
     
     room_capacity = models.PositiveIntegerField(default=4)
-    capacity_left = models.PositiveIntegerField(default=0)
+    bed_space_left = models.PositiveIntegerField(default=0)
+    
     room_img = models.ImageField(upload_to='RoomImages', default='unavailable.jpg')
     room_price = models.DecimalField(blank=False, decimal_places=1, max_digits=7 )
     
@@ -38,12 +39,12 @@ class RoomProfile(models.Model):
     occupied = models.BooleanField(default=False)
 
     #room features
-    contains_kitchen = models.BooleanField(default=False)
-    shared_kitchen = models.BooleanField(default=False)
-    contains_toilet = models.BooleanField(default=False)
-    """ if room does not contain bathroom then it is shared """
-    contains_bathroom = models.BooleanField(default=False)
+    inbuilt_kitchen = models.BooleanField(default=False)
 
+    """ if room does not contain bathroom then it is shared """
+    inbuilt_bathroom = models.BooleanField(default=False)
+
+    inbuilt_balconi = models.BooleanField(default=False)
     air_condition = models.BooleanField(default=False)
 
 

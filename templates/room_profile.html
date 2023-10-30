@@ -54,26 +54,28 @@
                         {% comment %} <!-- <h1 class="display-5 fw-bolder">{{ room.hostel.hostel_name }}</h1></a> --> {% endcomment %}
                         <h1 class="display-5 fw-bolder"> Price GHS-{{ room.room_price }}</h1>
                         
-                        {% if room.contains_kitchen %}
-                        <p>Inside Kitchen <span class="badge text-bg-success">Check &#x2713;</span></p>
+                        {% if room.inbuilt_kitchen %}
+                            <p>Inbuilt Kitchen <span class="badge text-bg-success">Check &#x2713;</span></p>
                         {% else %}
-                        <p>No Inside Kitchen <span class="badge text-bg-danger">&#x2718;</span></p>
+                            <p>No Inside Kitchen/Shared Kitchen <span class="badge text-bg-danger">&#x2718;</span></p>
                         {% endif %}
 
-                        {% if room.contains_bathroom %}
-                        <p>Personal Bathrooom <span class="badge text-bg-success">Check &#x2713;</span></p>
+                        {% if room.inbuilt_bathroom %}
+                            <p>Personal Bathrooom <span class="badge text-bg-success">Check &#x2713;</span></p>
                         {% else %}
-                        <p>Shared bathroom <span class="badge text-bg-warning">&#x2713;</span></p>
+                            <p>Shared bathroom <span class="badge text-bg-warning">&#x2713;</span></p>
                         {% endif %}
 
-                        {% if room.contains_toilet %}
-                        <p>Toilet <span class="badge text-bg-success">Check &#x2713;</span></p>
+                        {% if room.inbuilt_balconi %}
+                            <p>Inbuilt Balconi <span class="badge text-bg-success">Check &#x2713;</span></p>
+                        {% else %}
+                        <p>No Balconi <span class="badge text-bg-danger"> &#x2718;</span></p>
                         {% endif %}
 
-                        {% if room.contains_toilet %}
-                        <p>air condition<span class="badge text-bg-success">Check &#x2713;</span></p>
+                        {% if room.air_condition %}
+                            <p>air condition <span class="badge text-bg-success">Check &#x2713;</span></p>
                         {% else %}
-                        <p>No air condition <span class="badge text-bg-danger">&#x2718;</span></p>
+                            <p>No air condition <span class="badge text-bg-danger">&#x2718;</span></p>
                         {% endif %}
                         <div class="fs-5 mb-5">
                             <!-- Dynamic room price -->
@@ -102,11 +104,19 @@
         <!-- Related items section-->
         <section class="py-5 bg-light">
             <div class="container px-4 px-lg-5 mt-5">
-                <h2 class="fw-bolder mb-4 text-center">Direction to location</h2>
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            <h2 class="fw-bolder mb-4 text-center">Direction to location</h2>
+                <!-- <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"> -->
                    
-                    <!-- maps -->
+            <!-- maps -->
+            <!-- <div class="col-md-6 px-0"> -->
+                <div class="map_container">
+                    <div class="map-responsive">
+                    <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA0s1a7phLN0iaD6-UE7m4qP-z21pH0eSc&q=Eiffel+Tower+Paris+France" width="900" height="300" frameborder="0" style="border:0; width: 100%; height:100%" allowfullscreen></iframe>
+                    </div>
                 </div>
+                <!-- </div> -->
+
+                <!-- </div> -->
             </div>
         </section>
         <!-- Footer-->

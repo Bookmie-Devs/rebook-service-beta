@@ -17,6 +17,7 @@ class RoomListSerializer(serializers.ModelSerializer):
                  'room_capacity',
                  'room_price',
                  'occupied',
+                 'bed_space_left',
                  'dettail_url',
                  'room_id',)
 
@@ -75,7 +76,8 @@ class RoomDetailSerializer(serializers.ModelSerializer):
                  'room_capacity', 
                  'room_price',
                  'occupied',
-                 'hostel')
+                 'bed_space_left',
+                 'hostel',)
 
     #Returns the hostel name
     def get_hostel(self, obj):
