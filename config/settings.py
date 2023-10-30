@@ -58,6 +58,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'django_filters',
+    # 'django_google_maps',
+
 
     # platform apps
     'maps_app',

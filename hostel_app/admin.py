@@ -1,5 +1,7 @@
 from django.contrib import admin
 from .models import HostelProfile
+# from django_google_maps import widgets as map_widgets
+# from django_google_maps import fields as map_fields
 
 
 class CustomHostelAdminPanel(admin.ModelAdmin):
@@ -17,8 +19,8 @@ class CustomHostelAdminPanel(admin.ModelAdmin):
                                        'contact',
                                        'location',
                                     'main_website',
-                                    )},),
-
+                                    )},),     
+  
         ('Bank Details', {"fields":('mobile_money','account_number',
                                     'bank_code',)}),
 
@@ -27,6 +29,7 @@ class CustomHostelAdminPanel(admin.ModelAdmin):
         #forbid
         ('Forbbiden',{'fields':('hostel_code',)}),
     )
+
     search_fields = ('hostel_name','hostel_code')
 
     list_display = ('hostel_name','hostel_code','hostel_manager','contact','verified',)
