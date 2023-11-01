@@ -63,12 +63,13 @@ form.forEach(function(form) {
 document.onkeydown = () => {
 
   signupButton.innerHTML = "Proceed";
-  // heading.innerHTML = heading.innerHTML;
 }
 
         if (password1 !== confirmPassword) {
             
           Load.style.display = 'none';
+
+          heading.innerHTML = "Password not matching"
           signupButton.innerHTML="Password not matching";
           return false;
         }
@@ -78,9 +79,8 @@ document.onkeydown = () => {
         if (errors.length !== 0){
 
             Load.style.display = 'none';
-            // heading.innerHTML = result;
+          
             for (const error of errors) {
-      
               signupButton.innerHTML= error;
             }
             
