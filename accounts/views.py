@@ -7,6 +7,8 @@ from campus_app.models import CampusProfile
 from core.models import Booking, Tenant
 
 """Built in packages"""
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError
 from django.shortcuts import redirect
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
@@ -25,59 +27,58 @@ def signup(request):
     """ CustomUser signup View"""
 
     if request.method == 'POST':
-        try:
+        if CampusProfile.objects.filter(campus_code=str(request.POST.get('campus')).upper().strip()).exists():
             ##Getting campus model for quering hostels related to it
             get_campus=CampusProfile.objects.get(campus_code=str(request.POST.get('campus')).upper().strip())
 
             ##checks if password if equal
             if request.POST.get('password') == request.POST.get('confirm_password'):
-                ##checks if password if long enough
-                if len( request.POST.get('password')) < 2:
-                    messages.error(request, 'Password is too short')
-                    return redirect('accounts:signup')
-                #existance of phone number 
-                elif CustomUser.objects.filter(phone=request.POST.get('phone')).exists():
-                    messages.info(request, 'Phone Number already registered')
-                    return redirect('accounts:signup')
-                
-                elif CustomUser.objects.filter(email=request.POST.get('email')).exists():
-                    messages.info(request, 'Eamil has already been registered')
-                    return redirect('accounts:signup')
-                
-                elif CustomUser.objects.filter(student_id = request.POST.get('student_id')).exists():
-                    messages.info(request, 'Stundent has already been registered')
-                    return redirect('accounts:signup')
+                    
+                    #existance of phone number 
+                    if CustomUser.objects.filter(phone=request.POST.get('phone')).exists():
+                        messages.info(request, 'Phone Number already registered')
+                        return redirect('accounts:signup')
+                    
+                    elif CustomUser.objects.filter(email=request.POST.get('email')).exists():
+                        messages.info(request, 'Eamil has already been registered')
+                        return redirect('accounts:signup')
+                    
+                    elif CustomUser.objects.filter(student_id = request.POST.get('student_id')).exists():
+                        messages.info(request, 'Stundent has already been registered')
+                        return redirect('accounts:signup')
 
-                else:
-                    """Creation of user model with details submitted"""
-                    create_user = CustomUser.objects.create_user(first_name=request.POST.get('first_name'), 
-                        last_name=request.POST.get('last_name'), middle_name=request.POST.get('middle_name') ,
-                        email=request.POST.get('email'), campus=get_campus, 
-                        username=f"{request.POST.get('first_name')}_{request.POST.get('middle_name')} {request.POST.get('last_name')}",
+                    else:
+                        """Creation of user model with details submitted"""
+                        create_user = CustomUser.objects.create_user(first_name=request.POST.get('first_name'), 
+                            last_name=request.POST.get('last_name'), middle_name=request.POST.get('middle_name') ,
+                            email=request.POST.get('email'), campus=get_campus, 
+                            username=f"{request.POST.get('first_name')}_{request.POST.get('middle_name')} {request.POST.get('last_name')}",
 
-                        password=request.POST.get('password'), phone=request.POST.get('phone'), 
-                        student_id=request.POST.get('student_id'),).save()
+                            password=request.POST.get('password'), phone=request.POST.get('phone'), 
+                            student_id=request.POST.get('student_id'),)
+                        create_user.save()
 
-                    """Log user in after user have been registed"""
-                    login_user = auth.authenticate(email=request.POST.get('email'), password=request.POST.get('password'))
-                    auth.login(request, login_user)
+                        """Log user in after user have been registed"""
+                        login_user = auth.authenticate(email=request.POST.get('email'), password=request.POST.get('password'))
+                        auth.login(request, login_user)
 
-                    send_mail(from_email=settings.EMAIL_HOST_USER, 
-                    recipient_list=[request.user.email], 
-                    subject=f'Congrats {request.user.username}. Your Sign Up seccessfull', 
-                    message=render_to_string('emails/signup_congrat.html',{'user':request.user}),
-                    fail_silently=True)
+                        send_mail(from_email=settings.EMAIL_HOST_USER, 
+                        recipient_list=[request.user.email], 
+                        subject=f'Congrats {request.user.username}. Your Sign Up seccessfull', 
+                        message=render_to_string('emails/signup_congrat.html',{'user':request.user}),
+                        fail_silently=True)
 
-                    return redirect('accounts:booking-and-payments') 
+                        return redirect('accounts:booking-and-payments') 
+
             else:
                 messages.error(request, 'Password is not matching')
                 return redirect('accounts:signup')
             
-        except:
+        else:
             messages.info(request, 'BookUp is not yet registered on your campus')
             return redirect('accounts:signup')
         
-    return render(request, 'forms/signup.html', {'fom':UserCreationForm})  
+    return render(request, 'forms/signup.html',)  
 
 
 @authenticated_or_not

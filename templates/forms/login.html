@@ -29,7 +29,7 @@
         {% endfor %}
       {% endif %}
 
-      <form action="{% url 'accounts:login' %}" method="POST">
+      <form data-formtype="login-form" action="{% url 'accounts:login' %}" method="POST">
         {% csrf_token %}
         <div class="input-container">
           <input
