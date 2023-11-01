@@ -1,31 +1,90 @@
 
-//  form
-const form = document.querySelector('form');
+// form
+const form = document.querySelectorAll('form');
 // loader
 const Load = document.querySelector('.load');
 
 
-// window.addEventListener("load", function () {
-//     Load.style.display = "flex";
+// check is passwor is strong
+function checkPasswordStrength(password) {
+    const errors = [];
+  
+    if (password.length < 8) {
+      errors.push("Password must be at least 8 characters long.");
+    }
+  
+    if (!/[A-Z]/.test(password)) {
+      errors.push("Password must contain at least one uppercase letter.");
+    }
+  
+    if (!/[a-z]/.test(password)) {
+      errors.push("Password must contain at least one lowercase letter.");
+    }
+  
+    if (!/\d/.test(password)) {
+      errors.push("Password must contain at least one digit.");
+    }
+  
+    // if (!/[^A-Za-z0-9]/.test(password)) {
+    //   errors.push("Password must contain at least one special character.");
+    // }
+    return errors;
+  }
 
-//     // Simulate a delay (you can replace this with your actual form submission logic)
-//     setTimeout(function () {
-//         // Hide the loader after the delay
-//         Load.style.display = 'none';
+form.forEach(function(form) {
+
+    form.onsubmit = function(){
+    
+        if (form.dataset.formtype === "login-form"){
+
+            Load.style.display = "flex";
+            setTimeout(function () {
+            // Hide the loader after the delay
+            Load.style.display = 'none';
+            }, 6000);
+        }
+
+        let heading = document.querySelector('#heading')
+        let input = document.querySelector('input')
+        let password1 = document.getElementById('password').value
+        let confirmPassword = document.getElementById('confirm-password').value
+        let signupButton = document.getElementById('signup-button')
+    
+        Load.style.display = "flex";
+    
+        setTimeout(function () {
+
+        // Hide the loader after the delay
+        Load.style.display = 'none';
+    
+        }, 6000);
         
-//         }, 2000); // 2 seconds delay in this example
-// });
 
+document.onkeydown = () => {
 
-form.onsubmit = () => {
-
-    Load.style.display = "flex";
-
-    setTimeout(function () {
-
-    // Hide the loader after the delay
-    Load.style.display = 'none';
-
-    }, 7000);
+  signupButton.innerHTML = "Proceed";
+  // heading.innerHTML = heading.innerHTML;
 }
+
+        if (password1 !== confirmPassword) {
+            
+          Load.style.display = 'none';
+          signupButton.innerHTML="Password not matching";
+          return false;
+        }
+            
+        let errors = checkPasswordStrength(password1)
+
+        if (errors.length !== 0){
+
+            Load.style.display = 'none';
+            // heading.innerHTML = result;
+            for (const error of errors) {
+      
+              signupButton.innerHTML= error;
+            }
+            
+            return false;}
+            
+    }})
 

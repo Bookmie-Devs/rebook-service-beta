@@ -33,7 +33,7 @@ class RoomListView(generics.ListAPIView):
     queryset = HostelProfile.objects.all()
     serializer_class = RoomListSerializer
 
-    authentication_classes = [SessionAuthentication]
+    # authentication_classes = [SessionAuthentication]
     permission_classes = [IsAuthenticated,
                           IsHostelManager, 
                           DjangoModelPermissions]
