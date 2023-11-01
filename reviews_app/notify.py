@@ -3,7 +3,6 @@ from django.template.loader import render_to_string
 from django.core.mail import send_mail
 from django.conf import settings
 
-notify_me =settings.EMAIL_HOST_USER,
 
 # Notification
 class NotifyMe:
@@ -20,7 +19,8 @@ class NotifyMe:
                    "message":self.message,"date":self.date,
                    "subject":self.subject}
         
-        send_mail(from_email=notify_me, recipient_list=[notify_me], 
+        send_mail(from_email=settings.EMAIL_HOST_USER, 
+                  recipient_list=[settings.EMAIL_HOST_USER], 
                   subject=self.subject, message=render_to_string(
                   template_name='emails/notify_me.html',
                   context=context),fail_silently=True
