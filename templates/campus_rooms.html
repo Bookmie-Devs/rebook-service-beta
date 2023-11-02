@@ -201,6 +201,7 @@
 
     <!-- Dont display section with divs if room filter returns null -->
     {% else %}
+    <br>
         <!-- message if there no room available -->
         <a style="text-decoration: none;" href="{% url 'rooms:campus-rooms' campus.campus_code %}">
         <div class="col mb-5">

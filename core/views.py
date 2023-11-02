@@ -51,8 +51,8 @@ class HostelListView(generic.ListView):
         if request.GET:
             search_data = request.GET['search_data']
             data = HostelFilter
-            campus = CampusProfile.objects.get(
-            campus_code=request.user.campus.campus_code)
+            
+            campus = CampusProfile.objects.get(campus_code=campus_code)
             #query of search 
             query = HostelProfile.objects.filter(Q(campus=campus) & 
                                 (Q(hostel_name__icontains=search_data)
