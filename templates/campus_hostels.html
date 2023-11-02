@@ -80,44 +80,75 @@
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                    {% for hostel in hostels %}
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem"><a style="text-decoration: none; color: rgb(255, 255, 255);" href="{% url 'hostels:profile' hostel.hostel_id %}">View Profile</a></div>
-                            <!-- Product image-->
-                            <a href="{{ hostel.get_profile_url }}">
-                            <img class="card-img-top" src="{{ hostel.hostel_image.url }}" alt="..." />
-                            </a>
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                
-                                <div class="text-center">
-                                    <!-- Sale badge-->
-                                    <!-- <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Not Full</div> -->
 
-                                    <!-- hostel name name-->
-                                    <h5 class="fw-bolder">{{ hostel.hostel_name }}</h5>
-                                    <!-- <h5 class="fw-bolder">{{ hostel.rating }}</h5> -->
+                    {% if hostels %}
+                        {% for hostel in hostels %}
+                        <div class="col mb-5">
+                            <div class="card h-100">
+                                
+                                <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem"><a style="text-decoration: none; color: rgb(255, 255, 255);" href="{% url 'hostels:profile' hostel.hostel_id %}">View Profile</a></div>
+                                <!-- Product image-->
+                        
+                                <a href="{{ hostel.get_profile_url }}">
+                                <img class="card-img-top" src="{{ hostel.hostel_image.url }}" alt="..." />
+                                </a>
+                                
+                                <!-- Product details-->
+                                <div class="card-body p-4">
                                     
-                                    <div id="star-rating" class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
+                                    <div class="text-center">
+                                        <!-- Sale badge-->
+                                    
+
+                                        <!-- hostel name name-->
+                                        <h5 class="fw-bolder">{{ hostel.hostel_name }}</h5>
+                                        
+                                        {% comment %} <div id="star-rating" class="d-flex justify-content-center small text-warning mb-2">
+                                            <div class="bi-star-fill"></div>
+                                            <div class="bi-star-fill"></div>
+                                            <div class="bi-star-fill"></div>
+                                            <div class="bi-star-fill"></div>
+                                            <div class="bi-star-fill"></div>
+                                        </div> {% endcomment %}
+
+                                        <!-- location-->
+                                        {{ hostel.location }}
                                     </div>
-                                    <!-- location-->
-                                    {{ hostel.location }}
+                                </div>
+                                <!-- Product actions-->
+                                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{ hostel.get_rooms  }}">View Rooms🏠</a></div>
                                 </div>
                             </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{ hostel.get_rooms  }}">View Rooms🏠</a></div>
-                            </div>
                         </div>
-                    </div>
-                    {% endfor %}
-                    <!-- next hostel card in the loop -->
+                        {% endfor %}
+                        <!-- next hostel card in the loop -->
+                    {% else %}
+                        
+                        <a style="text-decoration: none; color: rgba(5, 5, 5, 0.938);" href="{% url 'rooms:campus-rooms' campus.campus_code %}">
+                        <div class="col mb-5">
+                          <!-- class = "border border-danger" from boostrap -->
+                          <div class="card h-100 border border-danger">
+                            <div class="card-body p-4">
+                              <div class="text-center">
+                
+                                <h5 class="fw-bolder">No Result😭</h5>
+                              </div>
+                            </div>
+                      
+                              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center">
+                                  <button type="submit" class="btn btn-outline-dark mt-auto">
+                                    Search all rooms
+                                  </button>
+                                </div>
+                              </div>
+                
+                          </div>
+                        </div>
+                        </a>
+                        
+                    {% endif %}
                 </div>
             </div>
         </section>

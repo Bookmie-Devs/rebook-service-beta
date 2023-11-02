@@ -5,6 +5,10 @@ const contactButton = document.getElementById('contact-button')
 const feedbackForm = document.getElementById('feedback-form')
 const feedbackButton = document.getElementById('feedback-button')
 
+// quickSearch
+const quickSearch = document.getElementById('quick-search')
+
+
 // to get current year
 function getYear() {
     var currentDate = new Date();
@@ -64,6 +68,7 @@ feedbackForm.onsubmit = () => {
 
 // CUSTOMER CARE FORM(CONTACT US)
 try {
+
 contactForm.onsubmit = () => {
   let username = document.getElementById('username').value
   let useremail = document.getElementById('useremail').value
@@ -93,6 +98,39 @@ contactForm.onsubmit = () => {
   document.getElementById('message').value = ''
 
   return false}
+} catch (error) {
+  
+}
+
+
+try {
+
+quickSearch.onsubmit = () => {
+
+    let campus = document.getElementById('campus').value
+    let room_price_min = document.getElementById('room-price-min').value
+    let room_price_max = document.getElementById('room-price-max').value
+    let roomCapacity = document.getElementById('room-capacity').value
+    let button = document.getElementById('quick-search-button')
+    
+    // if string is empty for campus means its not regitered
+    if (campus == ""){
+      button.innerHTML = "unavailable on this campus yet";
+      return false;
+    }
+  
+fetch(`/rooms/campus-rooms/${campus}?room_capacity=${roomCapacity}&room_price_min=${room_price_min}&room_price_max=${room_price_max}`, {
+     method: "GET",
+  }).then(function(response){
+    console.log(response)
+    button.innerHTML = "Searching...";
+    // get url from the response object and redirect user to that
+    window.location.href = response.url;
+  })
+
+  return false;
+}
+
 } catch (error) {
   
 }

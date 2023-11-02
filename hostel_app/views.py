@@ -1,5 +1,7 @@
 # Create your views here.
 from django.shortcuts import render, redirect
+
+from campus_app.models import CampusProfile
 from .models import HostelProfile
 from django.contrib.auth.decorators import login_required
 from rooms_app.models import RoomProfile
@@ -33,7 +35,8 @@ def hostel_rooms(request, hostel_id):
 
 def filter_rooms(request):
 
-    campus = request.user.campus
+    campus = CampusProfile.objects.get(campus_code=request.GET.get('campus'))
+    
     hostel = HostelProfile.objects.get(hostel_id=request.GET.get('hostel'))
 
     #query rooms per requirements
