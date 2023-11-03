@@ -2,7 +2,6 @@ from collections.abc import Iterable
 from typing import Any, Type
 from django.db import models
 import uuid
-from django.db.models.manager import BaseManager
 # from geoposition.fields import GeopositionField
 # Create your models here.
 

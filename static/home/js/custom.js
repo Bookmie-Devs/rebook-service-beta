@@ -8,6 +8,12 @@ const feedbackButton = document.getElementById('feedback-button')
 // quickSearch
 const quickSearch = document.getElementById('quick-search')
 
+// newsLetter
+const newsLetter = document.getElementById('news-letter')
+
+// subcribeButton
+let subscribeButton = document.getElementById('subscribe-button')
+
 
 // to get current year
 function getYear() {
@@ -131,6 +137,35 @@ fetch(`/rooms/campus-rooms/${campus}?room_capacity=${roomCapacity}&room_price_mi
   return false;
 }
 
+} catch (error) {
+  
+}
+
+try {
+  
+newsLetter.onsubmit = () =>{
+
+  let newsEmail = document.getElementById('news-email').value
+
+  subscribeButton.innerHTML = "Sending..."
+
+  fetch("/news-letter/", {
+   method: "POST",
+   body: JSON.stringify({
+  "email": newsEmail,
+}),
+  headers: {
+    "Content-type": "application/json; charset=UTF-8"
+  }
+})
+.then((response) => response.json())
+    .then((json) => subscribeButton.innerHTML = json.message);
+
+  document.getElementById('news-email').value = ''
+
+
+  return false
+}
 } catch (error) {
   
 }

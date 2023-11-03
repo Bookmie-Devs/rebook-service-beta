@@ -1,165 +1,219 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile | Hosabella</title>
-    <link href="{% static 'profileStaticfiles/css/styles.css' %}" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f5;
-        }
-
-        .container {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .left-half, .right-half {
-            flex: 1;
-            padding: 20px;
-        }
-
-        h1 {
-            color: #333;
-        }
-
-        a {
-            text-decoration: none;
-            color: #007BFF;
-            text-align: center;
-        }
-
-
-        hr {
-            border: 1px solid #333;
-        }
-
-        .user-info {
-            margin: 20px 0;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-            }
-        }
-    </style>
-</head>
-<body>
-   <!-- Navigation -->
-   <nav class="nav navbar navbar-expand-lg navbar-light ">
-
-    <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="#!" style="color: orange;">BookUp</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4 text-center">
-                <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'core:index' %}">Home</a></li>
-                <li class="nav-item"><a class="nav-link active" href="{% url 'core:hostels' user.campus.campus_code %}">Hostels</a></li>
-                <li class="nav-item"><a class="nav-link active" href="{% url 'rooms:campus-rooms' user.campus.campus_code %}">All Rooms</a></li>
-                <li class="nav-item"><a class="nav-link active" href="{% url 'accounts:booking-and-payments'%}" >Booking/Payments</a></li>
-            </ul>
-
-            <a href="{% url 'accounts:logout' %}">
-            <button class="btn drop" type="submit">
-                logout
-            </button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Profile</title>
+    <link
+      href="{% static 'profileStaticfiles/css/styles.css' %}"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <!-- bootstrap-icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'booking_and_payments/styles.css' %}" />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand px-4" style="color: #fea116" href="#"
+          >User Profile</a
+        >
+        <button
+          class="navbar-toggler mx-4"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarTogglerDemo02"
+          aria-controls="navbarTogglerDemo02"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link text-light px-4" aria-current="page" href="{% url 'core:index' %}"
+                >Home</a
+              >
+            </li>
+          </ul>
+          <form class="d-flex">
+            <a href="{% url 'accounts:logout' %}" class="btn btn-outline-warning px-4" type="">
+              Log out
+              <i class="bi bi-person-circle text-warning"></i>
             </a>
+          </form>
         </div>
-    </div>
-</nav>
- <br>
- <br>
- <br>
- <br>
+      </div>
+    </nav>
+    <br />
+    <br />  
+    <br />
     {% if messages %}
-        {% for message in messages %}
-            <!-- Room selection messages -->
-            <div class="alert alert-danger" role="alert">
-                <h3 style="text-align: center;">{{ message }}</h3>
-            </div>
-        {% endfor %}
+      {% for message in messages %}
+        <!-- Room selection messages -->
+        <div class="alert alert-danger" role="alert">
+            <h3 style="text-align: center;">{{ message }}</h3>
+        </div>
+      {% endfor %}
     {% endif %}
-    <div class="container">
-        
-        <br>
-        <div class="left-half">
-            <div class="user-info">
-                <hr>
-                {% if booking %}
-                    <div>
-                        <div>
-                            <a href="{% url 'core:delete-booking' %}">
-                                <button type="button" class="btn btn-danger">Delete Booking</button>
-                            </a>
-                            <a href="{% url 'payments:init-payment' booking.room.room_id %}">
-                                <button type="button" class="btn btn-success">Pay for Room</button>
-                            </a>
-                        </div>
-                        <br>
-                            <h1>{{ booking.room }}</h1>
-                        <br>
-                            <h1>Room {{ booking.room.room_no }}</h1>
-                        <br>
-                            <h1>{{ booking.room.hostel.hostel_name }}</h1>
-                        <br>
-                            <h1>{{ booking.room.room_price }}</h1>
-                    </div>
-                {% else %}
-                    <h1>No Bookings to Show</h1>
-                {% endif %}
-                <hr>
-            </div>
-        </div>
 
-        <div class="right-half">
-            <hr>
-            {% if tenant %}
-                <div>
-                    <h1>Tenant Details</h1>
-                            {% if tenant.checked_in %}
-                                <h4>Status: Checked in</h4>
-                            {% else %}
-                                <h4>Status: Not yet checked in</h4>
-                            {% endif %}
-                    <hr>
-                    <div>
-                        <a href="{% url 'payments:tenant-authentication' %}">
-                            <button type="button" class="btn btn-success">Get User Credentials(V-code)</button>
-                        </a>
-                            <br>
-                                <br>
-                        <form method="POST" action="{% url 'core:update-v-code' %}">
-                            {% csrf_token %}
-                                <input type="hidden" name="room_id" value="{{ tenant.room.room_id }}">
-                            <button type="submit" class="btn btn-primary">Update V-code</button>                           
-                        </form>
-                    </div>
-                    <hr>
-                        <h1>{{ tenant.room }}</h1>
-                    <br>
-                        <h1>Room {{ tenant.room.room_no }}</h1>
-                    <br>
-                        <h1>{{ tenant.room.hostel.hostel_name }}</h1>
-                    <br>
-                        <h1>{{ tenant.room.room_price }}</h1>
-                </div>
-                {% else %}
-                    <h1>No Tenant profile to Show</h1>
-                {% endif %}
-            <hr>
-        </div>
+    <div class="box bg-outline-dark">
+      <div class="btn-box">
+        <a href="{% url 'core:index' %}" class="fw-bold"> Home </a>
+      </div>
+
+      <div class="btn-box">
+        <a href="{% url 'core:hostels' user.campus.campus_code %}" class="fw-bold"> Hostels </a>
+      </div>
+      
+      <div class="btn-box">
+        <a href="{% url 'rooms:campus-rooms' user.campus.campus_code %}" class="fw-bold"> All Rooms </a>
+      </div>
     </div>
-</body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Core theme JS-->
-<script src="{% static 'profileStaticfiles/js/scripts.js' %}"></script>
+    <div class="container">
+      <div class="left-half">
+        <div class="user-info">
+          {% if booking %}
+          <div>
+            <h1>Booking Details</h1>
+            <h1 class="display-5 h1">🎓{{ booking.user.username }}</h1>
+            <div class="box my-4">
+              <div class="">
+                <a href="{% url 'core:delete-booking' %}" class="btn btn-danger"> Delete Booking </a>
+              </div>
+              <div class="">
+                <a href="{% url 'payments:init-payment' booking.room.room_id %}" 
+                    class="btn btn-secondary"> 
+                      Pay for Booking 
+                    <i class="bi bi-wallet2"></i>
+                  </a>
+              </div>
+              <div class="">
+                <a href="{% url 'rooms:profile' booking.room.room_id %}" class="btn btn-primary">
+                  Room Profile
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-gear-fill" viewBox="0 0 16 16">
+                    <path d="M7.293 1.5a1 1 0 0 1 1.414 0L11 3.793V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v3.293l2.354 2.353a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5Z"/>
+                    <path d="M11.07 9.047a1.5 1.5 0 0 0-1.742.26l-.02.021a1.5 1.5 0 0 0-.261 1.742 1.5 1.5 0 0 0 0 2.86 1.504 1.504 0 0 0-.12 1.07H3.5A1.5 1.5 0 0 1 2 13.5V9.293l6-6 4.724 4.724a1.5 1.5 0 0 0-1.654 1.03Z"/>
+                    <path d="m13.158 9.608-.043-.148c-.181-.613-1.049-.613-1.23 0l-.043.148a.64.64 0 0 1-.921.382l-.136-.074c-.561-.306-1.175.308-.87.869l.075.136a.64.64 0 0 1-.382.92l-.148.045c-.613.18-.613 1.048 0 1.229l.148.043a.64.64 0 0 1 .382.921l-.074.136c-.306.561.308 1.175.869.87l.136-.075a.64.64 0 0 1 .92.382l.045.149c.18.612 1.048.612 1.229 0l.043-.15a.64.64 0 0 1 .921-.38l.136.074c.561.305 1.175-.309.87-.87l-.075-.136a.64.64 0 0 1 .382-.92l.149-.044c.612-.181.612-1.049 0-1.23l-.15-.043a.64.64 0 0 1-.38-.921l.074-.136c.305-.561-.309-1.175-.87-.87l-.136.075a.64.64 0 0 1-.92-.382ZM12.5 14a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z"/>
+                  </svg>
+                </a>
+              </div>
+              <div class="">
+                <a href="" id="direction" class="btn btn-success"
+                  >Get Direction🌍</a>
+              </div>
+            </div>
+            <!-- <div class="small mb-1"><h5>Username</h5></div> -->
+            <h1>{{ booking.room.hostel_name }}</h1>
+            <h4>Floor {{ booking.room.floor_no }}</h4>
+
+            <h4>Room {{ booking.room.room_no }}</h4>
+            <h4>{{ booking.room.room_price }} Cedis</h4>
+          </div>
+          <br />
+          {% else %}
+          <h1 class="empty py-4">No Bookings to Show</h1>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="right-half">
+        {% if tenant %}
+        <div>
+          <h1>Tenant Details</h1>
+          <h1 class="display-5 h1">🎓{{ tenant.user.username }}</h1>
+          {% if tenant.checked_in %}
+          <h4>Status: Checked in ✅</h4>
+          {% else %}
+          <h4>Status: Not yet checked in ⛔</h4>
+          {% endif %}
+          <br>
+          <div class="box mb-5">
+            <div class="">
+              <a href="{% url 'payments:tenant-authentication' %}" class="btn btn-secondary">
+                Get User Credentials(V-code)
+                <!-- PDF ICON -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filetype-pdf" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M14 4.5V14a2 2 0 0 1-2 2h-1v-1h1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5ZM1.6 11.85H0v3.999h.791v-1.342h.803c.287 0 .531-.057.732-.173.203-.117.358-.275.463-.474a1.42 1.42 0 0 0 .161-.677c0-.25-.053-.476-.158-.677a1.176 1.176 0 0 0-.46-.477c-.2-.12-.443-.179-.732-.179Zm.545 1.333a.795.795 0 0 1-.085.38.574.574 0 0 1-.238.241.794.794 0 0 1-.375.082H.788V12.48h.66c.218 0 .389.06.512.181.123.122.185.296.185.522Zm1.217-1.333v3.999h1.46c.401 0 .734-.08.998-.237a1.45 1.45 0 0 0 .595-.689c.13-.3.196-.662.196-1.084 0-.42-.065-.778-.196-1.075a1.426 1.426 0 0 0-.589-.68c-.264-.156-.599-.234-1.005-.234H3.362Zm.791.645h.563c.248 0 .45.05.609.152a.89.89 0 0 1 .354.454c.079.201.118.452.118.753a2.3 2.3 0 0 1-.068.592 1.14 1.14 0 0 1-.196.422.8.8 0 0 1-.334.252 1.298 1.298 0 0 1-.483.082h-.563v-2.707Zm3.743 1.763v1.591h-.79V11.85h2.548v.653H7.896v1.117h1.606v.638H7.896Z"/>
+                </svg>
+              </a>
+            </div>
+
+            <div class="">
+              <a href="" id="direction" class="btn btn-success">
+                Get Direction🌍
+              </a>
+            </div>
+            <div class="">
+              <a href="{% url 'rooms:profile' tenant.room.room_id %}" class="btn btn-primary">
+                Room Profile
+
+                <!-- room icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-gear-fill" viewBox="0 0 16 16">
+                  <path d="M7.293 1.5a1 1 0 0 1 1.414 0L11 3.793V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v3.293l2.354 2.353a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5Z"/>
+                  <path d="M11.07 9.047a1.5 1.5 0 0 0-1.742.26l-.02.021a1.5 1.5 0 0 0-.261 1.742 1.5 1.5 0 0 0 0 2.86 1.504 1.504 0 0 0-.12 1.07H3.5A1.5 1.5 0 0 1 2 13.5V9.293l6-6 4.724 4.724a1.5 1.5 0 0 0-1.654 1.03Z"/>
+                  <path d="m13.158 9.608-.043-.148c-.181-.613-1.049-.613-1.23 0l-.043.148a.64.64 0 0 1-.921.382l-.136-.074c-.561-.306-1.175.308-.87.869l.075.136a.64.64 0 0 1-.382.92l-.148.045c-.613.18-.613 1.048 0 1.229l.148.043a.64.64 0 0 1 .382.921l-.074.136c-.306.561.308 1.175.869.87l.136-.075a.64.64 0 0 1 .92.382l.045.149c.18.612 1.048.612 1.229 0l.043-.15a.64.64 0 0 1 .921-.38l.136.074c.561.305 1.175-.309.87-.87l-.075-.136a.64.64 0 0 1 .382-.92l.149-.044c.612-.181.612-1.049 0-1.23l-.15-.043a.64.64 0 0 1-.38-.921l.074-.136c.305-.561-.309-1.175-.87-.87l-.136.075a.64.64 0 0 1-.92-.382ZM12.5 14a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z"/>
+                </svg>
+              </a>
+            </div>
+       
+            <div class="">               
+                <form method="POST" action="{% url 'core:update-v-code' %}">
+                    {% csrf_token %}
+                        <input type="hidden" name="room_id" value="{{ tenant.room.room_id }}">
+                    <button type="submit" class="btn btn-warning">Update V-code🤝🏿</button>                           
+                </form>
+            </div>
+          </div>
+
+          <h4>📌Exp Date👉🏿👉🏿{{ tenant.end_date }}</h4>
+          <hr>
+          <!-- <div class="small mb-1"><h5>Username</h5></div> -->
+          <h1>{{ tenant.room.hostel.hostel_name }}</h1>
+          <h4>Floor {{ tenant.room.floor_no }}</h4>
+          <h4>Room {{ tenant.room.room_no }}</h4>
+          <h4>{{ tenant.room.room_price }} Cedis</h4>
+        </div>
+        <br />
+        {% else %}
+        <h1 class="empty py-4">No Tenant profile to Show</h1>
+        {% endif %}
+      </div>
+      <div class="direction">
+        <div class="close p-4">
+          <i
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-x-lg x text-white"
+          ></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <section class="container-fluid footer_section">
+      <div class="">
+        <p>&copy; 2023 All Rights Reserved</p>
+      </div>
+    </section>
+    <!-- Custom Js -->
+  <script src="{% static 'booking_and_payments/script.js' %}"></script>
+
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
 </html>
