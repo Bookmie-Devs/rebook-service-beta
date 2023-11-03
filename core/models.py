@@ -11,6 +11,7 @@ from datetime import datetime
 import asyncio
 from accounts.models import CustomUser
 import uuid
+from django.utils.translation import gettext_lazy as _
 #Booking model
 # no
 class Booking(models.Model):
@@ -77,3 +78,28 @@ class Tenant(models.Model):
     
     def __str__(self):
         return f'{self.user}'
+
+class NewsletterEmails(models.Model):
+    email = models.EmailField()
+    class Meta:
+        verbose_name = _("News letter Emails")
+        verbose_name_plural = _("News letters Emails")
+
+    def __str__(self):
+        return self.email
+
+class NewsLetterMessage(models.Model):
+    subject = models.TextField()
+    message = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.date
+
+class GeneralNewsLetter(models.Model):
+    subject = models.TextField()
+    message = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.date

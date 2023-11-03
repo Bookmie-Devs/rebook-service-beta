@@ -1,6 +1,9 @@
 from django.contrib import admin
 from .models import Booking
-from .models import Tenant
+from .models import (Tenant, 
+                     NewsletterEmails,
+                     GeneralNewsLetter,
+                     NewsLetterMessage,)
 # from .filters import IsActiveFilter
 
 
@@ -41,6 +44,10 @@ admin.site.register(Booking, CustomBookingAdminPanel)
 
 admin.site.register(Tenant, CustomTenantAdminPanel)
 
+# MESSAGES
+admin.site.register(NewsletterEmails)
+admin.site.register(NewsLetterMessage)
+admin.site.register(GeneralNewsLetter)
 
 admin.site.site_header = "GuudNyt"
 admin.site.site_title = "GuudNyt"

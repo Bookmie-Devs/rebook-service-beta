@@ -8,11 +8,15 @@ from rooms_app.models import RoomProfile
 from campus_app.models import CampusProfile
 from hostel_app.models import HostelProfile
 from reviews_app.models import RecomendationFeedBacks
+from rest_framework.decorators import api_view
 
 """Built in Packages"""
 from django.shortcuts import render
 from django.views import generic
-from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
+from django.http import (HttpRequest, 
+                        HttpResponse, 
+                        HttpResponseRedirect, 
+                        JsonResponse)
 from django.views.decorators.http import require_http_methods
 from django.conf import settings
 from django.utils import timezone
@@ -169,3 +173,16 @@ class ContactView(TemplateView):
 class AboutView(TemplateView):
 
     template_name = 'home/about.html'
+
+
+@api_view(['POST'])
+def news_letter(request: HttpRequest):
+    from .models import NewsletterEmails
+    news_letter = NewsletterEmails.objects.create(email=request.data.get('email'))
+    news_letter.save()
+
+    return JsonResponse({"message":"submitted"})
+
+
+
+    
