@@ -98,20 +98,18 @@ def verify_payment(request, reference):
         tenant.save()
             
         # SET ROOM TO FULL IF CAPACITY HAS BEEN FIELED
-        if (tenant.room.room_capacity == count_members
-            or tenant.room.bed_space_left == 0):
+ 
+        #REDUCE BED SPACE LEFT
+        tenant.room.bed_space_left - 1
+        tenant.room.save()
+
+
+        if (tenant.room.room_capacity <= count_members
+            or tenant.room.bed_space_left <= 0):
+            tenant.room.bed_space_left = 0
             tenant.room.occupied = True
             tenant.room.save()
             pass
-        else:
-            try:
-                #REDUCE BED SPACE LEFT
-                tenant.room.bed_space_left - 1
-                tenant.room.save()
-                pass
-
-            except:
-                pass
 
         # DELETE BOOKING FOR USER
         booking = Booking.objects.get(user=request.user)
