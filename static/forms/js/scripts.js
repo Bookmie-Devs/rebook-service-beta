@@ -31,7 +31,9 @@ function checkPasswordStrength(password) {
     return errors;
   }
 
-form.forEach(function(form) {
+try {
+  
+  form.forEach(function(form) {
 
     form.onsubmit = function(){
     
@@ -65,26 +67,50 @@ document.onkeydown = () => {
   signupButton.innerHTML = "Proceed";
 }
 
-        if (password1 !== confirmPassword) {
-            
-          Load.style.display = 'none';
+  if (password1 !== confirmPassword) {
+      
+    Load.style.display = 'none';
 
-          heading.innerHTML = "Password not matching"
-          signupButton.innerHTML="Password not matching";
-          return false;
-        }
-            
-        let errors = checkPasswordStrength(password1)
+    heading.innerHTML = "Password not matching"
+    signupButton.innerHTML="Password not matching";
+    return false;
+  }
+      
+  let errors = checkPasswordStrength(password1)
 
-        if (errors.length !== 0){
+  if (errors.length !== 0){
 
-            Load.style.display = 'none';
-          
-            for (const error of errors) {
-              signupButton.innerHTML= error;
-            }
-            
-            return false;}
+      Load.style.display = 'none';
+    
+      for (const error of errors) {
+        signupButton.innerHTML= error;
+      }
+      
+      return false;}
             
     }})
 
+} catch (error) {
+  
+}
+
+    
+// loader for reset password form
+try {
+  
+  document.getElementById('reset-password').onsubmit = function(){
+
+    Load.style.display = "flex";
+    
+    setTimeout(function () {
+
+    // Hide the loader after the delay
+    Load.style.display = 'none';
+
+    }, 5000);
+
+  }
+
+} catch (error) {
+  
+}

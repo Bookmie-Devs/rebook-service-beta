@@ -87,18 +87,16 @@ def login(request):
         email = request.POST['email']
         student_id = request.POST.get('student_id')
         password = request.POST['password']
-        if CustomUser.objects.filter(student_id=student_id).exists():
-            login_user = auth.authenticate(email=email, password=password)
-            if login_user is not None:
-                auth.login(request, login_user)
-                # send_sms_message(user_contact=request.user.phone)
-                return redirect('accounts:booking-and-payments')
-            else:
-                messages.error(request, 'Credentials invalid')
-                return redirect('accounts:login')
+
+        login_user = auth.authenticate(email=email, password=password)
+        if login_user is not None:
+            auth.login(request, login_user)
+            # send_sms_message(user_contact=request.user.phone)
+            return redirect('accounts:booking-and-payments')
         else:
-            messages.error(request, 'Invalid student ID')
+            messages.error(request, 'Credentials invalid')
             return redirect('accounts:login')
+
     return render(request, 'forms/login.html')
 
 @login_required()

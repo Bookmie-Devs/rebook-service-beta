@@ -32,6 +32,7 @@ class CustomUser(AbstractUser):
 
     """overwrite the save method to change and merge the first name and last_name
     into username"""
+
     def save(self, *args, **kwargs) -> None:
 
         # strip off all blank spaces in fields
@@ -42,10 +43,12 @@ class CustomUser(AbstractUser):
         self.phone = str(self.phone).strip()
         self.email = str(self.email).strip()
 
-        if self.middle_name is not None:
-            self.username=f"{self.first_name.upper()}_{self.middle_name}_{self.last_name}".replace(" ","")
+        if self.middle_name == "":
+            self.username=f"{self.first_name.capitalize()} {self.middle_name.capitalize()} {self.last_name.capitalize()}"
+            
         else:
-            self.username=f"{self.first_name.upper()}_{self.last_name}".replace(" ","")
+            self.username=f"{self.first_name.capitalize()} {self.last_name.capitalize()}"
+
         return super().save(*args,**kwargs)
     
 
