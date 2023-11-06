@@ -85,6 +85,7 @@ input[type="email"],
 input[type="password"]{
     padding: 10px;
     border: none;
+    font-size: 19px;
     border-bottom: 1px solid var(--primary);
     background-color: transparent;
     color: var(--light);
@@ -105,8 +106,10 @@ button{
     position: relative;
     cursor: pointer;
     padding: 5px 10px;
+    width: 250px;
     border-radius: 5px;
     font-weight: bold;
+    font-size: 20px;
     color: var(--light);
     overflow: hidden;
     transition: 300ms;
@@ -154,7 +157,7 @@ a:hover{
 
 @media screen and (max-width: 768px) {
     .container {
-        width: 80%;
+        width: 60%;
     }
 
     h1{

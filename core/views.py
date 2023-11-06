@@ -2,7 +2,6 @@
 from typing import Any
 from .models import Booking
 from .models import Tenant
-from .booking_info import booking_email
 from .filters import HostelFilter
 from rooms_app.models import RoomProfile
 from campus_app.models import CampusProfile
@@ -71,45 +70,6 @@ class HostelListView(generic.ListView):
                   'campus':campus, 
                   'myform': HostelFilter}
         return render(request, 'campus_hostels.html', context)
-
-
-@login_required()
-# allow strictly only POST
-@require_http_methods(['POST'])
-def book_room(request):     
-    room_id = request.POST.get('room_id')
-    room = RoomProfile.objects.get(room_id=room_id)
-    bookings_count =Booking.objects.filter(room = room).count()
-    number_left = room.room_capacity - bookings_count
-
-    #check if room is full
-    if  Booking.objects.filter(user=request.user, payed=False).exists():
-        get_booking = Booking.objects.get(user = request.user)
-        messages.info(request, 'You already booked for a room please proceed to payment or delete booking!!!')
-        # print(request.META.get(''))    
-        # return redirect(request.META.get('HTTP_REFERER'))
-        return redirect('accounts:booking-and-payments')
-    
-    #check if tenant exits
-    elif Tenant.objects.filter(user=request.user).exists():
-        messages.info(request, 'Tenants can not book after payment')
-        return redirect('accounts:booking-and-payments')
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-    
-    #Creating booking for user
-    else:
-        student_id = request.user.student_id  
-        booked_room = RoomProfile.objects.get(room_id=request.POST.get('room_id')) 
-        #Saving booking info
-        Book = Booking.objects.create(room=booked_room, user=request.user, 
-                                      room_number=booked_room.room_no, hostel=booked_room.hostel, 
-                                      student_id=student_id, status='Booked',
-                                      end_time=(timezone.now() + timedelta(seconds=40)),
-                                      campus=booked_room.campus).save()
-        
-        
-        #redirect user for payment
-        return redirect('accounts:booking-and-payments')
     
 def update_vcode(request):
     """update tenant year of staying"""

@@ -1,0 +1,9 @@
+To get all the hostels on campus
+
+url :http://127.0.0.1:8000/api/hostels/{{ campus_code }}/
+
+e.g
+curl --location 'http://127.0.0.1:8000/api/hostels/KNUST/' \
+--header 'Cookie: Cookie_1=value; csrftoken=Pwf0DK0kZJLNbDlVx6F5uvpipzfROgbb'
+
+

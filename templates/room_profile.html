@@ -53,6 +53,7 @@
                         {% comment %} <!-- <a href="{% url 'hostels:hostel-rooms' hostel.hostel_id %}"> --> {% endcomment %}
                         {% comment %} <!-- <h1 class="display-5 fw-bolder">{{ room.hostel.hostel_name }}</h1></a> --> {% endcomment %}
                         <h1 class="display-5 fw-bolder"> Price GHS-{{ room.room_price }}</h1>
+                        <h3 class="fw-bolder">{{ room.bed_space_left}} beds left</h3>
                         
                         {% if room.inbuilt_kitchen %}
                             <p>Inbuilt Kitchen <span class="badge text-bg-success">Check &#x2713;</span></p>

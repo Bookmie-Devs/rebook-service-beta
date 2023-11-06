@@ -9,7 +9,7 @@ const Load = document.querySelector('.load');
 function checkPasswordStrength(password) {
     const errors = [];
   
-    if (password.length < 8) {
+    if (password.length < 7) {
       errors.push("Password must be at least 8 characters long.");
     }
   
@@ -48,6 +48,7 @@ try {
 
         let heading = document.querySelector('#heading')
         let input = document.querySelector('input')
+        let campus = document.querySelector('#campus').value
         let password1 = document.getElementById('password').value
         let confirmPassword = document.getElementById('confirm-password').value
         let signupButton = document.getElementById('signup-button')
@@ -62,33 +63,40 @@ try {
         }, 6000);
         
 
-document.onkeydown = () => {
+        document.onkeydown = () => {
 
-  signupButton.innerHTML = "Proceed";
-}
+        signupButton.innerHTML = "Proceed";
+        }
 
-  if (password1 !== confirmPassword) {
-      
-    Load.style.display = 'none';
-
-    heading.innerHTML = "Password not matching"
-    signupButton.innerHTML="Password not matching";
-    return false;
-  }
-      
-  let errors = checkPasswordStrength(password1)
-
-  if (errors.length !== 0){
-
-      Load.style.display = 'none';
-    
-      for (const error of errors) {
-        signupButton.innerHTML= error;
-      }
-      
-      return false;}
+        if (password1 !== confirmPassword) {
             
-    }})
+          Load.style.display = 'none';
+
+          heading.innerHTML = "Password not matching"
+          signupButton.innerHTML="Password not matching";
+          return false;
+        }
+          if (campus == ""){
+          Load.style.display = 'none';
+          heading.innerHTML = "Unavailable on this campus yet"
+          signupButton.innerHTML="Unavailable on this campus yet";
+
+          return false;
+        }
+            
+        let errors = checkPasswordStrength(password1)
+
+        if (errors.length !== 0){
+
+            Load.style.display = 'none';
+          
+            for (const error of errors) {
+              signupButton.innerHTML= error;
+            }
+            
+            return false;}
+                  
+          }})
 
 } catch (error) {
   

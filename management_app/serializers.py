@@ -8,7 +8,7 @@ from rest_framework.reverse import reverse
 class RoomListSerializer(serializers.ModelSerializer):
     
     #gets and return the method "get_detail_view_url" into the fileds
-    dettail_url = serializers.SerializerMethodField(
+    detail_url = serializers.SerializerMethodField(
         method_name= 'get_detail_url',
         read_only=True)
     class Meta:
@@ -18,7 +18,7 @@ class RoomListSerializer(serializers.ModelSerializer):
                  'room_price',
                  'occupied',
                  'bed_space_left',
-                 'dettail_url',
+                 'detail_url',
                  'room_id',)
 
     #Return the deatail url for the each room in the list
@@ -85,15 +85,19 @@ class RoomDetailSerializer(serializers.ModelSerializer):
 
 
 class HostelDetialsSerializer(serializers.ModelSerializer):
+
+    manager = serializers.SerializerMethodField(method_name='get_managers_name')
     class Meta:
         model = HostelProfile
         fields = ('hostel_name',
+                  'manager',
                   'manager_contact',
-                  'contact','other_phone',
+                  'hostel_contact','other_phone',
                   'mobile_money',
                   'hostel_email',
                   'price_range',
                   'main_website',
-                  'address',)
-
-
+                  'location',)
+        
+    def get_managers_name(self, obj):
+        return obj.hostel_manager.username

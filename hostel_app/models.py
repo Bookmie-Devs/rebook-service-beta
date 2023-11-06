@@ -91,7 +91,7 @@ class HostelProfile(models.Model):
     manager_contact = models.CharField(max_length=10, blank=True,
                                        verbose_name="Manager's Contact")
 
-    contact = models.CharField(max_length=10, verbose_name="Hostel's Contact")
+    hostel_contact = models.CharField(max_length=10, verbose_name="Hostel's Contact")
 
     location = models.CharField(max_length=500, default="location unavailable")
     other_phone = models.CharField(max_length=10, blank=True)
