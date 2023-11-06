@@ -13,10 +13,10 @@ class CustomHostelAdminPanel(admin.ModelAdmin):
                           'rating',
                           'price_range','hostel_motto',
                           'number_of_rooms',
-                          'campus','hostel_manager',)}),
+                          'hostel_campus','hostel_manager',)}),
 
         ('Contact Details', {'fields':('hostel_email',
-                                       'contact',
+                                       'hostel_contact',
                                        'location',
                                     'main_website',
                                     )},),     
@@ -32,7 +32,7 @@ class CustomHostelAdminPanel(admin.ModelAdmin):
 
     search_fields = ('hostel_name','hostel_code')
 
-    list_display = ('hostel_name','hostel_code','hostel_manager','contact','verified',)
+    list_display = ('hostel_name','hostel_code','hostel_manager','hostel_contact','verified',)
 
 
 admin.site.register(HostelProfile, CustomHostelAdminPanel)

@@ -44,6 +44,10 @@
           onClose: function() {
 
             alert('Transaction was not completed, window closed.');
+
+            // redirect user to profile if payment is cancel
+            window.location.href ="{% url 'accounts:booking-and-payments' %}"
+            
           },
         });
         handler.openIframe();
@@ -53,7 +57,7 @@
      <div class="load">
       <div class="loader">
         <div class="spinner"></div>
-        <p id="loading-option">Confirming...</p>
+        <p id="loading-option">Please wait confirming....</p>
       </div>
     </div>
 

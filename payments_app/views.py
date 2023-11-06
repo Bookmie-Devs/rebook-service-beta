@@ -73,14 +73,12 @@ def make_payment(request, room_id):
 def verify_payment(request, reference):  
     payment = get_object_or_404(PaymentHistory, reference=reference)
 
+    # room payed for 
+    acquired_room = RoomProfile.objects.get(room_id=payment.room.room_id)
+
     # count tenants in th room 
     count_members = Tenant.objects.filter(room=payment.room).count()
-
-    # # redirecting payment
-    # account = redirect_payment(customer_email=request.user.email, 
-    #                             room_price=payment.room.room_price,
-    #                             hostel=payment.hostel)
-
+    
     # checkout validation from api response
     verify = paystack_verification(reference)
     if (verify.status_code==200 and 
@@ -97,19 +95,8 @@ def verify_payment(request, reference):
                                             )
         tenant.save()
             
-        # SET ROOM TO FULL IF CAPACITY HAS BEEN FIELED
- 
-        #REDUCE BED SPACE LEFT
-        tenant.room.bed_space_left - 1
-        tenant.room.save()
-
-
-        if (tenant.room.room_capacity <= count_members
-            or tenant.room.bed_space_left <= 0):
-            tenant.room.bed_space_left = 0
-            tenant.room.occupied = True
-            tenant.room.save()
-            pass
+        # SET ROOM TO FULL IF CAPACITY HAS BEEN FIELED & REDUCE BED SPACE LEFT
+        acquired_room.check_bed_spaces(count_members=count_members)
 
         # DELETE BOOKING FOR USER
         booking = Booking.objects.get(user=request.user)
@@ -131,8 +118,8 @@ def verify_payment(request, reference):
     
     else:
         payment.delete()
-        messages.info(request, "payment was not successfull")
-        return redirect('payments:init-payment', payment.room.room_id)
+        messages.info(request, "payment was not successfull, try again")
+        return redirect('accounts:booking-and-payments')
 
             
 @login_required()
