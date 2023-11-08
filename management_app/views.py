@@ -9,7 +9,7 @@ from .serializers import (RoomListSerializer,
 
 from rest_framework.authentication import SessionAuthentication
 # from core.models import Booking
-from .serializers import TenantSerializer
+from .serializers import TenantListSerializer
 from core.models import Tenant
 from rest_framework import status
 from .verify import verify
@@ -122,13 +122,14 @@ class UpdateRoomPrice(generics.UpdateAPIView):
         else: 
             return Response({'message':'Rooms does not exist'}, status=status.HTTP_404_NOT_FOUND)
         
-    
+
+@permission_classes([IsAuthenticated])    
 @api_view(['POST'])
 def verify_tenant(request):
     verification_code = request.data.get('verification_code')
     
     # Verify Tenant
-    return verify(request=request, verification_code=verification_code)
+    return verify(verification_code=verification_code)
   
 
 # List Tenant View
@@ -141,7 +142,7 @@ class TenantListView(generics.ListAPIView):
                           DjangoModelPermissions]
     
     queryset = Tenant.objects.all()
-    serializer_class = TenantSerializer
+    serializer_class = TenantListSerializer
 
     def get(self, request, *args, **kwargs):
         try:
@@ -149,7 +150,7 @@ class TenantListView(generics.ListAPIView):
             get_tenants = Tenant.objects.filter(hostel=get_hostel).all()
 
             if get_tenants is not None:
-                serializer = TenantSerializer(get_tenants, many=True)
+                serializer = TenantListSerializer(get_tenants, many=True)
                 return Response(serializer.data)
             
             else:
