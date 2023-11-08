@@ -22,7 +22,7 @@ class RoomListSerializer(serializers.ModelSerializer):
                  'room_id',)
 
     #Return the deatail url for the each room in the list
-    def get_detail_url(self, obj):
+    def get_detail_url(self, obj: RoomProfile):
 
         request = self.context.get('request')
 
@@ -31,7 +31,7 @@ class RoomListSerializer(serializers.ModelSerializer):
                         request=request,
                         )
 
-class TenantSerializer(serializers.ModelSerializer):
+class TenantListSerializer(serializers.ModelSerializer):
     
     """method serializers"""
     # tenant name
@@ -52,14 +52,61 @@ class TenantSerializer(serializers.ModelSerializer):
         )
 
     """Serializer methods"""
-    def get_tenant_name(self, obj):
+    def get_tenant_name(self, obj:Tenant):
         return obj.user.username
     
-    def get_room_number(self, obj):
+    def get_room_number(self, obj:Tenant):
         return obj.room.room_no
     
-    def get_student_id(self, obj):
+    def get_student_id(self, obj:Tenant):
         return obj.user.student_id
+
+
+# VERIFICATION RESPONSE
+class TenantVerificationSerializer(serializers.ModelSerializer):
+    """method serializers"""
+    # hostel name
+    hostel_name = serializers.SerializerMethodField(read_only=True)
+    # checked in status
+    checked_in_status = serializers.SerializerMethodField(read_only=True)
+    # tenant name
+    tenant_name = serializers.SerializerMethodField(read_only=True)
+    # room number
+    room_number = serializers.SerializerMethodField(read_only=True)
+    # # student ID
+    student_id = serializers.SerializerMethodField(read_only=True)
+    class Meta:
+        model = Tenant
+        fields = (
+            'hostel_name',
+            'room_number',
+            'tenant_name',
+            'student_id',
+            'checked_in_status',
+            )
+    # """Serializer methods"""
+    # hostel name
+    def get_hostel_name(self, obj:Tenant) -> str:
+        return obj.hostel.hostel_name
+
+    def get_tenant_name(self, obj) -> str:
+        return obj.user.username
+    
+    def get_room_number(self, obj:Tenant):
+        return obj.room.room_no
+    
+    def get_student_id(self, obj:Tenant):
+        return obj.user.student_id
+    
+    # checked in status
+    def get_checked_in_status(self, obj:Tenant) -> str:
+        if obj.checked_in:
+            return "Already Checked In"
+        else:
+            # change status and save it
+            obj.checked_in=True
+            obj.save()
+            return "First Arrival"
 
 
 class BookingSerializer(serializers.ModelSerializer):
@@ -80,7 +127,7 @@ class RoomDetailSerializer(serializers.ModelSerializer):
                  'hostel',)
 
     #Returns the hostel name
-    def get_hostel(self, obj):
+    def get_hostel(self, obj: RoomProfile):
         return obj.hostel.hostel_name
 
 
@@ -99,5 +146,5 @@ class HostelDetialsSerializer(serializers.ModelSerializer):
                   'main_website',
                   'location',)
         
-    def get_managers_name(self, obj):
+    def get_managers_name(self, obj:HostelProfile):
         return obj.hostel_manager.username
