@@ -141,6 +141,7 @@ button:hover::before{
 p{
     color: var(--light);
     font-size: 10px;
+    /* text-align: center; */
 }
 
 a{
@@ -177,8 +178,8 @@ a:hover{
     h2{
         font-size: 15px;
     }
-    .input-container>input,select,p{
-        width: 190px;
+    .input-container>input,select{
+        width: 200px;
     }
 }
 
