@@ -138,7 +138,7 @@ def tenant_auth(request):
         title = f"{request.user.username} Authentication details"
 
         #subtittle of the pdf 
-        subtitle = 'www.GuudNyt.com'
+        subtitle = 'www.Bookmie.com'
 
         """Fucntions to generate a list strings containing booking details for every user"""
         booker_details= tenant_auth_details(user=request.user, 
