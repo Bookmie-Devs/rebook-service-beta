@@ -1,4 +1,5 @@
 """Custom imports"""
+from django.http import HttpRequest
 from .models import PaymentHistory, PaystackSubAccount
 from rooms_app.models import RoomProfile
 from core.qrcode import generate_qrcode
@@ -36,11 +37,19 @@ def initiate_payment(request, room_id):
     get_room = RoomProfile.objects.get(room_id=room_id)
 
     if request.method == 'POST':
-        if PaymentHistory.objects.filter(user=request.user).exists():
+        if PaymentHistory.objects.filter(user=request.user, successful=False).exists():
+            # check if there is an unsuccessful payment
+            PaymentHistory.objects.get(user=request.user, successful=False).delete()
+              #save payment details
+            payment = PaymentHistory.objects.create(user=request.user,
+                                email=request.POST.get('email'),amount=get_room.room_price,
+                                account_payed_to=get_room.hostel.account_number,
+                                room=get_room,hostel=get_room.hostel,)
+            payment.save()
             return redirect('payments:make-payment', get_room.room_id)
         
         else:
-            #save payment deatails
+            #save payment details
             payment = PaymentHistory.objects.create(user=request.user,
                                 email=request.POST.get('email'),
                                 amount=get_room.room_price,
@@ -67,8 +76,8 @@ def make_payment(request, room_id):
                   context={'room':get_room,'reference':payment.reference, 
                            'subaccount':subaccount.subaccount_code,
                            'user':request.user, 
-                           'paystack_public_key':settings.PAYSTACK_PUBLIC_KEY }
-                            )
+                           'paystack_public_key':settings.PAYSTACK_PUBLIC_KEY })
+
 @login_required()
 def verify_payment(request, reference):  
     payment = get_object_or_404(PaymentHistory, reference=reference)
