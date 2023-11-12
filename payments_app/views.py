@@ -13,7 +13,7 @@ from hostel_app.models import HostelProfile
 from .tenant_auth import (tenant_auth_details, 
                           tenant_auth_message)
 
-"""Packeges"""
+"""Packeges """
 from reportlab.lib.pagesizes import letter
 from django.conf import settings
 from django.shortcuts import get_object_or_404
