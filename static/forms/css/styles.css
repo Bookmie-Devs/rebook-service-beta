@@ -36,33 +36,6 @@ h1{
     text-shadow: 2px 2px black;
 }
 
-.head {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    width: 100%;
-}
-
-.head a {
-    text-decoration: none;
-    color: inherit;
-}
-
-.head a:hover {
-    text-decoration: none;
-}
-
-.head .h2a,
-.head .h2b {
-    width: 30%;
-    font-size: 1.4rem;
-    font-weight: 600;
-}
-
-.head .h2a {
-    border-bottom: 1px solid;
-}
-
 #box-alert {
     padding: 15px;
     background-color: #f36257; /* Red background color */
@@ -167,7 +140,7 @@ button:hover::before{
 
 p{
     color: var(--light);
-    font-size: 10px;
+    opacity: 0.5;
 }
 
 a{
