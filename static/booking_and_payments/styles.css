@@ -42,6 +42,7 @@ body {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    height: 100vh;
 }
 
 .left-half,
@@ -51,6 +52,7 @@ body {
     flex-direction: column;
     flex: 1;
     padding: 20px;
+    width: 50%;
 }
 
 .h1 {
@@ -61,7 +63,6 @@ a {
     text-decoration: none;
     text-align: center;
 }
-
 
 hr {
     border: 1px solid #ffffff;
@@ -153,4 +154,9 @@ hr {
     .container {
         flex-direction: column;
     }
+
+        .left-half,
+        .right-half {
+            width: 100%;
+        }
 }
