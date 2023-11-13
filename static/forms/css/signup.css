@@ -30,8 +30,7 @@ h1{
     text-shadow: 2px 2px black;
 }
 
-
-span{
+span {
     font-size: 10px;
     color: gray;
 }
@@ -143,11 +142,12 @@ p{
     opacity: 0.5;
 }
 
-a{
+p a{
     text-decoration: none;
+    color: blue;
 }
 
-a:hover{
+p a:hover{
     text-decoration: underline;
 }
 
