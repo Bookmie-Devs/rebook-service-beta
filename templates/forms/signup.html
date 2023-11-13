@@ -3,13 +3,16 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
     <link rel="stylesheet" href="{% static 'forms/css/signup.css' %}" />
     <title>Bookmie.com | Sign Up</title>
   </head>
   <body>
     <header>
-        <h1>Bookmie.com</h1>
+      <h1>Bookmie.com</h1>
     </header>
 
     <!-- Loader -->
@@ -18,23 +21,26 @@
         <div class="spinner"></div>
         <p id="signup-p-tag"></p>
       </div>
-    </div>  
+    </div>
 
-    
     <div class="container">
-      <h2 id="heading">Start Booking<span>with us</span></h2>
-      {% if messages %}
-        {% for message in messages %}
-          <p style="color: aliceblue;">{{message}}</p>
-            {% endfor %}
-      {% endif %}
+      <div class="head">
+        <h2 class="h2a"><a href="{% url 'accounts:login' %}">Log In</a></h2>
+        <h2 class="h2b"><a href="{% url 'accounts:signup' %}">Sign Up</a></h2>
+      </div>
+      {% if messages %} {% for message in messages %}
+      <p style="color: aliceblue">{{message}}</p>
+      {% endfor %} {% endif %}
 
-
-      <form data-formtype="signup-form" action="{% url 'accounts:signup' %}" method="POST">
+      <form
+        data-formtype="signup-form"
+        action="{% url 'accounts:signup' %}"
+        method="POST"
+      >
         {% csrf_token %}
-        
+
         <div class="input-container">
-          <select name="campus" id="campus" >
+          <select name="campus" id="campus">
             <option value="">Your Campus</option>
             <option value="KNUST">KNUST Campus</option>
             <option value="">UG Campus</option>
@@ -87,14 +93,14 @@
           />
         </div>
         <div class="input-container">
-            <input
-              type="text"
-              id="student-id"
-              name="student_id"
-              placeholder="Student ID Number"
-              required
-            />
-          </div>
+          <input
+            type="text"
+            id="student-id"
+            name="student_id"
+            placeholder="Student ID Number"
+            required
+          />
+        </div>
         <div class="input-container">
           <input
             type="password"
@@ -117,14 +123,17 @@
           <button type="submit" id="signup-button">Proceed</button>
         </div>
         <div class="log">
-            <p>Already have an account? <a href="{% url 'accounts:login' %}">Log In</a></p>
+          <p>
+            Already have an account?
+            <a href="{% url 'accounts:login' %}">Log In</a>
+          </p>
         </div>
       </form>
     </div>
 
     <script src="{% static 'forms/js/scripts.js' %}"></script>
     <footer>
-        <span>Copyright &copy; Your Website 2023</span>
+      <span>Copyright &copy; Your Website 2023</span>
     </footer>
   </body>
 </html>
