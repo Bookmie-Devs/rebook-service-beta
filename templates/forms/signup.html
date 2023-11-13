@@ -24,16 +24,6 @@
     </div>
 
     <div class="container">
-<<<<<<< HEAD
-      <div class="head">
-        <h2 class="h2a"><a href="{% url 'accounts:login' %}">Log In</a></h2>
-        <h2 class="h2b"><a href="{% url 'accounts:signup' %}">Sign Up</a></h2>
-      </div>
-      {% if messages %} {% for message in messages %}
-      <p style="color: aliceblue">{{message}}</p>
-      {% endfor %} {% endif %}
-
-=======
       <p>
         Already have an account?
         <a href="{% url 'accounts:login' %}">Log In</a>
@@ -44,7 +34,6 @@
       <p style="color: aliceblue">{{message}}</p>
       {% endfor %} {% endif %}
 
->>>>>>> dc5d08fc72ec86db39064b8b3a0b860789d96d76
       <form
         data-formtype="signup-form"
         action="{% url 'accounts:signup' %}"
@@ -135,15 +124,6 @@
         <div class="btn">
           <button type="submit" id="signup-button">Proceed</button>
         </div>
-<<<<<<< HEAD
-        <div class="log">
-          <p>
-            Already have an account?
-            <a href="{% url 'accounts:login' %}">Log In</a>
-          </p>
-        </div>
-=======
->>>>>>> dc5d08fc72ec86db39064b8b3a0b860789d96d76
       </form>
     </div>
 
