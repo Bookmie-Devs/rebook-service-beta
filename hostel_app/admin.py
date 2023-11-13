@@ -13,7 +13,7 @@ class CustomHostelAdminPanel(admin.ModelAdmin):
                           'rating',
                           'price_range','hostel_motto',
                           'number_of_rooms',
-                          'hostel_campus','hostel_manager',)}),
+                          'campus','hostel_manager',)}),
 
         ('Contact Details', {'fields':('hostel_email',
                                        'hostel_contact',
