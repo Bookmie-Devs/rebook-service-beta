@@ -88,11 +88,6 @@
   box-sizing: border-box;
 }
 
-
-
-
- 
-
 @media (prefers-reduced-motion: no-preference) {
   :root {
     scroll-behavior: smooth;
@@ -133,6 +128,41 @@ body {
 	}
 }
 
+.box {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: center;
+  transform: translateY(25px) !important;
+}
+
+.btn-box {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  z-index: 5;
+  font-weight: 400;
+}
+
+.btn-box a {
+  padding: 5px 25px;
+  background-color: transparent;
+  color: var(--light);
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  border: 1px solid var(--light);
+  border-radius: 25px;
+  margin-bottom: 10px;
+  text-decoration: none;
+}
+
+.btn-box a:hover {
+  background-color: var(--light);
+  border-color: transparent;
+  color: var(--dark);
+}
+
 .custom-shape-divider-bottom-1695574293 {
   position: absolute;
   bottom: 0;
@@ -146,7 +176,7 @@ body {
   position: relative;
   display: block;
   width: calc(100% + 1.3px);
-  height: 142px;
+  height: 100px;
 }
 
 .custom-shape-divider-bottom-1695574293 .shape-fill {
@@ -155,7 +185,7 @@ body {
 
 .footer{
   position: relative;
-  background: linear-gradient(rgba(15, 23, 43, 0.26), rgba(15, 23, 43, .9)),url(../img/San_Francisco_USA_Ben_Karpinski_7K.jpg);
+  background: linear-gradient(rgba(15, 23, 43, 0.26), rgba(15, 23, 43, .9)),url(../img/room.jpg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -182,22 +212,8 @@ body {
   fill: #FFFFFF;
 }
 
-.filter{
-  backdrop-filter: blur(2px);
-}
-
 .card{
   animation: myAnim 2s ease 0s 1 normal forwards;
-}
-
-@keyframes myAnim {
-	0% {
-		transform: scale(0.5);
-	}
-
-	100% {
-		transform: scale(1);
-	}
 }
 
 .card-body:hover{
@@ -236,11 +252,11 @@ body {
   z-index: 1 !important;
   width: 100%;
   position: fixed !important;
+  padding-right: 10px;
 }
 
-.collapse .navbar-nav{
-  display: flex;
-  justify-content: center;
+.collapse .nav-item {
+  text-align: center;
 }
 
 .collapse .navbar-nav .nav-item .nav-link{
