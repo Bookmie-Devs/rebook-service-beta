@@ -62,8 +62,8 @@
               <a
                 class="nav-link active"
                 aria-current="page"
-                href="{% url 'core:index' %}"
-                >Home</a
+                href="{% url 'core:about' %}"
+                >About</a
               >
             </li>
           </ul>
@@ -82,6 +82,14 @@
     <!-- Header-->
     <header class="bg-dark header py-5">
       <div class="box bg-outline-dark">
+        <div class="btn-box">
+          <a
+            href="{% url 'core:index' %}"
+            class="fw-bold"
+          >
+           Home
+          </a>
+        </div>
         <div class="btn-box">
           <a
             href="{% url 'campus:campus-list' 'hostel-router' %}"
