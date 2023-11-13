@@ -16,9 +16,9 @@ class CampusProfile(models.Model):
         return f'{self.campus_name}'
 
     def save(self, *args, **kwargs) -> None:
+        self.campus_code = self.campus_code.upper().strip()
         return super().save(*args, **kwargs)
     
-
 
 class CollegesProfile(models.Model):
     college_name = models.CharField(max_length=100)
