@@ -164,7 +164,11 @@ button:hover::before{
 
 p{
     color: var(--light);
+<<<<<<< HEAD
     font-size: 10px;
+=======
+    opacity: 0.5;
+>>>>>>> dc5d08fc72ec86db39064b8b3a0b860789d96d76
 }
 
 a{
