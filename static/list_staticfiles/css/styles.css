@@ -114,6 +114,8 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   animation: myAnim 2s ease 0s 1 normal forwards;
+  padding-top: 3rem !important;
+  padding-bottom: 3rem !important;
 }
 
 @keyframes myAnim {
@@ -286,9 +288,14 @@ body {
 
 /* make curve straigth on phone */
 @media screen and (max-width:480px) {
-  .custom-shape-divider-bottom-1695574293 svg{
-    width: 0px !important;
-  } 
+  .custom-shape-divider-bottom-1695574293 {
+      display: none;
+    }
+
+        .header{
+          padding: 0 !important;
+          padding-top: 40px !important;
+        }
 }
 
 hr {

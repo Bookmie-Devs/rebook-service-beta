@@ -88,7 +88,7 @@
       </div>
     </nav>
     <!-- Header-->
-    <header class="bg-dark header py-5">
+    <header class="bg-dark header">
       <div class="custom-shape-divider-bottom-1695574293">
         <svg
           data-name="Layer 1"
@@ -104,13 +104,8 @@
       </div>
       <div class="box bg-outline-dark">
         <div class="btn-box">
-            <a
-              href="{% url 'core:index' %}"
-              class="fw-bold"
-            >
-             Home
-            </a>
-          </div>
+          <a href="{% url 'core:index' %}" class="fw-bold"> Home </a>
+        </div>
         <div class="btn-box">
           <a
             href="{% url 'campus:campus-list' 'room-router' %}"
@@ -143,14 +138,14 @@
               role="search"
             >
               <input
-                class="form-control me-2"
+                class="form-control me-2 mb-2"
                 type="search"
                 required
                 name="search_data"
                 placeholder="Search for hostels"
                 aria-label="Search"
               />
-              <button class="drop btn" id="search-button" type="submit">
+              <button class="drop btn mb-2" id="search-button" type="submit">
                 Search
               </button>
             </form>
