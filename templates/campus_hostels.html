@@ -52,7 +52,7 @@
           href="{% url 'core:index' %}"
           href="#!"
           style="color: orange"
-          >GuudNyt</a
+          >Bookmie Hostels🏢</a
         >
         <button
           class="navbar-toggler"
@@ -74,6 +74,14 @@
                 href="{% url 'core:about' %}"
                 >About</a
               >
+            </li>
+
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="{% url 'core:contact' %}"
+                >Report</a>
             </li>
           </ul>
           <form class="d-flex justify-content-center">
@@ -106,6 +114,11 @@
         <div class="btn-box">
           <a href="{% url 'core:index' %}" class="fw-bold"> Home </a>
         </div>
+
+        <div class="btn-box">
+          <a href="{% url 'campus:campus-list' 'hostel-router' %}" class="fw-bold"> Hostels </a>
+        </div>
+        
         <div class="btn-box">
           <a
             href="{% url 'campus:campus-list' 'room-router' %}"
@@ -123,13 +136,6 @@
 
       <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-white filter">
-          <h1 class="display-4 fw-bolder" style="color: rgb(254, 161, 22)">
-            Campus Hostels🏢
-          </h1>
-          <p class="lead fw-normal text-white-50 mb-0">
-            Want a room🤔??? we got you covered!!!
-          </p>
-          <br />
           <div class="container-fluid">
             <form
               data-action="Searching..."
@@ -149,8 +155,12 @@
                 Search
               </button>
             </form>
+            <p class="lead fw-normal text-white-50 mb-0">
+              Want a quick room🤔? <a href="{% url 'campus:campus-list' 'room-router' %}">click me!</a>
+            </p>
           </div>
         </div>
+        <br>
       </div>
     </header>
     <!-- Section-->

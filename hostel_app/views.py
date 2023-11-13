@@ -34,9 +34,6 @@ def hostel_rooms(request, hostel_id):
 
 
 def filter_rooms(request):
-
-    campus = CampusProfile.objects.get(campus_code=request.GET.get('campus'))
-    
     hostel = HostelProfile.objects.get(hostel_id=request.GET.get('hostel'))
 
     #query rooms per requirements
@@ -44,13 +41,13 @@ def filter_rooms(request):
 
     if rooms.exists():
         context = {'hostel': hostel,
-                   'campus': campus,
+                   'campus':hostel.campus ,
                    'hostel_rooms':rooms,}
         return render(request, 'hostel_rooms.html', context)
     
     else:  
         context = {'hostel': hostel,
-                   'campus': campus,
+                   'campus':hostel.campus ,
                    'hostel_rooms':rooms,}
         return render(request, 'hostel_rooms.html', context)
     
