@@ -16,6 +16,7 @@ class HostellistSerializer(serializers.ModelSerializer):
                  'location',
                  'price_range',
                  'absolute_url',
+                 'hostel_id',
                  )
 
     # Return the deatail url for the each room in the list
