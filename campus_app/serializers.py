@@ -7,4 +7,3 @@ class CampusSerializer(ModelSerializer):
         model = CampusProfile
         fields = ('campus_name','campus_code',)
 
-
