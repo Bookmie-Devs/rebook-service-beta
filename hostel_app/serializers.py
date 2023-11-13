@@ -1,10 +1,12 @@
 from .models import HostelProfile
-from rest_framework import serializers
+from rooms_app.models import RoomProfile
+from rest_framework.serializers import (ModelSerializer,
+                                        SerializerMethodField)
 
 
-class HostelProfileSerializer(serializers.ModelSerializer):
+class HostelProfileSerializer(ModelSerializer):
 
-    manager = serializers.SerializerMethodField(method_name='get_managers_name')
+    manager = SerializerMethodField(method_name='get_managers_name')
     class Meta:
         model = HostelProfile
         fields = ('hostel_name',
@@ -19,3 +21,13 @@ class HostelProfileSerializer(serializers.ModelSerializer):
         
     def get_managers_name(self, obj):
         return obj.hostel_manager.username
+    
+
+class HostelRoomsSerializer(ModelSerializer):
+     class Meta:
+         model = RoomProfile
+         fields = (
+             'room_no',
+             'room_price',
+             'room_capacity',
+         )

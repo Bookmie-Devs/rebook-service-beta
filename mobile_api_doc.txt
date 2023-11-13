@@ -6,4 +6,62 @@ e.g
 curl --location 'http://127.0.0.1:8000/api/hostels/KNUST/' \
 --header 'Cookie: Cookie_1=value; csrftoken=Pwf0DK0kZJLNbDlVx6F5uvpipzfROgbb'
 
+Response:
+{
+    "campus": {
+        "campus_name": "KNUST",
+        "campus_code": "KNUST"
+    },
+    "hostels": [
+        {
+            "hostel_name": "View Bay",
+            "hostel_image": "/media/HostelProfiles/d-2_soY0tKL.jpg",
+            "category": "Hostel",
+            "location": "location unavailable",
+            "price_range": "2003-56006",
+            "absolute_url": "/hostels/api/profile/2dd4e2b6-21dd-46ca-a910-8eb33a3f4464/",
+            "hostel_id": "2dd4e2b6-21dd-46ca-a910-8eb33a3f4464"
+        },
+        {
+            "hostel_name": "St. Mathew Hall",
+            "hostel_image": "/media/HostelProfiles/images_4_Pt1hlfz.jpeg",
+            "category": "Hostel",
+            "location": "location unavailable",
+            "price_range": "unavailable",
+            "absolute_url": "/hostels/api/profile/7dc0b378-6679-4e33-b79b-467b8aa95378/",
+            "hostel_id": "7dc0b378-6679-4e33-b79b-467b8aa95378"
+        },
+        {
+            "hostel_name": "Novbar Apartment",
+            "hostel_image": "/media/HostelProfiles/backiee-114063.jpg",
+            "category": "Apartment",
+            "location": "location unavailable",
+            "price_range": "unavailable",
+            "absolute_url": "/hostels/api/profile/e1351a04-d252-450e-ab4e-9e4b1a5da55b/",
+            "hostel_id": "e1351a04-d252-450e-ab4e-9e4b1a5da55b"
+        }
+    ]
+}
 
+
+2.
+HostelProfiles
+
+http://127.0.0.1:8000/hostels/api/profile/{{ hostel_id }}/
+
+e.g
+http://127.0.0.1:8000/hostels/api/profile/2dd4e2b6-21dd-46ca-a910-8eb33a3f4464/
+
+Response:
+{
+    "hostel_name": "View Bay",
+    "manager": "Enoch Lemon",
+    "manager_contact": "",
+    "hostel_contact": "021141",
+    "other_phone": "",
+    "mobile_money": "011156",
+    "hostel_email": "",
+    "price_range": "2003-56006",
+    "main_website": null,
+    "location": "location unavailable"
+}

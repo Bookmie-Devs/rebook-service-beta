@@ -3,33 +3,46 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="{% static 'forms/css/styles.css' %}" />
     <title>Bookmie.com | Log in</title>
   </head>
   <body>
     <header>
-        <h1>Bookmie.com</h1>
+      <h1>Bookmie.com</h1>
     </header>
-    
+
     <!-- Loader -->
     <div class="load">
       <div class="loader">
         <div class="spinner"></div>
         <p></p>
       </div>
-    </div>  
+    </div>
 
     <div class="container">
-      <h2>log in <span>into your account</span></h2>
-      {% if messages %}
-        {% for message in messages %}
-            <h4 style="color: aliceblue;">{{message}}</h4>
-        {% endfor %}
-      {% endif %}
+      <div class="head">
+        <h2 class="h2a"><a href="{% url 'accounts:login' %}">Log In</a></h2>
+        <h2 class="h2b"><a href="{% url 'accounts:signup' %}">Sign Up</a></h2>
+      </div>
+      {% if messages %} {% for message in messages %}
+      <h4 style="color: aliceblue">{{message}}</h4>
+      {% endfor %} {% endif %}
 
-      <form data-formtype="login-form" action="{% url 'accounts:login' %}" method="POST">
+      <form
+        data-formtype="login-form"
+        action="{% url 'accounts:login' %}"
+        method="POST"
+      >
         {% csrf_token %}
         <div class="input-container">
           <input
@@ -40,7 +53,7 @@
             required
           />
         </div>
-  
+
         <div class="input-container">
           <input
             type="password"
@@ -50,22 +63,23 @@
             required
           />
         </div>
-        
+
         <div class="btn">
           <button type="submit" id="login-button">Log In</button>
         </div>
         <div class="log">
-            <p>Are you new here? <a href="{% url 'accounts:signup' %}">Sign up</a></p>
-            <p><a href="{% url 'reset_password' %}">Forgotten password?</a></p>
+          <p>
+            Are you new here? <a href="{% url 'accounts:signup' %}">Sign up</a>
+          </p>
+          <p><a href="{% url 'reset_password' %}">Forgotten password?</a></p>
         </div>
       </form>
     </div>
 
-
     <script src="{% static 'forms/js/scripts.js' %}"></script>
 
     <footer>
-        <span>Copyright &copy; Your Website 2023</span>
+      <span>Copyright &copy; Your Website 2023</span>
     </footer>
   </body>
 </html>
