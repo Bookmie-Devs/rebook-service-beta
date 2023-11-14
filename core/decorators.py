@@ -8,9 +8,6 @@ from django.contrib import messages
 def authenticated_or_not(view_function):
     def wrapper_function(request, *args, **kwargs):
         if request.user.is_authenticated:
-             messages.info(request=request,
-                           message="You are already login", 
-                           fail_silently=True)
              return redirect('accounts:booking-and-payments')
         else:
             return view_function(request, *args, **kwargs)
