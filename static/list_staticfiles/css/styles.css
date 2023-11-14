@@ -107,16 +107,6 @@ body {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
-.container input::placeholder{
-  color: rgb(255, 255, 255);
-  opacity: 0.5;
-}
-
-.container .form-select option{
-  background: white;
-  color: var(--dark);
-}
-
 .header{
   position: relative;
   background: linear-gradient(rgba(15, 23, 43, 0.26), rgba(15, 23, 43, 0.562)),url(../img/room.jpg);
