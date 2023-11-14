@@ -112,7 +112,7 @@
             <form data-action="Searching..." class="row gx-3 gy-2 align-items-center" action="{% url 'rooms:campus-rooms' campus.campus_code %}" method="GET">
               <div class="col-sm-3">
                 <label class="visually-hidden" for="specificSizeSelect">Preference</label>
-                <select name="room_capacity" class="form-select" id="specificSizeSelect" style="background: rgba(255, 166, 0, 0.507); color: white; border: none;">
+                <select name="room_capacity" class="form-select" id="specificSizeSelect">
                   <option value="">All</option>
                   <option value="1">One in a room</option>
                   <option value="2">Two in a room</option>
@@ -123,7 +123,7 @@
 
               <div class="col-sm-3">
                 <label class="visually-hidden" for="specificSizeSelect">Preference</label>
-                <select name="inbuilt_bathroom" class="form-select" id="specificSizeSelect" style="background: rgba(255, 166, 0, 0.507); color: white; border: none;">
+                <select name="inbuilt_bathroom" class="form-select" id="specificSizeSelect">
                   <option value="unknown">Any</option>
                   <option selected value="true">Inbuilt Bathroom</option>
                   <option value="false">Shared Bathroom</option>
@@ -136,7 +136,7 @@
                 required="required"
                 name="room_price_min"
                 placeholder="Least price"
-                style="background: rgba(255, 166, 0, 0.507); color: white; border: none;">
+                >
               </div>
 
               <div class="col-sm-3">
@@ -145,7 +145,7 @@
                 required="required"
                 name="room_price_max"
                 placeholder="Highest price"
-                style="background: rgba(255, 166, 0, 0.507); color: white; border: none;">
+                >
               </div>
 
               <button id='search-button' class="btn drop mb-4" type="submit">
