@@ -81,7 +81,8 @@
                 class="nav-link active"
                 aria-current="page"
                 href="{% url 'core:contact' %}"
-                >Report</a>
+                >Report</a
+              >
             </li>
           </ul>
           <form class="d-flex justify-content-center">
@@ -116,9 +117,14 @@
         </div>
 
         <div class="btn-box">
-          <a href="{% url 'campus:campus-list' 'hostel-router' %}" class="fw-bold"> Hostels </a>
+          <a
+            href="{% url 'campus:campus-list' 'hostel-router' %}"
+            class="fw-bold"
+          >
+            Hostels
+          </a>
         </div>
-        
+
         <div class="btn-box">
           <a
             href="{% url 'campus:campus-list' 'room-router' %}"
@@ -150,21 +156,31 @@
                 name="search_data"
                 placeholder="Search for hostels"
                 aria-label="Search"
+                style="
+                  background: rgba(255, 166, 0, 0.507);
+                  color: white;
+                  border: none;
+                "
               />
               <button class="drop btn mb-2" id="search-button" type="submit">
                 Search
               </button>
             </form>
             <p class="lead fw-normal text-white-50 mb-0">
-              Want a quick room🤔? <a href="{% url 'campus:campus-list' 'room-router' %}">click me!</a>
+              Want a quick room🤔?
+              <a
+                href="{% url 'campus:campus-list' 'room-router' %}"
+                style="color: orange"
+                >click me!</a
+              >
             </p>
           </div>
         </div>
-        <br>
+        <br />
       </div>
     </header>
     <!-- Section-->
-    <section class="py-5">
+    <section class="">
       <div class="container px-4 px-lg-5 mt-5">
         <div
           class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
