@@ -112,7 +112,7 @@
             <form data-action="Searching..." class="row gx-3 gy-2 align-items-center" action="{% url 'rooms:campus-rooms' campus.campus_code %}" method="GET">
               <div class="col-sm-3">
                 <label class="visually-hidden" for="specificSizeSelect">Preference</label>
-                <select name="room_capacity" class="form-select" id="specificSizeSelect">
+                <select name="room_capacity" class="form-select" id="specificSizeSelect" style="background: rgba(255, 166, 0, 0.507); color: white; border: none;">
                   <option value="">All</option>
                   <option value="1">One in a room</option>
                   <option value="2">Two in a room</option>
@@ -123,7 +123,7 @@
 
               <div class="col-sm-3">
                 <label class="visually-hidden" for="specificSizeSelect">Preference</label>
-                <select name="inbuilt_bathroom" class="form-select" id="specificSizeSelect">
+                <select name="inbuilt_bathroom" class="form-select" id="specificSizeSelect" style="background: rgba(255, 166, 0, 0.507); color: white; border: none;">
                   <option value="unknown">Any</option>
                   <option selected value="true">Inbuilt Bathroom</option>
                   <option value="false">Shared Bathroom</option>
@@ -135,7 +135,8 @@
                 type="number"
                 required="required"
                 name="room_price_min"
-                placeholder="Least price">
+                placeholder="Least price"
+                style="background: rgba(255, 166, 0, 0.507); color: white; border: none;">
               </div>
 
               <div class="col-sm-3">
@@ -143,7 +144,8 @@
                 type="number"
                 required="required"
                 name="room_price_max"
-                placeholder="Highest price">
+                placeholder="Highest price"
+                style="background: rgba(255, 166, 0, 0.507); color: white; border: none;">
               </div>
 
               <button id='search-button' class="btn drop mb-4" type="submit">
@@ -159,7 +161,7 @@
     {% if rooms %}
 
     <!-- Section-->
-    <section class="py-5">
+    <section class="">
       <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
           {% for room in rooms %}

@@ -40,13 +40,6 @@ h1{
     text-shadow: 2px 2px black;
 }
 
-.head {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    width: 100%;
-}
-
 #box-alert {
     padding: 15px;
     background-color: #f36257; /* Red background color */
@@ -63,8 +56,6 @@ h1{
     width: 350px;
     text-align: center;
     overflow: hidden;
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
 }
 
 h2 {
@@ -151,6 +142,7 @@ p{
 
 a{
     text-decoration: none;
+    color: blue;
 }
 
 a:hover{
