@@ -4,6 +4,22 @@
     --dark: #0F172B;
 }
 
+/* Fade in Animation */
+.section {
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(130px);
+  transition: all 1s;
+}
+
+.section.fade-in {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Animation end */
+
 .h5, .h2{
   color: orangered ;
 }
@@ -558,7 +574,6 @@ a:focus {
 }
 
 .content .btn:hover {
-  outline: 2px solid #e8e8e8;
   background: transparent;
   color: #e8e8e8;
 }
@@ -587,7 +602,7 @@ a:focus {
       flex-wrap: wrap;
 }
 
-.sale_section .btn-box {
+/* .sale_section .btn-box {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -612,7 +627,7 @@ a:focus {
   background-color: #FEA116;
   border-color: transparent;
   color: #ffffff;
-}
+} */
 
 .deal_section {
   overflow-x: hidden;
@@ -626,24 +641,6 @@ a:focus {
 
 .deal_section .detail-box p {
   margin-top: 15px;
-}
-
-.deal_section .detail-box a {
-  display: inline-block;
-  padding: 7px 30px;
-  background-color: transparent;
-  color: #FEA116;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  border: 1px solid #FEA116;
-  border-radius: 25px;
-  margin-top: 25px;
-}
-
-.deal_section .detail-box a:hover {
-  background-color: #FEA116;
-  border-color: transparent;
-  color: #ffffff;
 }
 
 .deal_section .img-box {
@@ -676,10 +673,6 @@ a:focus {
   margin-bottom: 45px;
 }
 
-.us_section .heading_container h2 {
-  border-left-color: #ffffff;
-}
-
 .us_section .box {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -706,23 +699,6 @@ a:focus {
 
 .us_section .box h3 {
   font-weight: bold;
-}
-
-.us_section .btn-box {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  margin-top: 20px;
-}
-
-.us_section .btn-box a {
-  padding: 7px 30px;
-  background-color: #ffffff;
-  color: #252525;
-  border-radius: 25px;
 }
 
 .client_section .heading_container {
@@ -1126,16 +1102,6 @@ a:focus {
 }
 
 @media (max-width: 768px) {
-  .hero_area {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../images/12.jpg);
-    position: relative;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    background-attachment: fixed;
-  }
-
-
   .custom_menu-btn button span {
     background-color: var(--light);
   }
