@@ -53,12 +53,12 @@ class CampusRoomListView(generic.ListView):
             context['rooms'] = query_set
 
             if query_set.exists():
-                return render(request,  'campus_rooms.html', context)
+                return render(request,  'htmx_templates/campus_rooms_htmx_filter.html', context)
             # include context to let template have access
             # to campus code for routing back
             # else an error will generated(code = 500)
             else:
-                return render(request,  'campus_rooms.html', context)
+                return render(request,  'htmx_templates/campus_rooms_htmx_filter.html', context)
             
         return render(request,  'campus_rooms.html', context)
 

@@ -27,10 +27,10 @@ def hostel_rooms(request: HttpRequest, hostel_id):
         rooms = RoomProfile.objects.filter(room_capacity=request.GET.get('capacity'), hostel=hostel_profile, occupied=False).all()
         if rooms.exists():
             context['hostel_rooms']=rooms
-            return render(request, 'hostel_rooms.html', context)
+            return render(request, 'htmx_templates/htmx_room_filter_result.html', context)
         else:  
             context['hostel_rooms']=rooms
-            return render(request, 'hostel_rooms.html', context)
+            return render(request, 'htmx_templates/htmx_room_filter_result.html', context)
         
     return render(request, 'hostel_rooms.html', context)
 
