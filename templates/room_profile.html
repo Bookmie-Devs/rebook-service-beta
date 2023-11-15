@@ -53,10 +53,10 @@
         <a href="{% url 'core:index' %}" class="fw-bold">Home</a>
       </div>
       <div class="btn-box">
-        <a href="{% url 'campus:campus-list' 'hostel-router' %}" class="fw-bold"> Hostels </a>
+        <a href="{% url 'core:hostels' room.campus.campus_code %}" class="fw-bold"> Hostels </a>
       </div>
       <div class="btn-box">
-        <a href="{% url 'campus:campus-list' 'room-router' %}" class="fw-bold"> All Rooms </a>
+        <a href="{% url 'rooms:campus-rooms' room.campus.campus_code %}" class="fw-bold"> All Rooms </a>
       </div>
       <div class="btn-box">
         <a href="{% url 'accounts:booking-and-payments'%}" class="fw-bold"> Booking/Payment <i class="bi bi-person-circle"></i> </a>
@@ -74,7 +74,7 @@
                         <h3 style="color: orange;">Floor {{ room.floor_no }}</h3>
                         {% comment %} <!-- <a href="{% url 'hostels:hostel-rooms' hostel.hostel_id %}"> --> {% endcomment %}
                         {% comment %} <!-- <h1 class="display-5 fw-bolder">{{ room.hostel.hostel_name }}</h1></a> --> {% endcomment %}
-                        <h1 class="display-5 fw-bolder"> Price GHS-{{ room.room_price }}</h1>
+                        <h1 class="display-5 fw-bolder"> Price GH&#8373; {{ room.room_price }}</h1>
                         <h3 class="fw-bolder">{{ room.bed_space_left}} beds left</h3>
                         
                         {% if room.inbuilt_kitchen %}
