@@ -46,23 +46,19 @@ class HostelListView(generic.ListView):
     def get(self, request: HttpRequest, campus_code:str ,*args: Any, **kwargs: Any) -> HttpResponse:
         """Get hostel that are related to particular campus and display it
         to the client"""
-        campus = CampusProfile.objects.get(
-                    campus_code=campus_code)
+        campus = CampusProfile.objects.get(campus_code=campus_code)
         campus_hostels = HostelProfile.objects.filter(campus=campus)
 
         """if user search for hostel"""
         if request.GET:
-            search_data = request.GET['search_data']
-            data = HostelFilter
-            
+            search_data = request.GET['search_data']            
             campus = CampusProfile.objects.get(campus_code=campus_code)
             #query of search 
             query = HostelProfile.objects.filter(Q(campus=campus) & 
                                 (Q(hostel_name__icontains=search_data)
                                 | Q(location__icontains=search_data)))
             #context containg search query page
-            context={'hostels':query, 'campus':campus,
-                                      'myform': HostelFilter}
+            context={'hostels':query, 'campus':campus,}
             return render(request, 'campus_hostels.html', context)
             
         #context for the page
@@ -70,6 +66,7 @@ class HostelListView(generic.ListView):
                   'campus':campus, 
                   'myform': HostelFilter}
         return render(request, 'campus_hostels.html', context)
+    
     
 def update_vcode(request):
     """update tenant year of staying"""

@@ -118,7 +118,7 @@
 
         <div class="btn-box">
           <a
-            href="{% url 'campus:campus-list' 'hostel-router' %}"
+            href="{% url 'core:hostels' campus.campus_code %}"
             class="fw-bold"
           >
             Hostels
@@ -127,7 +127,7 @@
 
         <div class="btn-box">
           <a
-            href="{% url 'campus:campus-list' 'room-router' %}"
+            href="{% url 'rooms:campus-rooms' campus.campus_code %}"
             class="fw-bold"
           >
             All Rooms
