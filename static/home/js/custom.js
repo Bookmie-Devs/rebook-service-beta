@@ -29,6 +29,49 @@ function openNav() {
     document.querySelector(".custom_menu-btn").classList.toggle("menu_btn-style")
 }
 
+//  Animation
+const section2 = document.getElementById('section2');
+const section4 = document.getElementById('section4');
+const section5 = document.getElementById('section5');
+const section6 = document.getElementById('section6');
+const section7 = document.getElementById('section7');
+const section8 = document.getElementById('section8');
+const section9 = document.getElementById('section9');
+const section10 = document.getElementById('section10');
+
+
+const options = {
+    rootMargin: '0px',
+    threshold: 0.2,
+}
+
+function observeFunc(entries) {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+        const { target } = entry;
+        console.log(entry)
+            if (target.classList.contains('section')) {
+                target.classList.add('fade-in')
+            }
+        }
+    });
+}
+
+const observer = new IntersectionObserver(
+    observeFunc,
+    options
+)
+
+
+observer.observe(section2);
+observer.observe(section4);
+observer.observe(section5);
+observer.observe(section6);
+observer.observe(section7);
+observer.observe(section8);
+observer.observe(section9);
+observer.observe(section10);
+
 /*USE TRY AND CATCH BLOCKS TO PREVENT
 THE OTHER ONSUBMIT EVENT LISTERNERS FROM CRASHING */
 

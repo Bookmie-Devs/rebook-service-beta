@@ -66,7 +66,7 @@
     </header>
     <!-- end header section -->
     <!-- slider section -->
-    <section class="slider_section ">
+    <section class="slider_section section" id="section2">
       <div class="container-fluid">
        
             <div class="detail-box">
@@ -230,7 +230,7 @@
 
   <!-- about section -->
 
-  <section class="about_section layout_padding-bottom">
+  <section class="about_section layout_padding-bottom section" id="section4">
     <div class="square-box">
       <img src="{% static 'home/images/square.png' %}" alt="">
     </div>
@@ -270,6 +270,49 @@
 
   <!-- end about section -->
 
+  <!-- sale section -->
+
+  <section class="sale_section layout_padding-bottom section" id="section5">
+    <div class="container-fluid">
+      <div class="heading_container">
+        <h2 class="h2">
+          Campuses We Are Available
+        </h2>
+        <p>
+       NO SCAMS...ALL ROOMS HAVE BEEN VERIFIED BY OUR TEAM OF EXPECTS
+        </p>
+      </div>
+      <div class="sale_container">
+        
+      {% for campus in campuses %}
+        <div class="card border border-dark">
+          <div class="content">
+            <img src="{{ campus.flag.url }}" alt="">
+            <p class="heading">{{ campus.campus_name }}</p>
+            <p class="para">1000+ Rooms
+            <i class="bi bi-house-fill"></i>
+            </p>
+          <a href="{% url 'rooms:campus-rooms' campus.campus_code %}" 
+              class="btn">Pay for a Room</a>
+
+          <a class="btn" href="{% url 'core:hostels' campus.campus_code %}">
+            View Hostels🏢</a>
+          </div>
+        </div>
+      {% endfor %} 
+    
+        </div>
+      </div>
+      <!-- <div class="btn-box">
+        <a href="">
+          Find More
+        </a>
+      </div> -->
+    </div>
+  </section>
+
+  <!-- end sale section -->
+
   <!-- price section -->
 
   
@@ -277,7 +320,7 @@
 
   <!-- deal section -->
 
-  <section class="deal_section layout_padding-bottom">
+  <section class="deal_section layout_padding-bottom section" id="section6">
     <div class="container">
       <div class="row">
         <div class="col-md-6">
@@ -311,7 +354,7 @@
 
 
   <!-- us section -->
-  <section class="us_section layout_padding2">
+  <section class="us_section layout_padding2 section" id="section7">
     <div class="container">
       <div class="heading_container">
         <h2 class="h2">
@@ -387,9 +430,9 @@
 
   <!-- end us section -->
 
-  <!-- client secction -->
+  <!-- client  -->
 
-  <section class="client_section layout_padding">
+  <section class="client_section layout_padding section" id="section8">
     <div class="container-fluid">
       <div class="heading_container">
         <h2 class="h2">
@@ -458,7 +501,7 @@
 
   <!-- contact section -->
 
-  <section class="contact_section ">
+  <section class="contact_section section" id="section9">
     <div class="container">
       <div class="heading_container">
         <h2 class="h2">
@@ -521,7 +564,7 @@
 
 
   <!-- info section -->
-  <section class="info_section ">
+  <section class="info_section section" id="section10">
     <div class="container">
       <div class="row">
         <div class="col-md-3">
