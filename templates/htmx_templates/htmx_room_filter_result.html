@@ -1,0 +1,101 @@
+    <!-- check if query is not none  -->
+{% if hostel_rooms %} {% for room in hostel_rooms %}
+    <a
+        style="text-decoration: none; color: rgb(48, 45, 45)"
+        href="{{ room.get_detail_url }}"
+    >
+        <div class="col mb-5">
+        <div class="card h-100">
+            <!-- Product image-->
+            <!-- <img width="150" height="180" class="card-img-top" src="{{ room.Room_img.url }}" alt="..."/> -->
+            <!-- </a> -->
+            <!-- Product details-->
+            <div class="card-body p-4">
+            <div class="text-center">
+                <!-- Sale badge-->
+                <!-- <a href="{{ room.get_profile_url }}"> -->
+                <div
+                class="badge bg-dark text-white position-absolute"
+                style="top: 0.5rem; right: 0.5rem"
+                >
+                View specs
+                </div>
+                <br />
+                <!-- </a>  -->
+                <!-- ROOM NUMBER-->
+                <h5 class="fw-bolder">Rm-{{ room.room_no }}</h5>
+                <!-- <h5 class="fw-bolder">{{ room.rating }}</h5> -->
+
+                <!-- stars for looping through room rating -->
+                {% comment %}
+                <div
+                class="d-flex justify-content-center small text-warning mb-2"
+                >
+                <div class="bi-star-fill"></div>
+                <div class="bi-star-fill"></div>
+                <div class="bi-star-fill"></div>
+                <div class="bi-star-fill"></div>
+                <div class="bi-star-fill"></div>
+                </div>
+                {% endcomment %}
+                <h5 class="fw-bolder">
+                {{ room.room_capacity }} in a Room🏠
+                </h5>
+                <!-- Room price-->
+                &#8373;{{ room.room_price }}💵
+            </div>
+            </div>
+
+            <!--booking form for each room-->
+            <form
+            data-action="Booking..."
+            id="booking-form"
+            action="{% url 'core:booking' %}"
+            method="POST"
+            >
+            {% csrf_token %}
+            <input
+                type="hidden"
+                name="room_id"
+                value="{{ room.room_id }}"
+            />
+            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center">
+                <button
+                    type="submit"
+                    class="btn btn-outline-dark mt-auto"
+                >
+                    Book🏷️
+                </button>
+                </div>
+            </div>
+            </form>
+        </div>
+        </div>
+    </a>
+    {% endfor %} {% else %}
+    <!-- message if there no room available -->
+    <a
+        style="text-decoration: none; color: rgba(5, 5, 5, 0.938)"
+        href="{% url 'rooms:campus-rooms' hostel.campus.campus_code %}"
+    >
+        <div class="col mb-5">
+        <!-- class = "border border-danger" from boostrap -->
+        <div class="card h-100 border border-danger">
+            <div class="card-body p-4">
+            <div class="text-center">
+                <h5 class="fw-bolder">Category is full😭</h5>
+            </div>
+            </div>
+
+            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+            <div class="text-center">
+                <button type="submit" class="btn btn-outline-dark mt-auto">
+                Search all rooms
+                </button>
+            </div>
+            </div>
+        </div>
+        </div>
+    </a>
+    {% endif %}

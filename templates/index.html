@@ -184,6 +184,50 @@
   <!-- end find section -->
 
 
+  <!-- sale section -->
+
+    <section class="sale_section layout_padding-bottom">
+      <div class="container-fluid">
+        <div class="heading_container">
+          <h2 class="h2">
+            Campuses We Are Available
+          </h2>
+          <p>
+         NO SCAMS...ALL ROOMS HAVE BEEN VERIFIED BY OUR TEAM OF EXPECTS
+          </p>
+        </div>
+        <div class="sale_container">
+          
+        {% for campus in campuses %}
+          <div class="card border border-dark">
+            <div class="content">
+              <img src="{{ campus.flag.url }}" alt="">
+              <p class="heading">{{ campus.campus_name }}</p>
+              <p class="para">1000+ Rooms
+              <i class="bi bi-house-fill"></i>
+              </p>
+            <a href="{% url 'rooms:campus-rooms' campus.campus_code %}" 
+                class="btn">Pay for a Room</a>
+  
+            <a class="btn" href="{% url 'core:hostels' campus.campus_code %}">
+              View Hostels🏢</a>
+            </div>
+          </div>
+        {% endfor %} 
+      
+          </div>
+        </div>
+        <!-- <div class="btn-box">
+          <a href="">
+            Find More
+          </a>
+        </div> -->
+      </div>
+    </section>
+  
+    <!-- end sale section -->
+
+
   <!-- about section -->
 
   <section class="about_section layout_padding-bottom section" id="section4">
@@ -337,7 +381,7 @@
         <div class="col-md-3 col-sm-6">
           <div class="box">
             <div class="img-box">
-              <img src="{% static 'home/images/u-2.png' %}" alt="">
+              <img src="{% static 'home/images/u-2.png' %' %}" alt="">
             </div>
             <div class="detail-box">
               <h3>
@@ -392,7 +436,7 @@
     <div class="container-fluid">
       <div class="heading_container">
         <h2 class="h2">
-          What Our Customers Say
+          What is Says Our Customer
         </h2>
       </div>
       <div class="client_container">

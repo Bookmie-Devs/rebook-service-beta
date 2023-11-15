@@ -56,7 +56,7 @@ class HostelListView(generic.ListView):
                                                 | Q(location__icontains=search_data)))
             #context containg search query page
             context['hostels']=query
-            return render(request, 'campus_hostels.html', context)
+            return render(request, 'htmx_templates/hostel_search_result.html', context)
         
         return render(request, 'campus_hostels.html', context)
     

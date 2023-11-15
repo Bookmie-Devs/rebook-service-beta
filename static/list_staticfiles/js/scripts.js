@@ -12,15 +12,17 @@ document.querySelectorAll('form').forEach((form) => {
         
         load.style.display = "flex";
         // change p-tag of loader in campus hostel page during submission
+
         loadingOption.innerHTML = form.dataset.action;    
         // Simulate a delay (you can replace this with your actual form submission logic)
         setTimeout(function () {
         // Hide the loader after the delay
         load.style.display = 'none';
         
-        }, 3000); // 3 seconds delay 
+        }, 2000); // 2 seconds delay 
     }
 })
+
 
 
 
