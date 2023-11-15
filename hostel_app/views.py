@@ -1,5 +1,6 @@
-# Create your views here.
 from django.shortcuts import render, redirect
+# from django
+from django.http import HttpRequest
 
 from campus_app.models import CampusProfile
 from .models import HostelProfile
@@ -33,7 +34,7 @@ def hostel_rooms(request, hostel_id):
     return render(request, 'hostel_rooms.html', context)
 
 
-def filter_rooms(request):
+def filter_rooms(request: HttpRequest):
     hostel = HostelProfile.objects.get(hostel_id=request.GET.get('hostel'))
 
     #query rooms per requirements
@@ -41,13 +42,13 @@ def filter_rooms(request):
 
     if rooms.exists():
         context = {'hostel': hostel,
-                   'campus':hostel.campus ,
+                #    'campus':hostel.campus ,
                    'hostel_rooms':rooms,}
         return render(request, 'hostel_rooms.html', context)
     
     else:  
         context = {'hostel': hostel,
-                   'campus':hostel.campus ,
+                #    'campus':hostel.campus ,
                    'hostel_rooms':rooms,}
         return render(request, 'hostel_rooms.html', context)
     
