@@ -11,7 +11,7 @@ urlpatterns =[
     path('', views.index, name='index'),
 
     #generate campus related hostels to user base campus
-    path('hostels/<str:campus_code>/', views.HostelListView.as_view(), name='hostels'),
+    path('campus-hostels/<str:campus_code>/', views.HostelListView.as_view(), name='hostels'),
 
     path('booking/', booking.book_room, name='booking'),
     path('update-v-code/',views.update_vcode, name='update-v-code'),

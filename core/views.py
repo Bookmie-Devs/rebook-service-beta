@@ -31,10 +31,7 @@ from campus_app.models import CampusProfile
 
 @require_http_methods(['GET'])
 def index(request):
-
     campuses = CampusProfile.objects.all()
-    # print(random.sample(population=list(hostels),k=2))
-
     # random a list of hostels to display
     campuses = random.sample(population=list(campuses), k=len(list(campuses)))
     feedbacks = RecomendationFeedBacks.objects.all()
@@ -42,34 +39,27 @@ def index(request):
 
 
 class HostelListView(generic.ListView):
-    
     def get(self, request: HttpRequest, campus_code:str ,*args: Any, **kwargs: Any) -> HttpResponse:
         """Get hostel that are related to particular campus and display it
         to the client"""
-        campus = CampusProfile.objects.get(
-                    campus_code=campus_code)
+        campus = CampusProfile.objects.get(campus_code=campus_code)
         campus_hostels = HostelProfile.objects.filter(campus=campus)
+        #context for the pages
+        context={'hostels':campus_hostels, 'campus':campus,}
 
         """if user search for hostel"""
         if request.GET:
-            search_data = request.GET['search_data']
-            data = HostelFilter
-            
+            search_data = request.GET['search_data']            
             campus = CampusProfile.objects.get(campus_code=campus_code)
             #query of search 
-            query = HostelProfile.objects.filter(Q(campus=campus) & 
-                                (Q(hostel_name__icontains=search_data)
-                                | Q(location__icontains=search_data)))
+            query = HostelProfile.objects.filter(Q(campus=campus) & (Q(hostel_name__icontains=search_data)
+                                                | Q(location__icontains=search_data)))
             #context containg search query page
-            context={'hostels':query, 'campus':campus,
-                                      'myform': HostelFilter}
+            context['hostels']=query
             return render(request, 'campus_hostels.html', context)
-            
-        #context for the page
-        context={'hostels':campus_hostels, 
-                  'campus':campus, 
-                  'myform': HostelFilter}
+        
         return render(request, 'campus_hostels.html', context)
+    
     
 def update_vcode(request):
     """update tenant year of staying"""
