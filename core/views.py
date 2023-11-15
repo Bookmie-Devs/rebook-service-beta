@@ -48,23 +48,20 @@ class HostelListView(generic.ListView):
         to the client"""
         campus = CampusProfile.objects.get(campus_code=campus_code)
         campus_hostels = HostelProfile.objects.filter(campus=campus)
+        #context for the pages
+        context={'hostels':campus_hostels, 'campus':campus,}
 
         """if user search for hostel"""
         if request.GET:
             search_data = request.GET['search_data']            
             campus = CampusProfile.objects.get(campus_code=campus_code)
             #query of search 
-            query = HostelProfile.objects.filter(Q(campus=campus) & 
-                                (Q(hostel_name__icontains=search_data)
-                                | Q(location__icontains=search_data)))
+            query = HostelProfile.objects.filter(Q(campus=campus) & (Q(hostel_name__icontains=search_data)
+                                                | Q(location__icontains=search_data)))
             #context containg search query page
-            context={'hostels':query, 'campus':campus,}
+            context['hostels']=query
             return render(request, 'campus_hostels.html', context)
-            
-        #context for the page
-        context={'hostels':campus_hostels, 
-                  'campus':campus, 
-                  'myform': HostelFilter}
+        
         return render(request, 'campus_hostels.html', context)
     
     
