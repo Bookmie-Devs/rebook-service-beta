@@ -90,13 +90,10 @@
         <a href="{% url 'core:index' %}" class="fw-bold">Home</a>
       </div>
       <div class="btn-box">
-        <a href="{% url 'campus:campus-list' 'hostel-router' %}" class="fw-bold"> Hostels </a>
+        <a href="{% url 'core:hostels' campus.campus_code %}" class="fw-bold"> Hostels </a>
       </div>
       <div class="btn-box">
-        <a href="{% url 'campus:campus-list' 'room-router' %}" class="fw-bold"> All Rooms </a>
-      </div>
-      <div class="btn-box">
-        <a href="{% url 'accounts:booking-and-payments'%}" class="fw-bold"> Booking/Payment <i class="bi bi-person-circle"></i> </a>
+        <a href="{% url 'rooms:campus-rooms' campus.campus_code %}" class="fw-bold"> All Rooms </a>
       </div>
     </div>
       

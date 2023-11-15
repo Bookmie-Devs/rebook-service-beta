@@ -94,16 +94,17 @@ def verify_payment(request, reference):
         verify.json().get('message')=='Verification successful' and
         verify.json()['data'].get('status')=="success" and
         verify.json()['data'].get('amount')==payment.room.room_price*100):
-
-    # check if payment was redirected to hostel account
-    #         if (account.status_code == 200 and account.json()['status']==True):
-            
+        
     # create tenent object if reponse is positive
         tenant = Tenant.objects.create(user=request.user, room=payment.room,
                                             hostel=payment.hostel, payed=True,
                                             )
         tenant.save()
-            
+
+        #DECLARE SUCCESSFULL TRUE if PAYMENT WAS A SUCCESS
+        payment.successful = True
+        payment.save()
+
         # SET ROOM TO FULL IF CAPACITY HAS BEEN FIELED & REDUCE BED SPACE LEFT
         acquired_room.check_bed_spaces(count_members=count_members)
 
@@ -111,10 +112,6 @@ def verify_payment(request, reference):
         booking = Booking.objects.get(user=request.user)
         booking.delete()
 
-        #DECLARE SUCCESSFULL TRUE if PAYMENT WAS A SUCCESS
-        payment.successful = True
-        payment.save()
-        
         # send sms
         send_sms_message(user_contact=request.user.phone)
 

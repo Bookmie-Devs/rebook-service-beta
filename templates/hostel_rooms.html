@@ -96,7 +96,7 @@
         </div>
         <div class="btn-box">
           <a
-            href="{% url 'campus:campus-list' 'hostel-router' %}"
+            href="{% url 'core:hostels' hostel.campus.campus_code %}"
             class="fw-bold"
           >
             Hostels
@@ -104,7 +104,7 @@
         </div>
         <div class="btn-box">
           <a
-            href="{% url 'campus:campus-list' 'hostel-router' %}"
+            href="{% url 'rooms:campus-rooms' hostel.campus.campus_code %}"
             class="fw-bold"
           >
             All Rooms
@@ -131,42 +131,42 @@
             <!-- Room filter forms  -->
             <div class="button-container">
               <form
+                method="GET"
                 data-action="Searching..."
-                action="{% url 'hostels:filter-rooms' %}"
+                action=""
                 id="filter"
               >
                 <input type="hidden" value="1" name="capacity" />
-                <input hidden value="{{ hostel.hostel_id }}" name="hostel" />
                 <button class="btn drop">1 in a room</button>
               </form>
 
               <form
+                method="GET"
                 data-action="Searching..."
-                action="{% url 'hostels:filter-rooms' %}"
+                action=""
                 id="filter"
               >
                 <input type="hidden" value="2" name="capacity" />
-                <input hidden value="{{ hostel.hostel_id }}" name="hostel" />
                 <button class="btn drop">2 in a room</button>
               </form>
 
               <form
+                method="GET"
                 data-action="Searching..."
-                action="{% url 'hostels:filter-rooms' %}"
+                action=""
                 id="filter"
               >
                 <input type="hidden" value="3" name="capacity" />
-                <input hidden value="{{ hostel.hostel_id }}" name="hostel" />
                 <button class="btn drop">3 in a room</button>
               </form>
 
               <form
+                method="GET"
                 data-action="Searching..."
-                action="{% url 'hostels:filter-rooms' %}"
+                action=""
                 id="filter"
               >
                 <input type="hidden" name="capacity" value="4" />
-                <input hidden value="{{ hostel.hostel_id }}" name="hostel" />
                 <button type="submit" class="btn drop">4 in a room</button>
               </form>
             </div>

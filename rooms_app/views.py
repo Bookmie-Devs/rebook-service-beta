@@ -49,11 +49,9 @@ class CampusRoomListView(generic.ListView):
               # Search query
             search = RoomFilters(request.GET, queryset=campus_rooms)
             query_set = search.qs
-
             # set rooms to seerch results after search
             context['rooms'] = query_set
 
-            print(request.GET)
             if query_set.exists():
                 return render(request,  'campus_rooms.html', context)
             # include context to let template have access
