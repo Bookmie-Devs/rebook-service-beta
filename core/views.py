@@ -31,10 +31,7 @@ from campus_app.models import CampusProfile
 
 @require_http_methods(['GET'])
 def index(request):
-
     campuses = CampusProfile.objects.all()
-    # print(random.sample(population=list(hostels),k=2))
-
     # random a list of hostels to display
     campuses = random.sample(population=list(campuses), k=len(list(campuses)))
     feedbacks = RecomendationFeedBacks.objects.all()
@@ -42,7 +39,6 @@ def index(request):
 
 
 class HostelListView(generic.ListView):
-    
     def get(self, request: HttpRequest, campus_code:str ,*args: Any, **kwargs: Any) -> HttpResponse:
         """Get hostel that are related to particular campus and display it
         to the client"""

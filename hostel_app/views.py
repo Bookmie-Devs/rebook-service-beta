@@ -12,43 +12,27 @@ from core.models import Booking
 
 def hostel_profile(request, hostel_id):
     hostel_profile = HostelProfile.objects.get(hostel_id = hostel_id)
-
-    context = {'hostel': hostel_profile,
-               'Campus': hostel_profile.campus,}
+    context = {'hostel': hostel_profile,}
     
     return render(request, 'hostel_profile.html', context)
 
 
-
-def hostel_rooms(request, hostel_id):
-
+def hostel_rooms(request: HttpRequest, hostel_id):
     hostel_profile = HostelProfile.objects.get(hostel_id = hostel_id)
-    
     #get all unoccupied rooms in the hostel
     hostel_rooms = RoomProfile.objects.filter(hostel=hostel_profile, occupied=False).order_by('room_no')
-
-    context ={'hostel':hostel_profile,
-            'hostel_rooms':hostel_rooms, 
-            'campus':hostel_profile.campus}
-    
+    context:dict={'hostel':hostel_profile, 'hostel_rooms':hostel_rooms,}
+    # if user filter hostel rooms
+    if request.GET: 
+        rooms = RoomProfile.objects.filter(room_capacity=request.GET.get('capacity'), hostel=hostel_profile, occupied=False).all()
+        if rooms.exists():
+            context['hostel_rooms']=rooms
+            return render(request, 'hostel_rooms.html', context)
+        else:  
+            context['hostel_rooms']=rooms
+            return render(request, 'hostel_rooms.html', context)
+        
     return render(request, 'hostel_rooms.html', context)
 
 
-def filter_rooms(request: HttpRequest):
-    hostel = HostelProfile.objects.get(hostel_id=request.GET.get('hostel'))
-
-    #query rooms per requirements
-    rooms = RoomProfile.objects.filter(room_capacity=request.GET.get('capacity'), hostel=hostel, occupied=False).all()
-
-    if rooms.exists():
-        context = {'hostel': hostel,
-                #    'campus':hostel.campus ,
-                   'hostel_rooms':rooms,}
-        return render(request, 'hostel_rooms.html', context)
-    
-    else:  
-        context = {'hostel': hostel,
-                #    'campus':hostel.campus ,
-                   'hostel_rooms':rooms,}
-        return render(request, 'hostel_rooms.html', context)
     
