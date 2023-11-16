@@ -120,7 +120,7 @@
           <div>
             <h1>Booking Details</h1>
             <h1 class="display-5 h1">🎓{{ booking.user.username }}</h1>
-            <div class="box my-4">
+            <div class="box">
               <div class="">
                 <a
                   href="{% url 'payments:init-payment' booking.room.room_id %}"
@@ -174,13 +174,13 @@
               </div>
             </div>
             <!-- <div class="small mb-1"><h5>Username</h5></div> -->
+            <br />
             <h1>{{ booking.room.hostel_name }}</h1>
             <h4>Floor {{ booking.room.floor_no }}</h4>
 
             <h4>Room {{ booking.room.room_no }}</h4>
             <h4>{{ booking.room.room_price }} Cedis</h4>
           </div>
-          <br />
           {% else %}
           <h1 class="empty py-4">No Bookings to Show</h1>
           {% endif %}
@@ -277,6 +277,7 @@
           <h4>Floor {{ tenant.room.floor_no }}</h4>
           <h4>Room {{ tenant.room.room_no }}</h4>
           <h4>{{ tenant.room.room_price }} Cedis</h4>
+          <br />
         </div>
         <br />
         {% else %}

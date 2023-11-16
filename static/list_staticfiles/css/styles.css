@@ -109,7 +109,7 @@ body {
 
 .header{
   position: relative;
-  background: linear-gradient(rgba(15, 23, 43, 0.26), rgba(15, 23, 43, 0.562)),url(../img/room.jpg);
+  background: linear-gradient(rgb(15, 23, 43), rgba(15, 23, 43, 0.562)),url(../img/room.jpg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -272,6 +272,7 @@ body {
         .header{
           padding: 0 !important;
           padding-top: 40px !important;
+          border-radius: 0% !important;
         }
 }
 
