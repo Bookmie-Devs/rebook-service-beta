@@ -30,14 +30,14 @@ function openNav() {
 }
 
 //  Animation
-const section2 = document.getElementById('section2');
-const section4 = document.getElementById('section4');
-const section5 = document.getElementById('section5');
-const section6 = document.getElementById('section6');
-const section7 = document.getElementById('section7');
-const section8 = document.getElementById('section8');
-const section9 = document.getElementById('section9');
-const section10 = document.getElementById('section10');
+const section1 = document.getElementById('1');
+const section2 = document.getElementById('2');
+const section3 = document.getElementById('3');
+const section4 = document.getElementById('4');
+const section5 = document.getElementById('5');
+const section6 = document.getElementById('6');
+const section7 = document.getElementById('7');
+const section8 = document.getElementById('8');
 
 
 const options = {
@@ -63,14 +63,14 @@ const observer = new IntersectionObserver(
 )
 
 
+observer.observe(section1);
 observer.observe(section2);
+observer.observe(section3);
 observer.observe(section4);
 observer.observe(section5);
 observer.observe(section6);
 observer.observe(section7);
 observer.observe(section8);
-observer.observe(section9);
-observer.observe(section10);
 
 /*USE TRY AND CATCH BLOCKS TO PREVENT
 THE OTHER ONSUBMIT EVENT LISTERNERS FROM CRASHING */
