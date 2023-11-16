@@ -1,4 +1,4 @@
-    <!-- check if query is not none  -->
+<!-- check if query is not none  -->
 {% if hostel_rooms %} {% for room in hostel_rooms %}
     <a
         style="text-decoration: none; color: rgb(48, 45, 45)"
@@ -48,8 +48,8 @@
 
             <!--booking form for each room-->
             <form
+            class="booking-form"
             data-action="Booking..."
-            id="booking-form"
             action="{% url 'core:booking' %}"
             method="POST"
             >
