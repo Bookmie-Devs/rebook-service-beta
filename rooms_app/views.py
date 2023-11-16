@@ -64,6 +64,29 @@ class CampusRoomListView(generic.ListView):
 
 
 
+def quick_room_search(request: HttpRequest):
+    campus = CampusProfile.objects.get(campus_code=request.GET.get('campus'))
+    campus_rooms = RoomProfile.objects.filter(campus=campus, occupied=False).all()
+    # quick search in home page
+    # Search query
+    search = RoomFilters(request.GET, queryset=campus_rooms)
+    query_set = search.qs
+    # set rooms to seerch results after search
+    context = {'rooms': campus_rooms,
+            #    'campus':campus, 
+               'hostels':'',}
+    context['rooms'] = query_set
+
+    if query_set.exists():
+        return render(request, 'htmx_templates/htmx_quick_room_search.html', context)
+    # include context to let template have access
+    # to campus code for routing back
+    # else an error will generated(code = 500)
+    else:
+        return render(request, 'htmx_templates/htmx_quick_room_search.html', context)
+
+
+
 
 
 
