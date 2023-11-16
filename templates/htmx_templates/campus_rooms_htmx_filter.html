@@ -34,8 +34,8 @@
 
               <!-- Booking form-->
               <form
+                class="booking-form"
                 data-action="Booking..."
-                id="booking-form"
                 action="{% url 'core:booking'  %}"
                 method="POST">
                 {% csrf_token %}

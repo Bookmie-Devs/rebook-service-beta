@@ -7,7 +7,7 @@ const load  = document.querySelector('.load' );
 const loadingOption = document.getElementById('loading-option');
 
 
-document.querySelectorAll('form').forEach((form) => {
+document.querySelectorAll('.booking-form').forEach((form) => {
     form.onsubmit = () => {
         
         load.style.display = "flex";
