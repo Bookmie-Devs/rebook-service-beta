@@ -58,7 +58,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'django_filters',
-    'whitenoise.runserver_nostatic',
+    # 'whitenoise.runserver_nostatic',
     # 'django_google_maps',
 
 
@@ -77,7 +77,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     # whitenoise middleware
-    'whitenoise.middleware.WhiteNoiseMiddleware',   
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',   
 
     'django.contrib.sessions.middleware.SessionMiddleware',
 
@@ -245,7 +245,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 # whitenoise conf
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+# STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
