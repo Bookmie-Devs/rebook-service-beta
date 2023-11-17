@@ -134,49 +134,52 @@
     <div class="container">
 
       <!-- JS WILL SUBMIT THIS FORM TO A DYNAMIC URL WITH CAMPUS CODE OF USER-->
-      <form id="quick-search">
-        <div class=" form-row">
-          <div class="col-md-3">
-            <select id="campus" class="form-control">
+      <form 
+      id="quick-search">
+      <a href="{% url 'campus:campus-list' 'room-router' %}">
+        <div class="form-row">
+          <!-- <div class="col-md-3"> -->
+            <!-- <select name="campus"  id="campus" class="form-control"> -->
 
               <!-- set campus value to "" (empty string) if not registered -->
-              <option value="">UG</option>
+              <!-- <option value="">UG</option>
               <option value="">UHAS</option>
               <option value="">UCC</option>
-              <option selected value="KNUST">KNUST</option>
-            </select>
-          </div>
+              <option selected value="KNUST">KNUST</option> -->
+            <!-- </select> -->
+          <!-- </div> -->
 
-          <div class="col-md-3">
-            <select class="form-control" id="room-capacity">
+          <!-- <div class="col-md-3">
+            <select name="room_capacity"  class="form-control" id="room-capacity">
               <option value="">All</option>
               <option value="1">One in a room</option>
               <option value="2">Two in a room</option>
               <option value="3">Three in a room</option>
               <option selected value="4">Four in a room</option>
             </select>
-          </div>
+          </div> -->
           
-          <div class="col-md-3">
+          <!-- <div class="col-md-3">
             <div class="inputbox">
-                <input required="required" id="room-price-min" type="number">
+                <input name="room_price_min" required="required" id="room-price-min" type="number">
                 <span>Least Price</span>
                 <i></i>
             </div>
-          </div>
-          <div class="col-md-3">
+          </div> -->
+          <!-- <div class="col-md-3">
             <div class="inputbox">
-              <input required="required" id="room-price-max" type="number">
+              <input name="room_price_max" required="required" id="room-price-max" type="number">
               <span>Highest Price</span>
               <i></i>
           </div>
-          </div>
+          </div> -->
           <!-- <div class="col-md-2"> -->
             <button id="quick-search-button" type="submit" class="">
               Quick Search
             </button>
           <!-- </div> -->
         </div>
+      </a>
       </form>
     </div>
   </section>
@@ -658,6 +661,8 @@
   </section>
   <!-- end  footer section -->
 
+  <!-- HTMX SCRIPTS -->
+  <script src="https://unpkg.com/htmx.org@1.9.8" integrity="sha384-rgjA7mptc2ETQqXoYC3/zJvkU7K/aP44Y+z7xQuJiVnB/422P/Ak+F/AqFR7E4Wr" crossorigin="anonymous"></script>
 
   <script type="text/javascript" src="{% static 'home/js/jquery-3.4.1.min.js' %}"></script>
   <script type="text/javascript" src="{% static 'home/js/bootstrap.js' %}"></script>
