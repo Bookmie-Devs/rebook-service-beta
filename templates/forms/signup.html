@@ -30,7 +30,6 @@
         <a href="{% url 'accounts:login' %}">Log In</a>
       </p>
 
-      <!-- Add more fields for Section 3 as needed -->
       <div id="htmx-message"></div>
 
       <form
@@ -43,7 +42,7 @@
         {% csrf_token %}
 
         <div class="section" id="section1">
-  
+          <p>Personal Information</p>
           <div class="input-container">
             <input
               type="text"
@@ -75,15 +74,14 @@
 
           <br>
           <br>
-          <!-- Add more fields for Section 1 as needed -->
           <div class="btn">
             <button type="button" onclick="showSection(2)">Next</button>
           </div>
         </div>
 
         <div class="section" id="section2" style="display: none;">
-
-          <!-- Section 1: Campus and Basic Info -->
+          <p>Campus and Basic Info</p>
+          <!-- Section 2: Campus and Basic Info -->
           <div class="input-container">
           <select name="campus" id="campus">
             <option value="">Your Campus</option>
@@ -114,8 +112,6 @@
               required
             />
           </div>
-                   
-          <!-- Add more fields for Section 2 as needed -->
           <br>
           <div class="btn">
             <button type="button" onclick="showSection(1)">Previous</button>
@@ -126,7 +122,7 @@
         </div>
 
         <div class="section" id="section3" style="display: none;">
-
+          <p>Authentication...</p>
           <div class="input-container">
             <input
               type="email"
