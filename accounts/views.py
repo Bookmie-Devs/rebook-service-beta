@@ -81,6 +81,84 @@ def signup(request):
     return render(request, 'forms/signup.html',)  
 
 
+# require_http_methods(["POST"])
+# def signup(request):
+#     """ CustomUser signup View"""
+
+#     if request.method == 'POST':
+#         if CampusProfile.objects.filter(campus_code=str(request.POST.get('campus')).upper().strip()).exists():
+#             ##Getting campus model for quering hostels related to it
+#             get_campus=CampusProfile.objects.get(campus_code=str(request.POST.get('campus')).upper().strip())
+
+#             ##checks if password if equal
+#             if request.POST.get('password') == request.POST.get('confirm_password'):
+#                 try:
+#                     validate_password(request.POST.get('confirm_password'))
+#                     #existance of phone number 
+#                     if CustomUser.objects.filter(phone=request.POST.get('phone')).exists():
+#                         # htmx message for signup
+#                         message ={'message':'Phone Number already registered'}
+#                         return render(request,'htmx_message_templates/message.html', message)
+                    
+#                     elif CustomUser.objects.filter(email=request.POST.get('email')).exists():
+#                         # htmx message for signup
+#                         message ={'message':'Eamil has already been registered'}
+#                         return render(request,'htmx_message_templates/message.html', message)
+
+                    
+#                     elif CustomUser.objects.filter(student_id = request.POST.get('student_id')).exists():
+#                         # messages.info(request, 'Stundent has already been registered')
+#                         # return redirect('accounts:signup')
+#                         # htmx message for signup
+#                         message ={'message':'Stundent has already been registered'}
+#                         return render(request,'htmx_message_templates/message.html', message)
+                        
+
+#                     else:
+#                         """Creation of user model with details submitted"""
+#                         create_user = CustomUser.objects.create_user(first_name=request.POST.get('first_name'), 
+#                             last_name=request.POST.get('last_name'), middle_name=request.POST.get('middle_name') ,
+#                             email=request.POST.get('email'), campus=get_campus, 
+#                             username=f"{request.POST.get('first_name')}_{request.POST.get('middle_name')} {request.POST.get('last_name')}",
+
+#                             password=request.POST.get('password'), phone=request.POST.get('phone'), 
+#                             student_id=request.POST.get('student_id'),)
+#                         create_user.save()
+
+#                         """Log user in after user have been registed"""
+#                         login_user = auth.authenticate(email=request.POST.get('email'), password=request.POST.get('password'))
+#                         auth.login(request, login_user)
+
+#                         send_mail(from_email=settings.EMAIL_HOST_USER, 
+#                         recipient_list=[request.user.email], 
+#                         subject=f'Congrats {request.user.username}. Your Sign Up seccessfull', 
+#                         message=render_to_string('emails/signup_congrat.html',{'user':request.user}),
+#                         fail_silently=True)
+
+#                         return redirect('accounts:booking-and-payments') 
+                    
+#                 except ValidationError as e:
+#                     for err in e:
+#                         message ={'message':f'{err}'}
+#                         return render(request,'htmx_message_templates/message.html', message)
+
+#             else:
+#                 # htmx message for signup
+#                 message ={'message':'Password is not matching'}
+#                 return render(request,'htmx_message_templates/message.html', message)
+
+            
+#         else:
+#             # htmx message for signup
+#             message ={'message':'BookUp is not yet registered on your campus'}
+#             return render(request,'htmx_message_templates/message.html', message)
+        
+        
+#     return render(request, 'forms/signup.html',)  
+
+
+
+
 @authenticated_or_not
 def login(request):
     if request.method == 'POST':
