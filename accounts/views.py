@@ -166,7 +166,6 @@ def signup(request):
 def login(request):
     if request.method == 'POST':
         email = request.POST['email']
-        student_id = request.POST.get('student_id')
         password = request.POST['password']
 
         login_user = auth.authenticate(email=email, password=password)
