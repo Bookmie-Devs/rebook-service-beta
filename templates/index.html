@@ -134,10 +134,10 @@
     <div class="container">
 
       <!-- JS WILL SUBMIT THIS FORM TO A DYNAMIC URL WITH CAMPUS CODE OF USER-->
-      <form 
+      <!-- <form 
       id="quick-search">
       <a href="{% url 'campus:campus-list' 'room-router' %}">
-        <div class="form-row">
+        <div class="form-row"> -->
           <!-- <div class="col-md-3"> -->
             <!-- <select name="campus"  id="campus" class="form-control"> -->
 
@@ -174,13 +174,20 @@
           </div>
           </div> -->
           <!-- <div class="col-md-2"> -->
-            <button id="quick-search-button" type="submit" class="">
+            <!-- <button id="quick-search-button" type="submit" class="">
               Quick Search
-            </button>
+            </button> -->
           <!-- </div> -->
-        </div>
+        <!-- </div>
       </a>
-      </form>
+      </form> -->
+      <div class="quick-search">
+        <a href="{% url 'campus:campus-list' 'room-router' %}">
+          <button id="quick-search-button" type="submit" class="">
+              Quick Search
+            </button> 
+        </a>
+      </div>
     </div>
   </section>
 

@@ -408,17 +408,17 @@ a:focus {
 }
 
 .find_section {
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
+  -webkit-transform: translateY(-110%);
+          transform: translateY(-110%);
 }
 
-.find_section form {
+.find_section .quick-search {
   padding: 20px 45px;
   background: rgba(12, 18, 49, 0.692);
   border-radius: 10px;
 }
 
-.form-control {
+/* .form-control {
   outline: none;
   -webkit-box-shadow: none;
           box-shadow: none;
@@ -429,13 +429,13 @@ a:focus {
   background: transparent;
   border: none;
   border-bottom: 2px solid var(--primary);
-}
+} */
 
-.find_section form .form-control option{
+/* .find_section form .form-control option{
   color: var(--dark);
-}
+} */
 
-.find_section form button {
+.find_section .quick-search button {
   background-color: #f97616;
   color: #ffffff;
   text-transform: uppercase;
@@ -445,14 +445,13 @@ a:focus {
   margin: 10px 0;
 }
 
-.find_section form button:hover{
+.find_section .quick-search button:hover{
   background: black;
   color: var(--primary);
 }
 
 .about_section {
   position: relative;
-  padding-top: 75px;
 }
 
 .about_section .row {
@@ -588,6 +587,9 @@ a:focus {
   box-shadow: none;
 }
 
+.sale_section{
+  margin-top: -50px;
+}
 
 .sale_section .heading_container {
   -webkit-box-align: center;
@@ -637,6 +639,7 @@ a:focus {
 
 .deal_section {
   overflow-x: hidden;
+  padding-top: 90px;
 }
 
 .deal_section .row {
@@ -1125,6 +1128,11 @@ a:focus {
   .slider_section .detail-box {
     margin-bottom: 45px;
   }
+
+    .find_section {
+      -webkit-transform: translateY(-120%);
+      transform: translateY(-120%);
+    }
 
   .about_section {
     padding-top: 0;
