@@ -1,0 +1,58 @@
+ <!-- sale section -->
+
+ {% comment %} <section class="sale_section layout_padding-bottom section" id="section5"> {% endcomment %}
+<div class="container-fluid">
+    <div class="heading_container">
+        <h2 class="h2">
+          Campuses We Are Available
+        </h2>
+        <p>
+       NO SCAMS...ALL ROOMS HAVE BEEN VERIFIED BY OUR TEAM OF EXPECTS
+        </p>
+      </div>
+      <div class="sale_container">
+    {% if rooms %}
+      {% for room in rooms %}
+        <div class="card border border-dark">
+          <div class="content">
+            {% comment %} <img src="{{ campus.flag.url }}" alt=""> {% endcomment %}
+            <p class="heading">{{ campus.campus_name }}</p>
+            <p class="para">1000+ Rooms
+            <i class="bi bi-house-fill"></i>
+            </p>
+          <a href="{% url 'rooms:campus-rooms' campus.campus_code %}" 
+              class="btn">All Available Rooms 🏠</a>
+
+          <a class="btn" href="{% url 'core:hostels' campus.campus_code %}">
+            View Hostels 🏢</a>
+          </div>
+        </div>
+      {% endfor %} 
+      <div class="card border border-dark">
+        <div class="content">
+          <img src="{{ campus.flag.url }}" alt="">
+          <p class="heading">{{ campus.campus_name }}</p>
+          <p class="para">1000+ Rooms
+          <i class="bi bi-house-fill"></i>
+          </p>
+        <a href="{% url 'rooms:campus-rooms' campus.campus_code %}" 
+            class="btn">Section Full🏠</a>
+
+        <a class="btn" href="{% url 'core:hostels' campus.campus_code %}">
+          View Hostels 🏢</a>
+        </div>
+      </div>
+    {% else %}
+
+    
+        </div>
+    </div>
+      <!-- <div class="btn-box">
+        <a href="">
+          Find More
+        </a>
+      </div> -->
+</div>
+  {% comment %} </section> {% endcomment %}
+
+  <!-- end sale section -->

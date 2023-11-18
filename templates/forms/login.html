@@ -25,7 +25,7 @@
     <div class="load">
       <div class="loader">
         <div class="spinner"></div>
-        <p></p>
+        <p>Validating...</p>
       </div>
     </div>
 
@@ -38,7 +38,7 @@
       {% endfor %} {% endif %}
 
       <form
-        data-formtype="login-form"
+        id="login-form"
         action="{% url 'accounts:login' %}"
         method="POST"
       >
