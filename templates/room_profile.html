@@ -56,7 +56,7 @@
         <a href="{% url 'core:hostels' room.campus.campus_code %}" class="fw-bold"> Hostels </a>
       </div>
       <div class="btn-box">
-        <a href="{% url 'rooms:campus-rooms' room.campus.campus_code     %}" class="fw-bold"> All Rooms </a>
+        <a href="{% url 'rooms:campus-rooms' room.campus.campus_code %}" class="fw-bold"> All Rooms </a>
       </div>
       <div class="btn-box">
         <a href="{% url 'accounts:booking-and-payments'%}" class="fw-bold"> Booking/Payment <i class="bi bi-person-circle"></i> </a>
@@ -89,10 +89,10 @@
                             <p>Shared bathroom <span class="badge text-bg-warning">&#x2713;</span></p>
                         {% endif %}
 
-                        {% if room.inbuilt_balconi %}
-                            <p>Inbuilt Balconi <span class="badge text-bg-success">Check &#x2713;</span></p>
+                        {% if room.inbuilt_balcony %}
+                            <p>Inbuilt Balcony<span class="badge text-bg-success">Check &#x2713;</span></p>
                         {% else %}
-                        <p>No Balconi <span class="badge text-bg-danger"> &#x2718;</span></p>
+                        <p>No Balcony<span class="badge text-bg-danger"> &#x2718;</span></p>
                         {% endif %}
 
                         {% if room.air_condition %}

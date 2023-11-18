@@ -44,7 +44,7 @@ class RoomProfile(models.Model):
     """ if room does not contain bathroom then it is shared """
     inbuilt_bathroom = models.BooleanField(default=False)
 
-    inbuilt_balconi = models.BooleanField(default=False)
+    inbuilt_balcony = models.BooleanField(default=False)
     air_condition = models.BooleanField(default=False)
 
     class Meta:

@@ -36,8 +36,26 @@ try {
   
 }
 
+    
+// loader for reset password form
+try {
+  
+  document.getElementById('reset-password').onsubmit = function(){
 
+    Load.style.display = "flex";
+    
+    setTimeout(function () {
 
+    // Hide the loader after the delay
+    Load.style.display = 'none';
+
+    }, 5000);
+
+  }
+
+} catch (error) {
+  
+}
 
 
 
@@ -142,23 +160,3 @@ try {
   
 // }
 
-    
-// loader for reset password form
-try {
-  
-  document.getElementById('reset-password').onsubmit = function(){
-
-    Load.style.display = "flex";
-    
-    setTimeout(function () {
-
-    // Hide the loader after the delay
-    Load.style.display = 'none';
-
-    }, 5000);
-
-  }
-
-} catch (error) {
-  
-}

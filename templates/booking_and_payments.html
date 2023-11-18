@@ -93,19 +93,19 @@
 
       <div class="btn-box">
         <a
-          href="{% url 'core:hostels' user.campus.campus_code %}"
+          href="{% url 'rooms:campus-rooms' user.campus.campus_code %}"
           class="fw-bold"
         >
-          Hostels
+          All Rooms
         </a>
       </div>
 
       <div class="btn-box">
         <a
-          href="{% url 'rooms:campus-rooms' user.campus.campus_code %}"
+          href="{% url 'core:hostels' user.campus.campus_code %}"
           class="fw-bold"
         >
-          All Rooms
+          Hostels
         </a>
       </div>
 
