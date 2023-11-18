@@ -25,6 +25,7 @@ body {
 
 h1{
     font-size: 50px;
+    font-weight: 600;
     color: var(--primary);
     margin: 10px;
     text-shadow: 2px 2px black;
@@ -40,7 +41,7 @@ span {
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    width: 500px;
+    width: 350px;
     text-align: center;
     overflow: hidden;
 }
@@ -50,10 +51,9 @@ h2 {
     margin-bottom: 20px;
 }
 
-form {
+form, .section {
     display: flex;
     flex-direction: column;
-    gap: 10px;
 }
 
 .input-container {
@@ -69,11 +69,9 @@ select {
     border-bottom: 1px solid var(--primary);
     background-color: transparent;
     color: var(--light);
-    width: 300px;
-    height: 48px;
+    width: 250px;
     font-size: 20px;
-    font-style: Monospace;
-    font-family:Arial, Helvetica, sans-serif;
+    margin-bottom: 10px;
 }
 
 input::placeholder {
@@ -93,13 +91,22 @@ input:hover, select:hover{
     border-bottom: 1px solid var(--dark);
 }
 
+.bttn{
+    display: flex;
+    flex-direction: row;
+    width: 250px;
+    height: 40px;
+    justify-content: space-around;
+    margin: auto;
+}
+
 button{
     border: none;
-    background: black;
+    background: rgb(43, 43, 43);
     position: relative;
     cursor: pointer;
     padding: 5px 10px;
-    width: 250px;
+    width: 110px;
     border-radius: 5px;
     font-size: 20px;
     font-weight: bold;
@@ -151,7 +158,7 @@ p a:hover{
 
 @media screen and (max-width: 768px) {
     .container {
-        width: 80%;
+        width: 60%;
     }
 
     h1{

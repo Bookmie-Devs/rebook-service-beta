@@ -37,11 +37,7 @@
       <h4 style="color: aliceblue">{{message}}</h4>
       {% endfor %} {% endif %}
 
-      <form
-        id="login-form"
-        action="{% url 'accounts:login' %}"
-        method="POST"
-      >
+      <form id="login-form" action="{% url 'accounts:login' %}" method="POST">
         {% csrf_token %}
         <div class="input-container">
           <input
@@ -63,7 +59,7 @@
           />
         </div>
 
-        <div class="btn">
+        <div class="bttn">
           <button type="submit" id="login-button">Log In</button>
         </div>
         <div class="log">
