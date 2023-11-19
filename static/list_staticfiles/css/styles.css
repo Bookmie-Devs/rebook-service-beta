@@ -195,6 +195,10 @@ body {
   fill: #FFFFFF;
 }
 
+section{
+  min-height: 300px !important;
+}
+
 .card{
   animation: myAnim 2s ease 0s 1 normal forwards;
 }
@@ -273,6 +277,9 @@ body {
           padding: 0 !important;
           padding-top: 40px !important;
           border-radius: 0% !important;
+        }
+        section{
+          min-height: 380px !important;
         }
 }
 
