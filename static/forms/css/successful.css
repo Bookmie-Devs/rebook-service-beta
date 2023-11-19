@@ -25,9 +25,15 @@ body {
 
 h1{
     font-size: 50px;
+    font-weight: 600;
     color: var(--primary);
     margin: 10px;
     text-shadow: 2px 2px black;
+}
+
+h2 {
+    color: var(--primary);
+    margin-bottom: 20px;
 }
 
 span{
@@ -42,19 +48,54 @@ span{
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     width: 300px;
     text-align: center;
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
-}
-
-h2 {
-    color: var(--primary);
-    margin-bottom: 20px;
 }
 
 form {
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+button {
+    border: none;
+    background: black;
+    position: relative;
+    cursor: pointer;
+    padding: 5px 10px;
+    width: 250px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 20px;
+    color: var(--light);
+    overflow: hidden;
+    transition: 300ms;
+    z-index: 1;
+}
+
+button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--primary);
+    z-index: -1;
+    --x: 0%;
+    transform: scaleX(var(--x));
+    transition: transform 300ms;
+    --origin: right;
+    transform-origin: var(--origin);
+}
+
+button:hover {
+    color: var(--dark);
+    z-index: 1;
+}
+
+button:hover::before {
+    --x: 100%;
+    --origin: left;
 }
 
 p{
@@ -65,10 +106,6 @@ p{
 a{
     text-decoration: none;
 }
-
-/* a:hover{
-    text-decoration: underline;
-} */
 
 @media screen and (max-width: 768px) {
     .container {

@@ -1,7 +1,7 @@
 :root{
     --primary: #FEA116;
     --light: #F1F8FF;
-    --dark: #000000bb;
+    --dark: #000000b2;
 }
 *{
   box-sizing: border-box;
@@ -25,6 +25,7 @@ body {
 
 h1{
     font-size: 50px;
+    font-weight: 600;
     color: var(--primary);
     margin: 10px;
     text-shadow: 2px 2px black;
@@ -32,7 +33,7 @@ h1{
 
 span{
     font-size: 10px;
-    color: rgb(0, 0, 0);
+    color: gray;
 }
 
 .container {
@@ -139,7 +140,7 @@ footer{
     height: 100vh;
     justify-content: center;
     align-items: center;
-    z-index: 1;
+    z-index: 2;
     background: rgba(0, 0, 0, 0.9);
     display: none;
 }

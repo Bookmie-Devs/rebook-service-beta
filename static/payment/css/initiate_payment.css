@@ -1,7 +1,7 @@
 :root{
     --primary: #FEA116;
     --light: #F1F8FF;
-    --dark: #000000bb;
+    --dark: #000000b2;
     --black: #000000;
 }
 *{
@@ -26,6 +26,7 @@ body {
 
 h1{
     font-size: 50px;
+    font-weight: 600;
     color: var(--primary);
     margin: 20px;
     text-shadow: 2px 2px black;
@@ -260,7 +261,6 @@ span{
     text-align: center;
     overflow: hidden;
     transition: all 0.7s;
-    border: 1px solid var(--black);
 }
 
 .container:hover {
@@ -298,11 +298,14 @@ span{
     font-size: 0px;
     transform: rotate(90deg) scale(-1);
   }
-  .btn{
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-  }
+    .bttn {
+      display: flex;
+      flex-direction: row;
+      width: 250px;
+      height: 40px;
+      justify-content: space-around;
+      margin: auto;
+    }
 
   .container:hover .second-content {
     opacity: 1;
@@ -321,6 +324,11 @@ form {
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+span {
+  font-size: 10px;
+  color: gray;
 }
 
 .input-container {
@@ -342,6 +350,10 @@ input::placeholder {
 input:hover{
     transition: 300ms;
     border-bottom: 1px solid var(--light);
+}
+
+input:focus{
+  border: none;
 }
 
 button{

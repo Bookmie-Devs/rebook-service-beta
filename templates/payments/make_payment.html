@@ -4,18 +4,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="{% static 'payment/css/make_p.css' %}" />
     <title>Pay</title>
   </head>
   <body>
     <header>
-        <h1>Book Up</h1>
+      <h1>Bookmie.com</h1>
     </header>
-    
+
     <div class="container">
-        <h5>Make Payment Of ₵{{ room.room_price }}</h5>
-      <div class="btn">
+      <h5>Make Payment Of ₵{{ room.room_price }}</h5>
+      <div class="bttn">
         <button id="pay" onclick="payWithPaystack()">Pay💳</button>
       </div>
     </div>
@@ -24,37 +29,36 @@
     <script src="https://js.paystack.co/v1/inline.js"></script>
 
     <script>
-      var paymentForm = document.getElementById('paymentForm');
-      paymentForm.addEventListener('submit', payWithPaystack, false);
+      var paymentForm = document.getElementById("paymentForm");
+      paymentForm.addEventListener("submit", payWithPaystack, false);
       function payWithPaystack() {
         var handler = PaystackPop.setup({
-          key: '{{ paystack_public_key }}', // Replace with your public key
-          email: '{{ user.email }}',
-          amount: '{{ room.room_price }}' * 100, // the amount value is multiplied by 100 to convert to the lowest currency unit
-          currency: 'GHS', // Use GHS for Ghana Cedis or USD for US Dollars
-          ref: '{{ reference }}', // Replace with a reference you generated
-          subaccount: '{{ subaccount }}',
-          callback: function(response) {
+          key: "{{ paystack_public_key }}", // Replace with your public key
+          email: "{{ user.email }}",
+          amount: "{{ room.room_price }}" * 100, // the amount value is multiplied by 100 to convert to the lowest currency unit
+          currency: "GHS", // Use GHS for Ghana Cedis or USD for US Dollars
+          ref: "{{ reference }}", // Replace with a reference you generated
+          subaccount: "{{ subaccount }}",
+          callback: function (response) {
             //this happens after the payment is completed successfully
             var reference = response.reference;
             // alert('Payment complete!');
-            window.location.href = "{% url 'payments:verify-payment' reference %}"
+            window.location.href =
+              "{% url 'payments:verify-payment' reference %}";
             //AJAX call to server with the reference to verify the transaction
           },
-          onClose: function() {
-
-            alert('Transaction was not completed, window closed.');
+          onClose: function () {
+            alert("Transaction was not completed, window closed.");
 
             // redirect user to profile if payment is cancel
-            window.location.href ="{% url 'accounts:booking-and-payments' %}"
-            
+            window.location.href = "{% url 'accounts:booking-and-payments' %}";
           },
         });
         handler.openIframe();
       }
     </script>
-     <!-- Loader -->
-     <div class="load">
+    <!-- Loader -->
+    <div class="load">
       <div class="loader">
         <div class="spinner"></div>
         <p id="loading-option">Please wait confirming....</p>
@@ -64,7 +68,7 @@
     <script src="{% static 'payment/js/script.js' %}"></script>
 
     <footer>
-        <span>Copyright &copy; Your Website 2023</span>
+      <span>Copyright &copy; Your Website 2023</span>
     </footer>
   </body>
 </html>

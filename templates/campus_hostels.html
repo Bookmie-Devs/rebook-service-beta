@@ -47,13 +47,15 @@
     <!-- Navigation-->
     <nav class="nav navbar navbar-expand-lg navbar-light">
       <div class="container px-4 px-lg-5">
-        <a
-          class="navbar-brand"
-          href="{% url 'core:index' %}"
-          href="#!"
-          style="color: orange"
-          >Bookmie Hostels🏢</a
-        >
+        <h1>
+          <a
+            class="navbar-brand"
+            href="{% url 'core:index' %}"
+            href="#!"
+            style="color: orange"
+            >Bookmie Hostels🏢</a
+          >
+        </h1>
         <button
           class="navbar-toggler"
           type="button"
@@ -104,10 +106,7 @@
         </div>
 
         <div class="btn-box">
-          <a
-            href="{% url 'core:hostels' campus.campus_code %}"
-            class="fw-bold"
-          >
+          <a href="{% url 'core:hostels' campus.campus_code %}" class="fw-bold">
             Hostels
           </a>
         </div>
@@ -138,19 +137,18 @@
             > -->
 
             <!-- HTMX for getting search data -->
-              <input
-                class="form-control me-2 mb-2"
-                type="search"
-                required
-                name="search_data"
-                placeholder="Search for hostels"
-                aria-label="Search"
-
-                hx-get="{% url 'core:hostels' campus.campus_code %}"
-                hx-trigger="keyup delay:100ms changed"
-                hx-target="#search-results"
-              />
-              <!-- <button  class="drop btn mb-2" id="search-button" type="submit">
+            <input
+              class="form-control me-2 mb-2"
+              type="search"
+              required
+              name="search_data"
+              placeholder="Search for hostels"
+              aria-label="Search"
+              hx-get="{% url 'core:hostels' campus.campus_code %}"
+              hx-trigger="keyup delay:100ms changed"
+              hx-target="#search-results"
+            />
+            <!-- <button  class="drop btn mb-2" id="search-button" type="submit">
                 Search
               </button> -->
             <!-- </form> -->
@@ -170,7 +168,8 @@
     <!-- Section-->
     <section class="">
       <div class="container px-4 px-lg-5 mt-5">
-        <div id="search-results"
+        <div
+          id="search-results"
           class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
         >
           {% if hostels %} {% for hostel in hostels %}
@@ -192,7 +191,7 @@
                 <img
                   class="card-img-top"
                   src="{{ hostel.hostel_image.url }}"
-                  alt="..."
+                  alt="Hostel_image"
                 />
               </a>
 
@@ -296,7 +295,11 @@
       </div>
     </footer>
     <!-- HTMX SCRIPTS -->
-    <script src="https://unpkg.com/htmx.org@1.9.8" integrity="sha384-rgjA7mptc2ETQqXoYC3/zJvkU7K/aP44Y+z7xQuJiVnB/422P/Ak+F/AqFR7E4Wr" crossorigin="anonymous"></script>
+    <script
+      src="https://unpkg.com/htmx.org@1.9.8"
+      integrity="sha384-rgjA7mptc2ETQqXoYC3/zJvkU7K/aP44Y+z7xQuJiVnB/422P/Ak+F/AqFR7E4Wr"
+      crossorigin="anonymous"
+    ></script>
 
     <!-- Core theme JS-->
     <script src="{% static 'list_staticfiles/js/scripts.js' %}"></script>
