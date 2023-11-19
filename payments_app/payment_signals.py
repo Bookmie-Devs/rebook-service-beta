@@ -22,7 +22,8 @@ def create_sub_account(sender, instance, created, **kwargs):
 
             #create paystack sub account for hostel
             paystack_auth = create_subaccount(hostel=instance)
-
+            
+            # if sub_account is created(201)
             if paystack_auth.status_code == 201:
 
                 sub_account.subaccount_code = paystack_auth.json()['data'].get('subaccount_code')
