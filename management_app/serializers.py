@@ -26,13 +26,10 @@ class RoomListSerializer(serializers.ModelSerializer):
 
     #Return the deatail url for the each room in the list
     def get_detail_url(self, obj: RoomProfile):
-
         request = self.context.get('request')
-
-        return reverse('management:room-details',
-                        kwargs={'room_id':obj.room_id},
-                        request=request,
-                        )
+        return reverse('management:room-details',kwargs={'room_id':obj.room_id},
+                        request=request,)
+    
     # count and retun the number of tenants in the room
     def get_number_of_tenants(self, obj:RoomProfile):
         no_of_tenants = Tenant.objects.filter(room=obj).count()
