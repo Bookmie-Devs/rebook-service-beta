@@ -17,7 +17,7 @@ def paystack_verification(reference):
     response = requests.get(url=paystack_url,headers=headers,)
     return response
 
-def create_subaccount(hostel=None):
+def create_subaccount(hostel: HostelProfile=None):
 
     paystack_url = 'https://api.paystack.co/subaccount'
 
@@ -26,7 +26,7 @@ def create_subaccount(hostel=None):
         "bank_code": str(hostel.bank_code), 
         "account_number": str(hostel.account_number), 
     
-        "primary_contact_name":str(hostel.contact),
+        "primary_contact_name":str(hostel.hostel_contact),
 
         #the percenetage charge for every hostel sub account
         "percentage_charge": 0.95, ############################

@@ -16,7 +16,7 @@ def create_sub_account(sender, instance, created, **kwargs):
             sub_account = PaystackSubAccount.objects.create(hostel=instance, 
                                         bussiness_name=str(instance.hostel_name).upper(),
                                         bank_code = instance.bank_code,
-                                        primary_contact_name=instance.contact,
+                                        primary_contact_name=instance.hostel_contact,
                                         account_number = instance.account_number,)
             sub_account.save()
 
