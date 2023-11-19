@@ -147,7 +147,9 @@ p{
 
 a{
     text-decoration: none;
-    color: blue;
+    font-size: large;
+    font-weight: bold;
+    color: rgb(0, 60, 255);
 }
 
 a:hover{
