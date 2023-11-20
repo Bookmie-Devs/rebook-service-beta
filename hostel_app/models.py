@@ -70,7 +70,6 @@ class HostelProfile(models.Model):
                                    default='unavailable', 
                                    blank=True)
     
-    hostel_motto = models.CharField(max_length=2000, blank=True)
     number_of_rooms = models.IntegerField(default=5)
     campus = models.ForeignKey(CampusProfile, on_delete=models.SET_NULL, null=True)
 
