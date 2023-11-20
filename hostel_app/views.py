@@ -34,5 +34,3 @@ def hostel_rooms(request: HttpRequest, hostel_id):
         
     return render(request, 'hostel_rooms.html', context)
 
-
-    
