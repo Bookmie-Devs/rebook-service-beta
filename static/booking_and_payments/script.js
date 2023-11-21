@@ -2,11 +2,29 @@ const direction = document.getElementById('direction');
 const directionContainer = document.querySelector('.direction');
 const closebtn = document.querySelector('.close');
 
-direction.addEventListener('click', (e) => {
-    e.preventDefault();
-    directionContainer.style.display = 'block';
-})
+// loader
+const Load = document.querySelector('.load');
 
-closebtn.addEventListener('click', () => {
-    directionContainer.style.display = 'none';
-})
+// direction.addEventListener('click', (e) => {
+//     e.preventDefault();
+//     directionContainer.style.display = 'block';
+// })
+
+
+direction.onclick =() => {
+
+    Load.style.display = "flex";
+
+    setTimeout(function () {
+
+    // Hide the loader after the delay
+    Load.style.display = 'none';
+
+    }, 3000);
+}
+
+// NOT USING DIV FOR MAP
+
+// closebtn.addEventListener('click', () => {
+//     directionContainer.style.display = 'none';
+// })

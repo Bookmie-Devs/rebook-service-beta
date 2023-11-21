@@ -25,7 +25,7 @@
       href="{% static 'booking_and_payments/styles.css' %}"
     />
   </head>
-  <body>
+  <body> 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
@@ -76,6 +76,7 @@
         </div>
       </div>
     </nav>
+
     <br />
     <br />
     <br />
@@ -85,6 +86,7 @@
       <h3 style="text-align: center">{{ message }}</h3>
     </div>
     {% endfor %} {% endif %}
+
 
     <div class="box bg-outline-dark">
       <div class="btn-box">
@@ -113,6 +115,15 @@
         <a href="{% url 'reset_password' %}" class="fw-bold">Reset Password</a>
       </div>
     </div>
+
+    <!-- Loader -->
+    <div class="load">
+      <div class="loader">
+        <div class="spinner"></div>
+        <p>Getting Location...</p>
+      </div>
+    </div> 
+
     <div class="container py-4">
       <div class="left-half">
         <div class="user-info">
@@ -168,7 +179,8 @@
               </div>
 
               <div class="">
-                <a href="" id="direction" class="btn btn-success"
+                <a href="{%  url 'maps:hostel-direction' tenant.room.hostel.hostel_id %}"
+                 id="direction" class="btn btn-success"
                   >Get Direction🌍</a
                 >
               </div>
@@ -223,9 +235,9 @@
 
             <div class="">
               <a
-
+              
               href="{%  url 'maps:hostel-direction' tenant.room.hostel.hostel_id %}"
-              {% comment %} id="direction" {% endcomment %}
+              id="direction"
               class="btn btn-success">
                 Get Direction🌍
               </a>
@@ -314,14 +326,8 @@
         <p>&copy; 2023 All Rights Reserved</p>
       </div>
     </section>
-  
-    <!-- HTMX SCRIPTS -->
-    <script
-    src="https://unpkg.com/htmx.org@1.9.8"
-    integrity="sha384-rgjA7mptc2ETQqXoYC3/zJvkU7K/aP44Y+z7xQuJiVnB/422P/Ak+F/AqFR7E4Wr"
-    crossorigin="anonymous">
-    </script>
-    4
+
+    
     <!-- Custom Js -->
     <script src="{% static 'booking_and_payments/script.js' %}"></script>
   </body>
