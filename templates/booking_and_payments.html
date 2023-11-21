@@ -222,7 +222,11 @@
             </div>
 
             <div class="">
-              <a href="" id="direction" class="btn btn-success">
+              <a
+
+              href="{%  url 'maps:hostel-direction' tenant.room.hostel.hostel_id %}"
+              {% comment %} id="direction" {% endcomment %}
+              class="btn btn-success">
                 Get Direction🌍
               </a>
             </div>
@@ -292,7 +296,7 @@
             fill="currentColor"
             class="bi bi-x-lg x text-white"
           ></i>
-        </div>
+        </div> 
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d247.66922415366153!2d-1.5760969523371773!3d6.683099585106029!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfdb9501e105748d%3A0x96a50b9d42c20fe2!2sKNUST%20Commercial%20Area!5e0!3m2!1sen!2sgh!4v1698648445256!5m2!1sen!2sgh"
           width="600"
@@ -310,6 +314,14 @@
         <p>&copy; 2023 All Rights Reserved</p>
       </div>
     </section>
+  
+    <!-- HTMX SCRIPTS -->
+    <script
+    src="https://unpkg.com/htmx.org@1.9.8"
+    integrity="sha384-rgjA7mptc2ETQqXoYC3/zJvkU7K/aP44Y+z7xQuJiVnB/422P/Ak+F/AqFR7E4Wr"
+    crossorigin="anonymous">
+    </script>
+    4
     <!-- Custom Js -->
     <script src="{% static 'booking_and_payments/script.js' %}"></script>
   </body>

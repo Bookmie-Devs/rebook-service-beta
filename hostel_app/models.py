@@ -3,7 +3,7 @@ from campus_app.models import CampusProfile
 import uuid
 from django.urls import reverse
 from accounts.models import CustomUser
-# from django_google_maps import fields as map_fields
+from django_google_maps import fields as map_fields
 
 
 rating = [(4,'⭐⭐⭐⭐'),(3,'⭐⭐⭐'),
@@ -94,7 +94,7 @@ class HostelProfile(models.Model):
 
     location = models.CharField(max_length=500, default="location unavailable")
     other_phone = models.CharField(max_length=10, blank=True)
-    map_location = models.CharField(max_length=10000, default='unavailable')
+    
     main_website = models.URLField(null=True, blank=True, 
                                 verbose_name='Hostel Website')
 
@@ -103,8 +103,8 @@ class HostelProfile(models.Model):
    
     #Location of hostel base on Google map API
     # On testing
-    # address = map_fields.AddressField(max_length=200, blank=True, null=True)
-    # geolocation = map_fields.GeoLocationField(max_length=100, blank=True, null=True)
+    address = map_fields.AddressField(max_length=200, blank=True, null=True)
+    geolocation = map_fields.GeoLocationField(max_length=500, blank=True, null=True)
 
     class Meta:
         db_table = 'hostel_profiles'
