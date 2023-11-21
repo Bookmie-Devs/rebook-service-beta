@@ -20,9 +20,11 @@ direction.onclick =() => {
     // Hide the loader after the delay
     Load.style.display = 'none';
 
-    }, 6000);
+    }, 3000);
 }
 
-closebtn.addEventListener('click', () => {
-    directionContainer.style.display = 'none';
-})
+// NOT USING DIV FOR MAP
+
+// closebtn.addEventListener('click', () => {
+//     directionContainer.style.display = 'none';
+// })
