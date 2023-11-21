@@ -59,7 +59,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'django_filters',
     # 'whitenoise.runserver_nostatic',
-    # 'django_google_maps',
+    'django_google_maps',
 
 
     # platform apps

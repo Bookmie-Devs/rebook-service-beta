@@ -222,7 +222,11 @@
             </div>
 
             <div class="">
-              <a href="" id="direction" class="btn btn-success">
+              <a
+
+              href="{%  url 'maps:hostel-direction' tenant.room.hostel.hostel_id %}"
+              {% comment %} id="direction" {% endcomment %}
+              class="btn btn-success">
                 Get Direction🌍
               </a>
             </div>
@@ -293,6 +297,7 @@
             class="bi bi-x-lg x text-white"
           ></i>
         </div>
+        <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d499.7893709762665!2d-0.24491855361245435!3d5.62470259363137!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2sgh!4v1700484244894!5m2!1sen!2sgh" width="1500" height="600" style="border-radius: 20px; margin-right: 20px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
       </div>
     </div>
 
@@ -302,6 +307,14 @@
         <p>&copy; 2023 All Rights Reserved</p>
       </div>
     </section>
+  
+    <!-- HTMX SCRIPTS -->
+    <script
+    src="https://unpkg.com/htmx.org@1.9.8"
+    integrity="sha384-rgjA7mptc2ETQqXoYC3/zJvkU7K/aP44Y+z7xQuJiVnB/422P/Ak+F/AqFR7E4Wr"
+    crossorigin="anonymous">
+    </script>
+    4
     <!-- Custom Js -->
     <script src="{% static 'booking_and_payments/script.js' %}"></script>
   </body>

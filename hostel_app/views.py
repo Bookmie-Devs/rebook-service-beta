@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 # from django
 from django.http import HttpRequest
-
+from django_google_maps.fields import GeoPt
 from campus_app.models import CampusProfile
 from .models import HostelProfile
 from django.contrib.auth.decorators import login_required
@@ -19,6 +19,8 @@ def hostel_profile(request, hostel_id):
 
 def hostel_rooms(request: HttpRequest, hostel_id):
     hostel_profile = HostelProfile.objects.get(hostel_id = hostel_id)
+    # hostel coordinates on map
+    coordinate:GeoPt = hostel_profile.geolocation 
     #get all unoccupied rooms in the hostel
     hostel_rooms = RoomProfile.objects.filter(hostel=hostel_profile, occupied=False).order_by('room_no')
     context:dict={'hostel':hostel_profile, 'hostel_rooms':hostel_rooms,}
