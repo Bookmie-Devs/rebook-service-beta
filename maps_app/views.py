@@ -9,4 +9,4 @@ def location_direction(request, hostel_id):
     # coordinate. 
     return render(request=request,
            template_name= 'maps/map_direction.html/',
-           context={'coordinate': coordinate, 'hostel':hostel_profile})
+           context={'coordinate': coordinate, 'user':request.user ,'hostel':hostel_profile})
