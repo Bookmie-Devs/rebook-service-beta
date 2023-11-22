@@ -131,7 +131,7 @@ def signup(request):
 
                         send_mail(from_email=settings.EMAIL_HOST_USER, 
                         recipient_list=[request.user.email], 
-                        subject=f'Congrats {request.user.username}. Your Sign Up seccessfull', 
+                        subject=f'Welcome to Bookmie.com!, {request.user.username} Your signup was successful.', 
                         message=render_to_string('emails/signup_congrat.html',{'user':request.user}),
                         fail_silently=True)
 
