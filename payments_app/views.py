@@ -116,10 +116,10 @@ def verify_payment(request, reference):
         send_sms_message(user_contact=request.user.phone)
 
         # send emails
-        subject = f'Congratulations'
+        subject = f'Confirmation: Your Room Booking is Complete!'
         send_mail(from_email=settings.EMAIL_HOST_USER, fail_silently=True,
         recipient_list=[request.user.email], subject=subject, 
-        message=render_to_string('emails/tenant_email.html',{"user":request.user}))
+        message=render_to_string('emails/tenant_email.html',{"user":request.user,"tenant":tenant,"amount":payment.amount}))
         return redirect('core:success')
     
     else:
