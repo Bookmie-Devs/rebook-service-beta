@@ -11,7 +11,7 @@ class CustomRoomAdminPanel(admin.ModelAdmin):
                        'room_capacity','bed_space_left','room_img', 'rating'),}),
         
         ('Specs', {'fields':('inbuilt_kitchen','inbuilt_bathroom',
-                             'inbuilt_balconi','air_condition',)}),
+                             'inbuilt_balcony','air_condition',)}),
 
         ('Status', {'fields':('booking_occupied', 'occupied')}),
     )
