@@ -45,7 +45,7 @@ class HostelListView(generic.ListView):
         """Get hostel that are related to particular campus and display it
         to the client"""
         campus = CampusProfile.objects.get(campus_code=campus_code)
-        campus_hostels = HostelProfile.objects.filter(campus=campus)
+        campus_hostels = HostelProfile.objects.filter(campus=campus, verified=True)
 
         # if request.user.is_anonymous:
         #     print("hi")
@@ -59,8 +59,7 @@ class HostelListView(generic.ListView):
             search_data = request.GET['search_data']            
             campus = CampusProfile.objects.get(campus_code=campus_code)
             #query of search 
-            query = HostelProfile.objects.filter(Q(campus=campus) & (Q(hostel_name__icontains=search_data)
-                                                | Q(location__icontains=search_data)))
+            query = HostelProfile.objects.filter(verified=True & Q(campus=campus) & (Q(hostel_name__icontains=search_data) | Q(location__icontains=search_data)))
             #context containg search query page
             context['hostels']=query
             return render(request, 'htmx_templates/hostel_search_result.html', context)
