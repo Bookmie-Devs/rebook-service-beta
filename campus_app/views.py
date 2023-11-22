@@ -11,7 +11,7 @@ class CampusListView(ListView):
     
     def get(self, request: HttpRequest, router_value:str, *args: Any, **kwargs: Any) -> HttpResponse:
 
-        campuses = CampusProfile.objects.filter(available_on_campus=True).all()
+        campuses = CampusProfile.objects.all()
         context = {
             "campuses" : campuses
         }

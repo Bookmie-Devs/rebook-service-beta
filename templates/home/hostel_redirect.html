@@ -13,7 +13,11 @@
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi
       laboriosam at voluptas
     </p> -->
+    {% if campus.available_on_campus %}
     <button class="btn">View Hostels Available</button>
+    {% else %}
+      <button class="btn"><h5 class="h5">Coming Soon🏢</h5></button>
+    {% endif %}
   </div>
 </div>
 </a>
