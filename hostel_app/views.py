@@ -12,7 +12,7 @@ from core.models import Booking
 
 def hostel_profile(request, hostel_id):
     hostel_profile = HostelProfile.objects.get(hostel_id = hostel_id)
-    context = {'hostel': hostel_profile,}
+    context = {'hostel': hostel_profile,'user':request.user}
     
     return render(request, 'hostel_profile.html', context)
 
@@ -23,7 +23,7 @@ def hostel_rooms(request: HttpRequest, hostel_id):
     coordinate:GeoPt = hostel_profile.geolocation 
     #get all unoccupied rooms in the hostel
     hostel_rooms = RoomProfile.objects.filter(hostel=hostel_profile, occupied=False).order_by('room_no')
-    context:dict={'hostel':hostel_profile, 'hostel_rooms':hostel_rooms,}
+    context:dict={'hostel':hostel_profile, 'hostel_rooms':hostel_rooms, 'user':request.user}
     # if user filter hostel rooms
     if request.GET: 
         rooms = RoomProfile.objects.filter(room_capacity=request.GET.get('capacity'), hostel=hostel_profile, occupied=False).all()

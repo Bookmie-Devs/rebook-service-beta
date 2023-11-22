@@ -2,6 +2,8 @@ from collections.abc import Iterable
 from typing import Any, Type
 from django.db import models
 import uuid
+
+# no module 'django.utils.six' to make this package work
 # from geoposition.fields import GeopositionField
 # Create your models here.
 
@@ -10,6 +12,8 @@ class CampusProfile(models.Model):
     campus_code = models.CharField(max_length=100, unique=True)
     flag = models.ImageField(default='defaultFlag.jpg', upload_to='CampusFlag')
     address = models.CharField(max_length=255)
+    available_on_campus = models.BooleanField(default=False)
+
     # location= GeopositionField(max_length=42)
 
     def __str__(self) -> str:

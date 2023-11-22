@@ -16,6 +16,7 @@ from django.http import (HttpRequest,
                         HttpResponse, 
                         HttpResponseRedirect, 
                         JsonResponse)
+from django.contrib.auth.models import AnonymousUser
 from django.views.decorators.http import require_http_methods
 from django.conf import settings
 from django.utils import timezone
@@ -33,7 +34,8 @@ from campus_app.models import CampusProfile
 def index(request):
     campuses = CampusProfile.objects.all()
     # random a list of hostels to display
-    campuses = random.sample(population=list(campuses), k=len(list(campuses)))
+    # campuses = random.sample(population=list(campuses), k=len(list(campuses)))
+
     feedbacks = RecomendationFeedBacks.objects.all()
     return render(request, 'index.html', {'campuses':campuses,'feedbacks':feedbacks})
 
@@ -43,24 +45,29 @@ class HostelListView(generic.ListView):
         """Get hostel that are related to particular campus and display it
         to the client"""
         campus = CampusProfile.objects.get(campus_code=campus_code)
-        campus_hostels = HostelProfile.objects.filter(campus=campus)
+        campus_hostels = HostelProfile.objects.filter(campus=campus, verified=True)
+
+        # if request.user.is_anonymous:
+        #     print("hi")
+        # else:
+        #     print(request.user)
         #context for the pages
-        context={'hostels':campus_hostels, 'campus':campus,}
+        context={'hostels':campus_hostels, 'campus':campus,'user':request.user}
 
         """if user search for hostel"""
         if request.GET:
             search_data = request.GET['search_data']            
             campus = CampusProfile.objects.get(campus_code=campus_code)
             #query of search 
-            query = HostelProfile.objects.filter(Q(campus=campus) & (Q(hostel_name__icontains=search_data)
-                                                | Q(location__icontains=search_data)))
+            query = HostelProfile.objects.filter(verified=True & Q(campus=campus) & (Q(hostel_name__icontains=search_data) | Q(location__icontains=search_data)))
             #context containg search query page
             context['hostels']=query
             return render(request, 'htmx_templates/hostel_search_result.html', context)
         
         return render(request, 'campus_hostels.html', context)
     
-    
+
+# IN DEVELOPMENT 
 def update_vcode(request):
     """update tenant year of staying"""
 
@@ -80,7 +87,7 @@ def update_vcode(request):
                                       end_time=(timezone.now() + timedelta(seconds=40)),
                                       campus=booked_room.campus)
             booking.save()
-            messages.error(request,"Now Pay for room")
+            messages.error(request,"Please proceed to payment")
             return redirect("accounts:booking-and-payments")
             
     except Tenant.DoesNotExist:

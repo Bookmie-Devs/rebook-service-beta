@@ -71,14 +71,31 @@
             </li>
              
           </ul>
-            <nav class="d-flex justify-content-center">
-                        <a href="{% url 'accounts:logout' %}">
-                        <button class="btn btn-outline-warning px-4" type="submit">
+        {% if user.is_anonymous %}
+          <!-- <form > -->
+            <a class="d-flex justify-content-center" href="{% url 'accounts:signup' %}">
+              <button class="btn btn-outline-warning px-4" type="submit">
+                Sign up
+              </button>
+            </a>
+
+            <a class="d-flex justify-content-center" href="{% url 'accounts:login' %}">
+              <button class="btn btn-outline-warning px-4" type="submit">
+                Log in
+                <i class="bi bi-person-circle text-warning"></i>
+              </button>
+            </a>
+          <!-- </form> -->
+        {% else %}
+        <!-- <form > -->
+          <a class="d-flex justify-content-center" href="{% url 'accounts:logout' %}">
+            <button class="btn btn-outline-warning px-4" type="submit">
               Log out
               <i class="bi bi-person-circle text-warning"></i>
             </button>
-                        </a>
-                      </nav>
+          </a>
+        <!-- </form> -->
+      {% endif %}
         </div>
       </div>
     </nav>
@@ -128,7 +145,6 @@
               <div class="col-sm-3">
                 <input class="form-control"
                 type="number"
-                required="required"
                 name="room_price_min"
                 placeholder="Least price"
                 >
@@ -137,7 +153,6 @@
               <div class="col-sm-3">
                 <input class="form-control"
                 type="number"
-                required="required"
                 name="room_price_max"
                 placeholder="Highest price"
                 >
