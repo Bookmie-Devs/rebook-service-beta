@@ -37,11 +37,17 @@
                     </ul>
                     <nav class="d-flex justify-content-center">
                         {% if user.is_anonymous %}
-                        <a href="{% url 'accounts:login' %}">
+                        <a href="{% url 'accounts:signup' %}">
                         <button class="btn btn-outline-warning px-4" type="submit">
-                            Log in
-                            <i class="bi bi-person-circle text-warning"></i>
+                            Sing up
                         </button>
+                        </a>
+
+                        <a href="{% url 'accounts:login' %}">
+                            <button class="btn btn-outline-warning px-4" type="submit">
+                                Log in
+                                <i class="bi bi-person-circle text-warning"></i>
+                            </button>
                         </a>
                         {% else %}
                         <a href="{% url 'accounts:logout' %}">

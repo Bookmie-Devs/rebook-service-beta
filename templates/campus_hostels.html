@@ -89,6 +89,12 @@
           </ul>
           {% if user.is_anonymous %}
               <!-- <form > -->
+                <a class="d-flex justify-content-center" href="{% url 'accounts:signup' %}">
+                  <button class="btn btn-outline-warning px-4" type="submit">
+                    Sign up
+                  </button>
+                </a>
+
                 <a class="d-flex justify-content-center" href="{% url 'accounts:login' %}">
                   <button class="btn btn-outline-warning px-4" type="submit">
                     Log in
