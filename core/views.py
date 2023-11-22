@@ -66,7 +66,8 @@ class HostelListView(generic.ListView):
         
         return render(request, 'campus_hostels.html', context)
     
-    
+
+# IN DEVELOPMENT 
 def update_vcode(request):
     """update tenant year of staying"""
 
@@ -86,7 +87,7 @@ def update_vcode(request):
                                       end_time=(timezone.now() + timedelta(seconds=40)),
                                       campus=booked_room.campus)
             booking.save()
-            messages.error(request,"Now Pay for room")
+            messages.error(request,"Please proceed to payment")
             return redirect("accounts:booking-and-payments")
             
     except Tenant.DoesNotExist:
