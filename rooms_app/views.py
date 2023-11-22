@@ -43,7 +43,8 @@ class CampusRoomListView(generic.ListView):
         # if there no qs for search data 
         context = {'rooms': campus_rooms,
                    'campus':campus, 
-                   'hostels':all_hostels,'myForm':RoomFilters}
+                   'user':request.user,
+                   'hostels':all_hostels}
         
         if request.GET:
               # Search query

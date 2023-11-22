@@ -78,15 +78,26 @@
               >
             </li>
           </ul>
-
-          <form class="d-flex justify-content-center">
-            <a href="{% url 'accounts:logout' %}">
+          
+          {% if user.is_anonymous %}
+          <!-- <form class="d-flex justify-content-center"> -->
+            <a href="{% url 'accounts:login' %}">
               <button class="btn btn-outline-warning px-4" type="submit">
-                Log out
+                Log in
                 <i class="bi bi-person-circle text-warning"></i>
               </button>
             </a>
-          </form>
+          <!-- </form> -->
+      {% else %}
+        <!-- <form class="d-flex justify-content-center"> -->
+          <a href="{% url 'accounts:logout' %}">
+            <button class="btn btn-outline-warning px-4" type="submit">
+              Log out
+              <i class="bi bi-person-circle text-warning"></i>
+            </button>
+          </a>
+        <!-- </form> -->
+      {% endif %}
         </div>
       </div>
     </nav>

@@ -36,12 +36,22 @@
                           </li>
                     </ul>
                     <nav class="d-flex justify-content-center">
-                        <a href="{% url 'accounts:logout' %}">
+                        {% if user.is_anonymous %}
+                        <a href="{% url 'accounts:login' %}">
                         <button class="btn btn-outline-warning px-4" type="submit">
-              Log out
-              <i class="bi bi-person-circle text-warning"></i>
-            </button>
+                            Log in
+                            <i class="bi bi-person-circle text-warning"></i>
+                        </button>
                         </a>
+                        {% else %}
+                        <a href="{% url 'accounts:logout' %}">
+                            <button class="btn btn-outline-warning px-4" type="submit">
+                                Log out
+                                <i class="bi bi-person-circle text-warning"></i>
+                            </button>
+                        </a>
+                        {% endif %}
+
                     </nav>
                 </div>
             </div>

@@ -16,6 +16,7 @@ from django.http import (HttpRequest,
                         HttpResponse, 
                         HttpResponseRedirect, 
                         JsonResponse)
+from django.contrib.auth.models import AnonymousUser
 from django.views.decorators.http import require_http_methods
 from django.conf import settings
 from django.utils import timezone
@@ -33,7 +34,8 @@ from campus_app.models import CampusProfile
 def index(request):
     campuses = CampusProfile.objects.all()
     # random a list of hostels to display
-    campuses = random.sample(population=list(campuses), k=len(list(campuses)))
+    # campuses = random.sample(population=list(campuses), k=len(list(campuses)))
+
     feedbacks = RecomendationFeedBacks.objects.all()
     return render(request, 'index.html', {'campuses':campuses,'feedbacks':feedbacks})
 
@@ -44,8 +46,13 @@ class HostelListView(generic.ListView):
         to the client"""
         campus = CampusProfile.objects.get(campus_code=campus_code)
         campus_hostels = HostelProfile.objects.filter(campus=campus)
+
+        # if request.user.is_anonymous:
+        #     print("hi")
+        # else:
+        #     print(request.user)
         #context for the pages
-        context={'hostels':campus_hostels, 'campus':campus,}
+        context={'hostels':campus_hostels, 'campus':campus,'user':request.user}
 
         """if user search for hostel"""
         if request.GET:
