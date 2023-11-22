@@ -208,19 +208,26 @@
       <div class="sale_container">
         
       {% for campus in campuses %}
+      
         <div class="card border border-dark">
           <div class="content">
             <img src="{{ campus.flag.url }}" alt="">
-            <p class="heading">{{ campus.campus_name }}</p>
-            <p class="para">1000+ Rooms
-            <i class="bi bi-house-fill"></i>
-            </p>
-          <a href="{% url 'rooms:campus-rooms' campus.campus_code %}" 
-              class="btn">All Available Rooms 🏠</a>
+                <p class="heading">{{ campus.campus_name }}</p>
 
-          <a class="btn" href="{% url 'core:hostels' campus.campus_code %}">
-            View Hostels 🏢</a>
-          </div>
+            {% if campus.available_on_campus %}
+                <p class="para">1000+ Rooms
+                <i class="bi bi-house-fill"></i>
+                </p>
+                <a href="{% url 'rooms:campus-rooms' campus.campus_code %}" 
+                    class="btn">All Available Rooms 🏠</a>
+
+                <a class="btn" href="{% url 'core:hostels' campus.campus_code %}">
+                  View Hostels 🏢</a>
+            {% else %}
+            <a class="btn" href="{% url 'core:hostels' campus.campus_code %}">
+               <h5 class="h5">Coming Soon🏢</h5></a>
+            {% endif %}
+            </div>
         </div>
       {% endfor %} 
     
