@@ -17,6 +17,7 @@ async function initMap() {
     zoom: 18,
     center: position,
     mapId: "DEMO_MAP_ID",
+    mapTypeId: 'satellite',
   });
 
   // The marker, positioned at Uluru
