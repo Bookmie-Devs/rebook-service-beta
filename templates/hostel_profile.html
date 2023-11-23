@@ -21,7 +21,7 @@
         <nav class="nav navbar navbar-expand-lg navbar-light">
 
             <div class="container px-4 px-lg-5">
-                <h1><a class="navbar-brand" href="#!" style="color: orange;">Bookmie.com</a></h1>
+                <h1><a class="navbar-brand" href="{% url 'core:index' %}" style="color: orange;">Bookmie.com</a></h1>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4 text-center">
@@ -35,30 +35,37 @@
                           </li>
                     </ul>
                     <nav class="d-flex justify-content-center">
-                    {% if user.is_anonymous %}
+                  
                     <div class="bttn">
+                        {% if user.is_anonymous %}
                         <a href="{% url 'accounts:signup' %}">
                             <button class="btn btn-outline-warning px-4" type="submit">
                             Sign up
                             <i class="bi bi-person-circle"></i>
                             </button>
                         </a>
-
                         <a href="{% url 'accounts:login' %}">
                             <button class="btn btn-outline-warning px-4" type="submit">
                             Log in
                             <i class="bi bi-person-circle"></i>
                             </button>
                         </a>
-                        </div>
-                    {% else %}
-                        <a href="{% url 'accounts:logout' %}">
+
+                        {% else %}
+                        <a href="{% url 'accounts:booking-and-payments' %}">
                             <button class="btn btn-outline-warning px-4" type="submit">
-                            Log out
+                            Profile
                             <i class="bi bi-person-circle"></i>
                             </button>
                         </a>
-                    {% endif %}
+                        <a href="{% url 'accounts:logout' %}">
+                            <button class="btn btn-outline-warning px-4" type="submit">
+                            Log out
+                            </button>
+                        </a>
+                        {% endif %}
+                    </div>
+               
                     </nav>
                 </div>
             </div>
@@ -76,7 +83,7 @@
         <a href="{% url 'rooms:campus-rooms' hostel.campus.campus_code %}" class="fw-bold"> All Rooms </a>
       </div>
       <div class="btn-box">
-        <a href="{% url 'accounts:booking-and-payments'%}" class="fw-bold"> Booking/Payment <i class="bi bi-person-circle"></i> </a>
+        <a href="{% url 'hostels:hostel-rooms' hostel.hostel_id %}" class="fw-bold">View Rooms Available in Hostel</a>
       </div>
     </div>
 
@@ -94,10 +101,25 @@
                             <span><strong>Price range: GHS-{{ hostel.price_range }}</strong></span>
                             <div>
                             <hr>
-                            <a href="{% url 'hostels:hostel-rooms' hostel.hostel_id %}">
+                            <a href="{% url 'maps:hostel-direction' hostel.hostel_id %}">
                             <button class="btn drop flex-shrink-0" type="button">
                                 <i class="bi bi-house-check"></i>
-                                View Rooms Available
+                                View On Map
+                                <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                fill="currentColor"
+                                class="bi bi-geo-alt"
+                                viewBox="0 0 16 16"
+                              >
+                                <path
+                                  d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"
+                                />
+                                <path
+                                  d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"
+                                />
+                              </svg>
                             </button>
                             </a>
                             </div>
@@ -107,7 +129,7 @@
                             <a href="{% url 'hostels:hostel-rooms' hostel.hostel_id %}">
                             <button class="btn drop  flex-shrink-0" type="button">
                                 <i class="bi bi-house-check"></i>
-                                Direction
+                                View Rooms
                             </button>
                             </a>
                         </div>

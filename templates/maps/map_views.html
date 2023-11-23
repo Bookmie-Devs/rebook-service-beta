@@ -23,8 +23,23 @@
       <div class="container px-4 px-lg-5">
         <h1>
           <a class="navbar-brand" href="#!" style="color: orange"
-            >Bookmie.com</a
+            >Select by clicking on red pointers
+            <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-geo-alt"
+            viewBox="0 0 16 16"
           >
+            <path
+              d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"
+            />
+            <path
+              d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"
+            />
+          </svg>
+          </a>
         </h1>
         <!-- <h1><a class="navbar-brand" href="#!" style="color: orange;">{{ hostel.hostel_name }} Direction</a></h1> -->
         <button
@@ -59,14 +74,14 @@
             </li>
           </ul>
           <nav class="d-flex justify-content-center">
-            {% if user.is_anonymous %}
             <div class="bttn">
-            <a href="{% url 'accounts:signup' %}">
-            <button class="btn btn-outline-warning px-4" type="submit">
-                Sign up
-                <i class="bi bi-person-circle"></i>
-            </button>
-            </a>
+              {% if user.is_anonymous %}
+              <a href="{% url 'accounts:signup' %}">
+              <button class="btn btn-outline-warning px-4" type="submit">
+                  Sign up
+                  <i class="bi bi-person-circle"></i>
+              </button>
+              </a>
 
             <a href="{% url 'accounts:login' %}">
                 <button class="btn btn-outline-warning px-4" type="submit">
@@ -74,16 +89,22 @@
                     <i class="bi bi-person-circle"></i>
                 </button>
             </a>
-            </div>
+
             {% else %}
+            <a href="{% url 'accounts:booking-and-payments' %}">
+              <button class="btn btn-outline-warning px-4" type="submit">
+                  Profile
+                  <i class="bi bi-person-circle"></i>
+              </button>
+            </a>
+
             <a href="{% url 'accounts:logout' %}">
                 <button class="btn btn-outline-warning px-4" type="submit">
                     Log out
-                    <i class="bi bi-person-circle"></i>
                 </button>
             </a>
             {% endif %}
-
+            </div>
         </nav>
         </div>
       </div>
@@ -92,14 +113,13 @@
     <!-- break and hr-line to prevent map(statilite view button) from entering the navbar -->
     <br />
     <hr />
-
     <!--The div element for the map -->
     <div id="map">
       <!-- MAP SPACE -->
     </div>
     
     <!-- hostels and thiser coorinates -->
-    <input id="hostel-coordinates" value="{{coordinates }}">
+    <input type="hidden" id="hostel-coordinates" value="{{coordinates }}">
 
     <!-- prettier-ignore -->
     <script>(g=>{var h,a,k,p="AIzaSyAwKrOfycjP7IivgbIh6jLovmuAegclUWk",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})

@@ -82,10 +82,16 @@
                 All Rooms(Recommend) <i class="bi bi-check-circle"></i> 
                 </a>
               </div>
+              
+              <div class="btn-box">
+                <a href="{% url 'maps:map-views' %}" class="">
+                  Map Views(Recommend)<i class="bi bi-check-circle"></i> 
+                </a>
+              </div>
+              
               <div class="btn-box">
                 <a href="{% url 'campus:campus-list' 'hostel-router' %}" class="">
                   Hostels(campus)
-                  <!-- <i class="bi bi-person-circle"></i> -->
                 </a>
               </div>
 
@@ -93,12 +99,6 @@
                 <a href="{% url 'accounts:booking-and-payments' %}" class="">
                   Profile/Payments
                   <i class="bi bi-person-circle"></i>
-                </a>
-              </div>
-
-              <div class="btn-box">
-                <a href="{% url 'maps:map-views' %}" class="">
-                  Map Views(Recommend)<i class="bi bi-check-circle"></i> 
                 </a>
               </div>
 

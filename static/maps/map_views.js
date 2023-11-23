@@ -6,8 +6,7 @@
    let jsonString = document.getElementById('hostel-coordinates').value
  
    jsonString = jsonString.replace(/None/g, 'null').replace(/'/g, '"');
- 
-   console.log(jsonString)
+
    // Array of places (coordinates)
    const places = JSON.parse(jsonString)
  
@@ -18,7 +17,7 @@
  
    // Center the map on the first place
    map = new Map(document.getElementById("map"), {
-     zoom: 15,
+     zoom: 16,
      center: places[0],
      mapTypeId: 'satellite',
      mapId: "DEMO_MAP_ID",
@@ -28,9 +27,10 @@
  // Add markers for each place
  const markers = places.map(place => {
    const marker = new AdvancedMarkerElement({
-     map: map,
-     position: place,
-     title: place.name, // Set the title for the marker (used as a tooltip)
+    map: map,
+    position: place,
+    // the hostel name as title
+    title: place.name, // Set the title for the marker (used as a tooltip)
    });
  
      // Create an info window for each marker
