@@ -78,32 +78,41 @@
               >
             </li>
           </ul>
-          
+
           {% if user.is_anonymous %}
           <!-- <form "> -->
-            <a class="d-flex justify-content-center" href="{% url 'accounts:signup' %}">
+          <div class="bttn">
+            <a
+              class="d-flex justify-content-center"
+              href="{% url 'accounts:signup' %}"
+            >
               <button class="btn btn-outline-warning px-4" type="submit">
                 Sign up
+                <i class="bi bi-person-circle"></i>
               </button>
             </a>
 
-            <a class="d-flex justify-content-center" href="{% url 'accounts:login' %}">
+            <a
+              class="d-flex justify-content-center"
+              href="{% url 'accounts:login' %}"
+            >
               <button class="btn btn-outline-warning px-4" type="submit">
                 Log in
-                <i class="bi bi-person-circle text-warning"></i>
+                <i class="bi bi-person-circle"></i>
               </button>
             </a>
+          </div>
           <!-- </form> -->
-      {% else %}
-        <!-- <form class="d-flex justify-content-center"> -->
+          {% else %}
+          <!-- <form class="d-flex justify-content-center"> -->
           <a href="{% url 'accounts:logout' %}">
             <button class="btn btn-outline-warning px-4" type="submit">
               Log out
-              <i class="bi bi-person-circle text-warning"></i>
+              <i class="bi bi-person-circle"></i>
             </button>
           </a>
-        <!-- </form> -->
-      {% endif %}
+          <!-- </form> -->
+          {% endif %}
         </div>
       </div>
     </nav>

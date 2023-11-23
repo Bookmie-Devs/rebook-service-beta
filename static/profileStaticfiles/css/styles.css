@@ -119,6 +119,16 @@ body {
   animation: myAnim 2s ease 0s 1 normal forwards;
 }
 
+.bttn{
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.bttn a{
+  text-decoration: none;
+}
+
 .box {
   display: flex;
   flex-wrap: wrap;
@@ -247,6 +257,11 @@ body {
   transition: 300ms;
 }
 
+@media screen and (max-width:991px){
+  .bttn{
+    flex-direction: column;
+  }
+}
 
 hr {
   margin: 1rem 0;
