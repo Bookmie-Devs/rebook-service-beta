@@ -23,7 +23,7 @@ urlpatterns = [
     path('accounts/', include('accounts.urls'), name='accounts_urls'),
     path('payments/', include('payments_app.urls'), name='payment_urls'),
     path('reviews/', include('reviews_app.urls'), name='review_urls'),
-    path('maps/', include('maps_app.urls'), name='maps_urls'),
+    path('directions/', include('maps_app.urls'), name='maps_urls'),
     path('management/', include('management_app.urls'), name='management'),
 
     #Account related urls for reseting passwords

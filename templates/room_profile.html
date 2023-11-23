@@ -78,7 +78,23 @@
         <a href="{% url 'rooms:campus-rooms' room.campus.campus_code %}" class="fw-bold"> All Rooms </a>
       </div>
       <div class="btn-box">
-        <a href="{% url 'accounts:booking-and-payments'%}" class="fw-bold"> Booking/Payment <i class="bi bi-person-circle"></i> </a>
+        <a href="{% url 'maps:hostel-direction' room.hostel.hostel_id %}" class="fw-bold">Direction to room
+            <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-geo-alt"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"
+            />
+            <path
+              d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"
+            />
+          </svg>
+        </a>
       </div>
     </div>
 
@@ -144,7 +160,7 @@
             </div>
         </section>
         <!-- Related items section-->
-        <section class="py-5 bg-light">
+        {% comment %} <section class="py-5 bg-light">
             <div class="container px-4 px-lg-5 mt-5">
             <h2 class="fw-bolder mb-4 text-center">Direction to location</h2>
                 <!-- <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"> -->
@@ -160,7 +176,7 @@
 
                 <!-- </div> -->
             </div>
-        </section>
+        </section> {% endcomment %}
         <!-- Footer-->
         <footer class="py-5 bg-dark footer">
             <div class="custom-shape-divider-top-1695573055">
