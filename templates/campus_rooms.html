@@ -122,8 +122,9 @@
           <a class="nav-link active" aria-current="page" href="#!"><h3 class="fw-bolder" style="color: orange;">Lets Help You Get A Room🏠</h3></a>
             <form 
             hx-get="{% url 'rooms:campus-rooms' campus.campus_code %}"
-            hx-trigger="submit delay:100ms"
+            hx-trigger="change input"
             hx-target="#search-results"
+            id="filter-form"
              data-action="Searching..." class="row gx-3 gy-2 align-items-center">
               <div class="col-sm-3">
                 <label class="visually-hidden" for="specificSizeSelect">Preference</label>
@@ -160,10 +161,10 @@
                 placeholder="Highest price"
                 >
               </div>
-
+              {% comment %} 
               <button id='search-button' class="btn drop mb-4" type="submit">
                 Search
-              </button>
+              </button> {% endcomment %}
             </form>
             
         </div>
@@ -274,5 +275,27 @@
 
     <!-- Core theme JS-->
     <script src="{% static 'list_staticfiles/js/scripts.js' %}"></script>
+
+
+
+
+    <!-- some debounce logic on the client side to prevent too many requests 
+    from being sent too quickly as the user interacts with the form inputs(htmx). 
+    This can help reduce server load and improve the user experience. -->
+    <script src="https://unpkg.com/lodash@4.17.21/lodash.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var form = document.getElementById('filter-form');
+
+            // Add a debounce function to limit the rate of AJAX requests
+            var debounceFilter = _.debounce(function () {
+                form.dispatchEvent(new Event('change', { bubbles: true }));
+            }, 300); // the debounce time as needed
+
+            // Attach the debounce function to the input elements
+            form.addEventListener('input', debounceFilter);
+        });
+    </script>
+
   </body>
 </html>
