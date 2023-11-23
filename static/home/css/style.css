@@ -517,10 +517,11 @@ opacity: 0;
 .card {
   position: relative;
   display: flex;
+  align-items: center;
+  justify-content: center;
   width: 320px;
-  height: 465px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  padding: 25px;
+  padding: 32px;
   overflow: hidden;
   border-radius: 10px;
   transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
@@ -530,13 +531,14 @@ opacity: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 20px;
   color: #000000;
   transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
 }
 
-.content img{
-  object-fit: fill;
+.content img {
+  margin-top: -20px;
+  width: 300px;
   height: 200px;
   z-index: 2;
   border-radius: 5px;
@@ -1244,6 +1246,15 @@ opacity: 0;
 }
 
 @media (max-width: 576px) {
+  .custom_menu-btn button{
+    transform: scale(0.7);
+    margin-top: 3px !important;
+    margin-right: -5px !important;
+  }
+  h2{
+    transform: scale(0.9);
+    margin-left: -20px !important;
+  }
   .slider_section .detail-box h1 {
     font-size: 3rem;
   }
