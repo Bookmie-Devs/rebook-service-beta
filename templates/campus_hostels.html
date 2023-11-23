@@ -53,7 +53,7 @@
             href="{% url 'core:index' %}"
             href="#!"
             style="color: orange"
-            >Bookmie Hostels🏢</a
+            >Bookmie.com</a
           >
         </h1>
         <button
@@ -88,29 +88,41 @@
             </li>
           </ul>
           {% if user.is_anonymous %}
-              <!-- <form > -->
-                <a class="d-flex justify-content-center" href="{% url 'accounts:signup' %}">
-                  <button class="btn btn-outline-warning px-4" type="submit">
-                    Sign up
-                  </button>
-                </a>
+          <!-- <form > -->
+          <div class="bttn">
+            <a
+              class="d-flex justify-content-center"
+              href="{% url 'accounts:signup' %}"
+            >
+              <button class="btn btn-outline-warning px-4" type="submit">
+                Sign up
+                <i class="bi bi-person-circle"></i>
+              </button>
+            </a>
 
-                <a class="d-flex justify-content-center" href="{% url 'accounts:login' %}">
-                  <button class="btn btn-outline-warning px-4" type="submit">
-                    Log in
-                    <i class="bi bi-person-circle text-warning"></i>
-                  </button>
-                </a>
-              <!-- </form> -->
+            <a
+              class="d-flex justify-content-center"
+              href="{% url 'accounts:login' %}"
+            >
+              <button class="btn btn-outline-warning px-4" type="submit">
+                Log in
+                <i class="bi bi-person-circle"></i>
+              </button>
+            </a>
+          </div>
+          <!-- </form> -->
           {% else %}
-            <!-- <form c> -->
-              <a class="d-flex justify-content-center" href="{% url 'accounts:logout' %}">
-                <button class="btn btn-outline-warning px-4" type="submit">
-                  Log out
-                  <i class="bi bi-person-circle text-warning"></i>
-                </button>
-              </a>
-            <!-- </form> -->
+          <!-- <form c> -->
+          <a
+            class="d-flex justify-content-center"
+            href="{% url 'accounts:logout' %}"
+          >
+            <button class="btn btn-outline-warning px-4" type="submit">
+              Log out
+              <i class="bi bi-person-circle"></i>
+            </button>
+          </a>
+          <!-- </form> -->
           {% endif %}
         </div>
       </div>

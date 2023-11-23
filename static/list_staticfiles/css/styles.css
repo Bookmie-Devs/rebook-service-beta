@@ -131,6 +131,16 @@ body {
 	}
 }
 
+.bttn {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.bttn a {
+  text-decoration: none;
+}
+
 .box {
   display: flex;
   flex-wrap: wrap;
@@ -281,6 +291,12 @@ section{
         section{
           min-height: 380px !important;
         }
+}
+
+@media screen and (max-width:991px){
+  .bttn{
+    flex-direction: column;
+  }
 }
 
 hr {
