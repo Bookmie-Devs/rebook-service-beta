@@ -91,12 +91,14 @@
           <!-- </form> -->
         {% else %}
         <!-- <form > -->
+          <div class="bttn">
           <a class="d-flex justify-content-center" href="{% url 'accounts:logout' %}">
             <button class="btn btn-outline-warning px-4" type="submit">
               Log out
               <i class="bi bi-person-circle"></i>
             </button>
           </a>
+        </div>
         <!-- </form> -->
       {% endif %}
         </div>
