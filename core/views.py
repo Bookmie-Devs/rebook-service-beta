@@ -49,7 +49,7 @@ class HostelListView(generic.ListView):
 
         # if request.user.is_anonymous:
         #     print("hi")
-        # else:
+        # else: 
         #     print(request.user)
         #context for the pages
         context={'hostels':campus_hostels, 'campus':campus,'user':request.user}
@@ -59,7 +59,7 @@ class HostelListView(generic.ListView):
             search_data = request.GET['search_data']            
             campus = CampusProfile.objects.get(campus_code=campus_code)
             #query of search 
-            query = HostelProfile.objects.filter(verified=True & Q(campus=campus) & (Q(hostel_name__icontains=search_data) | Q(location__icontains=search_data)))
+            query = HostelProfile.objects.filter(Q(verified=True) & Q(campus=campus) & (Q(hostel_name__icontains=search_data) | Q(location__icontains=search_data)))
             #context containg search query page
             context['hostels']=query
             return render(request, 'htmx_templates/hostel_search_result.html', context)
