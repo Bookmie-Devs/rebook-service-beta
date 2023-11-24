@@ -27,6 +27,13 @@ async function initMap() {
     // the hostel name as title
     title:document.getElementById('hostel-name').value,
   });
+
+  // Add click event listener to the marker
+  marker.addListener('click', () => {
+  // Open the associated URL in a new tab or window
+  window.location.href = document.getElementById('hostel-url').value;
+  });
+
 }
 
 initMap();

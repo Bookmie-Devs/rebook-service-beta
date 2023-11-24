@@ -106,14 +106,14 @@
       <!-- MAP SPACE -->
     </div>
 
-    <!-- <h3>My Google Maps Demo</h3>
-    <h3>Direction to {{ hostel.hostel_name }}</h3> -->
-
+    <!-- hostel url -->
+    <input id="hostel-url" type="hidden" value="{% url 'hostels:profile' hostel.hostel_id %}"/>
     <!-- hostel name -->
     <input id="hostel-name" type="hidden" value="{{ hostel.hostel_name }}" />
     <!-- coordinates -->
+    <!-- lat -->
     <input id="lat" type="hidden" value="{{coordinate.lat}}" />
-    <!-- coordinates in a form of a string instead of float -->
+    <!-- lng -->
     <input id="lng" type="hidden" value="{{coordinate.lon}}" />
 
     <!-- prettier-ignore -->

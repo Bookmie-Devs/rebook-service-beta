@@ -13,7 +13,7 @@ def hostel_direction(request, hostel_id):
 
 
 def map_views(request):
-    hostel_profiles = HostelProfile.objects.all()
+    hostel_profiles = HostelProfile.objects.filter(verified=True).all()
     # # hostel coordinates on map
     # coordinatet = hostel_profile.geolocation
     # coordinate. 

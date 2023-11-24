@@ -33,10 +33,10 @@
     title: place.name, // Set the title for the marker (used as a tooltip)
    });
  
-     // Create an info window for each marker
-     const infoWindow = new google.maps.InfoWindow({
-     content: `<strong>${place.name}</strong><br><a href="${place.url}" target="_blank">Visit ${place.name}</a>`,
-   });
+  //    // Create an info window for each marker
+  //    const infoWindow = new google.maps.InfoWindow({
+  //    content: `<strong>${place.name}</strong><br><a href="${place.url}" target="_blank">Visit ${place.name}</a>`,
+  //  });
  
  
  
