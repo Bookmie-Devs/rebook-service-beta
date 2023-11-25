@@ -16,6 +16,7 @@ async function initMap() {
   map = new Map(document.getElementById("map"), {
     zoom: 18,
     center: position,
+    gestureHandling: "greedy",
     mapId: "DEMO_MAP_ID",
     mapTypeId: 'satellite',
   });
