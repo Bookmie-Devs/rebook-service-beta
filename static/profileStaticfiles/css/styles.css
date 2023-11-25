@@ -135,7 +135,7 @@ body {
   flex-direction: row;
   gap: 10px;
   justify-content: center;
-  transform: translateY(25px) !important;
+  transform: translateY(35px) !important;
 }
 
 .btn-box {
@@ -178,27 +178,6 @@ body {
 
 .footer{
   position: relative
-}
-
-.custom-shape-divider-top-1695573055 {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  overflow: hidden;
-  line-height: 0;
-}
-
-.custom-shape-divider-top-1695573055 svg {
-  position: relative;
-  display: block;
-  width: calc(100% + 1.3px);
-  height: 56px;
-  transform: rotateY(180deg);
-}
-
-.custom-shape-divider-top-1695573055 .shape-fill {
-  fill: #FFFFFF;
 }
 
 .card-body:hover{

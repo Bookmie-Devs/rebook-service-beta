@@ -121,8 +121,10 @@
         <a href="{% url 'core:hostels' campus.campus_code %}" class="fw-bold"> Hostels </a>
       </div>
       <div class="btn-box">
-        <a href="{% url 'rooms:campus-rooms' campus.campus_code %}" class="fw-bold"> All Rooms </a>
-      </div>
+          <a href="{% url 'accounts:booking-and-payments'%}" class="fw-bold">
+            Booking/Payment <i class="bi bi-person-circle"></i>
+          </a>
+        </div>
     </div>
       
 
@@ -214,7 +216,7 @@
                   </div> {% endcomment %}
                   <h6 class="fw-bolder">{{ room.room_capacity }} in a Room🏠</h6>
                   <!-- Product price-->
-                  <h6  class="fw-bolder">&#8373;{{ room.room_price }}💵</h6>
+                  <h6  class="fw-bolder">GH&#8373;{{ room.room_price }}💵</h6>
                 </div>
               </div>
               <!-- Booking form-->
@@ -272,7 +274,7 @@
     </div>
 
       <div class="container">
-        <p class="m-0 text-center text-white filter">Copyright &copy; Rebook 2023</p>
+        <p class="m-0 text-center text-white filter">Copyright &copy; Bookmie 2023</p>
       </div>
     </footer>
     <!-- HTMX SCRIPTS -->

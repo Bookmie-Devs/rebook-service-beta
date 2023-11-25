@@ -147,7 +147,7 @@ body {
   flex-direction: row;
   gap: 10px;
   justify-content: center;
-  transform: translateY(25px) !important;
+  transform: translateY(35px) !important;
 }
 
 .btn-box {
