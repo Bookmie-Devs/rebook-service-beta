@@ -18,7 +18,8 @@
    // Center the map on the first place
    map = new Map(document.getElementById("map"), {
      zoom: 16,
-     center: places[0],
+    center: places[0],
+    gestureHandling: "greedy",
      mapTypeId: 'satellite',
      mapId: "DEMO_MAP_ID",
    });
