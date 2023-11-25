@@ -3,23 +3,36 @@
 {% block 'router' %}
 
 {% for campus in campuses %}
-<a href="{% url 'rooms:campus-rooms' campus.campus_code %}">
-<div class="card border border-dark">
-  <div class="content">
-    <img src="{{ campus.flag.url }}" alt="">
-    <p class="heading">{{ campus.campus_name }}</p>
-    <!--<p class="para">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi
-      laboriosam at voluptas
-    </p> -->
-    {% if campus.available_on_campus %}
-      <button class="btn">View Rooms Available</button>
-    {% else %}
-      <button class="btn">Coming Soon🏢</button>
-    {% endif %}
-  </div>
-</div>
-</a>
+  {% if campus.available_on_campus %}
+    <a href="{% url 'rooms:campus-rooms' campus.campus_code %}">
+    <div class="card border border-dark">
+      <div class="content">
+        <img src="{{ campus.flag.url }}" alt="">
+        <p class="heading">{{ campus.campus_name }}</p>
+        <!--<p class="para">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi
+          laboriosam at voluptas
+        </p> -->
+          <button class="btn">View Rooms Available</button>
+      </div>
+    </div>
+    </a>
+{% else %}
+  <a href="#!">
+    <div class="card border border-dark">
+      <div class="content">
+        <img src="{{ campus.flag.url }}" alt="">
+        <p class="heading">{{ campus.campus_name }}</p>
+        <!--<p class="para">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi
+          laboriosam at voluptas
+        </p> -->
+          <button class="btn">Coming Soon🏢</button>
+      </div>
+    </div>
+    </a>
+{% endif %}
+
 {% endfor %}
 
 {% endblock %}
