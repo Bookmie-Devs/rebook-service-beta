@@ -1,23 +1,36 @@
+from accounts.models import CustomUser
+from core.models import Tenant
+from rooms_app.models import RoomProfile
 
-def tenant_auth_details(user=None, tenant=None, room=None):
-
-    return [f'Name: {user.first_name} {user.last_name}',
+def tenant_auth_details(user:CustomUser=None, 
+                        tenant:Tenant=None, 
+                        room:RoomProfile=None):
+    
+    return [f'Name: {user.username}',
             f'Student ID: {user.student_id}',
             f'Room Number: {room.room_no}',
             f'Hostel: {room.hostel.hostel_name}',
             f'Payment made to: {room.hostel.account_number}',
-            f'Hostel Momo: {room.hostel.mobile_money}',
-
+            f'Hostel Contact: {room.hostel.hostel_contact}',
+            #########[space in pdf]
+            '',
+            '',
+            'Please Note:',
             f'This authentication pdf must', 
             f'be sent to {tenant.hostel.hostel_name}', 
-            'the hostel for authentication',]
+            'for authentication',]
            
-def tenant_auth_message(user=None, tenant=None, room=None):
+def tenant_auth_message(user:CustomUser=None, 
+                        tenant:Tenant=None, 
+                        room:RoomProfile=None):
 
-    return [f'Congratulation {user.username}',
-            f'Welcome to {tenant.hostel.hostel_name}',
-            f'Note that authentication is valid for a year!!!',
-            f'{tenant.end_date.date()}  @{tenant.end_date.hour}:{tenant.end_date.minute}!!!',
-             'Note: AUTHENTICATION IS VALID FOR A YEAR',
-            f'VALID TILL {tenant.end_date.date()}  @{tenant.end_date.hour}:{tenant.end_date.minute}!!!',
-            f'Enjoy your stay............']
+    return [f'Terms And Conditions:',
+            f'Welcome once again to {tenant.hostel.hostel_name}',
+            '',
+            f'Note that AUTHENTICATION IS VALID FOR A YEAR!!!',
+            f'From now to {tenant.end_date.date()}  @{tenant.end_date.hour}:{tenant.end_date.minute}!!!',
+            '',
+             'Also users can decide to update their scanable qrcode for the',
+            f'same hostel in which they are in.', 
+            'Thank You!',
+            f'Enjoy your stay............!!!']

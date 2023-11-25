@@ -141,10 +141,10 @@ def tenant_auth(request):
         qrcode_name = f'media/auth_qrcodes/{request.user.username} qrcode.png'
 
         #tittle of pdf page to be generated
-        title = f"{request.user.username} Authentication details"
+        title = f"{request.user.username} Authentication details@Bookmie.com"
 
         #subtittle of the pdf 
-        subtitle = 'www.Bookmie.com'
+        subtitle = f"Congratulation On Securing A Room @{get_tenant.hostel.hostel_name.capitalize()}"
 
         """Fucntions to generate a list strings containing booking details for every user"""
         booker_details= tenant_auth_details(user=request.user, 
@@ -161,14 +161,15 @@ def tenant_auth(request):
         #Title of auth pdf
         pdf.setTitle(title)
         pdf.setFont("Helvetica", 20)
-        pdf.drawString(145, 730, title)
+        pdf.drawString(87, 730, title)
 
         #Subtitle of auth pdf
-        pdf.setFont('Helvetica', 15)
-        pdf.drawString(250, 699, subtitle)
+        pdf.setFont('Helvetica', 17)
+        pdf.drawString(130, 690, subtitle)
+  
 
         #tenant_details
-        details = pdf.beginText(290, 660)
+        details = pdf.beginText(345, 635)
         details.setFont('Helvetica', 18)
         details.setFillColor(colors.black)
         ##############################
@@ -177,8 +178,8 @@ def tenant_auth(request):
             details.textLine(detail)
         pdf.drawText(details)
 
-        #Main content of pdf
-        text = pdf.beginText(57, 440)
+        #Terms and Conditions content of pdf
+        text = pdf.beginText(45, 350)
         text.setFont('Helvetica', 18)
         text.setFillColor(colors.black)
         for line in text_template:
@@ -189,7 +190,8 @@ def tenant_auth(request):
         qr_code_image = generate_qrcode(verification_code=get_tenant.verification_code)
         
         qr_code_image.save(qrcode_name)  # Save the QR code image
-        pdf.drawImage(qrcode_name, 50, 490, width=200, height=200)
+        # qrcode size and position on pdf
+        pdf.drawImage(qrcode_name, 30, 370, width=300, height=300)
         pdf.showPage()
         pdf.save()
         buffer.seek(0)
