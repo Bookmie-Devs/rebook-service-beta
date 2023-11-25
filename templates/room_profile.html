@@ -97,7 +97,14 @@
                         <h3 style="color: orange;">Hostel: {{ room.hostel.hostel_name }}</h3>
                         <h3 style="color: orange;">Floor {{ room.floor_no }}</h3>
                         <h1 class="display-5 fw-bolder"> Price: GH&#8373; {{ room.room_price }}</h1>
-                        
+                        <form action="{% url 'core:booking' %}" method="POST" style="margin: auto;">
+                            {% csrf_token %}
+                            <input type="hidden" name="room_id" value="{{ room.room_id }}">
+                            <button class="btn drop" type="submit">
+                                Book Now🏷️
+                            </button>
+                        </form>
+                        <hr>
                         <a href="{% url 'maps:hostel-direction' room.hostel.hostel_id %}">
                             <button class="btn drop flex-shrink-0" type="button">
                                 <i class="bi bi-house-check"></i>
@@ -120,6 +127,7 @@
                             </button>
                         </a>
                         <hr>
+                        
                         <h3 class="fw-bolder">{{ room.bed_space_left}} beds left</h3>
                         
                         {% if room.inbuilt_kitchen %}
@@ -153,7 +161,7 @@
                         </div>
                         <p class="lead"><h1 style="color: orange;">Important Notice</h1>
 
-                        All bookings will be deleted in 24hrs if payments are not made. If room is full for booking try again in 24hrs time to Book</p>
+                        If payment is not made for a particular booking, room can still be booked by another person and payed for</p>
                         <div class="d-flex">
                             <input class="form-control text-center me-3" id="inputQuantity" value="{{ room.room_capacity }} in a room" style="max-width: 7rem; margin: auto" />
                         <form action="{% url 'core:booking' %}" method="POST" style="margin: auto;">
