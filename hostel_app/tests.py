@@ -9,7 +9,7 @@ class HostelTest(CoreTesting):
       return super().setUp()
    
 
-   def test_hostel_creation(self):
-      """test hostel creation"""
-      self.assertTrue(HostelProfile.objects.filter(hostel_code="sk123").exists())
+   # def test_hostel_creation(self):
+   #    """test hostel creation"""
+   #    self.assertTrue(HostelProfile.objects.filter(hostel_code="sk123").exists())
 

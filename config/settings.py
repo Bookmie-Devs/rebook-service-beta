@@ -178,8 +178,15 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+    },
+    
+    # sqlite3 database for testing
+    'testing': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'testing_db.sqlite3',
     }
 }
+
 
 # POSTGRESSQL
 # DATABASES = {
