@@ -17,7 +17,7 @@ class HostelFilter(django_filters.CharFilter):
 class RoomFilters(django_filters.FilterSet):
 
     # contains personal bathroom
-    inbuilt_bathroom = BooleanFilter(field_name='inbuilt_bathroom')
+    # inbuilt_bathroom = BooleanFilter(field_name='inbuilt_bathroom')
 
     """Capacity range"""
     room_capacity = NumberFilter(field_name='room_capacity')
@@ -27,7 +27,7 @@ class RoomFilters(django_filters.FilterSet):
     
     class Meta:
         model = RoomProfile
-        fields = ['room_price', 'room_capacity', 'inbuilt_bathroom']
+        fields = ['room_price', 'room_capacity',]
 
 
 
