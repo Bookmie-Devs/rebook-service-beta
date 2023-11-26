@@ -15,6 +15,10 @@ handler500 = TemplateView.as_view(template_name='error/500.html')
 app_name='main'
 urlpatterns = [
     # url(r'^docs/', include('rest_framework_swagger.urls')), 
+
+    # debuging url
+    path("__debug__/", include("debug_toolbar.urls")),
+    
     path('admin/', admin.site.urls),
     path('', include('core.urls'), name='core_urls'),
     path('campuses/', include('campus_app.routing'), name='campus_urls'),
