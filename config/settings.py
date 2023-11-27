@@ -104,6 +104,9 @@ MIDDLEWARE = [
 ]
 
 
+# The number of seconds a password reset link is valid for (default: 2 hours).
+PASSWORD_RESET_TIMEOUT = 60 * 60 * 2
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
