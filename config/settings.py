@@ -44,7 +44,8 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 
 # purposely for the debug tool
-INTERNAL_IPS = ["127.0.0.1",]
+if DEBUG:
+    INTERNAL_IPS = ["127.0.0.1",]
 
 
 # Application definition
