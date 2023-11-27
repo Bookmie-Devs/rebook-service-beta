@@ -103,6 +103,14 @@ MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
+##################
+# AUTHENTICATION #
+##################
+
+#Custom user model
+AUTH_USER_MODEL = os.getenv('AUTH_USER_MODEL')
+
+LOGIN_URL = 'accounts:login'
 
 # The number of seconds a password reset link is valid for (default: 2 hours).
 PASSWORD_RESET_TIMEOUT = 60 * 60 * 2
@@ -120,8 +128,6 @@ REST_FRAMEWORK = {
     #     'rest_framework.permissions.IsAuthenticated',
     # ]
 }
-
-LOGIN_URL = 'accounts:login'
 
 
 SIMPLE_JWT = {
@@ -276,8 +282,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#Custom user model
-AUTH_USER_MODEL = os.getenv('AUTH_USER_MODEL')
 
 GEOPOSITION_GOOGLE_MAPS_API_KEY = os.getenv('GEOPOSITION_GOOGLE_MAPS_API_KEY')
 GOOGLE_MAPS_API_KEY = os.getenv('GOOGLE_MAPS_API_KEY')
