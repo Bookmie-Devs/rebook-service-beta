@@ -28,9 +28,11 @@ from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
 import random
 from campus_app.models import CampusProfile
+from django.views.decorators.cache import cache_page
 
 
 @require_http_methods(['GET'])
+@cache_page(200)
 def index(request):
     campuses = CampusProfile.objects.all()
     # random a list of hostels to display
@@ -46,11 +48,7 @@ class HostelListView(generic.ListView):
         to the client"""
         campus = CampusProfile.objects.get(campus_code=campus_code)
         campus_hostels = HostelProfile.objects.filter(campus=campus, verified=True)
-
-        # if request.user.is_anonymous:
-        #     print("hi")
-        # else: 
-        #     print(request.user)
+        
         #context for the pages
         context={'hostels':campus_hostels, 'campus':campus,'user':request.user}
 
