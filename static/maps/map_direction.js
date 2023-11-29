@@ -32,7 +32,7 @@ async function initMap() {
  directionsRenderer = new google.maps.DirectionsRenderer({
   polylineOptions: {
     strokeColor: '#FE9901', // Set the color of the direction line
-    strokeWeight: 9
+    strokeWeight: 5
   },
   suppressMarkers: true,  // Show markers on the map
   // suppressPolylines: false // Show the polyline on the map
