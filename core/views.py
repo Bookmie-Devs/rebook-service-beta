@@ -32,14 +32,14 @@ from django.views.decorators.cache import cache_page
 
 
 @require_http_methods(['GET'])
-@cache_page(200)
+# @cache_page(60 * 60 * 24)
 def index(request):
     campuses = CampusProfile.objects.all()
     # random a list of hostels to display
     # campuses = random.sample(population=list(campuses), k=len(list(campuses)))
 
     feedbacks = RecomendationFeedBacks.objects.all()
-    return render(request, 'index.html', {'campuses':campuses,'feedbacks':feedbacks})
+    return render(request, 'index.html', {'campuses':campuses,'user':request.user, 'feedbacks':feedbacks})
 
 
 class HostelListView(generic.ListView):

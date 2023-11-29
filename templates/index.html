@@ -110,21 +110,27 @@
                   Campus Hostels
                 </a>
               </div>
-
-
               <div class="btn-box">
                 <a href="{% url 'accounts:signup' %}" class="">
                   Signup
                   <i class="bi bi-person-circle"></i>
                 </a>
               </div>
-
+              {% if user.is_anonymous %}
               <div class="btn-box">
                 <a href="{% url 'accounts:login' %}" class="">
                   login
                   <i class="bi bi-person-circle"></i>
                 </a>
               </div>
+              {% else %}
+              <div div class="btn-box">
+                <a href="{% url 'accounts:booking-and-payments' %}" class="">
+                  Your Profile and Details
+                  <i class="bi bi-person-circle"></i>
+                </a>
+              </div>
+              {% endif %}
               
             </div>
 
