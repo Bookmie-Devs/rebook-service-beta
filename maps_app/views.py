@@ -6,10 +6,11 @@ def hostel_direction(request, hostel_id):
     hostel_profile = HostelProfile.objects.get(hostel_id = hostel_id)
     # hostel coordinates on map
     coordinate:GeoPt = hostel_profile.geolocation
-    # coordinate. 
+    # coordinate of campus
+    campus_coordinates: GeoPt = hostel_profile.campus.geolocation
     return render(request=request,
            template_name= 'maps/map_direction.html/',
-           context={'coordinate': coordinate, 'user':request.user ,'hostel':hostel_profile})
+           context={'coordinate': coordinate,"campus_coordinates":campus_coordinates ,'user':request.user ,'hostel':hostel_profile})
 
 
 def map_views(request):
