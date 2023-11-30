@@ -84,6 +84,8 @@ const campusEntranceMarker = new AdvancedMarkerElement({
   campusEntranceInfoWindow.open(map, campusEntranceMarker);
 
 
+
+
   // Add click event listener to the hostelMarker
   hostelMarker.addListener('click', () => {
   // Open the associated URL in a new tab or window
@@ -102,7 +104,7 @@ function calculateAndDisplayRoute(origin, destination) {
     if (status == 'OK') {
       directionsRenderer.setDirections(result);
     } else {
-      console.error('Error fetching directions:', status);
+      alert('Error fetching directions:', status);
     }
   });
 }
