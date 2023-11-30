@@ -3,6 +3,10 @@ let map;
 let directionsService;
 let directionsRenderer;
 
+// info windows var
+let hostelInfoWindow;
+let campusEntranceInfoWindow;
+
 async function initMap() {
 
   // campus main entrance coordinates
@@ -40,6 +44,18 @@ async function initMap() {
   });
  directionsRenderer.setMap(map);
 
+
+   // open info windows
+   hostelInfoWindow = new google.maps.InfoWindow({
+    content: `${document.getElementById('hostel-name').value} location`,
+  });
+
+ campusEntranceInfoWindow = new google.maps.InfoWindow({
+  content:`${document.getElementById('campus').value} Main Campus Entrance`,
+  });
+
+
+
   // Calculate and display directions immediately
   calculateAndDisplayRoute(campusEntrancePosition, hostelPosition);
 
@@ -49,21 +65,27 @@ const campusEntranceMarker = new AdvancedMarkerElement({
       map: map,
       position: campusEntrancePosition,
       // Customize the title to your taste
-      title: 'Campus Entrance',
+      title: `${document.getElementById('campus').value} Campus Entrance`,
     });
   
 
   // The marker, positioned at hostel
-  const hostelmarker = new AdvancedMarkerElement({
+  const hostelMarker = new AdvancedMarkerElement({
     map: map,
     position: hostelPosition,
+    // element: document.getElementById('hostel-name'),
     // the hostel name as title
     title:document.getElementById('hostel-name').value,
   });
 
 
-  // Add click event listener to the hostelmarker
-  hostelmarker.addListener('click', () => {
+  // Open info windows immediately
+  hostelInfoWindow.open(map, hostelMarker);
+  campusEntranceInfoWindow.open(map, campusEntranceMarker);
+
+
+  // Add click event listener to the hostelMarker
+  hostelMarker.addListener('click', () => {
   // Open the associated URL in a new tab or window
   window.location.href = document.getElementById('hostel-url').value;
   });

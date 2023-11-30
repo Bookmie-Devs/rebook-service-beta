@@ -105,7 +105,9 @@
     <div id="map">
       <!-- MAP SPACE -->
     </div>
-
+ 
+    <!-- campus name -->
+    <input id="campus" type="hidden" value="{{ hostel.campus.campus_name }}">
     <!-- hostel url -->
     <input id="hostel-url" type="hidden" value="{% url 'hostels:profile' hostel.hostel_id %}"/>
     <!-- hostel name -->
@@ -119,7 +121,7 @@
     <!-- campus coordinates -->
     <!-- campus lat -->
     <input id="campus-lat" type="hidden" value="{{ campus_coordinates.lat}}">
-    <!-- campus lon -->
+    <!-- campus lng -->
     <input id="campus-lng" type="hidden" value="{{ campus_coordinates.lon }}">
 
     <!-- prettier-ignore -->  
