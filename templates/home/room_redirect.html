@@ -5,7 +5,7 @@
 {% for campus in campuses %}
   {% if campus.available_on_campus %}
     <a href="{% url 'rooms:campus-rooms' campus.campus_code %}">
-    <div class="card border border-dark">
+    <div class="card">
       <div class="content">
         <img src="{{ campus.flag.url }}" alt="">
         <p class="heading">{{ campus.campus_name }}</p>
@@ -19,7 +19,7 @@
     </a>
 {% else %}
   <a href="#!">
-    <div class="card border border-dark">
+    <div class="card">
       <div class="content">
         <img src="{{ campus.flag.url }}" alt="">
         <p class="heading">{{ campus.campus_name }}</p>
