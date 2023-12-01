@@ -676,7 +676,7 @@ opacity: 0;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 115%;
+  width: 100%;
 }
 
 .deal_section .img-box .box.b1 {
@@ -685,6 +685,7 @@ opacity: 0;
 
 .deal_section .img-box img {
   max-width: 100%;
+  border-radius: 10px !important;
 }
 
 .us_section {

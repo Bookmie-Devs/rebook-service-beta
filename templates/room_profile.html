@@ -97,6 +97,7 @@
                         <h3 style="color: orange;">Hostel: {{ room.hostel.hostel_name }}</h3>
                         <h3 style="color: orange;">Floor {{ room.floor_no }}</h3>
                         <h1 class="display-5 fw-bolder"> Price: GH&#8373; {{ room.room_price }}</h1>
+                        <div class="d-flex" style="width: fit-content; margin: auto; gap: 20px;">
                         <form action="{% url 'core:booking' %}" method="POST" style="margin: auto;">
                             {% csrf_token %}
                             <input type="hidden" name="room_id" value="{{ room.room_id }}">
@@ -104,7 +105,7 @@
                                 Book Now🏷️
                             </button>
                         </form>
-                        <hr>
+                        
                         <a href="{% url 'maps:hostel-direction' room.hostel.hostel_id %}">
                             <button class="btn drop flex-shrink-0" type="button">
                                 <i class="bi bi-house-check"></i>
@@ -126,6 +127,7 @@
                               </svg>
                             </button>
                         </a>
+                        </div>
                         <hr>
                         
                         <h3 class="fw-bolder">{{ room.bed_space_left}} beds left</h3>
