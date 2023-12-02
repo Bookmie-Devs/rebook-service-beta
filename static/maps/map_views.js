@@ -1,5 +1,6 @@
  // Initialize and add the map
  let map;
+ let infoWindows = []; // Array to store InfoWindows
 
  async function initMap() {
  
@@ -23,7 +24,7 @@
      mapTypeId: 'satellite',
      mapId: "DEMO_MAP_ID",
    });
- 
+
  
  // Add markers for each place
  const markers = places.map(place => {
@@ -33,14 +34,16 @@
     // the hostel name as title
     title: place.name, // Set the title for the marker (used as a tooltip)
    });
+
  
-  //    // Create an info window for each marker
-  //    const infoWindow = new google.maps.InfoWindow({
-  //    content: `<strong>${place.name}</strong><br><a href="${place.url}" target="_blank">Visit ${place.name}</a>`,
-  //  });
- 
- 
- 
+   // Create an info window for each marker
+  const infoWindow = new google.maps.InfoWindow({
+  content:  place.name,
+  });
+  
+  // Store the InfoWindow in the array
+  infoWindows.push(infoWindow);
+
  
    // Add click event listener to the marker
    marker.addListener('click', () => {
@@ -48,8 +51,16 @@
      window.location.href = (place.url);
    });
  
+
    return marker;
  });
- }
+
+  // Open InfoWindows for each marker by default
+  markers.forEach((marker, index) => {
+    infoWindows[index].open(map, marker);
+  });
+  
+
+}
  
  initMap();

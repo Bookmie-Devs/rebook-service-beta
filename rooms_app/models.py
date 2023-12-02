@@ -25,8 +25,7 @@ class RoomProfile(models.Model):
     
     room_capacity = models.PositiveIntegerField(default=4)
     bed_space_left = models.PositiveIntegerField(default=0)
-    
-    room_img = models.ImageField(upload_to='RoomImages', default='unavailable.jpg')
+
     room_price = models.DecimalField(blank=False, decimal_places=1, max_digits=7 )
     
     rating = models.IntegerField(choices=rating ,blank=False, 
