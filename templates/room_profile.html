@@ -65,6 +65,7 @@
                         <a href="{% url 'accounts:logout' %}">
                             <button class="btn btn-outline-warning px-4" type="submit">
                                 Log out
+              <i class="bi bi-person-circle"></i>
                             </button>
                         </a>
                         {% endif %}
@@ -130,7 +131,7 @@
                         </div>
                         <hr>
                         
-                        <h3 class="fw-bolder">{{ room.bed_space_left}} beds left</h3>
+                        <h3 class="fw-bolder">{{ room.bed_space_left}} bed(s) left</h3>
                         
                         {% if room.inbuilt_kitchen %}
                             <p>Inbuilt Kitchen <span class="badge text-bg-success">Check &#x2713;</span></p>
@@ -151,7 +152,7 @@
                         {% endif %}
 
                         {% if room.air_condition %}
-                            <p>air condition <span class="badge text-bg-success">Check &#x2713;</span></p>
+                            <p>Air condition <span class="badge text-bg-success">Check &#x2713;</span></p>
                         {% else %}
                             <p>No air condition <span class="badge text-bg-danger">&#x2718;</span></p>
                         {% endif %}

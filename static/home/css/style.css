@@ -479,6 +479,7 @@ opacity: 0;
 
 .about_section .img-box img {
   width: 100%;
+  border-radius: 10px !important;
 }
 
 .about_section .detail-box p {

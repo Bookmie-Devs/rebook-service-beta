@@ -97,22 +97,26 @@
                 <i class="bi bi-person-circle"></i>
               </button>
             </a>
-
+            </div>
             {% else %}
+            <div class="bttn">
             <a class="d-flex justify-content-center" href="{% url 'accounts:booking-and-payments' %}">
-              <button class="btn btn-outline-warning px-4" type="submit">
-                Profile
-                <i class="bi bi-person-circle "></i>
-              </button>
-            </a>
-  
-            <a href="{% url 'accounts:logout' %}">
-              <button class="btn btn-outline-warning px-4" type="submit">
-                Log out
-              </button>
-            </a>
-            {% endif %}
+            <button class="btn btn-outline-warning px-4" type="submit">
+              Profile
+              <i class="bi bi-person-circle "></i>
+            </button>
+          </a>
+          <a
+            class="d-flex justify-content-center"
+            href="{% url 'accounts:logout' %}"
+          >
+            <button class="btn btn-outline-warning px-4" type="submit">
+              Log out
+              <i class="bi bi-person-circle"></i>
+            </button>
+          </a>
           </div>
+            {% endif %}
       </div>
     </nav>
     <!-- Header-->
