@@ -153,14 +153,14 @@
                 </select>
               </div> 
 
-              {% comment %} <div class="col-sm-4">
+              <div class="col-sm-4">
                 <label class="visually-hidden" for="specificSizeSelect">Preference</label>
-                <select name="inbuilt_bathroom" class="form-select" id="specificSizeSelect">
-                  <option value="unknown">All</option>
-                  <option selected value="true">Inbuilt Bathroom</option>
-                  <option value="false">Shared Bathroom</option>
+                <select name="gender" class="form-select" id="specificSizeSelect">
+                  {% comment %} <option value="unknown">All</option> {% endcomment %}
+                  <option selected value="male">Male Room</option>
+                  <option value="female">Female Room</option>
                 </select>
-              </div>  {% endcomment %}
+              </div>  
 
               <div class="col-sm-4">
                 <input class="form-control"
@@ -224,6 +224,7 @@
                   <br>
                   <!-- Product name-->
                   <h6 class="fw-bolder">{{ room.hostel.hostel_name }}</h6>
+                  <h6 class="fw-bolder">{{ room.gender.capitalize }} Room</h6>
                   <!-- <h5 class="fw-bolder">{{ room.rating }}</h5> -->
                   {% comment %} <div
                     class="d-flex justify-content-center small text-warning mb-2"

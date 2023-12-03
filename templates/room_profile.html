@@ -94,6 +94,7 @@
                     <div class="col-md-6"><a href="{{ room.hostel.room_image.url }}"><img class="card-img-top mb-5 mb-md-0 img" src="{{ room.hostel.room_image.url}}" alt="..." /></a></div>
                     <div class="col-md-6 text-center">
                         <div class="small mb-1">SKU: BST-498</div>
+                        <h3 style="color: orange;"><b>{{ room.gender.capitalize }}</b> Room</h3>
                         <h1 style="color: orange;">Room {{ room.room_no }}</h1>
                         <h3 style="color: orange;">Hostel: {{ room.hostel.hostel_name }}</h3>
                         <h3 style="color: orange;">Floor {{ room.floor_no }}</h3>
@@ -170,7 +171,7 @@
                         <a href="{% url 'hostels:profile' room.hostel.hostel_id %}" style="margin: auto;">
                             {% comment %} <input type="hidden" name="room_id" value="{{ room.room_id }}"> {% endcomment %}
                             <button class="btn drop" type="submit">
-                                View Room Hostel
+                                View Room's Hostel
                                 <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="16"
