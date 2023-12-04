@@ -33,33 +33,40 @@ from reportlab.lib import colors
 
 
 @login_required()
-def initiate_payment(request, room_id):
+def initiate_payment(request: HttpRequest, room_id):
     get_room = RoomProfile.objects.get(room_id=room_id)
 
     if request.method == 'POST':
-        if PaymentHistory.objects.filter(user=request.user, successful=False).exists():
-            # check if there is an unsuccessful payment
-            PaymentHistory.objects.get(user=request.user, successful=False).delete()
-              #save payment details
-            payment = PaymentHistory.objects.create(user=request.user,
-                                email=request.POST.get('email'),amount=get_room.room_price,
-                                account_payed_to=get_room.hostel.account_number,
-                                room=get_room,hostel=get_room.hostel,)
-            payment.save()
-            return redirect('payments:make-payment', get_room.room_id)
-        
+        if get_room.occupied:
+            messages.info(request, 'Sorry, room has just been occupied by someone, please select new one')
+            # print(request.META.get(''))    
+            # return redirect(request.META.get('HTTP_REFERER'))
+            Booking.objects.get(user=request.user).delete()
+            return redirect('accounts:booking-and-payments')
         else:
-            #save payment details
-            payment = PaymentHistory.objects.create(user=request.user,
-                                email=request.POST.get('email'),
-                                amount=get_room.room_price,
-                                account_payed_to=get_room.hostel.account_number,
-                                room=get_room,
-                                hostel=get_room.hostel,
-                                )
-            payment.save()
-                        
-            return redirect('payments:make-payment', get_room.room_id)
+            if PaymentHistory.objects.filter(user=request.user, successful=False).exists():
+                # check if there is an unsuccessful payment
+                PaymentHistory.objects.get(user=request.user, successful=False).delete()
+                    #save payment details
+                payment = PaymentHistory.objects.create(user=request.user,
+                                    email=request.POST.get('email'),amount=get_room.room_price,
+                                    account_payed_to=get_room.hostel.account_number,
+                                    room=get_room,hostel=get_room.hostel,)
+                payment.save()
+                return redirect('payments:make-payment', get_room.room_id)
+            
+            else:
+                #save payment details
+                payment = PaymentHistory.objects.create(user=request.user,
+                                    email=request.POST.get('email'),
+                                    amount=get_room.room_price,
+                                    account_payed_to=get_room.hostel.account_number,
+                                    room=get_room,
+                                    hostel=get_room.hostel,
+                                    )
+                payment.save()
+                            
+                return redirect('payments:make-payment', get_room.room_id)
     # return redirect
     return render(request, 'payments/initiate_payment.html',
                                     {'room':get_room, 'form':forms.PaymentForm,  

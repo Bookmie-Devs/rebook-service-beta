@@ -13,7 +13,7 @@ class CustomUser(AbstractUser):
     email = models.EmailField(blank=False, unique=True)
     phone = models.CharField(max_length=10, blank=False)
     campus = models.ForeignKey(CampusProfile, on_delete=models.CASCADE, null=True)
-    college = models.CharField(max_length=70, blank=False)
+    college = models.CharField(max_length=70, blank=True, null=True)
     gender = models.CharField(max_length=7, null=True, blank=True)
     student_id = models.CharField(max_length=20, blank=False)
     
