@@ -2,6 +2,7 @@ from rest_framework import serializers
 from rooms_app.models import RoomProfile
 from core.models import Tenant
 from hostel_app.models import HostelProfile
+from django.utils import timezone
 from core.models import Booking
 from rest_framework.reverse import reverse
 
@@ -138,6 +139,9 @@ class RoomDetailSerializer(serializers.ModelSerializer):
 class HostelDetialsSerializer(serializers.ModelSerializer):
 
     manager = serializers.SerializerMethodField(method_name='get_managers_name')
+    number_of_rooms = serializers.SerializerMethodField(read_only=True)
+    number_of_tenants = serializers.SerializerMethodField(read_only=True)
+    number_rooms_occupied = serializers.SerializerMethodField(read_only=True)
     class Meta:
         model = HostelProfile
         fields = ('hostel_name',
@@ -148,7 +152,25 @@ class HostelDetialsSerializer(serializers.ModelSerializer):
                   'hostel_email',
                   'price_range',
                   'main_website',
-                  'location',)
+                  'location',
+                  
+                  'number_of_rooms',
+                  'number_of_tenants',
+                  'number_rooms_occupied',
+                  )
         
     def get_managers_name(self, obj:HostelProfile):
         return obj.hostel_manager.username
+    
+    def get_number_of_rooms(self, obj:HostelProfile):
+        # request = self.context.get('request')
+        room_count = RoomProfile.objects.filter(hostel=obj).count()
+        return room_count
+
+    def get_number_of_tenants(self, obj:HostelProfile):
+        tenant_count = Tenant.objects.filter(hostel=obj,end_date__gt=timezone.now()).count()
+        return tenant_count
+    
+    def get_number_rooms_occupied(self, obj:HostelProfile):
+        room_occupied_count = RoomProfile.objects.filter(hostel=obj,occupied=True).count()
+        return room_occupied_count
