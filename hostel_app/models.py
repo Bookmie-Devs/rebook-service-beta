@@ -58,6 +58,9 @@ class HostelProfile(models.Model):
 
     hostel_image = models.ImageField(upload_to='HostelProfiles',
                                       default='unavailable.jpg')
+    # for hostel managers
+    hostel_manager_profile_picture = models.ImageField(default="unknown_profile.jpg", upload_to="ManagersProfilePics")
+
     # room image of the hostel
     room_image =  models.ImageField(upload_to='RoomImages',verbose_name="Image of one room",
                                       default='unavailable.jpg')

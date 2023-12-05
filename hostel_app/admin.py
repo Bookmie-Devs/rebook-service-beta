@@ -26,6 +26,8 @@ class CustomHostelAdminPanel(admin.ModelAdmin):
         ('Bank Details', {"fields":('mobile_money','account_number',
                                     'bank_code',)}),
 
+        (("Hostel Manager Profile"), {"fields": ("hostel_manager_profile_picture",)}),
+
         ('verification', {"fields": ('verified',)}),
 
         #forbid

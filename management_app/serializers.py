@@ -146,6 +146,8 @@ class HostelDetialsSerializer(serializers.ModelSerializer):
         model = HostelProfile
         fields = ('hostel_name',
                   'manager',
+                  'hostel_manager_profile_picture',
+                  'hostel_image',
                   'manager_contact',
                   'hostel_contact','other_phone',
                   'mobile_money',
