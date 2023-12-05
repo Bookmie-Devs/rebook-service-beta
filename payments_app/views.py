@@ -121,6 +121,8 @@ def verify_payment(request, reference):
 
         # send sms
         send_sms_message(user_contact=request.user.phone)
+        # send sms to manager
+        send_sms_message(user_contact=tenant.hostel.hostel_manager.phone)
 
         # send emails
         subject = f'Confirmation: Your Room Booking is Complete!'
