@@ -136,7 +136,7 @@
               <div class="">
                 <a
                   href="{% url 'payments:init-payment' booking.room.room_id %}"
-                  class="btn btn-outline-secondary"
+                  class="btn btn-secondary"
                 >
                   Pay for Booking
                   <i class="bi bi-wallet2"></i>
@@ -146,7 +146,7 @@
               <div class="">
                 <a
                   href="{% url 'rooms:profile' booking.room.room_id %}"
-                  class="btn btn-outline-primary"
+                  class="btn btn-primary"
                 >
                   Room Profile
                   <svg
@@ -173,7 +173,7 @@
               <div class="">
                 <a
                   href="{% url 'core:delete-booking' %}"
-                  class="btn btn-outline-danger"
+                  class="btn btn-danger"
                 >
                   Delete Booking
                 </a>
@@ -183,7 +183,7 @@
                 <a
                   href="{%  url 'maps:hostel-direction' booking.room.hostel.hostel_id %}"
                   id="direction"
-                  class="btn btn-outline-success"
+                  class="btn btn-success"
                   >Get Direction
                   <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -266,7 +266,7 @@
             <div class="">
               <a
                 href="{% url 'payments:tenant-authentication' %}"
-                class="btn btn-outline-secondary"
+                class="btn btn-secondary"
               >
                 Get User Credentials(V-code)
                 <!-- PDF ICON -->
@@ -290,7 +290,7 @@
               <a
                 href="{%  url 'maps:hostel-direction' tenant.room.hostel.hostel_id %}"
                 id="direction"
-                class="btn btn-outline-success"
+                class="btn btn-success"
               >
                 Get Direction
                 <svg
@@ -313,7 +313,7 @@
             <div class="">
               <a
                 href="{% url 'rooms:profile' tenant.room.room_id %}"
-                class="btn btn-outline-primary"
+                class="btn btn-primary"
               >
                 Room Profile
 
