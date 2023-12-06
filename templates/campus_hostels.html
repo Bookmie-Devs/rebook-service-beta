@@ -200,7 +200,7 @@
       <div class="container px-4 px-lg-5 mt-5">
         <div
           id="search-results"
-          class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
+          class="row gx-sm-2 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
         >
           {% if hostels %} {% for hostel in hostels %}
           <div class="col mb-5">
@@ -212,11 +212,11 @@
                 <a
                   style="text-decoration: none; color: rgb(255, 255, 255)"
                   href="{% url 'hostels:profile' hostel.hostel_id %}"
-                  >Click to view profile</a
+                  >View Profile</a
                 >
               </div>
               <!-- Product image-->
-
+              
               <a href="{{ hostel.get_profile_url }}">
                 <img
                   class="card-img-top"
@@ -226,12 +226,12 @@
               </a>
 
               <!-- Product details-->
-              <div class="card-body p-4">
+              <div class="card-body p-2">
                 <div class="text-center">
                   <!-- Sale badge-->
 
                   <!-- hostel name name-->
-                  <h6 class="fw-bolder">{{ hostel.hostel_name }}</h6>
+                  <h6 class="fw-bold">{{ hostel.hostel_name }}</h6>
                   <!-- <div
                     id="star-rating"
                     class="d-flex justify-content-center small text-warning mb-2"
@@ -244,7 +244,7 @@
                   </div> -->
 
                   <!-- location-->
-                  <a href="{% url 'maps:hostel-direction' hostel.hostel_id %}"> <h6 class="fw-bolder">
+                  <a href="{% url 'maps:hostel-direction' hostel.hostel_id %}"> <p class="mb-0 mb-sm-4">
                     Direction On Map
                     <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -261,13 +261,13 @@
                       d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"
                     />
                   </svg>
-                  </h6>
+                </p>
                 </a>
                 </div>
               </div>
 
               <!-- Product actions-->
-              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+              <div class="card-footer pb-4 pt-0 border-top-0 bg-transparent">
                 <div class="text-center">
                   <a
                     class="btn btn-outline-dark mt-auto"

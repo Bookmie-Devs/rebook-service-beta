@@ -246,7 +246,7 @@
                 <!-- <img width="150" height="180" class="card-img-top" src="{{ room.Room_img.url }}" alt="..."/> -->
                 <!-- </a> -->
                 <!-- Product details-->
-                <div class="card-body p-4">
+                <div class="card-body p-2">
                   <div class="text-center">
                     <!-- Sale badge-->
                     <!-- <a href="{{ room.get_profile_url }}"> -->
@@ -254,7 +254,7 @@
                       class="badge bg-dark text-white position-absolute"
                       style="top: 0.5rem; right: 0.5rem"
                     >
-                    More Details
+                    <small>More Details</small>
                     <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -262,6 +262,7 @@
                     fill="currentColor"
                     class="bi bi-geo-alt"
                     viewBox="0 0 16 16"
+                    style="scale: 0.7;"
                   >
                     <path
                       d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"
@@ -274,8 +275,8 @@
                     <br />
                     <!-- </a>  -->
                     <!-- ROOM NUMBER-->
-                    <h5 class="fw-bolder">Rm-{{ room.room_no }}</h5>
-                    <h6 class="fw-bolder">{{ room.gender.capitalize }} Room</h6>
+                    <h5 class="fw-bold mt-2">Rm-{{ room.room_no }}</h5>
+                    <h6 class="">{{ room.gender.capitalize }} Room</h6>
                     <!-- <h5 class="fw-bolder">{{ room.rating }}</h5> -->
 
                     <!-- stars for looping through room rating -->
@@ -290,9 +291,9 @@
                       <div class="bi-star-fill"></div>
                     </div>
                     {% endcomment %}
-                    <h5 class="fw-bolder">
+                    <div>
                       {{ room.room_capacity }} in a Room🏠
-                    </h5>
+                    </div>
                     <!-- Room price-->
                     &#8373;{{ room.room_price }}💵
                   </div>
@@ -311,7 +312,7 @@
                     name="room_id"
                     value="{{ room.room_id }}"
                   />
-                  <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                  <div class="card-footer p-2 pt-0 border-top-0 bg-transparent">
                     <div class="text-center">
                       <button
                         type="submit"
