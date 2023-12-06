@@ -280,6 +280,9 @@ section{
   display: flex;
   gap: 5px;
 }
+section {
+  min-height: calc(100vh - 280px) !important;
+}
 
 /* make curve straigth on phone */
 @media screen and (max-width:480px) {
@@ -287,9 +290,6 @@ section{
           padding: 0 !important;
           padding-top: 40px !important;
           border-radius: 0% !important;
-        }
-        section{
-          min-height: 380px !important;
         }
 }
 

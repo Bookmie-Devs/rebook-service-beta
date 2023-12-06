@@ -400,6 +400,7 @@ opacity: 0;
   flex-direction: row;
   gap: 10px;
  justify-content: center;
+ margin-top: 50px;
 }
 .slider_section .detail-box .box .btn-box {
   display: flex;
@@ -431,7 +432,7 @@ opacity: 0;
 
 .find_section .quick-search {
   padding: 20px 45px;
-  background: rgba(12, 18, 49, 0.692);
+  background: rgba(0, 0, 0, 0.692);
   border-radius: 10px;
 }
 
@@ -457,13 +458,14 @@ opacity: 0;
   color: #ffffff;
   text-transform: uppercase;
   border: none;
+  border-radius: 10px;
   height: 45px;
   width: 100%;
   margin: 10px 0;
 }
 
 .find_section .quick-search button:hover{
-  background: black;
+  background: rgb(65, 64, 64);
   color: var(--primary);
 }
 
