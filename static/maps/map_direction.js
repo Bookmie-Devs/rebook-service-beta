@@ -7,6 +7,12 @@ let directionsRenderer;
 let hostelInfoWindow;
 let campusEntranceInfoWindow;
 
+
+//  function for infoWindow
+function infoWindowFunction(url, name) {
+  return `<a href="${url}"><h6>${name}</h6></a>`
+}
+
 async function initMap() {
 
   // campus main entrance coordinates
@@ -47,11 +53,11 @@ async function initMap() {
 
    // open info windows
    hostelInfoWindow = new google.maps.InfoWindow({
-    content: `${document.getElementById('hostel-name').value} location`,
+    content: `<a href="${document.querySelector('#hostel-url').value}"><h6>${document.getElementById('hostel-name').value}</h6></a>`
   });
 
  campusEntranceInfoWindow = new google.maps.InfoWindow({
-  content:`${document.getElementById('campus').value} Main Campus Entrance`,
+  content:`<h6>${document.getElementById('campus').value} Main Campus Entrance</h6>`,
   });
 
 
