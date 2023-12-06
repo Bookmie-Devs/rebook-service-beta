@@ -3,7 +3,8 @@
   <div class="card h-100">
     <div
       class="badge bg-dark text-white position-absolute"
-      style="top: 0.5rem; right: 0.5rem">
+      style="top: 0.5rem; right: 0.5rem"
+    >
       <a
         style="text-decoration: none; color: rgb(255, 255, 255)"
         href="{% url 'hostels:profile' hostel.hostel_id %}"
@@ -11,24 +12,23 @@
       >
     </div>
     <!-- Product image-->
-
+    
     <a href="{{ hostel.get_profile_url }}">
       <img
         class="card-img-top"
         src="{{ hostel.hostel_image.url }}"
-        alt="..."
+        alt="Hostel_image"
       />
     </a>
 
     <!-- Product details-->
-    <div class="card-body p-4">
+    <div class="card-body p-2">
       <div class="text-center">
         <!-- Sale badge-->
 
         <!-- hostel name name-->
-        <h6 class="fw-bolder">{{ hostel.hostel_name }}</h6>
-
-        <div
+        <h6 class="fw-bold">{{ hostel.hostel_name }}</h6>
+        <!-- <div
           id="star-rating"
           class="d-flex justify-content-center small text-warning mb-2"
         >
@@ -37,14 +37,33 @@
           <div class="bi-star-fill"></div>
           <div class="bi-star-fill"></div>
           <div class="bi-star-fill"></div>
-        </div>
+        </div> -->
 
         <!-- location-->
-        <h6>{{ hostel.location }}</h6>
+        <a href="{% url 'maps:hostel-direction' hostel.hostel_id %}"> <p class="mb-0 mb-sm-4">
+          Direction On Map
+          <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          class="bi bi-geo-alt"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"
+          />
+          <path
+            d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"
+          />
+        </svg>
+      </p>
+      </a>
       </div>
     </div>
+
     <!-- Product actions-->
-    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+    <div class="card-footer pb-4 pt-0 border-top-0 bg-transparent">
       <div class="text-center">
         <a
           class="btn btn-outline-dark mt-auto"
