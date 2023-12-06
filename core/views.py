@@ -32,7 +32,7 @@ from django.views.decorators.cache import cache_page
 
 
 @require_http_methods(['GET'])
-# @cache_page(60 * 60 * 24)
+@cache_page(60 * 100)
 def index(request):
     campuses = CampusProfile.objects.all()
     # random a list of hostels to display
