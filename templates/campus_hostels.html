@@ -243,9 +243,16 @@
                     <div class="bi-star-fill"></div>
                   </div> -->
 
+                  
+                </div>
+              </div>
+
+              <!-- Product actions-->
+              <div class="card-footer pb-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center">
                   <!-- location-->
-                  <a href="{% url 'maps:hostel-direction' hostel.hostel_id %}"> <p class="mb-0 mb-sm-4">
-                    Direction On Map
+                  <a href="{% url 'maps:hostel-direction' hostel.hostel_id %}" class="btn btn-outline-dark mt-auto mb-1">
+                    Map View
                     <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -261,14 +268,7 @@
                       d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"
                     />
                   </svg>
-                </p>
                 </a>
-                </div>
-              </div>
-
-              <!-- Product actions-->
-              <div class="card-footer pb-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center">
                   <a
                     class="btn btn-outline-dark mt-auto"
                     href="{{ hostel.get_rooms  }}"

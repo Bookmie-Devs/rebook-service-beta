@@ -94,22 +94,23 @@
                     <div class="col-md-6"><a href="{{ room.hostel.room_image.url }}"><img class="card-img-top mb-5 mb-md-0 img" src="{{ room.hostel.room_image.url}}" alt="..." /></a></div>
                     <div class="col-md-6 text-center">
                         <div class="small mb-1">SKU: BST-498</div>
-                        <h3 style="color: orange;"><b>{{ room.gender.capitalize }}</b> Room</h3>
-                        <h1 style="color: orange;">Room {{ room.room_no }}</h1>
-                        <h3 style="color: orange;">Hostel: {{ room.hostel.hostel_name }}</h3>
-                        <h3 style="color: orange;">Floor {{ room.floor_no }}</h3>
+                        <h3 class="display-5 fw-bolder" style="color: orange;">{{ room.hostel.hostel_name }}</h3>
+                        <h1>Room {{ room.room_no }}</h1>
+                        <h3><b>{{ room.gender.capitalize }}</b> Room</h3>
+                        <h3>{{ room.room_capacity }} in a room</h3>
+                        <h3>Floor {{ room.floor_no }}</h3>
                         <h1 class="display-5 fw-bolder"> Price: GH&#8373; {{ room.room_price }}</h1>
                         <div class="d-flex" style="width: fit-content; margin: auto; gap: 20px;">
                         <form action="{% url 'core:booking' %}" method="POST" style="margin: auto;">
                             {% csrf_token %}
                             <input type="hidden" name="room_id" value="{{ room.room_id }}">
-                            <button class="btn drop" type="submit">
+                            <button class="btn btn-outline-warning " type="submit">
                                 Book Now🏷️
                             </button>
                         </form>
                         
                         <a href="{% url 'maps:hostel-direction' room.hostel.hostel_id %}">
-                            <button class="btn drop flex-shrink-0" type="button">
+                            <button class="btn btn-outline-warning flex-shrink-0" type="button">
                                 <i class="bi bi-house-check"></i>
                                 Direction On Map
                                 <svg
@@ -170,7 +171,7 @@
                             <input class="form-control text-center me-3" id="inputQuantity" value="{{ room.room_capacity }} in a room" style="max-width: 7rem; margin: auto" />
                         <a href="{% url 'hostels:profile' room.hostel.hostel_id %}" style="margin: auto;">
                             {% comment %} <input type="hidden" name="room_id" value="{{ room.room_id }}"> {% endcomment %}
-                            <button class="btn drop" type="submit">
+                            <button class="btn btn-outline-warning" type="submit">
                                 View Room's Hostel
                                 <svg
                                 xmlns="http://www.w3.org/2000/svg"
