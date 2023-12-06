@@ -2,6 +2,11 @@
  let map;
  let infoWindows = []; // Array to store InfoWindows
 
+//  function for infoWindow
+ function infoWindowFunction(url, name) {
+    return `<a href="${url}"><h6>${name}</h6></a>`
+ }
+
  async function initMap() {
  
    let jsonString = document.getElementById('hostel-coordinates').value
@@ -38,7 +43,7 @@
  
    // Create an info window for each marker
   const infoWindow = new google.maps.InfoWindow({
-  content:  place.name,
+  content: infoWindowFunction(place.url, place.name),
   });
   
   // Store the InfoWindow in the array
