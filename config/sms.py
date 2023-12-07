@@ -7,6 +7,7 @@ sender_id = settings.SENDER_ID
 
 endpoint = "https://apps.mnotify.net/smsapi"
 
+
 def send_sms_message(user_contact=None, msg=None):
     # print(user_contact)
     # print(sender_id)
