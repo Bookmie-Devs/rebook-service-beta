@@ -16,10 +16,10 @@ def send_sms_message(user_contact=None, msg=None):
         "msg": msg,
         "sender_id" : settings.SENDER_ID,
     }
-    if not settings.DEBUG:
-        requests.post(url=endpoint, params=params)
+    if settings.DEBUG:
+       pass
     else:
-        pass
+        requests.post(url=endpoint, params=params)
 
     # print(requests.post(url=endpoint, params=params).json())
     
