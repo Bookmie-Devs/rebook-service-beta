@@ -48,7 +48,7 @@
     <!-- Navigation-->
     <nav class="nav navbar navbar-expand-lg navbar-light ">
       <div class="container px-4 px-lg-5">
-        <h1><a class="navbar-brand" href="{% url 'core:index' %}" style="color: orange;"><img src="{% static 'home/images/favicon.ico' %}" alt="" style="height: 30px; width: 30px;"> Bookmie</a></h1>
+        <h1><a class="navbar-brand" href="{% url 'core:index' %}" style="color: orange;"><img src="{% static 'home/images/favicon.ico' %}" alt="" style="height: 30px; width: 30px;"> Bookmie.com</a></h1>
         <button
           class="navbar-toggler"
           type="button"
@@ -120,16 +120,18 @@
     <header class="bg-dark header">
       <div class="box bg-outline-dark">
       <div class="btn-box">
-        <a href="{% url 'core:index' %}" class="fw-bold">Home</a>
+        <a href="{% url 'core:index' %}" class="fw-bold">Home
+          <i class="bi bi-house-door"></i>
+        </a>
       </div>
       <div class="btn-box">
         <a href="{% url 'core:hostels' campus.campus_code %}" class="fw-bold"> Hostels </a>
       </div>
-      <div class="btn-box">
+      {% comment %} <div class="btn-box">
           <a href="{% url 'accounts:booking-and-payments'%}" class="fw-bold">
             Booking/Payment <i class="bi bi-person-circle"></i>
           </a>
-        </div>
+        </div> {% endcomment %}
     </div>
       
 
