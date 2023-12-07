@@ -257,7 +257,7 @@
               <div class="card-footer pb-3 pb-sm-4 pt-0 border-top-0 bg-transparent">
                 <div class="text-center">
                   <!-- location-->
-                  <a href="{% url 'maps:hostel-direction' hostel.hostel_id %}" class="btn btn-outline-dark mt-auto mb-1 smbtn">
+                  <a href="{% url 'maps:hostel-direction' hostel.hostel_id %}" class="btn btn-outline-dark mt-auto mb-0 mb-sm-1 smbtn">
                     Map Direction
                     <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -276,7 +276,7 @@
                   </svg>
                 </a>
                   <a
-                    class="btn btn-outline-dark mt-auto smbtn px-1 px-sm-3"
+                    class="btn btn-outline-dark mt-auto smbtn  px-3"
                     href="{{ hostel.get_rooms  }}"
                     >View Rooms🏠</a
                   >
