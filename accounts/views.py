@@ -9,6 +9,7 @@ from core.models import Booking, Tenant
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.utils import timezone
 from django.contrib.auth.password_validation import validate_password
+from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import ValidationError
 from django.shortcuts import redirect
 from django.shortcuts import render
