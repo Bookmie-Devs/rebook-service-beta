@@ -120,9 +120,12 @@ def verify_payment(request, reference):
         booking.delete()
 
         # send sms
-        send_sms_message(user_contact=request.user.phone)
+        msg = render_to_string('emails/tenant_email.html',{"user":request.user,"tenant":tenant,"amount":payment.amount})
+        send_sms_message(user_contact=request.user.phone, msg=msg)
         # send sms to manager
-        send_sms_message(user_contact=tenant.hostel.hostel_manager.phone)
+        manager_msg = render_to_string('emails/hostel_manager_msg.html',{'manager':tenant.hostel.hostel_manager,
+                                                                         'tenant':tenant})
+        send_sms_message(user_contact=tenant.hostel.hostel_manager.phone,msg=manager_msg)
 
         # send emails
         subject = f'Confirmation: Your Room Booking is Complete!'

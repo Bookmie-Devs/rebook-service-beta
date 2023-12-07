@@ -309,7 +309,7 @@ PAYSTACK_SECRET_KEY = os.getenv('PAYSTACK_SECRET_KEY')
 # SMS API KEYS
 SMS_API_KEY = 'Ad2NeblMkLFcq7QoCsZadl92Z'
 
-SENDER_ID = 'Hosabella'
+SENDER_ID = 'Bookmie.com'
 # # SMS URL
 # Endpoint: https://apps.mnotify.net/smsapi?
 # key=xxxxxxxxxx&to=xxxxxxx&msg=xxxxxxxx&sender_id=xxxxx

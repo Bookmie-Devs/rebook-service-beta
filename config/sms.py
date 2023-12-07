@@ -7,16 +7,19 @@ sender_id = settings.SENDER_ID
 
 endpoint = "https://apps.mnotify.net/smsapi"
 
-def send_sms_message(user_contact=None):
+def send_sms_message(user_contact=None, msg=None):
     # print(user_contact)
     # print(sender_id)
     params = {
         "key":api_key,
         "to": user_contact,
-        "msg": "hello world",
-        "sender_id" : "mNotify",
+        "msg": msg,
+        "sender_id" : settings.SENDER_ID,
     }
-    requests.post(url=endpoint, params=params)
+    if not settings.DEBUG:
+        requests.post(url=endpoint, params=params)
+    else:
+        pass
 
     # print(requests.post(url=endpoint, params=params).json())
     

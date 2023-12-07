@@ -1,5 +1,7 @@
-Dear {{name}}, you have successfully book a room at {{booking.Hostel.HostelName}}
-Kindly note your room numnber is {{booking.Room.Room_No}}.
-Payment must be made within 24h hours or your booking will
-be terminated
-follow this link to proceed to payments http://127.0.0.1:8000/payments/payment/{{booking.Room.Room_ID}}/
+Dear {{booking.user.username}}, 
+You have successfully book a room at {{booking.hostel.hostel_name}}
+
+Kindly note your room numnber is {{booking.room.room_no}}.
+Payment must be made immediately or booking is not secure
+
+Follow this link to proceed to payments http://127.0.0.1:8000/payments/payment/{{booking.room.room_id}}/

@@ -6,7 +6,8 @@ from campus_app.models import CampusProfile
 from core.models import Booking, Tenant
 
 """Built in packages"""
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
+from django.utils import timezone
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from django.shortcuts import redirect
@@ -128,7 +129,10 @@ def signup(request):
                         """Log user in after user have been registed"""
                         login_user = auth.authenticate(email=request.POST.get('email'), password=request.POST.get('password'))
                         auth.login(request, login_user)
-
+                        # sms message
+                        msg = render_to_string('emails/signup_congrat.html',{'user':request.user})
+                        send_sms_message(user_contact=request.user.phone, msg=msg)
+                        # email msg
                         send_mail(from_email=settings.EMAIL_HOST_USER, 
                         recipient_list=[request.user.email], 
                         subject=f'Welcome to Bookmie.com!, {request.user.username} Your signup was successful.', 
@@ -163,7 +167,7 @@ def signup(request):
 
 
 @authenticated_or_not
-def login(request):
+def login(request: HttpRequest):
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
@@ -171,7 +175,12 @@ def login(request):
         login_user = auth.authenticate(email=email, password=password)
         if login_user is not None:
             auth.login(request, login_user)
-            # send_sms_message(user_contact=request.user.phone)
+            # send_sms_message
+            current_domain = request.META.get('HTTP_X_FORWARDED_HOST', request.META['HTTP_HOST'])
+            msg = render_to_string("emails/login_sms.html", {'user':request.user,'time':timezone.now(),
+                                                             'domain':current_domain})
+            send_sms_message(user_contact=request.user.phone ,msg=msg)
+
             return redirect('accounts:booking-and-payments')
         else:
             messages.error(request, 'Credentials invalid')
