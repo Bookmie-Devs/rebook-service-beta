@@ -23,8 +23,8 @@ class CustomTenantAdminPanel(admin.ModelAdmin):
         'room',
         'hostel',
         'payed',
-        'checked_in',
-    )}),)
+        'checked_in',)}),
+        ("DO NOT EDIT",{"fields":('end_date',)}))
 
   
     search_fields = ('user',)
@@ -49,5 +49,5 @@ admin.site.register(NewsletterEmails)
 admin.site.register(NewsLetterMessage)
 admin.site.register(GeneralNewsLetter)
 
-admin.site.site_header = "GuudNyt"
-admin.site.site_title = "GuudNyt"
+admin.site.site_header = "Bookmie.com"
+admin.site.site_title = "Bookmie.com"

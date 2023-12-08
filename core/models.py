@@ -52,7 +52,7 @@ class Tenant(models.Model):
                                         editable=False)
     
     start_date = models.DateTimeField(auto_now_add=True)
-    end_date = models.DateTimeField(editable=False)
+    end_date = models.DateTimeField()
     class Meta:
         ordering = ('-start_date',)
 

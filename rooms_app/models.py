@@ -55,16 +55,15 @@ class RoomProfile(models.Model):
         db_table = "room_profiles"
 
     def check_bed_spaces(self, count_members:int=None):
-        # decrease bed space first
-        self.bed_space_left -= 1
-        self.save()
-
+        # check if room is full by comparing the number of active tenants
         if self.room_capacity <= count_members or self.bed_space_left <= 0:
             self.bed_space_left = 0
             self.occupied = True
             self.save()
         else:
-            pass
+            # decrease bed space 
+            self.bed_space_left -= 1
+            self.save()
 
     def get_detail_url(self):
         return reverse("rooms:profile", kwargs={'room_id':self.room_id})

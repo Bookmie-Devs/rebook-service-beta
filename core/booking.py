@@ -28,7 +28,7 @@ def book_room(request: HttpRequest) -> HttpResponse:
     room = RoomProfile.objects.get(room_id=room_id)
     bookings_count =Booking.objects.filter(room = room).count()
 
-    count_members = Tenant.objects.filter(room=room).count()
+    count_members = Tenant.objects.filter(room=room, end_date__lt=timezone.now()).count()
     if room.occupied:
         messages.info(request, 'Sorry, room has just been occupied, please select new one')
         # print(request.META.get(''))    

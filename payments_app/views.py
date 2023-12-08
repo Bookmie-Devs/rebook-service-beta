@@ -18,7 +18,7 @@ from .tenant_auth import (tenant_auth_details,
 from reportlab.lib.pagesizes import letter
 from django.conf import settings
 from django.shortcuts import get_object_or_404
-import requests
+from django.utils import timezone
 from django.template.loader import render_to_string
 from django.conf import settings
 from django.contrib import messages
@@ -92,9 +92,6 @@ def verify_payment(request, reference):
     # room payed for 
     acquired_room = RoomProfile.objects.get(room_id=payment.room.room_id)
 
-    # count tenants in th room 
-    count_members = Tenant.objects.filter(room=payment.room).count()
-    print("first number %s " % count_members)
     # checkout validation from api response
     verify = paystack_verification(reference)
     if (verify.status_code==200 and 
@@ -112,9 +109,9 @@ def verify_payment(request, reference):
         payment.successful = True
         payment.save()
  
-        # count tenants in th room 
-        count_members = Tenant.objects.filter(room=payment.room).count()
-        print("number is %s " % count_members)
+        # count active tenants in th room after user book
+        count_members = Tenant.objects.filter(room=payment.room, end_date__lt=timezone.now()).count()
+
         # SET ROOM TO FULL IF CAPACITY HAS BEEN FIELED & REDUCE BED SPACE LEFT
         acquired_room.check_bed_spaces(count_members=count_members)
 
