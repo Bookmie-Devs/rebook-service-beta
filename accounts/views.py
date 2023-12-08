@@ -78,7 +78,7 @@ def signup(request):
                         login_user = auth.authenticate(email=request.POST.get('email'), password=request.POST.get('password'))
                         auth.login(request, login_user)
                         # sms message
-                        msg = render_to_string('emails/signup_congrat.html',{'user':request.user})
+                        msg = render_to_string('emails/signup_sms.html',{'user':request.user})
                         send_sms_message(user_contact=request.user.phone, msg=msg)
                         # email msg
                         send_mail(from_email=settings.EMAIL_HOST_USER, 
