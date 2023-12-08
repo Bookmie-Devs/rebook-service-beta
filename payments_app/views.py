@@ -119,8 +119,9 @@ def verify_payment(request, reference):
         booking = Booking.objects.get(user=request.user)
         booking.delete()
 
+        current_domain = request.META.get('HTTP_X_FORWARDED_HOST', request.META['HTTP_HOST'])
         # send sms
-        msg = render_to_string('emails/tenant_email.html',{"user":request.user,"tenant":tenant,"amount":payment.amount})
+        msg = render_to_string('emails/tenant_sms.html',{"user":request.user,"tenant":tenant,"amount":payment.amount,"domain":current_domain})
         send_sms_message(user_contact=request.user.phone, msg=msg)
         # send sms to manager
         manager_msg = render_to_string('emails/hostel_manager_msg.html',{'manager':tenant.hostel.hostel_manager,
@@ -131,7 +132,7 @@ def verify_payment(request, reference):
         subject = f'Confirmation: Your Room Booking is Complete!'
         send_mail(from_email=settings.EMAIL_HOST_USER, fail_silently=True,
         recipient_list=[request.user.email], subject=subject, 
-        message=render_to_string('emails/tenant_email.html',{"user":request.user,"tenant":tenant,"amount":payment.amount}))
+        message=render_to_string('emails/tenant_email.html',{"user":request.user,"tenant":tenant,"amount":payment.amount,"domain":current_domain})),
         return redirect('core:success')
     
     else:
