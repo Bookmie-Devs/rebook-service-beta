@@ -202,7 +202,7 @@ body {
 }
 
 .custom-shape-divider-top-1695573055 .shape-fill {
-  fill: #dae4f8;
+  fill: #ffffff;
 }
 
 section{
@@ -289,11 +289,20 @@ section {
         .header{
           padding: 0 !important;
           padding-top: 40px !important;
-          border-radius: 0% !important;
+          border-radius: 20px !important;
         }
 
         .smbtn{
           transform: scale(0.7);
+          width: 135%;
+          margin-left: -17% !important;
+        }
+}
+@media screen and (max-width:320px) {
+
+        .smbtn{
+          width: 165%;
+          margin-left: -32% !important;
         }
 }
 
