@@ -94,7 +94,7 @@ def verify_payment(request, reference):
 
     # count tenants in th room 
     count_members = Tenant.objects.filter(room=payment.room).count()
-    
+    print("first number %s " % count_members)
     # checkout validation from api response
     verify = paystack_verification(reference)
     if (verify.status_code==200 and 
@@ -111,7 +111,10 @@ def verify_payment(request, reference):
         #DECLARE SUCCESSFULL TRUE if PAYMENT WAS A SUCCESS
         payment.successful = True
         payment.save()
-
+ 
+        # count tenants in th room 
+        count_members = Tenant.objects.filter(room=payment.room).count()
+        print("number is %s " % count_members)
         # SET ROOM TO FULL IF CAPACITY HAS BEEN FIELED & REDUCE BED SPACE LEFT
         acquired_room.check_bed_spaces(count_members=count_members)
 
