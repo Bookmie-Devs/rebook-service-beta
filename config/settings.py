@@ -108,7 +108,7 @@ MIDDLEWARE = [
 ##################
 
 #Custom user model
-AUTH_USER_MODEL = os.getenv('AUTH_USER_MODEL')
+AUTH_USER_MODEL = 'accounts.CustomUser'
 
 LOGIN_URL = 'accounts:login'
 
