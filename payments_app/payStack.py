@@ -29,7 +29,7 @@ def create_subaccount(hostel: HostelProfile=None):
         "primary_contact_name":str(hostel.hostel_contact),
 
         #the percenetage charge for every hostel sub account
-        "percentage_charge": 0.95, ############################
+        "percentage_charge": settings.SUBACCOUNT_PERCENTAGE, ############################
     }
 
 

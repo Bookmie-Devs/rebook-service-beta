@@ -49,7 +49,7 @@ class HostelProfile(models.Model):
     '''Hostel model for database'''
     hostel_name = models.CharField(max_length=50)
 
-    hostel_id = models.UUIDField(default=uuid.uuid4(), 
+    hostel_id = models.UUIDField(default=uuid.uuid4, 
                                  editable=False, unique=True)
     
     hostel_code = models.CharField(max_length=100,

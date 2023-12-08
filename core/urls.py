@@ -1,25 +1,28 @@
 from django.urls import path
 from django.urls import include
+from django.views.decorators.cache import cache_page
+from django.conf import settings
 from . import views
 from . import api_views
 from . import booking
 
-
 app_name ='core'
+
+time = settings.BOOKMIE_CACHING_TIMEOUT
 
 urlpatterns =[
     path('', views.index, name='index'),
 
     #generate campus related hostels to user base campus
-    path('campus-hostels/<str:campus_code>/', views.HostelListView.as_view(), name='hostels'),
+    path('campus-hostels/<str:campus_code>/',(cache_page(time))(views.HostelListView.as_view()), name='hostels'),
 
     path('booking/', booking.book_room, name='booking'),
     path('update-v-code/',views.update_vcode, name='update-v-code'),
     path('delete-booking/', views.delete_booking, name='delete-booking'),
     path('verification/success/', views.success_message, name="success"),
 
-    path('contact/', views.ContactView.as_view(), name='contact'),
-    path('about/', views.AboutView.as_view(), name='about'),
+    path('contact/',(cache_page(time*5))(views.ContactView.as_view()), name='contact'),
+    path('about/', (cache_page(time*5))(views.AboutView.as_view()), name='about'),
     path('news-letter/', views.news_letter, name="news-letter"),
 
     # APIS

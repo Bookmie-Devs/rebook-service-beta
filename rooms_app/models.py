@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from hostel_app.models import HostelProfile
 from campus_app.models import CampusProfile
@@ -32,7 +33,11 @@ class RoomProfile(models.Model):
                             default="male")
 
     room_price = models.DecimalField(blank=False, decimal_places=1, max_digits=7 )
-    
+
+    # field just there to compare and check if field room price has been changed on save
+    previous_price_check = models.DecimalField(blank=True, editable=False,
+                                      null=True, decimal_places=1, max_digits=7)
+
     rating = models.IntegerField(choices=rating ,blank=False, 
                                  default='⭐', )
     
@@ -54,6 +59,17 @@ class RoomProfile(models.Model):
     class Meta:
         db_table = "room_profiles"
 
+    def save(self, *args, **kwargs):
+        # CHECK IF ROOM PRICE IS SAME A PREVIOUS PRICE IF NOT UPDATE FIELDS
+        if self.room_price!=self.previous_price_check:
+            addtional_pricing: float = float(self.room_price) * settings.SUPPLY_COST_PERCENTAGE
+            self.room_price = float(self.room_price) + addtional_pricing
+            # equate the two to maintain the balance
+            self.previous_price_check = self.room_price
+        else:
+            pass
+        return super().save(*args, **kwargs)
+    
     def check_bed_spaces(self, count_members:int=None):
         # check if room is full by comparing the number of active tenants
         if self.room_capacity <= count_members or self.bed_space_left <= 0:
