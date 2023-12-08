@@ -32,7 +32,7 @@ from django.views.decorators.cache import cache_page
 from django.conf import settings
 
 @require_http_methods(['GET'])
-@cache_page(settings.BOOKMIE_CACHING_TIMEOUT)
+@cache_page(settings.BOOKMIE_CACHING_TIMEOUT * 3)
 def index(request):
     campuses = CampusProfile.objects.all()
     # random a list of hostels to display
