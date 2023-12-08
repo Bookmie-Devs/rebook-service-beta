@@ -29,10 +29,10 @@ from django.contrib.auth.decorators import login_required
 import random
 from campus_app.models import CampusProfile
 from django.views.decorators.cache import cache_page
-
+from django.conf import settings
 
 @require_http_methods(['GET'])
-@cache_page(60 * 100)
+@cache_page(settings.BOOKMIE_CACHING_TIMEOUT)
 def index(request):
     campuses = CampusProfile.objects.all()
     # random a list of hostels to display
