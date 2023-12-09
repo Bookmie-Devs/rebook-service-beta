@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.shortcuts import render
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
@@ -116,7 +117,11 @@ class UpdateRoomPrice(generics.UpdateAPIView):
         # check if room exist
         if RoomProfile.objects.filter(hostel=hostel, room_capacity=room_capacity).exists():
             update_room = RoomProfile.objects.filter(hostel=hostel, room_capacity=room_capacity)
-            update_room.update(room_price=new_price)
+            # calculate ptf_pricing 
+            addtional_pricing: float = float(new_price) * settings.SUPPLY_COST_PERCENTAGE
+            new_ptf_room_price = float(new_price) + addtional_pricing
+
+            update_room.update(room_price=new_price, ptf_room_price=new_ptf_room_price)
             return Response({'message':'Rooms price have been updated'}, status=status.HTTP_201_CREATED)
         
         else: 
