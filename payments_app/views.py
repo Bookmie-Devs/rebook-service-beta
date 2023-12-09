@@ -34,10 +34,10 @@ from reportlab.lib import colors
 
 @login_required()
 def initiate_payment(request: HttpRequest, room_id):
-    get_room = RoomProfile.objects.get(room_id=room_id)
+    room = RoomProfile.objects.get(room_id=room_id)
 
     if request.method == 'POST':
-        if get_room.occupied:
+        if room.occupied:
             messages.info(request, 'Sorry, room has just been occupied by someone, please select new one')
             # print(request.META.get(''))    
             # return redirect(request.META.get('HTTP_REFERER'))
@@ -49,38 +49,37 @@ def initiate_payment(request: HttpRequest, room_id):
                 PaymentHistory.objects.get(user=request.user, successful=False).delete()
                     #save payment details
                 payment = PaymentHistory.objects.create(user=request.user,
-                                    email=request.POST.get('email'),amount=get_room.room_price,
-                                    account_payed_to=get_room.hostel.account_number,
-                                    room=get_room,hostel=get_room.hostel,)
+                                    email=request.POST.get('email'),amount=room.ptf_room_price,
+                                    account_payed_to=room.hostel.account_number,
+                                    room=room,hostel=room.hostel,)
                 payment.save()
-                return redirect('payments:make-payment', get_room.room_id)
+                return redirect('payments:make-payment', room.room_id)
             
             else:
                 #save payment details
                 payment = PaymentHistory.objects.create(user=request.user,
                                     email=request.POST.get('email'),
-                                    amount=get_room.room_price,
-                                    account_payed_to=get_room.hostel.account_number,
-                                    room=get_room,
-                                    hostel=get_room.hostel,
+                                    amount=room.ptf_room_price,
+                                    account_payed_to=room.hostel.account_number,
+                                    room=room,
+                                    hostel=room.hostel,
                                     )
                 payment.save()
                             
-                return redirect('payments:make-payment', get_room.room_id)
+                return redirect('payments:make-payment', room.room_id)
     # return redirect
     return render(request, 'payments/initiate_payment.html',
-                                    {'room':get_room, 'form':forms.PaymentForm,  
-                                    'user':request.user,})
+                                    {'room':room, 'user':request.user,})
 
 @login_required()
 def make_payment(request, room_id):
-    get_room = RoomProfile.objects.get(room_id=room_id)
-    subaccount = PaystackSubAccount.objects.get(hostel=get_room.hostel)
+    room = RoomProfile.objects.get(room_id=room_id)
+    subaccount = PaystackSubAccount.objects.get(hostel=room.hostel)
     payment = PaymentHistory.objects.get(user=request.user)
 
     # make payment ot subaccount
     return render(request=request,template_name='payments/make_payment.html', 
-                  context={'room':get_room,'reference':payment.reference, 
+                  context={'room':room,'reference':payment.reference, 
                            'subaccount':subaccount.subaccount_code,
                            'user':request.user, 
                            'paystack_public_key':settings.PAYSTACK_PUBLIC_KEY })
@@ -97,7 +96,7 @@ def verify_payment(request, reference):
     if (verify.status_code==200 and 
         verify.json().get('message')=='Verification successful' and
         verify.json()['data'].get('status')=="success" and
-        verify.json()['data'].get('amount')==payment.room.room_price*100):
+        verify.json()['data'].get('amount')==payment.room.ptf_room_price*100):
         
     # create tenent object if reponse is positive
         tenant = Tenant.objects.create(user=request.user, room=payment.room,

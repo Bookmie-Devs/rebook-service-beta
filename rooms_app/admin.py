@@ -7,7 +7,7 @@ class CustomRoomAdminPanel(admin.ModelAdmin):
 
     fieldsets = (
         ('General', {
-            "fields": ('room_no', 'floor_no','room_price','hostel','campus',
+            "fields": ('room_no','floor_no','room_price','hostel','campus',
                        'room_capacity','bed_space_left','gender', 'rating'),}),
         
         ('Specs', {'fields':('inbuilt_kitchen','inbuilt_bathroom',

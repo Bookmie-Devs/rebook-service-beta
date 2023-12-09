@@ -126,7 +126,7 @@
           <a class="d-flex justify-content-center" href="{% url 'accounts:logout' %}">
             <button class="btn btn-outline-warning px-4" type="submit">
               Log out
-              <i class="bi bi-person-circle"></i>
+              <i class="bi bi-box-arrow-right"></i>
             </button>
           </a>
         <!-- </form> -->
@@ -192,7 +192,7 @@
               <div class="col-sm-3">
                 <input class="form-control"
                 type="number"
-                name="room_price_min"
+                name="ptf_room_price_min"
                 placeholder="Least price"
                 >
               </div>
@@ -200,7 +200,7 @@
               <div class="col-sm-3">
                 <input class="form-control"
                 type="number"
-                name="room_price_max"
+                name="ptf_room_price_max"
                 placeholder="Highest price"
                 >
               </div>
@@ -265,7 +265,7 @@
                   </div> {% endcomment %}
                   <div class="">{{ room.room_capacity }} in a Room🏠</div>
                   <!-- Product price-->
-                  <div>GH&#8373;{{ room.room_price }}💵</div>
+                  <div>GH&#8373;{{ room.ptf_room_price }}💵</div>
                 </div>
               </div>
               <!-- Booking form-->

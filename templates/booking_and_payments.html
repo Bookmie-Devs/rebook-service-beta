@@ -220,7 +220,7 @@
             <h4>Room {{ booking.room.room_no }}</h4>
             <h4>{{ booking.room.gender.capitalize }} Room</h4>
             <h4>{{ booking.room.room_capacity }} in a room</h4>
-            <h4>GH₵ {{ booking.room.room_price }}</h4>
+            <h4>GH₵ {{ booking.room.ptf_room_price }}</h4>
           </div>
           {% else %}
           <h1 class="empty py-4">No Bookings to Show</h1>
@@ -387,7 +387,7 @@
           <h4>Room {{ tenant.room.room_no }}</h4>
           <h4>{{ tenant.room.gender.capitalize }} Room</h4>
           <h4>{{ tenant.room.room_capacity }} in a room</h4>
-          <h4>GH₵ {{ tenant.room.room_price }}</h4>
+          <h4>GH₵ {{ tenant.room.ptf_room_price }}</h4>
           <br />
         </div>
         <br />

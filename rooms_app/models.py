@@ -31,9 +31,10 @@ class RoomProfile(models.Model):
                             choices=[('female','female'),('male','male')],
                             verbose_name="Gender of room",
                             default="male")
-
-    room_price = models.DecimalField(blank=False, decimal_places=1, max_digits=7 )
-
+    # managers price
+    room_price = models.DecimalField(blank=False, decimal_places=1, max_digits=8)
+    # platform pricing(selling price)
+    ptf_room_price = models.DecimalField(default=0.0, editable=False, decimal_places=1, max_digits=8)
     # field just there to compare and check if field room price has been changed on save
     previous_price_check = models.DecimalField(blank=True, editable=False,
                                       null=True, decimal_places=1, max_digits=7)
@@ -63,7 +64,7 @@ class RoomProfile(models.Model):
         # CHECK IF ROOM PRICE IS SAME A PREVIOUS PRICE IF NOT UPDATE FIELDS
         if self.room_price!=self.previous_price_check:
             addtional_pricing: float = float(self.room_price) * settings.SUPPLY_COST_PERCENTAGE
-            self.room_price = float(self.room_price) + addtional_pricing
+            self.ptf_room_price = float(self.room_price) + addtional_pricing
             # equate the two to maintain the balance
             self.previous_price_check = self.room_price
         else:

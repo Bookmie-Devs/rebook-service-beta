@@ -107,7 +107,7 @@
                         <h3><b>{{ room.gender.capitalize }}</b> Room</h3>
                         <h3>{{ room.room_capacity }} in a room</h3>
                         <h3>Floor {{ room.floor_no }}</h3>
-                        <h1 class="display-5 fw-bolder"> Price: GH&#8373; {{ room.room_price }}</h1>
+                        <h1 class="display-5 fw-bolder"> Price: GH&#8373; {{ room.ptf_room_price }}</h1>
                         <div class="d-flex" style="width: fit-content; margin: auto; gap: 20px;">
                         <form action="{% url 'core:booking' %}" method="POST" style="margin: auto;">
                             {% csrf_token %}
