@@ -20,7 +20,7 @@
     </header>
 
     <div class="container">
-      <h5>Make Payment Of ₵{{ room.room_price }}</h5>
+      <h5>Make Payment Of ₵{{ room.ptf_room_price }}</h5>
       <div class="bttn">
         <button id="pay" onclick="payWithPaystack()">Pay💳</button>
       </div>
@@ -36,7 +36,7 @@
         var handler = PaystackPop.setup({
           key: "{{ paystack_public_key }}", // Replace with your public key
           email: "{{ user.email }}",
-          amount: "{{ room.room_price }}" * 100, // the amount value is multiplied by 100 to convert to the lowest currency unit
+          amount: "{{ room.ptf_room_price }}" * 100, // the amount value is multiplied by 100 to convert to the lowest currency unit
           currency: "GHS", // Use GHS for Ghana Cedis or USD for US Dollars
           ref: "{{ reference }}", // Replace with a reference you generated
           subaccount: "{{ subaccount }}",

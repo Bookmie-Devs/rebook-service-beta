@@ -24,11 +24,11 @@ class RoomFilters(django_filters.FilterSet):
     room_capacity = NumberFilter(field_name='room_capacity')
 
     """Filter for room by Price"""
-    room_price = RangeFilter(field_name='room_price') 
+    ptf_room_price = RangeFilter(field_name='ptf_room_price') 
     
     class Meta:
         model = RoomProfile
-        fields = ['room_price', 'room_capacity', 'gender',]
+        fields = ['ptf_room_price', 'room_capacity', 'gender',]
 
 
 
