@@ -4,6 +4,7 @@ from core.decorators import authenticated_or_not
 from config.sms import send_sms_message
 from campus_app.models import CampusProfile
 from core.models import Booking, Tenant
+from core.phone import check_number
 
 """Built in packages"""
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
@@ -21,7 +22,6 @@ from django.contrib.auth.forms import UserCreationForm
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.views.decorators.http import require_http_methods
-from config.phone import check_number
 
 require_http_methods(["POST"])
 def signup(request):
