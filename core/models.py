@@ -1,3 +1,4 @@
+from collections.abc import Iterable
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from rooms_app.models import RoomProfile
@@ -23,7 +24,7 @@ class Booking(models.Model):
     student_id = models.CharField(max_length=20)
     booking_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     start_time = models.DateTimeField(auto_now_add=True)
-    end_time = models.DateTimeField()
+    end_time = models.DateTimeField(null=True, blank=True)
     status = models.CharField(max_length=20)
     payed = models.BooleanField(default=False) 
     class Meta:
@@ -32,7 +33,16 @@ class Booking(models.Model):
     def delete_if_not__valid(self):
         query = Booking.objects.get(booking_id=self.booking_id)
         query.delete()
-       
+    
+    def save(self, *args, **kwargs):
+        """
+        using timezone.now() instead of start_time because
+        start usese auto_now_add which is NoneType until the
+        the data is saved to the database
+        """
+        self.end_time = (timezone.now() + timedelta(minutes=60))
+        return super().save(*args, **kwargs)
+
     def __str__(self):
         return f'{self.user} || {self.room}'
 
@@ -57,7 +67,11 @@ class Tenant(models.Model):
         ordering = ('-start_date',)
 
     def save(self, *args, **kwargs):
-        
+        """
+        using timezone.now() instead of start_time because
+        start usese auto_now_add which is NoneType until the
+        the data is saved to the database
+        """
         if self.start_date is None:
             # use time zone if start-time is not set yet
             self.end_date = (timezone.now() + timedelta(days=365))

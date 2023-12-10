@@ -70,7 +70,6 @@ def book_room(request: HttpRequest) -> HttpResponse:
                 booking = Booking.objects.create(room=booked_room, user=request.user, 
                                             room_number=booked_room.room_no, hostel=booked_room.hostel, 
                                             student_id=student_id, status='Booked',
-                                            end_time=(timezone.now() + timedelta(minutes=45)),
                                             campus=booked_room.campus)
                 booking.save()
                 
