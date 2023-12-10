@@ -32,12 +32,12 @@ class RoomProfile(models.Model):
                             verbose_name="Gender of room",
                             default="male")
     # managers price
-    room_price = models.DecimalField(blank=False, decimal_places=1, max_digits=8)
+    room_price = models.DecimalField(blank=False, decimal_places=2, max_digits=8)
     # platform pricing(selling price)
-    ptf_room_price = models.DecimalField(default=0.0, editable=False, decimal_places=1, max_digits=8)
+    ptf_room_price = models.DecimalField(default=0.0, editable=False, decimal_places=2, max_digits=8)
     # field just there to compare and check if field room price has been changed on save
     previous_price_check = models.DecimalField(blank=True, editable=False,
-                                      null=True, decimal_places=1, max_digits=7)
+                                      null=True, decimal_places=2, max_digits=7)
 
     rating = models.IntegerField(choices=rating ,blank=False, 
                                  default='⭐', )
