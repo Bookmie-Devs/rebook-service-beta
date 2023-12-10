@@ -170,6 +170,7 @@ class HostelDetialsSerializer(serializers.ModelSerializer):
         return room_count
 
     def get_number_of_tenants(self, obj:HostelProfile):
+        # tenants whoose end_date is greater than current date
         tenant_count = Tenant.objects.filter(hostel=obj,end_date__gt=timezone.now()).count()
         return tenant_count
     
