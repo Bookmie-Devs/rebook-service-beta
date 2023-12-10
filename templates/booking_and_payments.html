@@ -140,6 +140,13 @@
         <div class="user-info">
           {% if booking %}
           <div>
+            <div class="alert alert-danger" role="alert">
+              <h4 style="text-align: center">
+                NB: Booking will last for 1 hour 
+                <br>
+                <i class="bi bi-clock"></i> {{ booking.end_time.time }}
+              </h4>
+            </div>
             <h1>Booking Details</h1>
             <h1 class="display-5 h1">🎓{{ booking.user.username }}</h1>
             <div class="box mb-4">
