@@ -123,7 +123,10 @@
       </div>
 
       <div class="btn-box">
-        <a href="{% url 'reset_password' %}" class="fw-bold">Reset Password</a>
+        <a href="{% url 'reset_password' %}" class="fw-bold">
+          Reset Password
+          <i class="bi bi-key"></i>
+        </a>
       </div>
     </div>
 
@@ -147,13 +150,16 @@
                 <i class="bi bi-clock"></i> {{ booking.end_time.time }}
               </h4>
             </div>
-            <h1>Booking Details</h1>
+            <h1>
+              Booking Details
+              <i class="bi bi-person-check"></i>
+            </h1>
             <h1 class="display-5 h1">🎓{{ booking.user.username }}</h1>
             <div class="box mb-4">
               <div class="">
                 <a
                   href="{% url 'payments:init-payment' booking.room.room_id %}"
-                  class="btn btn-secondary"
+                  class="btn btn-success"
                 >
                   Pay for Booking
                   <i class="bi bi-wallet2"></i>
@@ -164,7 +170,7 @@
                 <a
                   href="{%  url 'maps:hostel-direction' booking.room.hostel.hostel_id %}"
                   id="direction"
-                  class="btn btn-success"
+                  class="btn btn-warning"
                   >
                   Map Direction
                   <svg
@@ -174,7 +180,7 @@
                   fill="currentColor"
                   class="bi bi-geo-alt"
                   viewBox="0 0 16 16"
-                >
+                > 
                   <path
                     d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"
                   />
@@ -188,7 +194,7 @@
               <div class="">
                 <a
                   href="{% url 'rooms:profile' booking.room.room_id %}"
-                  class="btn btn-primary"
+                  class="btn btn-secondary"
                 >
                   Room Profile
                   <svg
@@ -218,6 +224,7 @@
                   class="btn btn-danger"
                 >
                   Delete Booking
+                  <i class="bi bi-backspace"></i>
                 </a>
               </div>
 
@@ -225,7 +232,13 @@
             </div>
             <!-- <div class="small mb-1"><h5>Username</h5></div> -->
             <br />
-            <h1 style="color: orange;">{{ booking.hostel.hostel_name }}</h1> <!-- This does not display-->
+            <h1 style="color: orange;">{{ booking.hostel.hostel_name }}
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-building-check" viewBox="0 0 16 16">
+                <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m1.679-4.493-1.335 2.226a.75.75 0 0 1-1.174.144l-.774-.773a.5.5 0 0 1 .708-.708l.547.548 1.17-1.951a.5.5 0 1 1 .858.514Z"/>
+                <path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6.5a.5.5 0 0 1-1 0V1H3v14h3v-2.5a.5.5 0 0 1 .5-.5H8v4H3a1 1 0 0 1-1-1z"/>
+                <path d="M4.5 2a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-6 3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-6 3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z"/>
+              </svg>
+            </h1> <!-- This does not display-->
             <h4>Floor {{ booking.room.floor_no }}</h4>
             <h4>Room {{ booking.room.room_no }}</h4>
             <h4>{{ booking.room.gender.capitalize }} Room</h4>
@@ -241,7 +254,9 @@
       <div class="right-half">
         {% if tenant %}
         <div>
-          <h1>Tenant Details</h1>
+          <h1>Tenant Details
+          <i class="bi bi-person-check"></i>
+          </h1>
           <h1 class="display-5 h1">🎓{{ tenant.user.username }}</h1>
           {% if tenant.checked_in %}
           <h4>
@@ -286,22 +301,17 @@
             <div class="">
               <a
                 href="{% url 'payments:tenant-authentication' %}"
-                class="btn btn-secondary"
+                class="btn btn-success"
               >
                 Get User Credentials(V-code)
-                <!-- PDF ICON -->
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  class="bi bi-filetype-pdf"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M14 4.5V14a2 2 0 0 1-2 2h-1v-1h1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5ZM1.6 11.85H0v3.999h.791v-1.342h.803c.287 0 .531-.057.732-.173.203-.117.358-.275.463-.474a1.42 1.42 0 0 0 .161-.677c0-.25-.053-.476-.158-.677a1.176 1.176 0 0 0-.46-.477c-.2-.12-.443-.179-.732-.179Zm.545 1.333a.795.795 0 0 1-.085.38.574.574 0 0 1-.238.241.794.794 0 0 1-.375.082H.788V12.48h.66c.218 0 .389.06.512.181.123.122.185.296.185.522Zm1.217-1.333v3.999h1.46c.401 0 .734-.08.998-.237a1.45 1.45 0 0 0 .595-.689c.13-.3.196-.662.196-1.084 0-.42-.065-.778-.196-1.075a1.426 1.426 0 0 0-.589-.68c-.264-.156-.599-.234-1.005-.234H3.362Zm.791.645h.563c.248 0 .45.05.609.152a.89.89 0 0 1 .354.454c.079.201.118.452.118.753a2.3 2.3 0 0 1-.068.592 1.14 1.14 0 0 1-.196.422.8.8 0 0 1-.334.252 1.298 1.298 0 0 1-.483.082h-.563v-2.707Zm3.743 1.763v1.591h-.79V11.85h2.548v.653H7.896v1.117h1.606v.638H7.896Z"
-                  />
+                <!-- QRCODE ICON -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-qr-code-scan" viewBox="0 0 16 16">
+                  <path d="M0 .5A.5.5 0 0 1 .5 0h3a.5.5 0 0 1 0 1H1v2.5a.5.5 0 0 1-1 0zm12 0a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0V1h-2.5a.5.5 0 0 1-.5-.5M.5 12a.5.5 0 0 1 .5.5V15h2.5a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5v-3a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1 0-1H15v-2.5a.5.5 0 0 1 .5-.5M4 4h1v1H4z"/>
+                  <path d="M7 2H2v5h5zM3 3h3v3H3zm2 8H4v1h1z"/>
+                  <path d="M7 9H2v5h5zm-4 1h3v3H3zm8-6h1v1h-1z"/>
+                  <path d="M9 2h5v5H9zm1 1v3h3V3zM8 8v2h1v1H8v1h2v-2h1v2h1v-1h2v-1h-3V8zm2 2H9V9h1zm4 2h-1v1h-2v1h3zm-4 2v-1H8v1z"/>
+                  <path d="M12 9h2V8h-2z"/>
+                </svg>
                 </svg>
               </a>
             </div>
@@ -310,7 +320,7 @@
               <a
                 href="{%  url 'maps:hostel-direction' tenant.room.hostel.hostel_id %}"
                 id="direction"
-                class="btn btn-success"
+                class="btn btn-warning"
               >
                 Map Direction
                 <svg
@@ -333,7 +343,7 @@
             <div class="">
               <a
                 href="{% url 'rooms:profile' tenant.room.room_id %}"
-                class="btn btn-primary"
+                class="btn btn-secondary"
               >
                 Room Profile
 
@@ -359,7 +369,6 @@
               </a>
             </div>
 
-            <!-- 
             <div class="">
               <form method="POST" action="{% url 'core:update-v-code' %}">
                 {% csrf_token %}
@@ -368,11 +377,12 @@
                   name="room_id"
                   value="{{ tenant.room.room_id }}"
                 />
-                <button type="submit" class="btn btn-warning">
+                <button type="submit" class="btn btn-primary">
                   Update V-code
+                <i class="bi bi-arrow-repeat"></i>
                 </button>
               </form>
-            </div> -->
+            </div>
           </div>
 
           <h4>
@@ -388,11 +398,17 @@
                 d="M9.828.722a.5.5 0 0 1 .354.146l4.95 4.95a.5.5 0 0 1 0 .707c-.48.48-1.072.588-1.503.588-.177 0-.335-.018-.46-.039l-3.134 3.134a5.927 5.927 0 0 1 .16 1.013c.046.702-.032 1.687-.72 2.375a.5.5 0 0 1-.707 0l-2.829-2.828-3.182 3.182c-.195.195-1.219.902-1.414.707-.195-.195.512-1.22.707-1.414l3.182-3.182-2.828-2.829a.5.5 0 0 1 0-.707c.688-.688 1.673-.767 2.375-.72a5.922 5.922 0 0 1 1.013.16l3.134-3.133a2.772 2.772 0 0 1-.04-.461c0-.43.108-1.022.589-1.503a.5.5 0 0 1 .353-.146zm.122 2.112v-.002zm0-.002v.002a.5.5 0 0 1-.122.51L6.293 6.878a.5.5 0 0 1-.511.12H5.78l-.014-.004a4.507 4.507 0 0 0-.288-.076 4.922 4.922 0 0 0-.765-.116c-.422-.028-.836.008-1.175.15l5.51 5.509c.141-.34.177-.753.149-1.175a4.924 4.924 0 0 0-.192-1.054l-.004-.013v-.001a.5.5 0 0 1 .12-.512l3.536-3.535a.5.5 0 0 1 .532-.115l.096.022c.087.017.208.034.344.034.114 0 .23-.011.343-.04L9.927 2.028c-.029.113-.04.23-.04.343a1.779 1.779 0 0 0 .062.46z"
               />
             </svg>
-            <strong> Exp Date:</strong> {{ tenant.end_date }}
+            <strong> Exp Date:</strong> {{ tenant.end_date.date }}
           </h4>
           <hr />
           <!-- <div class="small mb-1"><h5>Username</h5></div> -->
-          <h1 style="color: orange;">{{ tenant.room.hostel.hostel_name }}</h1>
+          <h1 style="color: orange;">{{ tenant.room.hostel.hostel_name }}
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-building-check" viewBox="0 0 16 16">
+              <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m1.679-4.493-1.335 2.226a.75.75 0 0 1-1.174.144l-.774-.773a.5.5 0 0 1 .708-.708l.547.548 1.17-1.951a.5.5 0 1 1 .858.514Z"/>
+              <path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6.5a.5.5 0 0 1-1 0V1H3v14h3v-2.5a.5.5 0 0 1 .5-.5H8v4H3a1 1 0 0 1-1-1z"/>
+              <path d="M4.5 2a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-6 3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-6 3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z"/>
+            </svg>
+          </h1>
           <h4>Floor {{ tenant.room.floor_no }}</h4>
           <h4>Room {{ tenant.room.room_no }}</h4>
           <h4>{{ tenant.room.gender.capitalize }} Room</h4>
