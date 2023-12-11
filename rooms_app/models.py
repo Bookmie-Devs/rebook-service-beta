@@ -2,6 +2,9 @@ from django.conf import settings
 from django.db import models
 from hostel_app.models import HostelProfile
 from campus_app.models import CampusProfile
+from core.models import Booking
+from core.models import Tenant
+from django.utils import timezone
 from accounts.models import CustomUser
 from hostel_app.models import rating
 import uuid
@@ -41,16 +44,16 @@ class RoomProfile(models.Model):
 
     rating = models.IntegerField(choices=rating ,blank=False, 
                                  default='⭐', )
-    
+    # count the number of users who book this room
+    booking_count = models.PositiveIntegerField(default=0)
     # occupied by users who booked but not payed yet
     booking_occupied = models.BooleanField(default=False)
-
-    # actually occupied by tenants
+    #check if room is occupied through platform
+    platform_occupied = models.BooleanField(default=False)
+    # actually occupied by tenants(managers check) 
     occupied = models.BooleanField(default=False)
-
     #room features
     inbuilt_kitchen = models.BooleanField(default=False)
-
     """ if room does not contain bathroom then it is shared """
     inbuilt_bathroom = models.BooleanField(default=False)
 
@@ -81,6 +84,21 @@ class RoomProfile(models.Model):
             # decrease bed space 
             self.bed_space_left -= 1
             self.save()
+
+    def active_bookings(self) -> int:
+        # return the number of active of bookings for room
+        number_of_active_bookings_in_room = Booking.objects.filter(room=self, end_time__gt=timezone.now()).count()
+        return number_of_active_bookings_in_room
+
+    def active_tenants(self) -> int:
+        # return the number of active tenants in room
+        number_of_active_tenants_in_room = Tenant.objects.filter(room=self, end_date__lt=timezone.now()).count()
+        return number_of_active_tenants_in_room
+
+    def is_available_for_booking(self) -> bool:
+        # check and compare if booking is available for the room
+        available: bool = self.active_bookings()<self.active_tenants()
+        return available
 
     def get_detail_url(self):
         return reverse("rooms:profile", kwargs={'room_id':self.room_id})
