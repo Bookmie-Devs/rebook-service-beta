@@ -2,8 +2,6 @@ from django.conf import settings
 from django.db import models
 from hostel_app.models import HostelProfile
 from campus_app.models import CampusProfile
-from core.models import Booking
-from core.models import Tenant
 from django.utils import timezone
 from accounts.models import CustomUser
 from hostel_app.models import rating
@@ -71,33 +69,52 @@ class RoomProfile(models.Model):
             # equate the two to maintain the balance
             self.previous_price_check = self.room_price
         else:
+            """
+            Do nothing to ptf price if room price is still the same
+            could be that the room has been updated but not the 
+            price which does not need to be updated
+            """
             pass
         return super().save(*args, **kwargs)
     
-    def check_bed_spaces(self, count_members:int=None):
+    def reduce_bed_spaces(self, count_members:int=None):
         # check if room is full by comparing the number of active tenants
         if self.room_capacity <= count_members or self.bed_space_left <= 0:
             self.bed_space_left = 0
             self.occupied = True
             self.save()
+            """
+            count memebers counts the number of tenants in the room
+            and trigger occupied if greater than room capacity
+            """
         else:
             # decrease bed space 
             self.bed_space_left -= 1
             self.save()
 
-    def active_bookings(self) -> int:
-        # return the number of active of bookings for room
-        number_of_active_bookings_in_room = Booking.objects.filter(room=self, end_time__gt=timezone.now()).count()
-        return number_of_active_bookings_in_room
-
-    def active_tenants(self) -> int:
-        # return the number of active tenants in room
-        number_of_active_tenants_in_room = Tenant.objects.filter(room=self, end_date__lt=timezone.now()).count()
-        return number_of_active_tenants_in_room
-
     def is_available_for_booking(self) -> bool:
         # check and compare if booking is available for the room
-        available: bool = self.active_bookings()<self.active_tenants()
+
+        from .room_checks import active_bookings, active_tenants
+        """
+        import fuctions here to avoid circular import errors with
+        Tenants and Booking class
+        """
+        available: bool = active_bookings(self) < self.bed_space_left
+        """
+        Check if the active bookings is less than the bed sapces left
+        if it is then meaning there is space avaialable for booking
+        """
+        return available
+
+    def is_space_available(self):
+        # check in advance if room is not full
+        from .room_checks import capacity_available
+        """
+        import fuctions here to avoid circular import errors with
+        Tenants and Booking class
+        """
+        available: bool = capacity_available(self)
         return available
 
     def get_detail_url(self):
