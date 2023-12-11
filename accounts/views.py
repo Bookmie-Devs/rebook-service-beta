@@ -40,7 +40,7 @@ def signup(request):
                     # checking if number is valid
                     if check_number(request.POST.get('phone')) == "number-error":
                         
-                        message ={'message':'Phone number is not in the correct format or incorrect'}
+                        message ={'message':'Phone number incorrect, please go back and check'}
                         return render(request,'htmx_message_templates/message.html', message)
                     
                     #existance of phone number 

@@ -10,6 +10,8 @@ import uuid
 
 class CampusProfile(models.Model):
     campus_name = models.CharField(max_length=100)
+    # name known to the public
+    alias_name =  models.CharField(max_length=100, blank=True, null=True)
     campus_code = models.CharField(max_length=100, unique=True)
     flag = models.ImageField(default='defaultFlag.jpg', upload_to='CampusFlag')
     available_on_campus = models.BooleanField(default=False)
