@@ -57,7 +57,7 @@ async function initMap() {
   });
 
  campusEntranceInfoWindow = new google.maps.InfoWindow({
-  content:`<h6>${document.getElementById('campus').value} Main Campus Entrance</h6>`,
+  content:`<h6>${document.getElementById('campus').value} Main Entrance</h6>`,
   });
 
 

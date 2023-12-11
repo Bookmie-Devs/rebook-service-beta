@@ -13,7 +13,7 @@ class CustomRoomAdminPanel(admin.ModelAdmin):
         ('Specs', {'fields':('inbuilt_kitchen','inbuilt_bathroom',
                              'inbuilt_balcony','air_condition',)}),
 
-        ('Status', {'fields':('booking_occupied', 'occupied')}),
+        ('System Status', {'fields':('booking_occupied','platform_occupied','occupied')}),
     )
     
 

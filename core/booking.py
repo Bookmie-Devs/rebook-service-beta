@@ -26,52 +26,53 @@ from django.contrib.auth.decorators import login_required
 def book_room(request: HttpRequest) -> HttpResponse:     
     room_id = request.POST.get('room_id')
     room = RoomProfile.objects.get(room_id=room_id)
-    bookings_count =Booking.objects.filter(room = room).count()
 
-    count_members = Tenant.objects.filter(room=room, end_date__lt=timezone.now()).count()
-    if room.occupied:
+    if Tenant.objects.filter(user=request.user).exists():
+        """
+        Check if tenant exits
+        """
+        messages.info(request, 'Tenants can not book after payment')
+        return redirect('accounts:booking-and-payments')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    
+    elif Booking.objects.filter(user=request.user, payed=False).exists():
+        """
+        Check if room is full
+        """
+        messages.info(request, 'You already booked for a room please proceed to payment or delete booking!!!')
+        # print(request.META.get(''))    
+        # return redirect(request.META.get('HTTP_REFERER'))
+        return redirect('accounts:booking-and-payments')
+    
+    elif not room.is_space_available():
+        """
+        Second check for room capacity
+        """
+        messages.info(request, 'Please room is full')
+        # print(request.META.get(''))    
+        # return redirect(request.META.get('HTTP_REFERER'))
+        return redirect('accounts:booking-and-payments')
+
+    # Check if room is occupied or avaialable for booking
+    elif room.occupied or not room.is_available_for_booking():
+        # message
         messages.info(request, 'Sorry, room has just been occupied, please select new one')
         # print(request.META.get(''))    
         # return redirect(request.META.get('HTTP_REFERER'))
         return redirect('accounts:booking-and-payments')
 
+    # Creating booking for user
     else:
-        # second check for room capacity
-        if room.room_capacity <= count_members:
-            """Room will likely not show for booking but incase it shows"""
-            room.occupied =True
-            room.save()
-            messages.info(request, 'Please room is full')
-            # print(request.META.get(''))    
-            # return redirect(request.META.get('HTTP_REFERER'))
-            return redirect('accounts:booking-and-payments')
+        student_id = request.user.student_id  
+        booked_room = RoomProfile.objects.get(room_id=request.POST.get('room_id')) 
+        #Saving booking info
+        booking=Booking.objects.create(room=booked_room, user=request.user, 
+        room_number=booked_room.room_no, hostel=booked_room.hostel, 
+        student_id=student_id, status='Booked',campus=booked_room.campus)
+        """
+        Save booking model
+        """
+        booking.save()
         
-        # if room is not full
-        else:
-            #check if room is full
-            if  Booking.objects.filter(user=request.user, payed=False).exists():
-                get_booking = Booking.objects.get(user = request.user)
-                messages.info(request, 'You already booked for a room please proceed to payment or delete booking!!!')
-                # print(request.META.get(''))    
-                # return redirect(request.META.get('HTTP_REFERER'))
-                return redirect('accounts:booking-and-payments')
-            
-            #check if tenant exits
-            elif Tenant.objects.filter(user=request.user).exists():
-                messages.info(request, 'Tenants can not book after payment')
-                return redirect('accounts:booking-and-payments')
-                return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-            
-            #Creating booking for user
-            else:
-                student_id = request.user.student_id  
-                booked_room = RoomProfile.objects.get(room_id=request.POST.get('room_id')) 
-                #Saving booking info
-                booking = Booking.objects.create(room=booked_room, user=request.user, 
-                                            room_number=booked_room.room_no, hostel=booked_room.hostel, 
-                                            student_id=student_id, status='Booked',
-                                            campus=booked_room.campus)
-                booking.save()
-                
-                #redirect user for payment
-                return redirect('accounts:booking-and-payments')
+        #redirect user for payment
+        return redirect('accounts:booking-and-payments')

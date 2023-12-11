@@ -1,0 +1,42 @@
+"""
+room check logics and functions here to avoid
+circular import errors with importing
+classes
+"""
+
+from core.models import Booking, Tenant
+from rooms_app.models import RoomProfile
+from django.utils import timezone
+
+
+def active_bookings(room_instance: RoomProfile) -> int:
+    # return the number of active of bookings for room
+    number_of_active_bookings_in_room = Booking.objects.filter(room=room_instance, end_time__gt=timezone.now()).count()
+    return number_of_active_bookings_in_room
+
+
+def active_tenants(room_instance: RoomProfile) -> int:
+    # return the number of active tenants in room
+    number_of_active_tenants_in_room = Tenant.objects.filter(room=room_instance, end_date__lt=timezone.now()).count()
+    return number_of_active_tenants_in_room
+
+def capacity_available(room_instance: RoomProfile) -> bool:
+    # count all tenants in room
+    count_members = Tenant.objects.filter(room=room_instance, end_date__lt=timezone.now()).count()
+    if room_instance.room_capacity <= count_members:
+        """
+        Room will likely not show for booking but incase it shows
+        """
+        room_instance.occupied =True
+        room_instance.save()
+        # return false is not available
+        return False
+    elif room_instance.bed_space_left <= 0:
+        room_instance.occupied =True
+        room_instance.save()
+        # return false is not available
+        return False
+        
+    else:
+        # if room is not full with tenants
+        return True
