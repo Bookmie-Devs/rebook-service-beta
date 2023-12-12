@@ -32,6 +32,11 @@ def capacity_available(room_instance: RoomProfile) -> bool:
         # return false is not available
         return False
     elif room_instance.bed_space_left <= 0:
+        """
+        Could be possible that room bed space is less than
+        or equal to 0 which means room is not
+        available
+        """
         room_instance.occupied =True
         room_instance.save()
         # return false is not available
