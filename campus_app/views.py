@@ -23,4 +23,12 @@ class CampusListView(ListView):
         elif router_value=='room-router':
             # check router value and route to appopraite tmeplate 
             return render(request, template_name='home/room_redirect.html',context=context)
+        
+        elif router_value=="map-router":
+            """
+            checks router value and make sure user is seeing
+            map view of his campus and only hostel around
+            """
+            return render(request, template_name='home/map_redirect.html',context=context)
+
 
