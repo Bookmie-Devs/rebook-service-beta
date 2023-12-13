@@ -39,7 +39,7 @@ body {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    min-height: 100vh;
+    min-height: calc(100vh - 200px) !important;
     margin: auto;
 }
 
@@ -143,6 +143,7 @@ hr {
 
 .footer_section {
     background-color: #1f222b;
+    height: 75px;
 }
 
 .footer_section p {

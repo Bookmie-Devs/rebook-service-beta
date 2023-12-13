@@ -356,18 +356,30 @@ input:focus{
   border: none;
 }
 
-button{
-    border: none;
-    background: var(--black);
-    position: relative;
-    cursor: pointer;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-weight: bold;
-    color: var(--light);
-    overflow: hidden;
-    transition: 300ms;
-    z-index: 1;
+.bttn {
+  display: flex;
+  flex-direction: row;
+  width: 250px;
+  height: 40px;
+  justify-content: space-around;
+  margin: auto;
+  margin-top: 20px;
+}
+
+button {
+  border: none;
+  background: rgb(43, 43, 43);
+  position: relative;
+  cursor: pointer;
+  padding: 5px 10px;
+  width: 110px;
+  border-radius: 5px;
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--light);
+  overflow: hidden;
+  transition: 300ms;
+  z-index: 1;
 }
 
 button::before{
@@ -407,6 +419,18 @@ button:hover::before{
 
     h2{
         font-size: 20px;
+    }
+
+    .first-content{
+      display: none;
+    }
+
+    .second-content {
+      opacity: 1;
+      height: 100%;
+      font-size: inherit;
+      transform: rotate(0deg);
+      transition-delay: 1.5s;
     }
 }
 

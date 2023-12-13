@@ -205,10 +205,6 @@ body {
   fill: #ffffff;
 }
 
-section{
-  min-height: 300px !important;
-}
-
 .card{
   animation: myAnim 2s ease 0s 1 normal forwards;
 }
@@ -293,16 +289,19 @@ section {
         }
 
         .smbtn{
-          transform: scale(0.7);
-          width: 135%;
-          margin-left: -17% !important;
+          transform: scale(0.9);
+          width: 120%;
+          
+          margin-left: -10% !important;
         }
 }
-@media screen and (max-width:320px) {
+@media screen and (max-width:375px) {
 
         .smbtn{
+          transform: scale(0.7);
           width: 165%;
           margin-left: -32% !important;
+          margin-bottom: -10px !important;
         }
 }
 
@@ -11051,7 +11050,7 @@ textarea.form-control-lg {
   height: 100vh;
   justify-content: center;
   align-items: center;
-  z-index: 1;
+  z-index: 10;
   background: rgba(0, 0, 0, 0.9);
   display: none;
 }

@@ -58,11 +58,12 @@ form {
 
 button {
     border: none;
-    background: black;
+    background: rgb(43, 43, 43);
     position: relative;
     cursor: pointer;
     padding: 5px 10px;
-    width: 250px;
+    margin-top: 20px;
+    width: 110px;
     border-radius: 5px;
     font-weight: bold;
     font-size: 20px;
