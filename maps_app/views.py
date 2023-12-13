@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django_google_maps.fields import GeoPt
+from campus_app.models import CampusProfile
 from hostel_app.models import HostelProfile
 
 def hostel_direction(request, hostel_id):
@@ -13,8 +14,9 @@ def hostel_direction(request, hostel_id):
            context={'coordinate': coordinate,"campus_coordinates":campus_coordinates ,'user':request.user ,'hostel':hostel_profile})
 
 
-def map_views(request):
-    hostel_profiles = HostelProfile.objects.filter(verified=True).all()
+def map_views(request, campus_code):
+    campus = CampusProfile.objects.get(campus_code=campus_code)
+    hostel_profiles = HostelProfile.objects.filter(verified=True,campus=campus).all()
     # # hostel coordinates on map
     # coordinatet = hostel_profile.geolocation
     # coordinate. 
@@ -23,4 +25,4 @@ def map_views(request):
     # return render(request, 'your_template.html', })
     return render(request=request,
            template_name= 'maps/map_views.html/',
-           context={'coordinates': coordinates})
+           context={'coordinates': coordinates,'campus':campus})

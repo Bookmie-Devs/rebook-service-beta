@@ -1,0 +1,39 @@
+{% extends "parent_templates/main_campuses.html" %}
+
+
+{% block 'router' %}
+
+{% for campus in campuses %}
+  {% if campus.available_on_campus %}
+    <a href="{% url 'maps:map-views' campus.campus_code %}">
+    <div class="card">
+      <div class="content">
+        <img src="{{ campus.flag.url }}" alt="">
+        <p class="heading">{{ campus.campus_name }}</p>
+        <!--<p class="para">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi
+          laboriosam at voluptas
+        </p> -->
+        <button class="btn">View Hostels Available</button>
+      </div>
+    </div>
+    </a>
+  {% else %}
+    <a href="#!">
+      <div class="card">
+        <div class="content">
+          <img src="{{ campus.flag.url }}" alt="">
+          <p class="heading">{{ campus.campus_name }}</p>
+          <!--<p class="para">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi
+            laboriosam at voluptas
+          </p> -->
+            <button class="btn">Coming Soon🏢</button>
+        </div>
+      </div>
+      </a>
+  {% endif %}
+
+{% endfor %}
+
+{% endblock %}
