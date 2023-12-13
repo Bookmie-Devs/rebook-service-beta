@@ -98,8 +98,10 @@ class HostelProfile(models.Model):
 
     hostel_contact = models.CharField(max_length=10, verbose_name="Hostel's Contact")
 
+    other_contact = models.CharField(max_length=10, blank=True)
+
     location = models.CharField(max_length=500, default="location unavailable")
-    other_phone = models.CharField(max_length=10, blank=True)
+
     
     main_website = models.URLField(null=True, blank=True, 
                                 verbose_name='Hostel Website')

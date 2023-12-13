@@ -134,7 +134,6 @@
     <div class="load">
       <div class="loader">
         <div class="spinner"></div>
-        <p>Getting Location...</p>
       </div>
     </div>
 
@@ -154,7 +153,10 @@
               Booking Details
               <i class="bi bi-person-check"></i>
             </h1>
-            <h1 class="display-5 h1">🎓{{ booking.user.username }}</h1>
+            <a href="tel:{{ booking.hostel.hostel_contact }}" type="button" class="btn btn-success">Call Hostel Manager
+              <i class="bi bi-telephone-outbound"></i>
+            </a>
+            <!-- <h1 class="display-5 h1">🎓{{ booking.user.username }}</h1> -->
             <div class="box mb-4">
               <div class="">
                 <a
@@ -257,7 +259,10 @@
           <h1>Tenant Details
           <i class="bi bi-person-check"></i>
           </h1>
-          <h1 class="display-5 h1">🎓{{ tenant.user.username }}</h1>
+          <a href="tel:{{ tenant.hostel.hostel_contact }}" type="button" class="btn btn-success">Call Hostel Manager
+            <i class="bi bi-telephone-outbound"></i>
+          </a>
+          <!-- <h1 class="display-5 h1">🎓{{ tenant.user.username }}</h1> -->
           {% if tenant.checked_in %}
           <h4>
             Status: Checked in
@@ -421,24 +426,7 @@
         <h1 class="empty py-4">No Tenant profile to Show</h1>
         {% endif %}
       </div>
-      <!-- <div class="direction">
-        <div class="close p-4">
-          <i
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-x-lg x text-white"
-          ></i>
-        </div>
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d247.66922415366153!2d-1.5760969523371773!3d6.683099585106029!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfdb9501e105748d%3A0x96a50b9d42c20fe2!2sKNUST%20Commercial%20Area!5e0!3m2!1sen!2sgh!4v1698648445256!5m2!1sen!2sgh"
-          width="600"
-          height="300"
-          frameborder="0"
-          style="border: 0; width: 100%; height: 100%; border-radius: 10px"
-          allowfullscreen
-        ></iframe>
-      </div> -->
+
     </div>
 
     <!-- Footer -->

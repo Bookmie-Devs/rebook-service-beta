@@ -241,7 +241,7 @@ DATABASES = {
 #     }
 # }
 # if
-BOOKMIE_CACHING_TIMEOUT = 60 * 15
+BOOKMIE_CACHING_TIMEOUT = 0
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
