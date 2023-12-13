@@ -114,6 +114,8 @@ class HostelProfile(models.Model):
     address = map_fields.AddressField(max_length=200, blank=True, null=True)
     geolocation = map_fields.GeoLocationField(max_length=500, blank=True, null=True)
 
+    facilities = models.TextField(default="unavailable")
+
     class Meta:
         db_table = 'hostel_profiles'
         

@@ -14,7 +14,8 @@ class CustomHostelAdminPanel(admin.ModelAdmin):
                           'rating',
                           'price_range',
                           'number_of_rooms',
-                          'campus','hostel_manager',)}),
+                          'campus','hostel_manager',
+                          )}),
 
         ('Location',{"fields":('location','address','geolocation')}),
 
@@ -31,6 +32,7 @@ class CustomHostelAdminPanel(admin.ModelAdmin):
 
         ('verification', {"fields": ('verified',)}),
 
+        ('Facilities',{"fields":('facilities',),}),
         #forbid
         ('Forbbiden',{'fields':('hostel_code',)}),
     )
