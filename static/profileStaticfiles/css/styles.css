@@ -236,6 +236,10 @@ body {
   transition: 300ms;
 }
 
+section {
+  min-height: calc(100vh - 100px) !important;
+}
+
 @media screen and (max-width:991px){
   .bttn{
     flex-direction: column;
