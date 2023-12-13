@@ -20,6 +20,7 @@ class CustomHostelAdminPanel(admin.ModelAdmin):
 
         ('Contact Details', {'fields':('hostel_email',
                                        'hostel_contact',
+                                       'other_contact',
                                     'main_website',
                                     )},),     
   
