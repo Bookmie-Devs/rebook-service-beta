@@ -2,7 +2,14 @@ from django.contrib import admin
 from .models import  RoomProfile
 # Register your models here.
 
-''.capitalize
+
+# function to make all rooms avaialeble
+def make_all_rooms_unoccupied(modeladmin, request, queryset):
+    queryset.update(occupied=False)
+
+make_all_rooms_unoccupied.short_description = "Make all selected rooms available"
+
+
 class CustomRoomAdminPanel(admin.ModelAdmin):
 
     fieldsets = (
@@ -15,7 +22,9 @@ class CustomRoomAdminPanel(admin.ModelAdmin):
 
         ('System Status', {'fields':('booking_occupied','platform_occupied','occupied')}),
     )
-    
 
+    list_filter = ('occupied',)
+
+    actions = [make_all_rooms_unoccupied]
 
 admin.site.register(RoomProfile, CustomRoomAdminPanel)
