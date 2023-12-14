@@ -6,29 +6,25 @@ from django.conf import settings
 
 
 def delete_all_expired_booking() -> None:
-    try:
-        """
-        delete all booking that have pass the 1 hour 
-        check mark
-        """
-        unpaid_bookings = Booking.objects.filter(end_time__lt=timezone.now())
-        unpaid_bookings.delete()
-        # """
-        # after which rescan the room for active bookings again and
-        # compare with active tenant if active booking is less
-        # means booking is avaialable
-        # """
-        # all_rooms = RoomProfile.objects.filter(occupied=False).all()
-        # for room in all_rooms:
-        #     # check if room is available for booking
-        #     if room.is_available_for_booking():
-        #         room.booking_occupied = False
-        #     # if not set booking_occupied to false
-        #     else:
-        #         room.booking_occupied = True
-    except:
-        if settings.DEBUG:
-            msg = "Task routine error"
-            send_sms_message(user_contact="0206237060", msg=msg)
+    """
+    delete all booking that have pass the 1 hour 
+    check mark
+    """
+    unpaid_bookings = Booking.objects.filter(end_time__lt=timezone.now())
+    unpaid_bookings.delete()
+    # """
+    # after which rescan the room for active bookings again and
+    # compare with active tenant if active booking is less
+    # means booking is avaialable
+    # """
+    # all_rooms = RoomProfile.objects.filter(occupied=False).all()
+    # for room in all_rooms:
+    #     # check if room is available for booking
+    #     if room.is_available_for_booking():
+    #         room.booking_occupied = False
+    #     # if not set booking_occupied to false
+    #     else:
+    #         room.booking_occupied = True
+
 
 

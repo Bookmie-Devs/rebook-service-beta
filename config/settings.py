@@ -13,11 +13,10 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 from datetime import timedelta
-from dotenv import load_dotenv
+#load environment variables
+from decouple import config
 from django.conf import settings
 
-#load environment variables
-load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,10 +26,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=True ,cast=bool)
+
+CELERY_BROKER_REDIS_URL="redis://localhost:6380"
+
 
 ALLOWED_HOSTS = ['*']
 
@@ -61,15 +63,18 @@ INSTALLED_APPS = [
     # debuging tool
     "debug_toolbar",
 
-
     # third party libs
     'corsheaders',
+
+    # celery
+    'django_celery_beat',
+    'django_celery_results',
+
     'rest_framework',
     'rest_framework_simplejwt',
     'django_filters',
     # 'whitenoise.runserver_nostatic',
     'django_google_maps',
-
 
     # platform apps
     'maps_app',
@@ -103,6 +108,19 @@ MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
+
+# save Celery task results in Django's database
+CELERY_RESULT_BACKEND = "django-db"
+
+# This configures Redis as the datastore between Django + Celery
+CELERY_BROKER_URL = config('CELERY_BROKER_REDIS_URL', default='redis://localhost:6379')
+# if you out to use os.environ the config is:
+# CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_REDIS_URL', 'redis://localhost:6379')
+
+
+# this allows you to schedule items in the Django admin.
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers.DatabaseScheduler'
+
 ##################
 # AUTHENTICATION #
 ##################
@@ -131,8 +149,8 @@ REST_FRAMEWORK = {
 
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(days=2),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=5),
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=10),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=16),
     "ROTATE_REFRESH_TOKENS": False,
     "BLACKLIST_AFTER_ROTATION": False,
     "UPDATE_LAST_LOGIN": False,
@@ -215,7 +233,7 @@ DATABASES = {
 #         "ENGINE": "django.db.backends.postgresql",
 #         "NAME": "bookup",
 #         "USER": "fl0user",
-        # "PASSWORD": os.getenv("DATABASE_PASSWORD"),
+        # "PASSWORD": config("DATABASE_PASSWORD"),
 #         "HOST": "ep-curly-tree-81078521.eu-central-1.aws.neon.fl0.io",
 #         "PORT": "5432",
 #     }
@@ -274,7 +292,7 @@ USE_I18N = True
 USE_TZ = True
 
 # Supply Perentage
-SUPPLY_COST_PERCENTAGE =  0.03
+SUPPLY_COST_PERCENTAGE =  0.03  
 # Paystack Percentage
 SUBACCOUNT_PERCENTAGE = 100 - (SUPPLY_COST_PERCENTAGE*100)
 
@@ -296,8 +314,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-GEOPOSITION_GOOGLE_MAPS_API_KEY = os.getenv('GEOPOSITION_GOOGLE_MAPS_API_KEY')
-GOOGLE_MAPS_API_KEY = os.getenv('GOOGLE_MAPS_API_KEY')
+# GEOPOSITION_GOOGLE_MAPS_API_KEY = os.getenv('GEOPOSITION_GOOGLE_MAPS_API_KEY')
+GOOGLE_MAPS_API_KEY = config('GOOGLE_MAPS_API_KEY')
 
 #EMAIL BACKEND
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -305,17 +323,17 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 
 EMAIL_USE_TLS = True 
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
-PAYSTACK_PUBLIC_KEY = os.getenv('PAYSTACK_PUBLIC_KEY')
-PAYSTACK_SECRET_KEY = os.getenv('PAYSTACK_SECRET_KEY')
+PAYSTACK_PUBLIC_KEY = config('PAYSTACK_PUBLIC_KEY')
+PAYSTACK_SECRET_KEY = config('PAYSTACK_SECRET_KEY')
 
 
 # SMS API KEYS
-SMS_API_KEY = 'Ad2NeblMkLFcq7QoCsZadl92Z'
+SMS_API_KEY = config('SMS_API_KEY')
 
-SENDER_ID = 'Bookmie.com'
+SENDER_ID = config('SENDER_ID')
 # # SMS URL
 # Endpoint: https://apps.mnotify.net/smsapi?
 # key=xxxxxxxxxx&to=xxxxxxx&msg=xxxxxxxx&sender_id=xxxxx

@@ -5,6 +5,7 @@ from config.sms import send_sms_message
 from campus_app.models import CampusProfile
 from core.models import Booking, Tenant
 from core.phone import check_number
+from .task import send_email_task
 
 """Built in packages"""
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
@@ -74,18 +75,20 @@ def signup(request):
                             student_id=request.POST.get('student_id'),)
                         create_user.save()
 
-                        """Log user in after user have been registed"""
+                        """
+                        Log user in after user have been registed
+                        """
                         login_user = auth.authenticate(email=request.POST.get('email'), password=request.POST.get('password'))
                         auth.login(request, login_user)
                         # sms message
-                        msg = render_to_string('emails/signup_sms.html',{'user':request.user})
-                        send_sms_message(user_contact=request.user.phone, msg=msg)
-                        # email msg
-                        send_mail(from_email=settings.EMAIL_HOST_USER, 
-                        recipient_list=[request.user.email], 
-                        subject=f'Welcome to Bookmie.com!, {request.user.username} Your signup was successful.', 
-                        message=render_to_string('emails/signup_congrat.html',{'user':request.user}),
-                        fail_silently=True)
+                        # msg = render_to_string('emails/signup_sms.html',{'user':request.user})
+                        # send_sms_message(user_contact=request.user.phone, msg=msg)
+                        
+                        # email msg with celery
+                        email_message = render_to_string('emails/signup_congrat.html',{'user':request.user})
+                        send_email_task.delay(settings.EMAIL_HOST_USER, [request.user.email], 
+                        f'Welcome to Bookmie.com!, {request.user.username} Your signup was successful.', 
+                        email_message)
 
                         response = HttpResponse()
                         response['HX-Redirect'] = '/accounts/booking-and-payments/'
@@ -127,8 +130,14 @@ def login(request: HttpRequest):
             current_domain = request.META.get('HTTP_X_FORWARDED_HOST', request.META['HTTP_HOST'])
             msg = render_to_string("emails/login_sms.html", {'user':request.user,'time':timezone.now(),
                                                              'domain':current_domain})
-            send_sms_message(user_contact=request.user.phone ,msg=msg)
-
+            
+            from .task import send_sms_task
+            """
+            Send sms with celery
+            """
+            send_sms_task.delay(request.user.phone, msg)
+            # from .task import test_function
+            # test_function.delay()
             return redirect('accounts:booking-and-payments')
         else:
             messages.error(request, 'Credentials invalid')
