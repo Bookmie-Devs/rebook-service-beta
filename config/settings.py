@@ -31,7 +31,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True ,cast=bool)
 
-CELERY_BROKER_REDIS_URL="redis://localhost:6380"
+CELERY_BROKER_REDIS_URL=f"redis://default:{config('REDIS_PASSWORD')}@{config('REDIS_URL')}"
 
 
 ALLOWED_HOSTS = ['*']
@@ -113,7 +113,8 @@ MIDDLEWARE = [
 CELERY_RESULT_BACKEND = "django-db"
 
 # This configures Redis as the datastore between Django + Celery
-CELERY_BROKER_URL = config('CELERY_BROKER_REDIS_URL', default='redis://localhost:6379')
+CELERY_BROKER_URL = config('CELERY_BROKER_REDIS_URL',
+default=f"redis://default:{config('REDIS_PASSWORD')}@{config('REDIS_URL')}")
 # if you out to use os.environ the config is:
 # CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_REDIS_URL', 'redis://localhost:6379')
 
@@ -252,12 +253,12 @@ DATABASES = {
 # 	}
 # }
 
-# CACHES = {
-#     "default": {
-#         "BACKEND": "django.core.cache.backends.redis.RedisCache",
-#         "LOCATION": "redis://127.0.0.1:6379",
-#     }
-# }
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",   
+        "LOCATION": f"redis://default:{config('REDIS_PASSWORD')}@{config('REDIS_URL')}",
+    }
+}
 # if
 BOOKMIE_CACHING_TIMEOUT = 60 * 15
 
