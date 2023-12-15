@@ -31,7 +31,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True ,cast=bool)
 
-CELERY_BROKER_REDIS_URL=f"redis://default:{config('REDIS_PASSWORD')}@{config('REDIS_URL')}"
+CELERY_BROKER_REDIS_URL= config("REDIS_CONFIG_URL")
 
 
 ALLOWED_HOSTS = ['*']
@@ -113,8 +113,7 @@ MIDDLEWARE = [
 CELERY_RESULT_BACKEND = "django-db"
 
 # This configures Redis as the datastore between Django + Celery
-CELERY_BROKER_URL = config('CELERY_BROKER_REDIS_URL',
-default=f"redis://default:{config('REDIS_PASSWORD')}@{config('REDIS_URL')}")
+CELERY_BROKER_URL = config('CELERY_BROKER_REDIS_URL',default=config("REDIS_CONFIG_URL"))
 # if you out to use os.environ the config is:
 # CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_REDIS_URL', 'redis://localhost:6379')
 
@@ -232,11 +231,11 @@ DATABASES = {
 # DATABASES = {
 #     "default": {
 #         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": "bookup",
-#         "USER": "fl0user",
-        # "PASSWORD": config("DATABASE_PASSWORD"),
-#         "HOST": "ep-curly-tree-81078521.eu-central-1.aws.neon.fl0.io",
-#         "PORT": "5432",
+#         "NAME": config("POSTGRES_DB_NAME"),
+#         "USER": config("POSTGRES_DB_USER"),
+#         "PASSWORD": config("POSTGRES_DB_PASSWORD"),
+#         "HOST": config("POSTGRES_DB_HOST"),
+#         "PORT": config("POSTGRES_DB_PORT"),
 #     }
 # }
 
@@ -256,7 +255,7 @@ DATABASES = {
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",   
-        "LOCATION": f"redis://default:{config('REDIS_PASSWORD')}@{config('REDIS_URL')}",
+        "LOCATION": config("REDIS_CONFIG_URL"),
     }
 }
 # if
