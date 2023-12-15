@@ -27,3 +27,6 @@ python manage.py runserver
 <!-- to start dev server -->
 
 5. click on link or open 127.0.0.1:8000 in browser
+
+   I'm not online anymore 'cause my whatsapp restarted an it automatically logged out
+   And I dont have even a single contact on my sim... So leave your contact here
