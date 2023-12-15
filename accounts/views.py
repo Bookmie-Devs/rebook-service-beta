@@ -5,7 +5,7 @@ from config.sms import send_sms_message
 from campus_app.models import CampusProfile
 from core.models import Booking, Tenant
 from core.phone import check_number
-from .task import send_email_task
+from .task import send_email_task, send_sms_task
 
 """Built in packages"""
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
@@ -130,12 +130,11 @@ def login(request: HttpRequest):
             current_domain = request.META.get('HTTP_X_FORWARDED_HOST', request.META['HTTP_HOST'])
             msg = render_to_string("emails/login_sms.html", {'user':request.user,'time':timezone.now(),
                                                              'domain':current_domain})
-            
-            from .task import send_sms_task
             """
             Send sms with celery
             """
             send_sms_task.delay(request.user.phone, msg)
+            
             # from .task import test_function
             # test_function.delay()
             return redirect('accounts:booking-and-payments')
