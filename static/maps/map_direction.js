@@ -34,7 +34,7 @@ async function initMap() {
     center: hostelPosition,
     gestureHandling: "greedy",
     mapId: "DEMO_MAP_ID",
-    mapTypeId: 'satellite',
+    mapTypeId: 'hybrid',
   });
 
  // Initialize Directions Service and Renderer

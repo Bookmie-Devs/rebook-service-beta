@@ -149,7 +149,7 @@ class HostelDetialsSerializer(serializers.ModelSerializer):
                   'hostel_manager_profile_picture',
                   'hostel_image',
                   'manager_contact',
-                  'hostel_contact','other_phone',
+                  'hostel_contact','other_contact',
                   'mobile_money',
                   'hostel_email',
                   'price_range',
