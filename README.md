@@ -28,5 +28,8 @@ python manage.py runserver
 
 5. click on link or open 127.0.0.1:8000 in browser
 
-   I'm not online anymore 'cause my whatsapp restarted an it automatically logged out
-   And I dont have even a single contact on my sim... So leave your contact here
+
+this is the line 
+0206237060
+
+call line 0256646334
