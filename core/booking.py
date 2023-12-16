@@ -56,7 +56,7 @@ def book_room(request: HttpRequest) -> HttpResponse:
     # Check if room is occupied or avaialable for booking
     elif room.occupied or not room.is_available_for_booking():
         # message
-        messages.info(request, 'Sorry, room has just been occupied, please select new one')
+        messages.info(request, 'Sorry, this room is on pending by other users for 1 hour, please select new one')
         # print(request.META.get(''))    
         # return redirect(request.META.get('HTTP_REFERER'))
         return redirect('accounts:booking-and-payments')

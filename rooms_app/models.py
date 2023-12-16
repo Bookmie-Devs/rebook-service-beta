@@ -78,20 +78,23 @@ class RoomProfile(models.Model):
         return super().save(*args, **kwargs)
     
     def reduce_bed_spaces(self, count_members:int=None):
+        """
+        decrease room bed space after tenant has payed
+        before checking if bed sapce is less than zero
+        """
+        self.bed_space_left -= 1
+        self.save()
         # check if room is full by comparing the number of active tenants
+        """
+        count memebers counts the number of tenants in the room
+        and trigger occupied if greater than room capacity
+        """
         if self.room_capacity <= count_members or self.bed_space_left <= 0:
             self.bed_space_left = 0
             self.occupied = True
             self.save()
-            """
-            count memebers counts the number of tenants in the room
-            and trigger occupied if greater than room capacity
-            """
-        else:
-            # decrease bed space 
-            self.bed_space_left -= 1
-            self.save()
-
+    
+            
     def is_available_for_booking(self) -> bool:
         # check and compare if booking is available for the room
 

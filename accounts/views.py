@@ -84,11 +84,11 @@ def signup(request):
                         # msg = render_to_string('emails/signup_sms.html',{'user':request.user})
                         # send_sms_message(user_contact=request.user.phone, msg=msg)
                         
-                        # email msg with celery
-                        email_message = render_to_string('emails/signup_congrat.html',{'user':request.user})
-                        send_email_task.delay(settings.EMAIL_HOST_USER, [request.user.email], 
-                        f'Welcome to Bookmie.com!, {request.user.username} Your signup was successful.', 
-                        email_message)
+                        # # email msg with celery
+                        # email_message = render_to_string('emails/signup_congrat.html',{'user':request.user})
+                        # send_email_task.delay(settings.EMAIL_HOST_USER, [request.user.email], 
+                        # f'Welcome to Bookmie.com!, {request.user.username} Your signup was successful.', 
+                        # email_message)
 
                         response = HttpResponse()
                         response['HX-Redirect'] = '/accounts/booking-and-payments/'
@@ -133,7 +133,7 @@ def login(request: HttpRequest):
             """
             Send sms with celery
             """
-            send_sms_task.delay(request.user.phone, msg)
+            # send_sms_task.delay(request.user.phone, msg)
             
             # from .task import test_function
             # test_function.delay()
