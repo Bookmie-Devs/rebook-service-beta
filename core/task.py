@@ -1,10 +1,12 @@
 from config.sms import send_sms_message
 from .models import Booking
+from celery import shared_task
 from rooms_app.models import RoomProfile
 from django.utils import timezone
 from django.conf import settings
 
 
+@shared_task()
 def delete_all_expired_booking() -> None:
     """
     delete all booking that have pass the 1 hour 
