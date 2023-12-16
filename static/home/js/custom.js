@@ -62,15 +62,19 @@ const observer = new IntersectionObserver(
     options
 )
 
+try {  
+  observer.observe(section1);
+  observer.observe(section2);
+  observer.observe(section3);
+  observer.observe(section4);
+  observer.observe(section5);
+  observer.observe(section6);
+  observer.observe(section7);
+  observer.observe(section8);
+} catch (error) {
+  
+}
 
-observer.observe(section1);
-observer.observe(section2);
-observer.observe(section3);
-observer.observe(section4);
-observer.observe(section5);
-observer.observe(section6);
-observer.observe(section7);
-observer.observe(section8);
 
 /*USE TRY AND CATCH BLOCKS TO PREVENT
 THE OTHER ONSUBMIT EVENT LISTERNERS FROM CRASHING */

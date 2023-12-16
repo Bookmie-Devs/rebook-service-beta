@@ -252,12 +252,12 @@ DATABASES = {
 # 	}
 # }
 
-CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.redis.RedisCache",   
-        "LOCATION": config("REDIS_CONFIG_URL"),
-    }
-}
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django.core.cache.backends.redis.RedisCache",   
+#         "LOCATION": config("REDIS_CONFIG_URL"),
+#     }
+# }
 # if
 BOOKMIE_CACHING_TIMEOUT = 60 * 15
 
