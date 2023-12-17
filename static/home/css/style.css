@@ -110,13 +110,12 @@ body {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  background-attachment: fixed;
 }
 
 .sub_page .hero_area {
   height: auto;
   background: none;
-  background-color: #070f35;
+  background-color: #0F172B;
 }
 
 .header_section {

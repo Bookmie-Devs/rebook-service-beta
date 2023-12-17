@@ -71,7 +71,6 @@ select {
     color: var(--light);
     width: 250px;
     font-size: 20px;
-    margin-bottom: 10px;
 }
 
 input::placeholder {
@@ -264,4 +263,22 @@ footer{
   100% {
    transform: rotate(1turn);
   }
+ }
+
+ /* Password toggle */
+ .password-container {
+     position: relative;
+     width: min-content;
+     margin: auto;
+     display: flex;
+     flex-direction: row;
+     margin-bottom: 10px;
+ }
+
+ .toggle-password {
+     position: absolute;
+     right: 20px;
+     top: 50%;
+     transform: translateY(-50%);
+     cursor: pointer;
  }
