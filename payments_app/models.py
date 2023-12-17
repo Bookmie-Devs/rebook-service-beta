@@ -24,12 +24,12 @@ class PaymentHistory(models.Model):
         return f'{self.user} payed on {self.date_of_payment.date()} @{self.date_of_payment.hour}:{self.date_of_payment.minute}'
 
     def save(self, *args, **kwargs):
-        
         # reference for payment with datatime of payment
-        """ the replace methods replace all spaces with closed
+        """ 
+        the replace methods replace all spaces with closed
         (makes sure there are no spaces to avoids reference
-                                       errors with paystack) """
-        
+        errors with paystack)
+        """
         self.reference = f'py0{timing.day}ref-{self.payment_id}-{self.user.first_name.lower()[:3]}-{self.user.student_id}-{self.user.last_name.lower()[:2]}-3369-{self.user.first_name.lower()}-0{timing.month}-{self.user.last_name.lower()}-0{timing.year}-pay-to-rbk'.replace(" ","") 
         super().save(*args, **kwargs)
     
