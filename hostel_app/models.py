@@ -110,7 +110,6 @@ class HostelProfile(models.Model):
     occupied = models.BooleanField(default=False)
    
     #Location of hostel base on Google map API
-    # On testing
     address = map_fields.AddressField(max_length=200, blank=True, null=True)
     geolocation = map_fields.GeoLocationField(max_length=500, blank=True, null=True)
 
