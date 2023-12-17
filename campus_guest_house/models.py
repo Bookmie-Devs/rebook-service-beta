@@ -102,7 +102,7 @@ class GuestHouseRooms(models.Model):
     room_image = models.ImageField(upload_to='GuestHouseRoomImages',default='room_img_unavailable.jpg')
     guest_house = models.ForeignKey(GuestHouse, on_delete=models.CASCADE)
     room_type = models.CharField(max_length=50)
-    room_price = models.DecimalField(decimal_places=2)
+    room_price = models.DecimalField(decimal_places=2, max_digits=10)
     campus = models.ForeignKey(CampusProfile, on_delete=models.PROTECT)
     
 
