@@ -421,17 +421,6 @@ button:hover::before{
         font-size: 20px;
     }
 
-    .first-content{
-      display: none;
-    }
-
-    .second-content {
-      opacity: 1;
-      height: 100%;
-      font-size: inherit;
-      transform: rotate(0deg);
-      transition-delay: 1.5s;
-    }
 }
 
 @media screen and (max-width: 480px) {
@@ -445,6 +434,18 @@ button:hover::before{
 
     h2{
         font-size: 15px;
+    }
+    
+    .first-content {
+      display: none;
+    }
+
+    .second-content {
+      opacity: 1;
+      height: 100%;
+      font-size: inherit;
+      transform: rotate(0deg);
+      transition-delay: 1.5s;
     }
 }
 

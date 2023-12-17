@@ -246,3 +246,18 @@ footer{
    transform: rotate(1turn);
   }
  }
+
+ /* Password toggle */
+ .password-container {
+     position: relative;
+     width: min-content;
+     margin: auto;
+ }
+ 
+ .toggle-password {
+     position: absolute;
+     right: 20px;
+     top: 50%;
+     transform: translateY(-50%);
+     cursor: pointer;
+ }

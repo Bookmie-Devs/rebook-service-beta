@@ -135,13 +135,13 @@
                   Campus Hostels
                 </a>
               </div>
+              {% if user.is_anonymous %}
               <div class="btn-box">
                 <a href="{% url 'accounts:signup' %}" class="">
                   Signup
                   <i class="bi bi-person-circle"></i>
                 </a>
               </div>
-              {% if user.is_anonymous %}
               <div class="btn-box">
                 <a href="{% url 'accounts:login' %}" class="">
                   login
@@ -151,8 +151,14 @@
               {% else %}
               <div div class="btn-box">
                 <a href="{% url 'accounts:booking-and-payments' %}" class="">
-                  Your Profile and Details
+                  Your Profile
                   <i class="bi bi-person-circle"></i>
+                </a>
+              </div>
+              <div div class="btn-box">
+                <a href="{% url 'accounts:logout' %}" class="">
+                  Log out
+              <i class="bi bi-box-arrow-right"></i>
                 </a>
               </div>
               {% endif %}
@@ -204,11 +210,11 @@
         <div class="card border">
           <div class="content">
             <img src="{{ campus.flag.url }}" alt="">
-                <p class="heading">{{ campus.campus_name }}</p>
+                <p class="heading mb-0">{{ campus.campus_name }}</p>
 
             {% if campus.available_on_campus %}
-                <p class="para">1000+ Rooms
-                <i class="bi bi-house-fill"></i>
+                <p class="para mb-0">1000+ Rooms
+                <i class="bi bi-house"></i>
                 </p>
                 <a href="{% url 'rooms:campus-rooms' campus.campus_code %}" 
                     class="btn">All Rooms Available 🏠</a>
@@ -216,7 +222,7 @@
                 <a class="btn" href="{% url 'core:hostels' campus.campus_code %}">
                   View Hostels 🏢</a>
             {% else %}
-            <p class="para">
+            <p class="para mb-0">
               <strong>Not Available</strong>
                 </p>
               <a href="#!" 

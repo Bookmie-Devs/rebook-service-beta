@@ -62,7 +62,7 @@
   --bs-body-font-weight: 400;
   --bs-body-line-height: 1.5;
   --bs-body-color: #212529;
-  --bs-body-bg: #fff;
+  --bs-body-bg: #dcdef8;
   --bs-border-width: 1px;
   --bs-border-style: solid;
   --bs-border-color: #dee2e6;
@@ -202,10 +202,11 @@ body {
 }
 
 .custom-shape-divider-top-1695573055 .shape-fill {
-  fill: #ffffff;
+  fill: #dcdef8;
 }
 
 .card{
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   animation: myAnim 2s ease 0s 1 normal forwards;
 }
 
@@ -233,6 +234,7 @@ body {
   background: var(--primary);
   color: var(--dark) !important;
   border:1px solid var(--light);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .card-footer .btn:hover{

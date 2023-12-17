@@ -82,6 +82,7 @@
               id="first-name"
               name="first_name"
               placeholder="First Name"
+              class="section1a"
               required
             />
           </div>
@@ -100,16 +101,20 @@
               id="last-name"
               name="last_name"
               placeholder="Last Name"
+              class="section1b"
               required
             />
           </div>
+          <div id="msgDiv" role="alert">
+            </div>
           <br />
           <div class="bttn">
-            <button type="button" onclick="showSection(2)">
+            <button type="button" onclick="showSection2(2)">
               Next <i class="bi bi-arrow-right"></i>
             </button>
           </div>
           <br />
+
         </div>
 
         <div class="section" id="section2" style="display: none">
@@ -131,6 +136,7 @@
               id="student-id"
               name="student_id"
               placeholder="Student ID Number"
+              class="section2a"
               required
             />
           </div>
@@ -141,17 +147,20 @@
               id="phone"
               name="phone"
               placeholder="Phone (Eg. 054300...)"
+              class="section2b"
               required
             />
           </div>
+          <div id="msgDiv2" role="alert">
+            </div>
           <br />
           <div class="bttn">
-            <button type="button" onclick="showSection(1)">
+            <button type="button" onclick="back(1)">
               <i class="bi bi-arrow-left"></i> Back
             </button>
             <br />
             <br />
-            <button type="button" onclick="showSection(3)">
+            <button type="button" onclick="showSection3(3)">
               Next <i class="bi bi-arrow-right"></i>
             </button>
           </div>
@@ -162,6 +171,7 @@
         <div class="section" id="section3" style="display: none">
           <p>Authentication</p>
           <div class="input-container">
+            <div class="password-container">
             <input
               type="email"
               id="email"
@@ -169,23 +179,33 @@
               placeholder="Email"
               required
             />
+            </div>
             <div id="email-message" role="alert">
             </div>
             <!-- <p id="email-message"></p> -->
           </div>
 
           <div id='password-div' class="input-container">
+            <div class="password-container">
             <input
               type="password"
               id="password"
               name="password"
-              placeholder="Please enter a strong password"
+              placeholder="Enter password"
               required
             />
+            <div class="toggle-password" id="togglePassword">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gray" class="bi bi-eye" viewBox="0 0 16 16">
+  <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+  <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+</svg>
+    </div>
+            </div>
             <div id="password-message" role="alert">
             </div>
           </div>
           <div id='password-confirm-div' class="input-container">
+            <div class="password-container">
             <input
               type="password"
               id="confirm-password"
@@ -193,11 +213,18 @@
               placeholder="Confirm Password"
               required
             />
+            <div class="toggle-password" id="togglePassword2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gray" class="bi bi-eye" viewBox="0 0 16 16">
+  <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+  <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+</svg>
+    </div>
+    </div>
           </div>
 
           <br />
           <div class="bttn">
-            <button type="button" onclick="showSection(2)">
+            <button type="button" onclick="back(2)">
               <i class="bi bi-arrow-left"></i> Back
             </button>
             <br/>

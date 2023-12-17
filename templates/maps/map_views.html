@@ -3,7 +3,7 @@
 <html>
   <head>
     <title>All Hostels | Directions</title>
-    <meta meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1, user-scalable=no">
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width, height=device-height, target-densitydpi=device-dpi">
 
     <link rel="icon" type="image/x-icon" href="{% static 'home/images/favicon.ico' %}">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
@@ -131,5 +131,9 @@
      <!-- Core theme JS-->
      <script src="{% static 'list_staticfiles/js/scripts.js' %}"></script>
 
+     <!-- Not working on a desktop but working on iOS -->
+      <script>
+        document.addEventListener('touchmove', event => event.scale !== 1 && event.preventDefault(), { passive: false });
+      </script>
   </body>
 </html>
