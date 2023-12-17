@@ -81,6 +81,7 @@ INSTALLED_APPS = [
     'core',
     'management_app',
     'hostel_app',
+    'campus_guest_house',
     'campus_app',
     'reviews_app',
     'rooms_app',
