@@ -43,7 +43,7 @@ class CustomUser(AbstractUser):
         self.phone = str(self.phone).strip()
         self.email = str(self.email).strip()
 
-        if self.middle_name == "":
+        if self.middle_name != None:
             self.username=f"{self.first_name.capitalize()} {self.middle_name.capitalize()} {self.last_name.capitalize()}"
             
         else:
