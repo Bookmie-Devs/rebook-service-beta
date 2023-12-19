@@ -16,7 +16,7 @@
   </head>
   <body>
     <header>
-      <h1>Bookmie</h1>
+      <h1>Payment | Bookmie.com</h1>
     </header>
 
     <div class="container">
@@ -36,21 +36,16 @@
         var handler = PaystackPop.setup({
           key: "{{ paystack_public_key }}", // Replace with your public key
           email: "{{ user.email }}",
-          amount: "{{ room.ptf_room_price }}" * 100, // the amount value is multiplied by 100 to convert to the lowest currency unit
+          amount: parseFloat("{{ room.ptf_room_price }}") * 100, // the amount value is multiplied by 100 to convert to the lowest currency unit
           currency: "GHS", // Use GHS for Ghana Cedis or USD for US Dollars
-          ref: "{{ reference }}", // Replace with a reference you generated
           subaccount: "{{ subaccount }}",
           callback: function (response) {
             //this happens after the payment is completed successfully
-            var reference = response.reference;
-            // alert('Payment complete!');
-            window.location.href =
-              "{% url 'payments:verify-payment' reference %}";
-            //AJAX call to server with the reference to verify the transaction
+            var paystack_reference = response.reference;
+            window.location.href = `/payments/verify-payment/{{reference_id}}/${paystack_reference}/`
           },
           onClose: function () {
             alert("Transaction was not completed, window closed.");
-
             // redirect user to profile if payment is cancel
             window.location.href = "{% url 'accounts:booking-and-payments' %}";
           },
