@@ -9,8 +9,8 @@ from django.utils import timezone
 timing = timezone.now()
 class PaymentHistory(models.Model):
     payment_id = models.UUIDField(primary_key=True, unique=True, editable=False, default=uuid.uuid4)
-    reference = models.CharField(max_length=500, unique=True, editable=False,
-                                 default='unavailable')
+    reference_id = models.CharField(max_length=500, unique=True, editable=False,default='unavailable')
+    paystack_reference = models.CharField(max_length=500, default='unavailable')
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
     email = models.EmailField()
     amount = models.DecimalField(decimal_places=1, max_digits=7)
@@ -30,10 +30,10 @@ class PaymentHistory(models.Model):
         (makes sure there are no spaces to avoids reference
         errors with paystack)
         """
-        self.reference = f'py0{timing.day}ref-{self.payment_id}-{self.user.first_name.lower()[:3]}-{self.user.student_id}-{self.user.last_name.lower()[:2]}-3369-{self.user.first_name.lower()}-0{timing.month}-{self.user.last_name.lower()}-0{timing.year}-pay-to-rbk'.replace(" ","") 
+        self.reference_id = f'py0{timing.day}ref-{self.payment_id}-{self.user.first_name.lower()[:3]}-{self.user.student_id}-{self.user.last_name.lower()[:2]}-3369-{self.user.first_name.lower()}-0{timing.month}-{self.user.last_name.lower()}-0{timing.year}-pay-to-rbk'.replace(" ","") 
         super().save(*args, **kwargs)
     
-    def amount_value(self) -> int:
+    def get_amount_value(self) -> int:
         return self.amount*100
 
 

@@ -53,7 +53,7 @@ def initiate_payment(request: HttpRequest, room_id):
                                     account_payed_to=room.hostel.account_number,
                                     room=room,hostel=room.hostel,)
                 payment.save()
-                return redirect('payments:make-payment', room.room_id)
+                return redirect('payments:make-payment', reference_id=payment.reference_id, room_id=room.room_id)
             
             else:
                 #save payment details
@@ -64,35 +64,37 @@ def initiate_payment(request: HttpRequest, room_id):
                                     room=room,
                                     hostel=room.hostel,
                                     )
-                payment.save()
-                            
-                return redirect('payments:make-payment', room.room_id)
+                payment.save()            
+                return redirect('payments:make-payment', reference_id=payment.reference_id, room_id=room.room_id)
+            
     # return redirect
     return render(request, 'payments/initiate_payment.html',
                                     {'room':room, 'user':request.user,})
 
 @login_required()
-def make_payment(request, room_id):
+def make_payment(request: HttpRequest, reference_id,  room_id):
     room = RoomProfile.objects.get(room_id=room_id)
     subaccount = PaystackSubAccount.objects.get(hostel=room.hostel)
-    payment = PaymentHistory.objects.get(user=request.user)
-
     # make payment ot subaccount
     return render(request=request,template_name='payments/make_payment.html', 
-                  context={'room':room,'reference':payment.reference, 
+                  context={'room':room,'reference_id': reference_id, 
                            'subaccount':subaccount.subaccount_code,
                            'user':request.user, 
                            'paystack_public_key':settings.PAYSTACK_PUBLIC_KEY })
 
 @login_required()
-def verify_payment(request, reference):  
-    payment = get_object_or_404(PaymentHistory, reference=reference)
+def verify_payment(request: HttpRequest, reference_id, paystack_reference):  
+    """
+    To prevent more than one payament history being query use user
+    and referene_id to query history after payment is made
+    """
+    payment = get_object_or_404(PaymentHistory, user=request.user, reference_id=reference_id)
 
-    # room payed for 
+    # room payed for    
     acquired_room = RoomProfile.objects.get(room_id=payment.room.room_id)
 
     # checkout validation from api response
-    verify = paystack_verification(reference)
+    verify = paystack_verification(paystack_reference)
     if (verify.status_code==200 and 
         verify.json().get('message')=='Verification successful' and
         verify.json()['data'].get('status')=="success" and
@@ -105,6 +107,7 @@ def verify_payment(request, reference):
         tenant.save()
 
         #DECLARE SUCCESSFULL TRUE if PAYMENT WAS A SUCCESS
+        payment.paystack_reference = paystack_reference
         payment.successful = True
         payment.save()
  
