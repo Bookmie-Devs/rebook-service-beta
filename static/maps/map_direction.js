@@ -42,7 +42,7 @@ async function initMap() {
  directionsRenderer = new google.maps.DirectionsRenderer({
   polylineOptions: {
     strokeColor: '#FE9901', // Set the color of the direction line
-    strokeWeight: 5
+    strokeWeight: 6
   },
   suppressMarkers: true,  // Show markers on the map
   // suppressPolylines: false // Show the polyline on the map
@@ -127,51 +127,3 @@ function calculateAndDisplayRoute(origin, destination) {
 
 initMap();
 
-
-
-
-
-
-
-
-
-// async function initMap() {
-//   // campus main entrance coordinates
-//   const campusEntrancePosition = {
-//     lat: parseFloat(document.getElementById('campus-lat').value),
-//     lng: parseFloat(document.getElementById('campus-lng').value),
-//   };
-
-//   // The location of hostel
-//   const hostelPosition = {
-//     lat: parseFloat(document.getElementById('lat').value),
-//     lng: parseFloat(document.getElementById('lng').value),
-//   };
-
-//   // Request needed libraries.
-//   //@ts-ignore
-//   const { Map } = await google.maps.importLibrary('maps');
-//   const { AdvancedMarkerElement } = await google.maps.importLibrary('marker');
-
-
- 
-
-
-//   // The marker, positioned at hostel location
-//   const marker = new AdvancedMarkerElement({
-//     map: map,
-//     position: hostelPosition,
-//     // the hostel name as title
-//     title: document.getElementById('hostel-name').value,
-//   });
-
-//   // Add click event listener to the marker
-//   marker.addListener('click', () => {
-//     // Calculate and display directions when marker is clicked
-//     calculateAndDisplayRoute(hostelPosition, campusEntrancePosition);
-//   });
-// }
-
-
-
-// initMap();

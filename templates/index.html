@@ -47,7 +47,8 @@
 
 <body>
   <div class="hero_area">
-    <!-- header section strats -->
+    
+    {% cache 172800 cache1 %}
     <header class="header_section">
       <div class="container-fluid">
         <nav class="navbar navbar-expand-lg custom_nav-container">
@@ -90,6 +91,7 @@
         </nav>
       </div>
     </header>
+  {% endcache %}
 
 
     <section class="slider_section section" id="1">
@@ -166,11 +168,11 @@
             </div>
       </div>
     </section>
-    <!-- end slider section -->
   </div>
 
 
 
+  {% cache 172800 cache2 %}
 
   <section class="find_section ">
     <div class="container">
@@ -184,9 +186,11 @@
     </div>
   </section>
 
+  {% endcache %}
 
 
 
+  {% cache 172800 cache3 %}
   <section class="sale_section layout_padding-bottom section" id="2">
     <div class="container-fluid">
       <div class="heading_container">
@@ -233,9 +237,10 @@
       </div>
     </div>
   </section>
+  {% endcache %}
 
 
-
+  {% cache 172800 cache4 %}
   <section class="about_section layout_padding-bottom section" id="3">
     <div class="square-box mb-4">
       <img src="{% static 'home/images/square.png' %}" alt="">
@@ -273,10 +278,11 @@
       </div>
     </div>
   </section>
-
+  {% endcache %}
   
 
 
+{% cache 172800 cache5 %}
   <section class="deal_section layout_padding-bottom section" id="4">
     <div class="container">
       <div class="row">
@@ -306,9 +312,11 @@
       </div>
     </div>
   </section>
+  {% endcache %}
 
 
 
+{% cache 172800 cache6 %}
   <section class="us_section layout_padding2 section" id="5">
     <div class="container">
       <div class="heading_container">
@@ -382,9 +390,10 @@
       
     </div>
   </section>
+  {% endcache %}
 
 
-
+  {% cache 172800 cache7 %}
   <section class="client_section layout_padding section" id="6">
     <div class="container-fluid">
       <div class="heading_container">
@@ -449,9 +458,10 @@
       </div>
     </div>
   </section>
+{% endcache %}
 
 
-
+{% cache 172800 cache8 %}
   <section class="contact_section section" id="7">
     <div class="container">
       <div class="heading_container">
@@ -509,10 +519,10 @@
       </div>
     </div>
   </section>
+  {% endcache %}
 
 
-
-
+  {% cache 172800 cache9 %}
   <section class="info_section section" id="8">
     <div class="container">
       <div class="row">
@@ -615,10 +625,10 @@
       </div>
     </div>
   </section>
-
-
+{% endcache %}
   
-
+  
+{% cache 172800 cache10 %}
   <section class="container-fluid footer_section ">
 
     <div class="container">
@@ -627,6 +637,7 @@
       </p>
     </div>
   </section>
+{% endcache %}
 
 
   <script type="text/javascript" src="{% static 'home/js/jquery-3.4.1.min.js' %}"></script>
