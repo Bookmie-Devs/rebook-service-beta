@@ -25,7 +25,7 @@ try {
       msgDiv.innerHTML = `<ul class="list-group"><li class="list-group-item list-group-item-danger">Inputs are required</li></ul>`
        setTimeout(function () {
          msgDiv.innerHTML = ''
-      }, 5000);
+      }, 4000);
     } else{
     document.getElementById(`section${sectionNumber}`).style.display = 'block';
     }
@@ -53,7 +53,7 @@ try {
       msgDiv2.innerHTML = `<ul class="list-group"><li class="list-group-item list-group-item-danger">Inputs are required</li></ul>`;
       setTimeout(function () {
          msgDiv2.innerHTML = ''
-      }, 5000);
+      }, 4000);
     } else{
     document.getElementById(`section${sectionNumber}`).style.display = 'block';
     }

@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const passwordInput = document.getElementById("password");
     const passwordMessage = document.getElementById("password-message");
 
+    const phoneInput =document.getElementById('phone');
+
     const signupButton = document.getElementById("signup-button");
     
     const passwordConfirmDiv = document.getElementById("password-confirm-div");
@@ -120,4 +122,18 @@ document.addEventListener("DOMContentLoaded", () => {
       passwordMessage.style.display = "none"; // Hide the message
       passwordConfirmDiv.style.display = "block" //show confirm password input
     }
+
+  // Phone Validators
+    phoneInput.addEventListener("input", validatePhone);
+
+    function validatePhone() {
+      const phone = phoneInput.value.trim();
+  
+      if (phone.length==10) {
+          document.getElementById('msgDiv2').style.display = "none"
+      } else {
+        document.getElementById('msgDiv2').style.display = "block"
+        document.getElementById('msgDiv2').innerHTML = `<ul class="list-group"><li class="list-group-item list-group-item-danger">Phone must be 10 values</li></ul>`;
+      }}
+
   });
