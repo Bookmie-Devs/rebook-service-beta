@@ -271,7 +271,6 @@
               <!-- Booking form-->
               <form
                 class="booking-form"
-                data-action="Booking..."
                 action="{% url 'core:booking'  %}"
                 method="POST">
                 {% csrf_token %}
@@ -346,7 +345,7 @@
         document.addEventListener('DOMContentLoaded', function () {
             var form = document.getElementById('filter-form');
 
-            // Add a debounce function to limit the rate of AJAX requests
+            // debounce function to limit the rate of AJAX requests
             var debounceFilter = _.debounce(function () {
                 form.dispatchEvent(new Event('change', { bubbles: true }));
             }, 300); // the debounce time as needed
