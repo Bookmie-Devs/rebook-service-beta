@@ -101,7 +101,7 @@
                     
                     <div class="col-md-6"><a href="{{ room.hostel.room_image.url }}"><img class="card-img-top mb-5 mb-md-0 img" src="{{ room.hostel.room_image.url}}" alt="..." /></a></div>
                     <div class="col-md-6 text-center">
-                        <div class="small mb-1">SKU: BST-498</div>
+                        <div class="small mb-1">Registered to {{ room.campus.alias_name.upper}}: BST-498</div>
                         <h3 class="display-5 fw-bolder" style="color: orange;">{{ room.hostel.hostel_name }}</h3>
                         <h1>Room {{ room.room_no }}</h1>
                         <h3><b>{{ room.gender.capitalize }}</b> Room</h3>

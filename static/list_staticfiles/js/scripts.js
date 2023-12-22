@@ -13,7 +13,7 @@ document.querySelectorAll('.booking-form').forEach((form) => {
         load.style.display = "flex";
         // change p-tag of loader in campus hostel page during submission
 
-        loadingOption.innerHTML = form.dataset.action;    
+        loadingOption.innerHTML = 'Booking . . .';    
         // Simulate a delay (you can replace this with your actual form submission logic)
         setTimeout(function () {
         // Hide the loader after the delay

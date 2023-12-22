@@ -31,7 +31,7 @@
                     </div>
                     <br>
                     <!-- Product name-->
-                    <h6 class="fw-bold mt-2">{{ room.hostel.hostel_name }}</h6>
+                    <h6 class="fw-bold mt-2">{{ room.hostel.hostel_name.capitalize }}</h6>
                     <h6 class="">{{ room.gender.capitalize }} Room</h6>
                     <!-- <h5 class="fw-bolder">{{ room.rating }}</h5> -->
                     {% comment %} <div
@@ -51,7 +51,6 @@
                 <!-- Booking form-->
                 <form
                   class="booking-form"
-                  data-action="Booking..."
                   action="{% url 'core:booking'  %}"
                   method="POST">
                   {% csrf_token %}
