@@ -142,6 +142,12 @@ class HostelDetialsSerializer(serializers.ModelSerializer):
     number_of_rooms = serializers.SerializerMethodField(read_only=True)
     number_of_tenants = serializers.SerializerMethodField(read_only=True)
     number_rooms_occupied = serializers.SerializerMethodField(read_only=True)
+
+    # statistics
+    number_of_4_in_a_room = serializers.SerializerMethodField(read_only=True)
+    number_of_3_in_a_room = serializers.SerializerMethodField(read_only=True)
+    number_of_2_in_a_room = serializers.SerializerMethodField(read_only=True)
+    number_of_1_in_a_room = serializers.SerializerMethodField(read_only=True)
     class Meta:
         model = HostelProfile
         fields = ('hostel_name',
@@ -156,14 +162,20 @@ class HostelDetialsSerializer(serializers.ModelSerializer):
                   'main_website',
                   'location',
                   
+                #  statistics
                   'number_of_rooms',
                   'number_of_tenants',
                   'number_rooms_occupied',
+                  'number_of_4_in_a_room',
+                  'number_of_3_in_a_room',
+                  'number_of_2_in_a_room',
+                  'number_of_1_in_a_room',
                   )
         
     def get_managers_name(self, obj:HostelProfile):
         return obj.hostel_manager.username
     
+    # STATISTICS
     def get_number_of_rooms(self, obj:HostelProfile):
         # request = self.context.get('request')
         room_count = RoomProfile.objects.filter(hostel=obj).count()
@@ -177,3 +189,21 @@ class HostelDetialsSerializer(serializers.ModelSerializer):
     def get_number_rooms_occupied(self, obj:HostelProfile):
         room_occupied_count = RoomProfile.objects.filter(hostel=obj,occupied=True).count()
         return room_occupied_count
+
+    def get_number_of_4_in_a_room(self, obj:HostelProfile):
+        number_of_4_in_a_room = RoomProfile.objects.filter(room_capacity=4).count()
+        return number_of_4_in_a_room
+    
+    def get_number_of_3_in_a_room(self, obj:HostelProfile):
+        number_of_3_in_a_room = RoomProfile.objects.filter(room_capacity=3).count()
+        return number_of_3_in_a_room
+    
+    def get_number_of_2_in_a_room(self, obj:HostelProfile):
+        number_of_2_in_a_room = RoomProfile.objects.filter(room_capacity=2).count()
+        return number_of_2_in_a_room
+    
+    def get_number_of_1_in_a_room(self, obj:HostelProfile):
+        number_of_1_in_a_room = RoomProfile.objects.filter(room_capacity=1).count()
+        return number_of_1_in_a_room
+    
+    
