@@ -20,5 +20,5 @@ def verify(request: HttpRequest=None, verification_code: str=None):
             return Response(info, status=status.HTTP_401_UNAUTHORIZED)
 
     except Tenant.DoesNotExist:
-        info={'message':'Tenant is not verified or has not payed'}
+        info={'message':'Tenant V-code not valid.'}
         return Response(info, status=status.HTTP_404_NOT_FOUND)
