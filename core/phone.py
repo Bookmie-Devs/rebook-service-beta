@@ -12,4 +12,4 @@ def check_number(number: str):
     elif valid_phone[:4]=="+233" and len(valid_phone[4:])==9:
         return ("0" + "%s") % valid_phone[4:]
     else:
-        return "number-error"
+        return 400

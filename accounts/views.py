@@ -39,7 +39,7 @@ def signup(request):
                     validate_password(request.POST.get('confirm_password'))
 
                     # checking if number is valid
-                    if check_number(request.POST.get('phone')) == "number-error":
+                    if check_number(request.POST.get('phone')) == 400:
                         
                         message ={'message':'Phone number incorrect, please go back and check'}
                         return render(request,'htmx_message_templates/message.html', message)
@@ -153,21 +153,16 @@ def logout(request):
 @login_required()
 def booking_and_payments(request):
     get_user = CustomUser.objects.get(id=request.user.id)
-
     if Booking.objects.filter(user=request.user).exists():
         booking = Booking.objects.get(user=request.user)
         tenant = False
-        context = {'user':get_user, 
-                   'tenant':tenant,
-                   'booking': booking,}
+        context = {'user':get_user, 'tenant':tenant,'booking': booking,}
         return render(request, 'booking_and_payments.html',context=context)
-
+    
     elif Tenant.objects.filter(user=request.user).exists():
         tenant = Tenant.objects.get(user=request.user)
         booking = False
-        context = {'user':get_user, 
-                   'booking': booking,
-                   'tenant':tenant}
+        context = {'user':get_user,'booking': booking,'tenant':tenant}
         return render(request, 'booking_and_payments.html',context=context)
     
     else:
