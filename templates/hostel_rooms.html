@@ -9,7 +9,7 @@
     />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Bookmie.com | {{ hostel.hostel_name }}</title>
+    <title>Bookmie.com | {{ hostel.hostel_name.title }}</title>
     <!-- Favicon-->
   <link rel="icon" type="image/x-icon" href="{% static 'home/images/favicon.ico' %}">
     <!-- Bootstrap icons-->
@@ -175,7 +175,7 @@
               <a
                 style="color: rgb(254, 161, 22)"
                 href="{% url 'hostels:profile' hostel_id=hostel.hostel_id %}"
-                >{{ hostel.hostel_name }}</a
+                >{{ hostel.hostel_name.title }}</a
               >🏢
             </h1>
 
