@@ -139,6 +139,7 @@ class RoomDetailSerializer(serializers.ModelSerializer):
 class HostelDetialsSerializer(serializers.ModelSerializer):
     manager = serializers.SerializerMethodField(method_name='get_managers_name')
     # statistics
+    total_sales = serializers.SerializerMethodField(read_only=True)
     number_of_rooms = serializers.SerializerMethodField(read_only=True)
     number_of_tenants = serializers.SerializerMethodField(read_only=True)
     number_rooms_occupied = serializers.SerializerMethodField(read_only=True)
@@ -154,6 +155,7 @@ class HostelDetialsSerializer(serializers.ModelSerializer):
                   'manager',
                   'hostel_manager_profile_picture',
                   'hostel_image',
+                  'facilities',
                   'manager_contact',
                   'hostel_contact','other_contact',
                   'mobile_money',
@@ -166,6 +168,7 @@ class HostelDetialsSerializer(serializers.ModelSerializer):
                   'number_of_rooms',
                   'number_of_tenants',
                   'number_rooms_occupied',
+                  'total_sales',
                   'total_bed_space_left',
                   'number_of_4_in_a_room',
                   'number_of_3_in_a_room',
@@ -188,8 +191,19 @@ class HostelDetialsSerializer(serializers.ModelSerializer):
         for room in rooms:
             # add bed spaces
             total_bed_space_left = total_bed_space_left + room.bed_space_left
-        # retun value
+        # return value
         return total_bed_space_left
+
+    def get_total_sales(self, obj:HostelProfile):
+        total_sales: float = 0
+        rooms = RoomProfile.objects.filter(hostel=obj,occupied=True)
+        for room in rooms:
+            # get total amount each user in the room paid
+            total_price_in_room = float(room.room_capacity) * float(room.room_price)
+            # add prices
+            total_sales = float(total_sales + total_price_in_room)
+        # return value
+        return total_sales
 
     def get_number_of_tenants(self, obj:HostelProfile):
         # tenants whoose end_date is greater than current date
