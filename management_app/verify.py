@@ -17,7 +17,7 @@ def verify(request: HttpRequest=None, verification_code: str=None):
         
         else:
             info={'message':'Tenant V-code has expired'}
-            return Response(info, status=status.HTTP_404_NOT_FOUND)
+            return Response(info, status=status.HTTP_401_UNAUTHORIZED)
 
     except Tenant.DoesNotExist:
         info={'message':'Tenant is not verified or has not payed'}
