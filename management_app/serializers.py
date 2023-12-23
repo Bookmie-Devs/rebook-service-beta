@@ -137,17 +137,17 @@ class RoomDetailSerializer(serializers.ModelSerializer):
 
 
 class HostelDetialsSerializer(serializers.ModelSerializer):
-
     manager = serializers.SerializerMethodField(method_name='get_managers_name')
+    # statistics
     number_of_rooms = serializers.SerializerMethodField(read_only=True)
     number_of_tenants = serializers.SerializerMethodField(read_only=True)
     number_rooms_occupied = serializers.SerializerMethodField(read_only=True)
-
-    # statistics
     number_of_4_in_a_room = serializers.SerializerMethodField(read_only=True)
     number_of_3_in_a_room = serializers.SerializerMethodField(read_only=True)
     number_of_2_in_a_room = serializers.SerializerMethodField(read_only=True)
     number_of_1_in_a_room = serializers.SerializerMethodField(read_only=True)
+    total_bed_space_left = serializers.SerializerMethodField(read_only=True)
+
     class Meta:
         model = HostelProfile
         fields = ('hostel_name',
@@ -166,6 +166,7 @@ class HostelDetialsSerializer(serializers.ModelSerializer):
                   'number_of_rooms',
                   'number_of_tenants',
                   'number_rooms_occupied',
+                  'total_bed_space_left',
                   'number_of_4_in_a_room',
                   'number_of_3_in_a_room',
                   'number_of_2_in_a_room',
@@ -181,6 +182,15 @@ class HostelDetialsSerializer(serializers.ModelSerializer):
         room_count = RoomProfile.objects.filter(hostel=obj).count()
         return room_count
 
+    def get_total_bed_space_left(self, obj:HostelProfile):
+        total_bed_space_left: int = 0
+        rooms = RoomProfile.objects.filter(hostel=obj)
+        for room in rooms:
+            # add bed spaces
+            total_bed_space_left = total_bed_space_left + room.bed_space_left
+        # retun value
+        return total_bed_space_left
+
     def get_number_of_tenants(self, obj:HostelProfile):
         # tenants whoose end_date is greater than current date
         tenant_count = Tenant.objects.filter(hostel=obj,end_date__gt=timezone.now()).count()
@@ -191,19 +201,19 @@ class HostelDetialsSerializer(serializers.ModelSerializer):
         return room_occupied_count
 
     def get_number_of_4_in_a_room(self, obj:HostelProfile):
-        number_of_4_in_a_room = RoomProfile.objects.filter(room_capacity=4).count()
+        number_of_4_in_a_room = RoomProfile.objects.filter(hostel=obj,room_capacity=4).count()
         return number_of_4_in_a_room
     
     def get_number_of_3_in_a_room(self, obj:HostelProfile):
-        number_of_3_in_a_room = RoomProfile.objects.filter(room_capacity=3).count()
+        number_of_3_in_a_room = RoomProfile.objects.filter(hostel=obj,room_capacity=3).count()
         return number_of_3_in_a_room
     
     def get_number_of_2_in_a_room(self, obj:HostelProfile):
-        number_of_2_in_a_room = RoomProfile.objects.filter(room_capacity=2).count()
+        number_of_2_in_a_room = RoomProfile.objects.filter(hostel=obj,room_capacity=2).count()
         return number_of_2_in_a_room
     
     def get_number_of_1_in_a_room(self, obj:HostelProfile):
-        number_of_1_in_a_room = RoomProfile.objects.filter(room_capacity=1).count()
+        number_of_1_in_a_room = RoomProfile.objects.filter(hostel=obj,room_capacity=1).count()
         return number_of_1_in_a_room
     
     
