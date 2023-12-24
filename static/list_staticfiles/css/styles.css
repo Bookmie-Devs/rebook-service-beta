@@ -250,6 +250,10 @@ body {
   padding-right: 10px;
 }
 
+.nav .container{
+  position: relative;
+}
+
 .collapse .nav-item {
   text-align: center;
 }
@@ -282,6 +286,64 @@ section {
   min-height: calc(100vh - 280px) !important;
 }
 
+.custom_menu-btn {
+  z-index: 9;
+  position: absolute;
+  right: 33px;
+  top: -2px;
+  display: none;
+}
+
+.custom_menu-btn button {
+  outline: none;
+  border: none;
+  background-color: transparent;
+  height: 35px;
+  width: 35px;
+  padding: 0 !important;
+}
+
+.custom_menu-btn button span {
+  position: relative;
+  display: block;
+  height: 3px;
+  border-radius: 10px;
+  background-color: #fff;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+
+.menu_btn-style {
+  z-index: 9;
+  position: absolute;
+  right: 42px;
+  top: -2px;
+}
+
+.custom_menu-btn.menu_btn-style .s-1 {
+  transform: rotate(137deg) translateY(-17px);
+}
+
+.custom_menu-btn.menu_btn-style .s-2 {
+  opacity: 0;
+}
+
+.custom_menu-btn.menu_btn-style .s-3 {
+  transform: rotate(-137deg) translateY(17px);
+}
+
+.custom_menu-btn .s-1 {
+  top: 0;
+}
+
+.custom_menu-btn .s-2 {
+  top: 25%;
+}
+
+.custom_menu-btn .s-3 {
+  top: 50%;
+}
+
 /* make curve straigth on phone */
 @media screen and (max-width:480px) {
         .header{
@@ -311,6 +373,10 @@ section {
   .bttn{
     flex-direction: column;
   }
+
+    .custom_menu-btn{
+      display: block;
+    }
 }
 
 hr {

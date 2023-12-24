@@ -11,3 +11,7 @@ bkg.style.background = 'linear-gradient(rgba(0, 0, 0, 0.486), rgba(0, 0, 0, 0.80
 bkg.style.backgroundPosition = 'center';
 bkg.style.backgroundRepeat = 'no-repeat';
 bkg.style.backgroundSize = 'cover';
+
+function openNav() {
+    document.getElementById("menu-btn").classList.toggle("menu_btn-style")
+}
