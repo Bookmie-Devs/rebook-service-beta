@@ -9,19 +9,74 @@
   visibility: hidden;
   opacity: 0;
   transform: translateX(130px);
-  transition: all 1s;
+  transition: all 0.7s;
 }
 .section:nth-child(even) {
   visibility: hidden;
   opacity: 0;
   transform: translateX(-130px);
-  transition: all 1s;
+  transition: all 0.7s;
 }
 
 .section.fade-in{
   visibility: visible;
   opacity: 1;
   transform: translateY(0);
+}
+
+.section .d {
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(90px) scale(0.8);
+  transition: all 0.7s;
+  overflow: hidden;
+}
+.section .l {
+  visibility: hidden;
+  opacity: 0;
+  transform: translateX(90px) scale(0.8);
+  transition: all 0.7s;
+  overflow: hidden;
+}
+.section .r {
+  visibility: hidden;
+  opacity: 0;
+  transform: translateX(-90px) scale(0.8);
+  transition: all 0.7s;
+  overflow: hidden;
+}
+.section .t {
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-90px) scale(0.8);
+  transition: all 0.7s;
+  overflow: hidden;
+}
+
+.section.fade-in .d, .section.fade-in .l, .section.fade-in .r,.section.fade-in .t {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.section.fade-in .d1 {
+  transition-delay: 0.4s;
+}
+
+.section.fade-in .d2 {
+  transition-delay: 0.8s;
+}
+
+.section.fade-in .d3 {
+  transition-delay: 1.2s;
+}
+
+.section.fade-in .d4 {
+  transition-delay: 1.6s;
+}
+
+.section.fade-in .d5 {
+  transition-delay: 2s;
 }
 
 /* Animation end */
