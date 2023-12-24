@@ -45,8 +45,8 @@ span{
     border: 1px solid;
 }
 
-h5 {
-    color: var(--primary);
+h3 {
+    color: var(--light);
     margin-bottom: 20px;
 }
 

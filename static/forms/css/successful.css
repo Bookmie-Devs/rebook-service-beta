@@ -9,7 +9,7 @@
 
 body {
     font-family: Arial, sans-serif;
-    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.904)), url(../img/impact.jpg);
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.0)), url(../img/impact.jpg);
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -42,11 +42,11 @@ span{
 }
 
 .container {
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.904));
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8));
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    width: 300px;
+    width: 400px;
     text-align: center;
 }
 
@@ -63,7 +63,7 @@ button {
     cursor: pointer;
     padding: 5px 10px;
     margin-top: 20px;
-    width: 110px;
+    width: 180px;
     border-radius: 5px;
     font-weight: bold;
     font-size: 20px;

@@ -316,7 +316,7 @@ span{
   }
 
 .label {
-    color: var(--primary);
+    color: var(--light);
     margin-bottom: 20px;
 }
 

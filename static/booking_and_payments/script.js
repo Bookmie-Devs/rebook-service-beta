@@ -10,6 +10,10 @@ const Load = document.querySelector('.load');
 //     directionContainer.style.display = 'block';
 // })
 
+function openNav() {
+    document.getElementById("menu-btn").classList.toggle("menu_btn-style")
+}
+
 
 direction.onclick =() => {
 

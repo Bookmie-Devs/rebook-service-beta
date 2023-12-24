@@ -43,6 +43,19 @@
             ><img src="{% static 'home/images/favicon.ico' %}" alt="" style="height: 30px; width: 30px;"> Bookmie.com</a
           >
         </h1>
+        <div id="menu-btn" class="custom_menu-btn">
+              <button>
+                <span class="s-1">
+
+                </span>
+                <span class="s-2">
+
+                </span>
+                <span class="s-3">
+
+                </span>
+              </button>
+            </div>
         <button
           class="navbar-toggler"
           type="button"
@@ -51,6 +64,8 @@
           aria-controls="navbarSupportedContent"
           aria-expanded="false"
           aria-label="Toggle navigation"
+          style="z-index: 10; opacity: 0;"
+          onclick="openNav()"
         >
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -335,11 +350,11 @@
           <!-- message if there no room available -->
           <a
             style="text-decoration: none; color: rgba(5, 5, 5, 0.938)"
-            href="{% url 'rooms:campus-rooms' hostel.campus.campus_code %}"
+            href="{% url 'rooms:campus-rooms' hostel.campus.campus_code %}" class="w-75"
           >
-            <div class="col mb-5">
+            <div class="col w-100 mb-5">
               <!-- class = "border border-danger" from boostrap -->
-              <div class="card h-100 border border-danger">
+              <div class="card w-100 h-100 border border-danger">
                 <div class="card-body p-4">
                   <div class="text-center">
                     <h5 class="fw-bolder">Currently is full😭</h5>

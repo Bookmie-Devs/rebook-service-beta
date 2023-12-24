@@ -13,7 +13,7 @@
   </head>
   <body>
     <header>
-        <h1>Payment | Bookmie.com</h1>
+        <h1>Bookmie.com</h1>
     </header>
 
     <div class="container">
@@ -40,7 +40,7 @@
           </div>
           <div class="second-content">
           <!-- Second Page -->
-      <h4 class="label">₵{{ room.ptf_room_price }} to {{ room.hostel.hostel_name}}</h4>
+      <h2 class="label">₵{{ room.ptf_room_price }} to {{ room.hostel.hostel_name}}</h2>
       <form data-action="Proceeding.." id="paymentForm" method="POST" action="{% url 'payments:init-payment' room.room_id %}">
         {% csrf_token %}
         <div class="input-container">
