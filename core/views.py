@@ -80,10 +80,12 @@ def update_vcode(request):
             tenant.delete_if_expired()
             booked_room = RoomProfile.objects.get(room_id=request.POST.get('room_id')) 
             booking=Booking.objects.create(room=booked_room, user=request.user, 
-                                      room_number=booked_room.room_no, hostel=booked_room.hostel, 
-                                      student_id=request.user.student_id, status='Booked',
-                                      end_time=(timezone.now() + timedelta(seconds=40)),
-                                      campus=booked_room.campus)
+                                    room_number=booked_room.room_no, hostel=booked_room.hostel, 
+                                    student_id=request.user.student_id, status='Booked',
+                                    end_time=(timezone.now() + timedelta(seconds=40)),
+                                    campus=booked_room.campus,
+                                    #for payment app to what type of booking
+                                    is_updating_vcode=True)
             booking.save()
             messages.error(request,"Please proceed to payment")
             return redirect("accounts:booking-and-payments")
