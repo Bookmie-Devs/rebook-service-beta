@@ -104,13 +104,13 @@
               </h1>
           
               <div class="box">
-              <div class="btn-box">
+              <div class="btn-box l d1">
                 <a href="{% url 'campus:campus-list' 'room-router' %}" class="">
                 All Rooms Available (Recommend) <i class="bi bi-check-circle"></i> 
                 </a>
               </div>
               
-              <div class="btn-box">
+              <div class="btn-box d d2">
                 <a href="{% url 'campus:campus-list' 'map-router' %}" class="">
                   Search On Map (Recommend) 
                   <svg
@@ -131,26 +131,26 @@
                 </a>
               </div>
 
-              <div class="btn-box">
+              <div class="btn-box t d3">
                 <a href="{% url 'campus:campus-list' 'hostel-router' %}" class="">
                   Campus Hostels
                 </a>
               </div>
               {% if user.is_anonymous %}
-              <div class="btn-box">
+              <div class="btn-box d d4">
                 <a href="{% url 'accounts:signup' %}" class="">
                   Signup
                   <i class="bi bi-person-circle"></i>
                 </a>
               </div>
-              <div class="btn-box">
+              <div class="btn-box r d5">
                 <a href="{% url 'accounts:login' %}" class="">
                   login
                   <i class="bi bi-box-arrow-in-left"></i>
                 </a>
               </div>
               {% else %}
-              <div div class="btn-box">
+              <div div class="btn-box r d4">
                 <a href="{% url 'accounts:booking-and-payments' %}" class="">
                   Your Profile
                   <i class="bi bi-person-circle"></i>
@@ -160,7 +160,7 @@
               
             </div>
 
-            <p style="color: rgb(189, 189, 189);">
+            <p style="color: rgb(189, 189, 189);" class="d d5">
             Book and pay for a room without any stress...You want a room? We Got You(No Perching)
             </p>
             <br>
@@ -196,7 +196,7 @@
         <h2 class="h2">
           Campuses We Are Available
         </h2>
-        <p>
+        <p class="l d1">
        No scams...All rooms have been verified by our team of experts
         </p>
       </div>
@@ -204,7 +204,7 @@
         
       {% for campus in campuses %}
       
-        <div class="card border">
+        <div class="card d d2">
           <div class="content">
             <img src="{{ campus.flag.url }}" alt="">
                 <p class="heading mb-0">{{ campus.campus_name }}</p>
@@ -253,23 +253,23 @@
         </div>
         <div class="col-md-6">
           <div class="detail-box">
-            <div class="heading_container">
+            <div class="heading_container r d1">
               <h2 class="h2">
                 What We Do
               </h2>
             </div>
-            <p>
+            <p class="d d2">
            We are the number one hostel booking platform that provides 100%
            assurance that all our customers/users get rooms and privacy.
            We have rooms available at various price ranges...
            Want your own room and comfort, We've got you!!!
             </p>
-            <div class="heading_container">
+            <div class="heading_container l d3">
               <h2 class="h2">
                 No Scams!!!
               </h2>
             </div>
-            <a href="{% url 'core:about' %}">
+            <a href="{% url 'core:about' %}" class="d d4">
               Read More
             </a>
           </div>
@@ -292,7 +292,7 @@
                 Very Good Deal For Hostels!
               </h2>
             </div>
-            <p>
+            <p class="l d1">
           All our rooms have varying pricing that will suit your taste.
           Very affordable and spacious...
             </p>
@@ -300,10 +300,10 @@
         </div>
         <div class="col-md-6">
           <div class="img-box">
-            <div class="box b1">
+            <div class="box b1 d d2">
               <img src="{% static 'home/images/hd-hostel-kirov-mens-6-bed-room-3-1.jpg' %}" alt="">
             </div>
-          <div class="box b1">
+          <div class="box b1 r d3">
               <img src="{% static 'home/images/486634435.jpg' %}" alt="">
             </div>
           </div>
@@ -326,7 +326,7 @@
       </div>
       <div class="row">
         <div class="col-md-3 col-sm-6">
-          <div class="box">
+          <div class="box r d1">
             <div class="img-box">
               <img src="{% static 'home/images/u-1.png' %}" alt="">
             </div>
@@ -341,7 +341,7 @@
           </div>
         </div>
         <div class="col-md-3 col-sm-6">
-          <div class="box">
+          <div class="box l d2">
             <div class="img-box">
               <img src="{% static 'home/images/u-2.png' %}" alt="">
             </div>
@@ -356,7 +356,7 @@
           </div>
         </div>
         <div class="col-md-3 col-sm-6">
-          <div class="box">
+          <div class="box r d3">
             <div class="img-box">
               <img src="{% static 'home/images/u-3.png' %}" alt="">
             </div>
@@ -371,7 +371,7 @@
           </div>
         </div>
         <div class="col-md-3 col-sm-6">
-          <div class="box">
+          <div class="box d d4">
             <div class="img-box">
               <img src="{% static 'home/images/u-4.png' %}" alt="">
             </div>
@@ -400,7 +400,7 @@
           Trusted Over All Campuses
         </h2>
       </div>
-      <div class="client_container">
+      <div class="client_container d d1">
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
           <div class="carousel-inner">
             
@@ -410,7 +410,7 @@
                 <div class="img-box">
                   <img src="{% static 'home/images/client.jpg' %}" alt="">
                 </div>
-                <div class="detail-box">
+                <div class="detail-box r d2">
                   <h5>
                     <span>Majority</span>
                     <hr>
@@ -483,27 +483,27 @@
           <div class="form_container">
             <form id="feedback-form">
               {% csrf_token %}
-              <div class="inputbox">
+              <div class="inputbox d d1">
                 <input name="name" id="username" required="required" type="text">
                 <span>Name</span>
                 <i></i>
             </div>
-            <div class="inputbox">
+            <div class="inputbox d d2">
               <input name="email" id="useremail" required="required" type="email">
               <span>Email</span>
               <i></i>
           </div>
-          <div class="inputbox">
+          <div class="inputbox d d3">
             <input name="phone" id="userphone" required="required" type="text">
             <span>Phone Number</span>
             <i></i>
         </div>
-        <div class="inputbox">
+        <div class="inputbox d d4">
           <input name="message" id="message" required="required" type="text">
           <span>Message</span>
           <i></i>
       </div>
-              <div class="d-flex ">
+              <div class="d-flex r d5">
                 <button id="feedback-button" type="submit">
                   Send
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
