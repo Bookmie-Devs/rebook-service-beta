@@ -27,6 +27,10 @@ class Booking(models.Model):
     end_time = models.DateTimeField(null=True, blank=True)
     status = models.CharField(max_length=20)
     payed = models.BooleanField(default=False) 
+
+    # this boolean is check if booking if for vcode upadate or normal booking
+    is_updating_vcode = models.BooleanField(default=False)
+    
     class Meta:
         ordering = ('-start_time',)
 
