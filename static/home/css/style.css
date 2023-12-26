@@ -9,13 +9,13 @@
   visibility: hidden;
   opacity: 0;
   transform: translateX(130px);
-  transition: all 0.7s;
+  transition: all 1s;
 }
 .section:nth-child(even) {
   visibility: hidden;
   opacity: 0;
   transform: translateX(-130px);
-  transition: all 0.7s;
+  transition: all 1s;
 }
 
 .section.fade-in{
