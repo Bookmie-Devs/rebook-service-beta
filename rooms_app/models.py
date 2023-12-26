@@ -26,7 +26,7 @@ class RoomProfile(models.Model):
                                 null=True)
     
     room_capacity = models.PositiveIntegerField(default=4)
-    bed_space_left = models.IntegerFieldy(default=0)
+    bed_space_left = models.IntegerField(default=0)
 
     gender = models.CharField(max_length=20,
                             choices=[('female','female'),('male','male')],
