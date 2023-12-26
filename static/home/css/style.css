@@ -18,7 +18,7 @@
   transition: all 0.7s;
 }
 
-.section.fade-in{
+/* .section.fade-in{
   visibility: visible;
   opacity: 1;
   transform: translateY(0);
@@ -77,7 +77,7 @@
 
 .section.fade-in .d5 {
   transition-delay: 2s;
-}
+} */
 
 /* Animation end */
 
