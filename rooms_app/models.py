@@ -26,7 +26,7 @@ class RoomProfile(models.Model):
                                 null=True)
     
     room_capacity = models.PositiveIntegerField(default=4)
-    bed_space_left = models.PositiveIntegerField(default=0)
+    bed_space_left = models.IntegerFieldy(default=0)
 
     gender = models.CharField(max_length=20,
                             choices=[('female','female'),('male','male')],
@@ -82,7 +82,7 @@ class RoomProfile(models.Model):
         decrease room bed space after tenant has payed
         before checking if bed sapce is less than zero
         """
-        self.bed_space_left -= 1
+        self.bed_space_left = self.bed_space_left - 1
         self.save()
         # check if room is full by comparing the number of active tenants
         """
