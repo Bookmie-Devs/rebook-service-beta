@@ -126,8 +126,9 @@ def login(request: HttpRequest):
             """
             # send_sms_task.delay(request.user.phone, msg)
             
-            # from .task import test_function
-            # test_function.delay()
+            # for testing
+            send_sms_task(request.user.phone, msg)
+
             return redirect('accounts:booking-and-payments')
         else:
             messages.error(request, 'Credentials invalid')
@@ -194,12 +195,18 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.save()
         auth.login(request, user)
-        # sms message
-        # msg = render_to_string('emails/signup_sms.html',{'user':request.user})
-        # send_sms_message(user_contact=request.user.phone, msg=msg)
+        # sms message for testing
+        # will celery later to send sms
+        msg = render_to_string('emails/signup_sms.html',{'user':request.user})
+        send_sms_message(user_contact=request.user.phone, msg=msg)
         
         # # email msg with celery
         email_message = render_to_string('emails/signup_congrat.html',{'user':request.user})
+        # send_email_task.delay(f'Welcome to Bookmie.com!, {request.user.username} Your signup was successful.', 
+        #                 email_message, 
+        #                 settings.EMAIL_HOST_USER, 
+        #                 [request.user.email])
+        # for testing
         send_email_task(f'Welcome to Bookmie.com!, {request.user.username} Your signup was successful.', 
                         email_message, 
                         settings.EMAIL_HOST_USER, 
