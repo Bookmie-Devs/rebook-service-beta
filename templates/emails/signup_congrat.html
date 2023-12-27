@@ -1,18 +1,74 @@
-Dear {{user.username}},
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Bookmie.com</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+            color: #333;
+        }
 
-Welcome to Bookmie.com ! We're thrilled to have you on board and want to extend our warmest greetings. Thank you for choosing us.
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
 
-Here are a few steps to get started:
+        .logo {
+            text-align: center;
+        }
 
-Complete Your Profile:
-Take a moment to complete your profile to personalize your experience. This helps us tailor our services to your needs.
+        .logo img {
+            max-width: 100px;
+        }
 
-Explore Our Features:
-Dive into our platform and explore the various features we offer. Whether it's "All Available Rooms" or "Room Filter", we're confident you'll find value in what we provide.
+        h2 {
+            color: #007bff;
+        }
 
-Need Help?
-If you have any questions or need assistance, our support team is here to help. Feel free to reach out at Bookmie.com@gmail.com.
+        p {
+            margin-bottom: 15px;
+        }
 
-Once again, welcome to Bookmie.com We're excited to have you as part of our community.
+        .cta-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="https://{{ domain }}/static/home/images/favicon.ico" alt="Bookmie.com Logo">
+        </div>
+        <h2>Welcome to Bookmie.com!</h2>
+        <p>Dear {{ user.username }},</p>
+        <p>We're thrilled to have you on board and want to extend our warmest greetings. Thank you for choosing us.</p>
 
-Best regards,
+        <h3>Here are a few steps to get started:</h3>
+        <ol>
+            <li><strong>Complete Your Profile:</strong> Take a moment to complete your profile to personalize your experience. This helps us tailor our services to your needs.</li>
+            <li><strong>Explore Our Features:</strong> Dive into our platform and explore the various features we offer. Whether it's "All Available Rooms" or "Room Filter", we're confident you'll find value in what we provide.</li>
+        </ol>
+
+        <p><strong>Need Help?</strong> If you have any questions or need assistance, our support team is here to help. Feel free to reach out at <a href="mailto:Bookmie.com@gmail.com">Bookmie.com@gmail.com</a>.</p>
+
+        <p>Once again, welcome to Bookmie.com! We're excited to have you as part of our community.</p>
+
+        <p>Best regards,</p>
+        <p>The Bookmie.com Team</p>
+    </div>
+</body>
+</html>

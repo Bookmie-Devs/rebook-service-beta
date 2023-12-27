@@ -1,15 +1,16 @@
-from django.core.mail import send_mail
+from django.core.mail import EmailMessage, send_mail
 from celery import shared_task
 
 from config.sms import send_sms_message
 
 @shared_task()
-def send_email_task(from_email, recipient_list, subject, message,) -> None:
+def send_email_task(subject, message, from_email, recipient_list,) -> None:
     """
     let celery send the email
     """
-    send_mail(from_email=from_email, recipient_list=recipient_list, subject=subject, message=message,
-              fail_silently=True)
+    email = EmailMessage(subject, message, from_email=from_email, to=recipient_list)
+    email.content_subtype = "html"
+    email.send(fail_silently=True)
 
 
 @shared_task()
