@@ -9,8 +9,8 @@ class MapTest(TestCase):
     
 
     def test_map_display(self):
-        """check if map has been diplayed"""
-        test_user = Client().get("maps:hostel-directio")
+        """check if map direction has been diplayed"""
+        test_user = Client().get("maps:hostel-direction")
         self.assertEqual(test_user.status_code, 200)
 
     

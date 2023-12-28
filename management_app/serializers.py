@@ -196,12 +196,11 @@ class HostelDetialsSerializer(serializers.ModelSerializer):
 
     def get_total_sales(self, obj:HostelProfile):
         total_sales: float = 0
-        rooms = RoomProfile.objects.filter(hostel=obj,occupied=True)
-        for room in rooms:
-            # get total amount each user in the room paid
-            total_price_in_room = float(room.room_capacity) * float(room.room_price)
-            # add prices
-            total_sales = float(total_sales + total_price_in_room)
+        active_tenants = Tenant.objects.filter(hostel=obj, end_date__gt=timezone.now())
+        for tenant in active_tenants:
+            # get total amount each user paid for the room
+            total_amount = total_sales + float(tenant.room.room_price) 
+            total_sales = float(total_amount)
         # return value
         return total_sales
 
