@@ -36,7 +36,10 @@ class RoomProfile(models.Model):
     room_price = models.DecimalField(blank=False, decimal_places=2, max_digits=8)
     # platform pricing(selling price)
     ptf_room_price = models.DecimalField(default=0.0, editable=False, decimal_places=2, max_digits=8)
-    # field just there to compare and check if field room price has been changed on save
+    """
+    field just there to compare and check if the field "room price"
+    has been changed or not when the save method is called on an object
+    """
     previous_price_check = models.DecimalField(blank=True, editable=False,
                                       null=True, decimal_places=2, max_digits=7)
 
@@ -63,6 +66,8 @@ class RoomProfile(models.Model):
 
     def save(self, *args, **kwargs):
         # CHECK IF ROOM PRICE IS SAME A PREVIOUS PRICE IF NOT UPDATE FIELDS
+        # Without this check, anytime the save method is called the pft_room_price will
+        # and upadte itself.
         if self.room_price!=self.previous_price_check:
             addtional_pricing: float = float(self.room_price) * settings.SUPPLY_COST_PERCENTAGE
             self.ptf_room_price = float(self.room_price) + addtional_pricing
@@ -70,7 +75,7 @@ class RoomProfile(models.Model):
             self.previous_price_check = self.room_price
         else:
             """
-            Do nothing to ptf price if room price is still the same
+            Do nothing to ptf price if room price is still the same,
             could be that the room has been updated but not the 
             price which does not need to be updated
             """
