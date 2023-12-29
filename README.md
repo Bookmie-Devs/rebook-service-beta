@@ -28,5 +28,3 @@ python manage.py runserver
 
 5. click on link or open 127.0.0.1:8000 in browser
 
-Okay
-God willing tomorrow
