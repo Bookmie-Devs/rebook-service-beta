@@ -18,7 +18,6 @@ body {
     padding: 0;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     min-height: 100vh;
 }
@@ -163,6 +162,10 @@ a:hover{
 }
 
 @media screen and (max-width: 768px) {
+    body{
+        margin-top: 35px;
+    }
+    
     .container {
         width: 60%;
     }
