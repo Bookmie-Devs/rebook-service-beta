@@ -171,7 +171,7 @@ def tenant_auth(request):
         room = get_tenant.room
 
         #qrcode name for user after payments
-        qrcode_name = f'media/auth_qrcodes/{request.user.username} qrcode.png'
+        qrcode_name = f'media/auth_qrcodes/{request.user.username}-{get_tenant.tenant_id}-qrcode.png'
 
         #tittle of pdf page to be generated
         title = f"{request.user.username} Authentication details@Bookmie.com"
