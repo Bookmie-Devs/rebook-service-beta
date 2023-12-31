@@ -7,7 +7,7 @@
     <title>Welcome to Bookmie.com</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: Roboto, sans-serif;
             background-color: #f5f5f5;
             padding: 20px;
             color: #333;
@@ -46,12 +46,18 @@
             text-decoration: none;
             border-radius: 5px;
         }
+
+        .h2{
+            font-weight: 800;
+            color: orangered ;
+            text-shadow: 2px 2px 2px black;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         {% comment %} <div class="logo"> {% endcomment %}
-        <img src="https://{{ domain }}/static/home/images/favicon1.png" alt="Bookmie.com Logo" width="150">
+        <h2 class="h2"><img src="https://{{ domain }}/static/home/images/favicon1.png" alt="" style="height: 50px; width: 50px;"> Bookmie.com</h2>
         {% comment %} </div> {% endcomment %}
         <h2>Welcome to Bookmie.com!</h2>
         <p>Dear {{ user.username }},</p>
