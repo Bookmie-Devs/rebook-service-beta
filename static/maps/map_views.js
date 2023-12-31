@@ -1,6 +1,13 @@
  // Initialize and add the map
- let map;
- let infoWindows = []; // Array to store InfoWindows
+let map;
+let infoWindows = []; // Array to store InfoWindows
+let directionsService;
+// let directionsRenderer;
+let campusEntranceInfoWindow;
+
+ // campus main entrance coordinates
+ const campusEntrancePosition = {lat: parseFloat(document.getElementById('campus-lat').value), 
+                                lng: parseFloat(document.getElementById('campus-lng').value) };
 
 //  function for infoWindow
  function infoWindowFunction(url, name) {
@@ -16,6 +23,8 @@
  }
 
  async function initMap() {
+
+ 
  
    let jsonString = document.getElementById('hostel-coordinates').value
  
@@ -28,15 +37,22 @@
    //@ts-ignore
    const { Map } = await google.maps.importLibrary("maps");
    const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+
+
+  // Initialize Directions Service and Renderer
+  directionsService = new google.maps.DirectionsService();
+  // directionsRenderer = new google.maps.DirectionsRenderer();
+
  
    // Center the map on the first place
    map = new Map(document.getElementById("map"), {
-     zoom: 15,
-    center: places[0],
+    zoom: 15,
+    center: campusEntrancePosition,
     gestureHandling: "greedy",
-     mapTypeId: 'satellite',
-     mapId: "DEMO_MAP_ID",
+    mapTypeId: 'satellite',
+    mapId: "DEMO_MAP_ID",
    });
+
 
  
  // Add markers for each place
@@ -72,8 +88,74 @@
   markers.forEach((marker, index) => {
     infoWindows[index].open(map, marker);
   });
-  
 
+  // Calculate and display directions for the campus entrance to each destination
+  calculateAndDisplayRoutes(campusEntrancePosition, places);
+
+
+  // The marker for campus entrance
+  const campusEntranceMarker = new AdvancedMarkerElement({
+    map: map,
+    position: campusEntrancePosition,
+    // Customize the title to your taste
+    title: `${document.getElementById('campus').value} Campus Entrance`,
+  });
+    
+  campusEntranceInfoWindow = new google.maps.InfoWindow({
+    content: `<button type="button" class="btn btn-primary">
+    ${document.getElementById('campus').value} Main Entrance
+    <i class="bi bi-signpost"></i>
+    </button>`
+    });
+  campusEntranceInfoWindow.open(map, campusEntranceMarker);
 }
+
+
+
+function calculateAndDisplayRoutes(origin, destinations) {
+  destinations.forEach(destination => {
+      const request = {
+          origin: origin,
+          destination: destination,
+          travelMode: 'WALKING', // or other travel modes like 'BICYCLING', etc.
+      };
+
+      directionsService.route(request, function (result, status) {
+          if (status === 'OK') {
+              // Create a new DirectionsRenderer for each route
+              const newRenderer = new google.maps.DirectionsRenderer({
+                  polylineOptions: {
+                      strokeColor: '#FE9901',
+                      strokeWeight: 4,
+                  },
+                  suppressMarkers: true,
+              });
+              newRenderer.setMap(map);
+              newRenderer.setDirections(result);
+          } else {
+              console.error('Error fetching directions:', status);
+          }
+      });
+  });
+}
+
  
  initMap();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

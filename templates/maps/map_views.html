@@ -26,7 +26,7 @@
       <div class="container px-4 px-lg-5">
         <h1>
           <a class="navbar-brand" href="{% url 'core:index' %}" style="color: orange"
-            >        <img src="{% static 'home/images/favicon1.png' %}" alt="" style="height: 50px; width: 200px;">
+            ><img src="{% static 'home/images/favicon1.png' %}" alt="" style="height: 50px; width: 50px;"> Bookmie.com@{{campus.alias_name}}
 </a
           >
             <path
@@ -128,7 +128,11 @@
     <div id="map">
       <!-- MAP SPACE -->
     </div>
-    
+
+    <input id="campus" type="hidden" value="{{ campus.alias_name.upper }}">
+
+    <input id="campus-lat" type="hidden" value="{{ campus.geolocation.lat}}">
+    <input id="campus-lng" type="hidden" value="{{ campus.geolocation.lon }}">
 
     <input type="hidden" id="hostel-coordinates" value="{{coordinates }}">
 
