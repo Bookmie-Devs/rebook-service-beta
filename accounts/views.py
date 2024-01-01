@@ -116,6 +116,11 @@ def login(request: HttpRequest):
         login_user = auth.authenticate(email=email, password=password)
         if login_user is not None:
             auth.login(request, login_user)
+        
+                        
+                          
+            # Send verification email
+            send_verification_email(request=request, user=request.user)
             # send_sms_message
             # current_domain == get_current_site(request)
             current_domain = request.META.get('HTTP_X_FORWARDED_HOST', request.META['HTTP_HOST'])
