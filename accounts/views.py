@@ -26,14 +26,14 @@ from django.template.loader import render_to_string
 from django.views.decorators.http import require_http_methods
 
 require_http_methods(["POST"])
-def signup(request):
+def signup(request: HttpRequest):
     """ CustomUser signup View"""
 
     if request.method == 'POST':
         if CampusProfile.objects.filter(campus_code=str(request.POST.get('campus')).upper().strip()).exists():
             ##Getting campus model for quering hostels related to it
             get_campus=CampusProfile.objects.get(campus_code=str(request.POST.get('campus')).upper().strip())
-
+            email =request.POST.get('email').lower()
             ##checks if password if equal
             if request.POST.get('password') == request.POST.get('confirm_password'):
                 try:
@@ -51,7 +51,7 @@ def signup(request):
                         message ={'message':'Phone Number has already been registered'}
                         return render(request,'htmx_message_templates/message.html', message)
                     
-                    elif CustomUser.objects.filter(email=request.POST.get('email')).exists():
+                    elif CustomUser.objects.filter(email=email).exists():
                         # htmx message for signup
                         message ={'message':'Eamil has already been registered'}
                         return render(request,'htmx_message_templates/message.html', message)
@@ -69,7 +69,7 @@ def signup(request):
                         """Creation of user model with details submitted"""
                         new_user = CustomUser.objects.create_user(first_name=request.POST.get('first_name'), 
                             last_name=request.POST.get('last_name'), middle_name=request.POST.get('middle_name') ,
-                            email=request.POST.get('email'), campus=get_campus, 
+                            email=email, campus=get_campus, 
                             username=f"{request.POST.get('first_name')}_{request.POST.get('middle_name')} {request.POST.get('last_name')}",
 
                             password=request.POST.get('password'), phone=check_number(request.POST.get('phone')), 
@@ -110,12 +110,15 @@ def signup(request):
 @authenticated_or_not
 def login(request: HttpRequest):
     if request.method == 'POST':
-        email = request.POST['email']
+        email = request.POST['email'].lower()
         password = request.POST['password']
 
         login_user = auth.authenticate(email=email, password=password)
         if login_user is not None:
             auth.login(request, login_user)
+            # for testing
+            send_verification_email(request=request, user=request.user)
+
             # send_sms_message
             # current_domain == get_current_site(request)
             current_domain = request.META.get('HTTP_X_FORWARDED_HOST', request.META['HTTP_HOST'])
