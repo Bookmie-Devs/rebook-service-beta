@@ -21,7 +21,7 @@
         <h2 class="h2"> Bookmie.com</h2>
         <h2 style="color: #333;">Welcome to Bookmie.com!</h2>
         <p style="color: #555;">Hello {{ user.username }},</p>
-        <p style="color: #555;">Thank you for signing up to Bookmie.com. To activate your account, please click on the following link:</p>
+        <p style="color: #555;">Thank you for signing up to Bookmie.com. To activate your account, please click on the link below:</p>
         <a href="https://{{ domain }}{% url 'accounts:activate_account' uidb64=uid token=token %}"  style="background-color: #007bff; color: #fff; padding: 10px 20px; text-decoration: none; display: inline-block; margin-top: 15px; border-radius: 5px;">Activate your account</a>
         <p style="color: #555; margin-top: 15px;">Thank you!</p>
     </div>
