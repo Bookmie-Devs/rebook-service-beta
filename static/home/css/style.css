@@ -1362,6 +1362,10 @@ opacity: 0;
   .client_section .client_container div#carouselExampleControls::before {
     left: 20%;
   }
+
+  h2:first-child{
+    font-weight: bolder;
+  }
 }
 
 @media (max-width: 360px) {}

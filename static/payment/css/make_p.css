@@ -26,7 +26,7 @@ body {
 h1{
     font-size: 50px;
     font-weight: 600;
-    color: var(--primary);
+    color: orangered;
     margin: 10px;
     text-shadow: 2px 2px black;
 }

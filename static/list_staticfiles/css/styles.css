@@ -290,7 +290,7 @@ section {
   z-index: 9;
   position: absolute;
   right: 33px;
-  top: -2px;
+  top: -7px;
   display: none;
 }
 
@@ -317,7 +317,7 @@ section {
   z-index: 9;
   position: absolute;
   right: 42px;
-  top: -2px;
+  top: -7px;
 }
 
 .custom_menu-btn.menu_btn-style .s-1 {
@@ -342,6 +342,18 @@ section {
 
 .custom_menu-btn .s-3 {
   top: 50%;
+}
+
+.h1 {
+  color: orangered !important;
+  font-weight: 800;
+  text-shadow: 2px 2px 2px black;
+  text-decoration: none;
+  vertical-align: center !important;
+}
+
+h1 {
+  margin: 0 !important;
 }
 
 /* make curve straigth on phone */
