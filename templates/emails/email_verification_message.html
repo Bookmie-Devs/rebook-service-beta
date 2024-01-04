@@ -12,17 +12,26 @@
             font-size: 40px;
             color: orangered ;
             text-shadow: 2px 2px 2px black;
+            margin-bottom:5px;
+            margin-top: 27px;
+        }
+
+        #logo{
+            height: 80px;
+            width: 80px;
+            margin-bottom:-45px;
         }
     </style>
 </head>
 <body>
     <div style="background-color: #f5f5f5; padding: 20px; text-align: center;">
-        <!-- <h2 class="h2"><img src="https://{{ domain }}/static/home/images/favicon1.png" alt="" style="height: 50px; width: 50px;"> Bookmie.com</h2> -->
-        <h2 class="h2"> Bookmie.com</h2>
-        <h2 style="color: #333;">Welcome to Bookmie.com!</h2>
+        <img id="logo" src="https://{{ domain }}/static/home/images/favicon1.png" alt=""> 
+        <h2 class="h2">Bookmie.com</h2>
+        <!-- <h2 class="h2"> Bookmie.com</h2> -->
+        <h2 style="color: #007bff;">Welcome to Bookmie.com!</h2>
         <p style="color: #555;">Hello {{ user.username }},</p>
-        <p style="color: #555;">Thank you for signing up to Bookmie.com. To activate your account, please click on the link below:</p>
-        <a href="https://{{ domain }}{% url 'accounts:activate_account' uidb64=uid token=token %}"  style="background-color: #007bff; color: #fff; padding: 10px 20px; text-decoration: none; display: inline-block; margin-top: 15px; border-radius: 5px;">Activate your account</a>
+        <p style="color: #555;">Thank you for signing up to Bookmie.com. To activate your account, please click on the link or button below:</p>
+        <a href="https://{{ domain }}{% url 'accounts:activate_account' uidb64=uid token=token %}"  style="background-color: #007bff; color: #fff; padding: 10px 20px; text-decoration: none; display: inline-block; margin-top: 15px; border-radius: 5px;"><strong>Activate your account</strong></a>
         <p style="color: #555; margin-top: 15px;">Thank you!</p>
     </div>
 </body>
