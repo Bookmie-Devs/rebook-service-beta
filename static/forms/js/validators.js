@@ -133,7 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
           document.getElementById('msgDiv2').style.display = "none"
       } else {
         document.getElementById('msgDiv2').style.display = "block"
-        document.getElementById('msgDiv2').innerHTML = `<ul class="list-group"><li class="list-group-item list-group-item-danger">Phone must be 10 values</li></ul>`;
+        document.getElementById('msgDiv2').innerHTML = `<ul class="list-group"><li class="list-group-item list-group-item-danger">Phone less than 10 or incorrect</li></ul>`;
       }}
 
   });
