@@ -61,8 +61,8 @@ form, .section {
 
 input[type="text"],
 input[type="email"],
-input[type="password"],
-select {
+input[type="number"],
+input[type="password"]{
     padding: 10px;
     border: none;
     border-bottom: 1px solid var(--primary);
@@ -77,18 +77,18 @@ input::placeholder {
 }
 
 input:focus {
-    border: none;
+    border: none !important;
 }
 
-select{
+datalist{
     color: gray;
 }
 
-option:not(:first-of-type){
+option{
     background: black;
 }
 
-input:hover, select:hover{
+input:hover{
     transition: 300ms;
     border-bottom: 1px solid var(--dark);
 }

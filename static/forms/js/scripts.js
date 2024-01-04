@@ -45,15 +45,14 @@ try {
     let msgDiv2 = document.getElementById('msgDiv2');
     let section2a = document.querySelector('.section2a').value;
     let section2b = document.querySelector('.section2b').value;
-    let sectionInputs = [section2a, section2b];
-    let emptyInput = sectionInputs.some( input => input === '');
+    let section2c = document.querySelector('.section2c').value;
+    let sectionInputs = [section2a, section2b, section2c];
+    let emptyInput = sectionInputs.some( input => input.trim() === '');
     
     if(emptyInput){
       document.getElementById('section2').style.display = 'block';
       msgDiv2.innerHTML = `<ul class="list-group"><li class="list-group-item list-group-item-danger">Inputs are required</li></ul>`;
-      setTimeout(function () {
-         msgDiv2.innerHTML = ''
-      }, 4000);
+      
     } else{
     document.getElementById(`section${sectionNumber}`).style.display = 'block';
     }
