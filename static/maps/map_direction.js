@@ -6,7 +6,7 @@ let directionsRenderer;
 // info windows var
 let hostelInfoWindow;
 let campusEntranceInfoWindow;
-
+let selectedStartingPoint;
 
 //  function for infoWindow
 function infoWindowFunction(url, name) {
@@ -37,6 +37,9 @@ async function initMap() {
     mapTypeId: 'hybrid',
   });
 
+  // Show notification on map load
+  // showMapNotification("Map loaded successfully!");
+
  // Initialize Directions Service and Renderer
  directionsService = new google.maps.DirectionsService();
  directionsRenderer = new google.maps.DirectionsRenderer({
@@ -63,6 +66,7 @@ async function initMap() {
     </a>`
   });
 
+
  campusEntranceInfoWindow = new google.maps.InfoWindow({
   content: `<button type="button" class="btn btn-primary">
   ${document.getElementById('campus').value} Main Entrance
@@ -77,11 +81,12 @@ async function initMap() {
 
 
     // The marker for campus entrance
-const campusEntranceMarker = new AdvancedMarkerElement({
+  const campusEntranceMarker = new AdvancedMarkerElement({
       map: map,
       position: campusEntrancePosition,
       // Customize the title to your taste
       title: `${document.getElementById('campus').value} Campus Entrance`,
+      gmpDraggable: true,
     });
   
 
@@ -94,20 +99,47 @@ const campusEntranceMarker = new AdvancedMarkerElement({
     title:document.getElementById('hostel-name').value,
   });
 
+  // Funtion for showing info window for campus 
+  function openCampusInfo(info_window, map, marker) {
+
+    info_window.open(map, marker);
+    // Close the notification window after a certain duration (e.g., 3 seconds)
+    setTimeout(() => {
+      const newContent = `<button type="button" class="btn btn-primary">
+      Move Red Marker To Set New Origin
+      <i class="bi bi-signpost"></i>
+      </button>`;
+    info_window.setContent(newContent);
+    }, 4000);
+  }
+  
 
   // Open info windows immediately
   hostelInfoWindow.open(map, hostelMarker);
-  campusEntranceInfoWindow.open(map, campusEntranceMarker);
+  openCampusInfo(campusEntranceInfoWindow, map, campusEntranceMarker);
+ 
 
-
-
+  ///////////////////EVENT LISTENERS///////////////////////////
 
   // Add click event listener to the hostelMarker
   hostelMarker.addListener('click', () => {
   // Open the associated URL in a new tab or window
   window.location.href = document.getElementById('hostel-url').value;
   });
+
+  // Add dragend event listener to the marker
+  campusEntranceMarker.addListener('dragend', function (event) {
+    // Update the selectedStartingPoint when marker is dragged
+    selectedStartingPoint = { lat: event.latLng.lat(), lng: event.latLng.lng() };
+    
+    // Recalculate and display route with the new starting point
+    calculateAndDisplayRoute(selectedStartingPoint, hostelPosition);
+    // showMapNotification("New Direction For Origin");
+
+    changeWindowWhenMarkerMoves(campusEntranceInfoWindow, "New Origin")
+  });
 }
+
 
 function calculateAndDisplayRoute(origin, destination) {
   const request = {
@@ -115,7 +147,6 @@ function calculateAndDisplayRoute(origin, destination) {
     destination: destination,
     travelMode: 'WALKING', //'WALKING', 'BICYCLING', etc.
   };
-
   directionsService.route(request, function (result, status) {
     if (status == 'OK') {
       directionsRenderer.setDirections(result);
@@ -124,6 +155,42 @@ function calculateAndDisplayRoute(origin, destination) {
     }
   });
 }
+
+
+
+function changeWindowWhenMarkerMoves(info_window, message) {
+  const newContent = `<button type="button" class="btn btn-primary">
+    ${message}
+  <i class="bi bi-signpost"></i>
+  </button>`;
+  info_window.setContent(newContent);
+
+  setTimeout(() => {
+    const newContent = `<button type="button" class="btn btn-primary">
+    Move Red Marker To Set New Origin
+    <i class="bi bi-signpost"></i>
+    </button>`;
+  info_window.setContent(newContent);
+  }, 3000);
+}
+
+
+
+function showMapNotification(message) {
+  const notificationInfoWindow = new google.maps.InfoWindow({
+    content: `<div class="alert alert-danger" role="alert">
+        ${message}
+  </div>`
+  });
+
+  notificationInfoWindow.setPosition(map.getCenter());
+  notificationInfoWindow.open(map);
+  // Close the notification window after a certain duration (e.g., 3 seconds)
+  setTimeout(() => {
+    notificationInfoWindow.close();
+  }, 2000);
+}
+
 
 initMap();
 
