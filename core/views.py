@@ -106,8 +106,8 @@ def delete_booking(request):
         #  delete any payment history id any
         from payments_app.models import PaymentHistory
 
-        if PaymentHistory.objects.filter(user=request.user).exists():
-            PaymentHistory.objects.get(user=request.user).delete()
+        if PaymentHistory.objects.filter(user=request.user, successful=False).exists():
+            PaymentHistory.objects.filter(user=request.user, successful=False).delete()
             pass
         else:
             pass

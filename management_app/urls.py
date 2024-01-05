@@ -12,6 +12,7 @@ urlpatterns=[
 
     path('management-profile/', views.HostelProfileView.as_view(),
                                                 name='hostel-profile-view'),
+    path('sales-stats/', views.sales_stats, name="sales-stats"),
     path('update-room-price/', views.UpdateRoomPrice.as_view(), name='change-price'),
                                                 
     path('rooms/', views.RoomListView.as_view(), name='get-rooms'),

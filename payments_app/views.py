@@ -5,9 +5,11 @@ from rooms_app.models import RoomProfile
 from core.qrcode import generate_qrcode
 from config.sms import send_sms_message
 from .payStack import (paystack_verification, 
+                       payment_is_confirm,
                     #    redirect_payment
                        )
 from core import forms
+from .sales import calculate_year_sales
 from core.models import Tenant
 from core.models import Booking
 from hostel_app.models import HostelProfile
@@ -63,7 +65,7 @@ def initiate_payment(request: HttpRequest, room_id):
         else:
             if PaymentHistory.objects.filter(user=request.user, successful=False).exists():
                 # check if there is an unsuccessful payment
-                PaymentHistory.objects.get(user=request.user, successful=False).delete()
+                PaymentHistory.objects.filter(user=request.user, successful=False).delete()
                     #save payment details
                 payment = PaymentHistory.objects.create(user=request.user,
                                     email=request.POST.get('email'),amount=room.ptf_room_price,
@@ -110,19 +112,16 @@ def verify_payment(request: HttpRequest, reference_id, paystack_reference):
     # room payed for    
     acquired_room = RoomProfile.objects.get(room_id=payment.room.room_id)
 
-    # checkout validation from api response after passing
-    # paystack_reference
-    verify = paystack_verification(paystack_reference)
-    if (verify.status_code==200 and 
-        verify.json().get('message')=='Verification successful' and
-        verify.json()['data'].get('status')=="success" and
-        verify.json()['data'].get('amount')==payment.room.ptf_room_price*100):
-        
-    # create tenent object if reponse is positive
+    # checkout validation from api response after passing paystack_reference
+    response_data = paystack_verification(paystack_reference)
+    # confrim payment
+    if payment_is_confirm(data=response_data, payment=payment):
+        # create tenent object if reponse is positive
         tenant = Tenant.objects.create(user=request.user, room=payment.room,
-                                            hostel=payment.hostel, payed=True,
-                                            )
+                                       hostel=payment.hostel, payed=True,)
         tenant.save()
+        # calculate sales on each payment
+        calculate_year_sales(hostel=payment.hostel,amount_paid=payment.room.room_price)
 
         #DECLARE SUCCESSFULL TRUE if PAYMENT WAS A SUCCESS
         payment.paystack_reference = paystack_reference

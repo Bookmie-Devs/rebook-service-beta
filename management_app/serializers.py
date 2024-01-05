@@ -5,6 +5,7 @@ from hostel_app.models import HostelProfile
 from django.utils import timezone
 from core.models import Booking
 from rest_framework.reverse import reverse
+from .models import SalesStatistics
 
 class RoomListSerializer(serializers.ModelSerializer):
     
@@ -229,4 +230,15 @@ class HostelDetialsSerializer(serializers.ModelSerializer):
         number_of_1_in_a_room = RoomProfile.objects.filter(hostel=obj,room_capacity=1).count()
         return number_of_1_in_a_room
     
+    
+class SalesStatSerializer(serializers.ModelSerializer):
+    amount= serializers.SerializerMethodField(read_only=True, method_name='amount_in_float')
+    class Meta:
+        model = SalesStatistics
+        fields = (
+            'year',  
+            'amount',
+        )
+    def amount_in_float(self, obj: SalesStatistics):
+        return float(obj.amount_made)
     

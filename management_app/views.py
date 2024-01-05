@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.http import HttpRequest, Http404
 from django.shortcuts import render
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
@@ -6,7 +7,8 @@ from rest_framework.decorators import api_view
 
 from .serializers import (RoomListSerializer,
                           RoomDetailSerializer,
-                          HostelDetialsSerializer)
+                          HostelDetialsSerializer,
+                          SalesStatSerializer)
 
 from rest_framework.authentication import SessionAuthentication
 # from core.models import Booking
@@ -99,7 +101,7 @@ class HostelProfileView(generics.RetrieveUpdateAPIView):
         self.perform_update(serializer)
 
         return Response(serializer.data)
-    
+
 
 # update room prices
 class UpdateRoomPrice(generics.UpdateAPIView):
@@ -127,16 +129,7 @@ class UpdateRoomPrice(generics.UpdateAPIView):
         else: 
             return Response({'message':'Rooms does not exist'}, status=status.HTTP_404_NOT_FOUND)
         
-
-@permission_classes([IsAuthenticated])    
-@api_view(['POST'])
-def verify_tenant(request):
-    verification_code = request.data.get('verification_code')
     
-    # Verify Tenant
-    return verify(verification_code=verification_code)
-  
-
 # List Tenant View
 class TenantListView(generics.ListAPIView):
         
@@ -164,3 +157,25 @@ class TenantListView(generics.ListAPIView):
     
         except HostelProfile.DoesNotExist:
             return Response({'message':'Hostel was not found'} ,status=status.HTTP_404_NOT_FOUND)
+        
+
+@permission_classes([IsAuthenticated])    
+@api_view(['POST'])
+def verify_tenant(request):
+    verification_code = request.data.get('verification_code')
+    
+    # Verify Tenant
+    return verify(verification_code=verification_code)
+  
+
+@permission_classes([IsAuthenticated, IsHostelManager])    
+@api_view(['GET'])
+def sales_stats(request: HttpRequest):
+    from .models import SalesStatistics
+    # try:
+    hostel = HostelProfile.objects.get(hostel_manager=request.user)
+    sales = SalesStatistics.objects.filter(hostel=hostel).all()
+    serializer = SalesStatSerializer(sales, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+    # except:
+        # return Response({'MESSAGE':'NO_DATA_FOUND'},status=status.HTTP_404_NOT_FOUND)

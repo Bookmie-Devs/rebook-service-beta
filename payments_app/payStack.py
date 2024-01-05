@@ -9,13 +9,6 @@ headers = {
     "Content-Type" : "application/json",
 }
 
-def paystack_verification(reference):
-    
-    # url for checking reference
-    paystack_url = f"https://api.paystack.co/transaction/verify/{reference}"
-
-    response = requests.get(url=paystack_url,headers=headers,)
-    return response
 
 def create_subaccount(hostel: HostelProfile=None):
 
@@ -31,12 +24,27 @@ def create_subaccount(hostel: HostelProfile=None):
         #the percenetage charge for every hostel sub account
         "percentage_charge": settings.SUBACCOUNT_PERCENTAGE, ############################
     }
-
-
     response = requests.post(url=paystack_url,headers=headers,json=data)
     
     return response
 
+
+def paystack_verification(reference):
+    # url for checking reference
+    paystack_url = f"https://api.paystack.co/transaction/verify/{reference}"
+
+    response = requests.get(url=paystack_url,headers=headers,)
+    return response
+
+# confirm payment dat from paystack
+def payment_is_confirm(data, payment):
+    if (data.status_code==200 and 
+        data.json()['data'].get('status')=="success" and
+        data.json()['data'].get('amount')==payment.room.ptf_room_price*100):
+        return True
+    else:
+        return False
+    
 
 # def redirect_payment(customer_email=None, reference=None, room_price=None, hostel=None):
 
