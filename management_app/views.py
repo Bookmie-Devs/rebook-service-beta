@@ -172,10 +172,10 @@ def verify_tenant(request):
 @api_view(['GET'])
 def sales_stats(request: HttpRequest):
     from .models import SalesStatistics
-    # try:
-    hostel = HostelProfile.objects.get(hostel_manager=request.user)
-    sales = SalesStatistics.objects.filter(hostel=hostel).all()
-    serializer = SalesStatSerializer(sales, many=True)
-    return Response(serializer.data, status=status.HTTP_200_OK)
-    # except:
-        # return Response({'MESSAGE':'NO_DATA_FOUND'},status=status.HTTP_404_NOT_FOUND)
+    try:
+        hostel = HostelProfile.objects.get(hostel_manager=request.use)
+        sales = SalesStatistics.objects.filter(hostel=hostel).all()
+        serializer = SalesStatSerializer(sales, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except:
+        return Response({'MESSAGE':'NO_DATA_FOUND'},status=status.HTTP_404_NOT_FOUND)
