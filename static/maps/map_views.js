@@ -46,13 +46,16 @@ let campusEntranceInfoWindow;
  
    // Center the map on the first place
    map = new Map(document.getElementById("map"), {
-    zoom: 17,
+    zoom: 14,
     center: campusEntrancePosition,
     gestureHandling: "greedy",
     mapTypeId: 'satellite',
     mapId: "DEMO_MAP_ID",
    });
-
+   setTimeout(() => {
+    map.setCenter(campusEntrancePosition)
+    map.setZoom(17)
+   }, 3900); 
 
  
  // Add markers for each place

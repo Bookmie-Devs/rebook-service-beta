@@ -22,12 +22,16 @@ async function initMap() {
 
   // The map, centered at hostel locaiton
   map = new Map(document.getElementById("map"), {
-    zoom: 18,
+    zoom: 15,
     center: campusEntrancePosition,
     gestureHandling: "greedy",
     mapId: "DEMO_MAP_ID",
     mapTypeId: 'hybrid',
   });
+  setTimeout(() => {
+    map.setCenter(campusEntrancePosition)
+    map.setZoom(18)
+  }, 3900);
 
   // Show notification on map load
   // showMapNotification("Map loaded successfully!");
