@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
     <link rel="icon" type="image/x-icon" href="{% static 'home/images/favicon.ico' %}">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-
-    <!-- Bootstrap icons-->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
       rel="stylesheet"
@@ -20,7 +18,6 @@
     <link rel="stylesheet" type="text/css" href="{% static 'maps/map.css' %}" />
   </head>
   <body>
-    <!-- Navigation-->
     <nav class="nav navbar navbar-expand-lg navbar-light">
       <div class="container px-4 px-lg-5">
         <h1>
@@ -28,7 +25,6 @@
             ><img src="{% static 'home/images/favicon1.png' %}" alt="" style="height: 40px; width: 40px; margin-top: -5px;">Bookmie.com</a
           >
         </h1>
-        <!-- <h1><a class="navbar-brand" href="#!" style="color: orange;">{{ hostel.hostel_name }} Direction</a></h1> -->
         <div id="menu-btn" class="custom_menu-btn">
               <button>
                 <span class="s-1">
@@ -113,11 +109,9 @@
       </div>
     </nav>
 
-    <!-- break and hr-line to prevent map(statilite view button) from entering the navbar -->
+    {% comment %} <!-- break and hr-line to prevent map(statilite view button) from entering the navbar --> {% endcomment %}
     <br />
     <hr />
-
-    <!--The div element for the map -->
     <div id="map">
       <!-- MAP SPACE -->
     </div>
