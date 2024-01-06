@@ -2,19 +2,12 @@
 let map;
 let directionsService;
 let directionsRenderer;
-
 // info windows var
 let hostelInfoWindow;
 let campusEntranceInfoWindow;
 let selectedStartingPoint;
 
-//  function for infoWindow
-function infoWindowFunction(url, name) {
-  return `<a href="${url}"><h6>${name}</h6></a>`
-}
-
 async function initMap() {
-
   // campus main entrance coordinates
   const campusEntrancePosition = {lat: parseFloat(document.getElementById('campus-lat').value), 
                                   lng: parseFloat(document.getElementById('campus-lng').value) };
@@ -22,7 +15,6 @@ async function initMap() {
   // The location of hostel
   const hostelPosition = {lat: parseFloat(document.getElementById('lat').value), 
                           lng: parseFloat(document.getElementById('lng').value) };
-
   // Request needed libraries.
   //@ts-ignore
   const { Map } = await google.maps.importLibrary("maps");
@@ -31,7 +23,7 @@ async function initMap() {
   // The map, centered at hostel locaiton
   map = new Map(document.getElementById("map"), {
     zoom: 18,
-    center: hostelPosition,
+    center: campusEntrancePosition,
     gestureHandling: "greedy",
     mapId: "DEMO_MAP_ID",
     mapTypeId: 'hybrid',
@@ -44,19 +36,18 @@ async function initMap() {
  directionsService = new google.maps.DirectionsService();
  directionsRenderer = new google.maps.DirectionsRenderer({
   polylineOptions: {
-    strokeColor: '#FE9901', // Set the color of the direction line
+    strokeColor: '#FE9901', 
     strokeWeight: 6
   },
+  preserveViewport: true,
   suppressMarkers: true,  // Show markers on the map
   // suppressPolylines: false // Show the polyline on the map
 
   });
  directionsRenderer.setMap(map);
 
-
-   // open info windows
-   hostelInfoWindow = new google.maps.InfoWindow({
-    // content: `<a "><h6></h6></a>`
+  // open info windows
+  hostelInfoWindow = new google.maps.InfoWindow({
     content: `<a href="${document.querySelector('#hostel-url').value}" type="button" class="btn btn-warning">
     ${document.getElementById('hostel-name').value}
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-check" viewBox="0 0 16 16">
@@ -68,28 +59,23 @@ async function initMap() {
 
 
  campusEntranceInfoWindow = new google.maps.InfoWindow({
-  content: `<button type="button" class="btn btn-primary">
+  content: `<button type="button" class="btn btn-success">
   ${document.getElementById('campus').value} Main Entrance
   <i class="bi bi-signpost"></i>
   </button>`
   });
 
-
-
   // Calculate and display directions immediately
-  calculateAndDisplayRoute(campusEntrancePosition, hostelPosition);
-
+  calculateAndDisplayRoute(campusEntrancePosition, hostelPosition, directionsRenderer);
 
     // The marker for campus entrance
   const campusEntranceMarker = new AdvancedMarkerElement({
       map: map,
       position: campusEntrancePosition,
-      // Customize the title to your taste
-      title: `${document.getElementById('campus').value} Campus Entrance`,
+      title: 'Origin',
       gmpDraggable: true,
     });
   
-
   // The marker, positioned at hostel
   const hostelMarker = new AdvancedMarkerElement({
     map: map,
@@ -134,7 +120,7 @@ async function initMap() {
     selectedStartingPoint = { lat: event.latLng.lat(), lng: event.latLng.lng() };
     
     // Recalculate and display route with the new starting point
-    calculateAndDisplayRoute(selectedStartingPoint, hostelPosition);
+    calculateAndDisplayRoute(selectedStartingPoint, hostelPosition, directionsRenderer);
     // showMapNotification("New Direction For Origin");
 
     changeWindowWhenMarkerMoves(campusEntranceInfoWindow, "New Origin")
@@ -142,7 +128,12 @@ async function initMap() {
 }
 
 
-function calculateAndDisplayRoute(origin, destination) {
+// Function for infoWindow
+function infoWindowFunction(url, name) {
+  return `<a href="${url}"><h6>${name}</h6></a>`
+}
+
+function calculateAndDisplayRoute(origin, destination, directionsRenderer) {
   const request = {
     origin: origin,
     destination: destination,
@@ -158,9 +149,8 @@ function calculateAndDisplayRoute(origin, destination) {
 }
 
 
-
 function changeWindowWhenMarkerMoves(info_window, message) {
-  const newContent = `<button type="button" class="btn btn-primary">
+  const newContent = `<button type="button" class="btn btn-success">
     ${message}
   <i class="bi bi-signpost"></i>
   </button>`;
@@ -176,15 +166,12 @@ function changeWindowWhenMarkerMoves(info_window, message) {
   }, 3000);
 }
 
-
-
 function showMapNotification(message) {
   const notificationInfoWindow = new google.maps.InfoWindow({
     content: `<div class="alert alert-danger" role="alert">
         ${message}
   </div>`
   });
-
   notificationInfoWindow.setPosition(map.getCenter());
   notificationInfoWindow.open(map);
   // Close the notification window after a certain duration (e.g., 3 seconds)
