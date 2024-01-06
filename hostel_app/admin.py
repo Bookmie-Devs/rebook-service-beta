@@ -9,16 +9,14 @@ class CustomHostelAdminPanel(admin.ModelAdmin):
     fieldsets = (
         ('General', {"fields":('hostel_name',
                           'hostel_image',
-                          'room_image',
                           'category',
                           'rating',
                           'price_range',
                           'number_of_rooms',
                           'campus','hostel_manager',
                           )}),
-
+        ('Room Images', {"fields":('room_image','room_image2','room_image3',)}),
         ('Location',{"fields":('location','address','geolocation')}),
-
         ('Contact Details', {'fields':('hostel_email',
                                        'hostel_contact',
                                        'other_contact',

@@ -64,7 +64,11 @@ class HostelProfile(models.Model):
     # room image of the hostel
     room_image =  models.ImageField(upload_to='RoomImages',verbose_name="Image of one room",
                                       default='unavailable.jpg')
-
+    room_image2 = models.ImageField(upload_to='RoomImages',verbose_name="Image2 of one room",
+                                      default='unavailable.jpg')
+    room_image3 = models.ImageField(upload_to='RoomImages',verbose_name="Image3 of one room",
+                                      default='unavailable.jpg')
+    
     category = models.CharField(max_length=15,
                                     verbose_name='type',default='Hostel',
                                     blank=False, choices=category)
