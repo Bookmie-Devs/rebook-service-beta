@@ -14,7 +14,7 @@ def send_newsletter(sender, instance, created, **kwargs):
     if created:
         for emails in NewsletterEmails.objects.all():
             recievers.append(emails.email)
-            print(recievers)
+            # print(recievers)
             send_mail(subject=instance.subject, message=instance.message, fail_silently=True, 
                     from_email=settings.EMAIL_HOST_USER, recipient_list=recievers)    
 
