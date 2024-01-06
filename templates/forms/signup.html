@@ -130,13 +130,13 @@
           <p>Campus and Basic Info</p>
           <!-- Section 2: Campus and Basic Info -->
           <div class="input-container mb-2">
-            <input type="text" placeholder="Select Your Campus" list="campuses" name="campus" id="campus" class="section2c">
-            <datalist name="campus" id="campuses">
-              <option value="KNUST">
-              <option value="UG">
-              <option value="UHAS">
-              <option value="UMAT">
-            </datalist>
+            <select name="campus" id="campus" class="section2c">
+              <option value="">Your Campus</option>
+              <option value="KNUST">KNUST Campus</option>
+              <option value="UG">UG Campus</option>
+              <option value="UHAS">UHAS Campus</option>
+              <option value="UMAT">UMAT Campus</option>
+            </select>
           </div>
 
           <div class="input-container mb-2">
@@ -146,7 +146,6 @@
               name="student_id"
               placeholder="Student ID Number"
               class="section2a"
-              required
             />
           </div>
 
@@ -157,7 +156,6 @@
               name="phone"
               placeholder="Phone (Eg. 054300...)"
               class="section2b"
-              required
             />
           </div>
           <div id="msgDiv2" role="alert">
