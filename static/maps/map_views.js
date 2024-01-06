@@ -46,7 +46,7 @@ let campusEntranceInfoWindow;
  
    // Center the map on the first place
    map = new Map(document.getElementById("map"), {
-    zoom: 15,
+    zoom: 18,
     center: campusEntrancePosition,
     gestureHandling: "greedy",
     mapTypeId: 'satellite',
@@ -128,6 +128,7 @@ function calculateAndDisplayRoutes(origin, destinations) {
                       strokeColor: '#FE9901',
                       strokeWeight: 4,
                   },
+                  preserveViewport: true,
                   suppressMarkers: true,
               });
               newRenderer.setMap(map);
