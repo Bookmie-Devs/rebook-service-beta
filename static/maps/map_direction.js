@@ -23,7 +23,7 @@ async function initMap() {
   // The map, centered at hostel locaiton
   map = new Map(document.getElementById("map"), {
     zoom: 15,
-    center: campusEntrancePosition,
+    center: hostelPosition,
     gestureHandling: "greedy",
     mapId: "DEMO_MAP_ID",
     mapTypeId: 'hybrid',
