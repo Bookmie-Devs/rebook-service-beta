@@ -31,7 +31,7 @@ async function initMap() {
   setTimeout(() => {
     map.setCenter(campusEntrancePosition)
     map.setZoom(18)
-  }, 3900);
+  }, 3300);
 
   // Show notification on map load
   // showMapNotification("Map loaded successfully!");
