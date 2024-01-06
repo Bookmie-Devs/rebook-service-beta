@@ -54,7 +54,7 @@ let campusEntranceInfoWindow;
    });
    setTimeout(() => {
     map.setCenter(campusEntrancePosition)
-    map.setZoom(17.3)
+    map.setZoom(17)
    }, 3000); 
 
  
