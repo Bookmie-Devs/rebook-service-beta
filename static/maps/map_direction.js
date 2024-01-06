@@ -105,8 +105,9 @@ async function initMap() {
     info_window.open(map, marker);
     // Close the notification window after a certain duration (e.g., 3 seconds)
     setTimeout(() => {
-      const newContent = `<button type="button" class="btn btn-primary">
-      Move Red Marker To Set New Origin
+      const newContent = `<button type="button" class="btn btn-primary"
+      style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+      Move Marker To Change Origin
       <i class="bi bi-signpost"></i>
       </button>`;
     info_window.setContent(newContent);
@@ -166,8 +167,9 @@ function changeWindowWhenMarkerMoves(info_window, message) {
   info_window.setContent(newContent);
 
   setTimeout(() => {
-    const newContent = `<button type="button" class="btn btn-primary">
-    Move Red Marker To Set New Origin
+    const newContent = `<button type="button" class="btn btn-primary"
+    style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+    Move Marker To Change Origin
     <i class="bi bi-signpost"></i>
     </button>`;
   info_window.setContent(newContent);
