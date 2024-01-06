@@ -27,7 +27,7 @@ class RoomProfile(models.Model):
     bed_space_left = models.IntegerField(default=0)
 
     gender = models.CharField(max_length=20,
-                            choices=[('female','female'),('male','male')],
+                            choices=[('female','female'),('male','male'),('open','open')],
                             verbose_name="Gender of room",
                             default="male")
     # managers price

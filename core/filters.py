@@ -18,7 +18,7 @@ class HostelFilter(django_filters.CharFilter):
 class RoomFilters(django_filters.FilterSet):
 
     # gender of room
-    gender = ChoiceFilter(choices=[('female','female'),('male','male')])
+    gender = ChoiceFilter(choices=[('female','female'),('male','male'),('open','open'),])
 
     """Capacity range"""
     room_capacity = NumberFilter(field_name='room_capacity')
