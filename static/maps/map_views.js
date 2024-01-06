@@ -46,7 +46,7 @@ let campusEntranceInfoWindow;
  
    // Center the map on the first place
    map = new Map(document.getElementById("map"), {
-    zoom: 18,
+    zoom: 17,
     center: campusEntrancePosition,
     gestureHandling: "greedy",
     mapTypeId: 'satellite',
