@@ -54,8 +54,8 @@ let campusEntranceInfoWindow;
    });
    setTimeout(() => {
     map.setCenter(campusEntrancePosition)
-    map.setZoom(17)
-   }, 3000); 
+    map.setZoom(18)
+   }, 1500); 
 
  
  // Add markers for each place
