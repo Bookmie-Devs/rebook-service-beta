@@ -26,11 +26,12 @@ async function initMap() {
     center: hostelPosition,
     gestureHandling: "greedy",
     mapId: "DEMO_MAP_ID",
-    mapTypeId: 'hybrid',
+    // mapTypeId: 'hybrid',
   });
   setTimeout(() => {
     map.setCenter(campusEntrancePosition)
     map.setZoom(18)
+    map.setMapTypeId('hybrid')
   }, 1500);
 
   // Show notification on map load
@@ -101,7 +102,7 @@ async function initMap() {
       <i class="bi bi-signpost"></i>
       </button>`;
     info_window.setContent(newContent);
-    }, 4000);
+    }, 3000);
   }
   
 
