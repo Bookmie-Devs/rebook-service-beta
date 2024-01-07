@@ -47,6 +47,8 @@ class TenantListSerializer(serializers.ModelSerializer):
     room_number = serializers.SerializerMethodField(read_only=True)
     # student ID
     student_id = serializers.SerializerMethodField(read_only=True)
+
+    phone = serializers.SerializerMethodField(read_only=True)
     class Meta:
         model = Tenant
         fields = (
@@ -55,11 +57,15 @@ class TenantListSerializer(serializers.ModelSerializer):
             'student_id',
             'payed',
             'checked_in',
+            'phone',
         )
 
     """Serializer methods"""
     def get_tenant_name(self, obj:Tenant):
         return obj.user.username
+    
+    def get_phone(self, obj:Tenant) -> str:
+        return obj.user.phone
     
     def get_room_number(self, obj:Tenant):
         return obj.room.room_no
