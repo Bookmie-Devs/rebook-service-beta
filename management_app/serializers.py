@@ -37,6 +37,22 @@ class RoomListSerializer(serializers.ModelSerializer):
         no_of_tenants = Tenant.objects.filter(room=obj).count()
         return no_of_tenants
 
+class RoomDetailSerializer(serializers.ModelSerializer):
+    hostel = serializers.SerializerMethodField()
+    class Meta:
+        model = RoomProfile
+        fields =('room_no',
+                 'room_capacity', 
+                 'room_price',
+                 'occupied',
+                 'bed_space_left',
+                 'hostel',
+                 'gender',)
+
+    #Returns the hostel name
+    def get_hostel(self, obj: RoomProfile):
+        return obj.hostel.hostel_name
+    
 class TenantListSerializer(serializers.ModelSerializer):
     
     """method serializers"""
@@ -127,20 +143,6 @@ class BookingSerializer(serializers.ModelSerializer):
         fields=('user','room_number','hostel', 'room' )
 
 
-class RoomDetailSerializer(serializers.ModelSerializer):
-    hostel = serializers.SerializerMethodField()
-    class Meta:
-        model = RoomProfile
-        fields =('room_no',
-                 'room_capacity', 
-                 'room_price',
-                 'occupied',
-                 'bed_space_left',
-                 'hostel',)
-
-    #Returns the hostel name
-    def get_hostel(self, obj: RoomProfile):
-        return obj.hostel.hostel_name
 
 
 class HostelDetialsSerializer(serializers.ModelSerializer):
