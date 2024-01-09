@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from hostel_app.models import HostelProfile
 from django.utils.translation import gettext_lazy as _
+from accounts.models import CustomUser
 # Create your models here.
 
 class SalesStatistics(models.Model):
@@ -19,8 +20,11 @@ class SalesStatistics(models.Model):
         return f"{self.hostel.hostel_name} on {self.year}"
 
 
-# # SalesStatistics.objects.get().date.year
+    
+class Worker(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    hostel = models.OneToOneField(HostelProfile, on_delete=models.SET_NULL, related_name='hostels', null=True,)
+    is_active = models.BooleanField(default=False)
 
-# from datetime import datetime
-
-# print(datetime.now().year)
+    def __str__(self):
+        return f"{self.user.username}@{self.hostel.hostel_name}"

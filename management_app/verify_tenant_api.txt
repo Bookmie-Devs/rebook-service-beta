@@ -1,0 +1,41 @@
+NB: ALL RESPONSE SHOULD BE HANDLED WITH RED CROSS ERROR INDICATIONS
+EXCEPT FOR THE CODE 2000
+
+Verify tenant api has undergone some modification
+
+1. Error code 404
+Means student is not in our database at all
+Response:
+{'message':'Tenant V-code not valid.'}
+
+
+2. Error code 401
+Means student is in the database but the v-code has expired
+Response:
+{'message':'Tenant V-code has expired'}
+
+3. Code 200
+Means tenant is verified
+
+
+ADDITIONAL CODES AND IMPROVEMENTS:
+
+4. Error code 403
+Means Portar or individual who is Verifying the Tenant
+has been fired or for some reason not allowed to use the Platform
+(simply put he or she is not active)
+Response:
+{'message':'Portar in no Verified'}
+
+5. Error code 400
+Means Tenant is Verified alrigth and the V-code is valid
+but the hostel he is being verified at is not the hostel he booked on the
+Platform
+Response:
+{"message":"Code is assign to <the hostel name>"}
+
+NB: THE VALUE FOR THE hostel name WILL BE PROVIDED IN THE Response
+E.G {"message":"Code is assign ot Evandy"}
+
+
+
