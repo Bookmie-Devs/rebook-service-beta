@@ -48,16 +48,52 @@ let campusEntranceInfoWindow;
    map = new Map(document.getElementById("map"), {
     zoom: 14,
     center: campusEntrancePosition,
+    // heading: -180,
+    streetViewControl: false,
+    tilt: 56.6,
     gestureHandling: "greedy",
     mapTypeId: 'satellite',
-    mapId: "DEMO_MAP_ID",
+    mapId: "90f87356969d889c",
    });
    setTimeout(() => {
     map.setCenter(campusEntrancePosition)
-    map.setZoom(18)
+    map.setZoom(17)
    }, 1200); 
 
- 
+   const buttons = [
+    ["Rotate Left", "rotate", 20, google.maps.ControlPosition.LEFT_CENTER],
+    ["Rotate Right", "rotate", -20, google.maps.ControlPosition.RIGHT_CENTER],
+    ["Tilt Down", "tilt", 20, google.maps.ControlPosition.BOTTOM_CENTER],
+    ["Tilt Up", "tilt", -20, google.maps.ControlPosition.TOP_CENTER],
+  ];
+
+  buttons.forEach(([text, mode, amount, position]) => {
+    const controlDiv = document.createElement("div");
+    const controlUI = document.createElement("button");
+
+    controlUI.classList.add("ui-button");
+    controlUI.innerText = `${text}`;
+    controlUI.addEventListener("click", () => {
+      adjustMap(mode, amount);
+    });
+    controlDiv.appendChild(controlUI);
+    map.controls[position].push(controlDiv);
+  });
+
+  const adjustMap = function (mode, amount) {
+    switch (mode) {
+      case "tilt":
+        map.setTilt(map.getTilt() + amount);
+        break;
+      case "rotate":
+        map.setHeading(map.getHeading() + amount);
+        break;
+      default:
+        break;
+    }
+  };
+
+   
  // Add markers for each place
  const markers = places.map(place => {
    const marker = new AdvancedMarkerElement({
