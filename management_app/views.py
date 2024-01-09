@@ -178,5 +178,5 @@ def verify_tenant(request):
     verification_code = request.data.get('verification_code')
     
     # Verify Tenant
-    return verify(verification_code=verification_code)
+    return verify(request=request, verification_code=verification_code)
   
