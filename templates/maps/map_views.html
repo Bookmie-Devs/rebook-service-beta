@@ -124,13 +124,13 @@
 
     <br />
     <hr />
-    <!-- Add a dropdown for locations -->
-<select id="colleges">
-  <option selected value="">Choose Your College</option>
-  {% for college in colleges %}
-  <option value="{{ college.coordinate }}">{{college.name.title}}</option>
-  {% endfor %}
-</select>
+
+    <select class="form-select" id="colleges">
+      <option selected value="">Choose Your College</option>
+      {% for college in colleges %}
+      <option value="{{ college.coordinate }}">{{college.name.title}}</option>
+      {% endfor %}
+    </select>
 
     <div id="map">
       <!-- MAP SPACE -->
@@ -153,8 +153,8 @@
      <script src="{% static 'list_staticfiles/js/scripts.js' %}"></script>
 
      <!-- Not working on a desktop but working on iOS -->
-      <script>
+      {% comment %} <script>
         document.addEventListener('touchmove', event => event.scale !== 1 && event.preventDefault(), { passive: false });
-      </script>
+      </script> {% endcomment %}
   </body>
 </html>
