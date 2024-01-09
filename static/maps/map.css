@@ -6,7 +6,7 @@
 
  #map {
     height: 100%;
-    /* width: 100%; */
+    width: 100%;
   }
   
   /* 
@@ -19,8 +19,8 @@
     padding: 0;
   }
 
-
-.ui-button {
+/* ROTAION BUTTONS */
+/* .ui-button {
   background-color: #fff;
   border: 0;
   border-radius: 2px;
@@ -34,4 +34,4 @@
 }
 .ui-button:hover {
   background: rgb(255, 166, 0);
-}
+} */

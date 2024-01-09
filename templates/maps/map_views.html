@@ -124,6 +124,13 @@
 
     <br />
     <hr />
+    <!-- Add a dropdown for locations -->
+<select id="colleges">
+  <option selected value="">Choose Your College</option>
+  {% for college in colleges %}
+  <option value="{{ college.coordinate }}">{{college.name.title}}</option>
+  {% endfor %}
+</select>
 
     <div id="map">
       <!-- MAP SPACE -->

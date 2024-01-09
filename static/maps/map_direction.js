@@ -23,7 +23,7 @@ async function initMap() {
   // The map, centered at hostel locaiton
   map = new Map(document.getElementById("map"), {
     zoom: 15,
-    center: hostelPosition,
+    center: campusEntrancePosition,
     gestureHandling: "greedy",
     // mapId: "DEMO_MAP_ID",
     mapId: "90f87356969d889c",
@@ -34,51 +34,51 @@ async function initMap() {
     mapTypeControl: true,
     mapTypeControlOptions: {
       style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-      position: google.maps.ControlPosition.BOTTOM_CENTER,},
+      position: google.maps.ControlPosition.TOP_CENTER,},
   });
   
   setTimeout(() => {
     map.setCenter(campusEntrancePosition)
-    map.setZoom(19)
+    map.setZoom(18)
     map.setMapTypeId('hybrid')
-  }, 1700);
+  }, 2500);
 
 
   // Show notification on map load
   // showMapNotification("Map loaded successfully!");
 
-  const buttons = [
-    ["Rotate Left", "rotate", 20, google.maps.ControlPosition.LEFT_CENTER],
-    ["Rotate Right", "rotate", -20, google.maps.ControlPosition.RIGHT_CENTER],
-    // ["Tilt Down", "tilt", 20, google.maps.ControlPosition.TOP_CENTER],
-    // ["Tilt Up", "tilt", -20, google.maps.ControlPosition.BOTTOM_CENTER],
-  ];
+  // const buttons = [
+  //   ["Rotate Left", "rotate", 20, google.maps.ControlPosition.LEFT_CENTER],
+  //   ["Rotate Right", "rotate", -20, google.maps.ControlPosition.RIGHT_CENTER],
+  //   // ["Tilt Down", "tilt", 20, google.maps.ControlPosition.TOP_CENTER],
+  //   // ["Tilt Up", "tilt", -20, google.maps.ControlPosition.BOTTOM_CENTER],
+  // ];
 
-  buttons.forEach(([text, mode, amount, position]) => {
-    const controlDiv = document.createElement("div");
-    const controlUI = document.createElement("button");
+  // buttons.forEach(([text, mode, amount, position]) => {
+  //   const controlDiv = document.createElement("div");
+  //   const controlUI = document.createElement("button");
 
-    controlUI.classList.add("ui-button");
-    controlUI.innerText = `${text}`;
-    controlUI.addEventListener("click", () => {
-      adjustMap(mode, amount);
-    });
-    controlDiv.appendChild(controlUI);
-    map.controls[position].push(controlDiv);
-  });
+  //   controlUI.classList.add("ui-button");
+  //   controlUI.innerText = `${text}`;
+  //   controlUI.addEventListener("click", () => {
+  //     adjustMap(mode, amount);
+  //   });
+  //   controlDiv.appendChild(controlUI);
+  //   map.controls[position].push(controlDiv);
+  // });
 
-  const adjustMap = function (mode, amount) {
-    switch (mode) {
-      // case "tilt":
-      //   map.setTilt(map.getTilt() + amount);
-      //   break;
-      case "rotate":
-        map.setHeading(map.getHeading() + amount);
-        break;
-      default:
-        break;
-    }
-  };
+  // const adjustMap = function (mode, amount) {
+  //   switch (mode) {
+  //     // case "tilt":
+  //     //   map.setTilt(map.getTilt() + amount);
+  //     //   break;
+  //     case "rotate":
+  //       map.setHeading(map.getHeading() + amount);
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // };
 
 
 
@@ -87,7 +87,7 @@ async function initMap() {
  directionsRenderer = new google.maps.DirectionsRenderer({
   polylineOptions: {
     strokeColor: '#FE9901', 
-    strokeWeight: 6
+    strokeWeight: 7
   },
   preserveViewport: true,
   suppressMarkers: true,  // Show markers on the map
