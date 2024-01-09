@@ -26,13 +26,19 @@ async function initMap() {
     center: hostelPosition,
     gestureHandling: "greedy",
     mapId: "DEMO_MAP_ID",
-    // mapTypeId: 'hybrid',
+    heading: 180,
+    mapTypeControl: true,
+    mapTypeControlOptions: {
+      style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+      position: google.maps.ControlPosition.BOTTOM_CENTER,},
   });
+  
+  
   setTimeout(() => {
     map.setCenter(campusEntrancePosition)
     map.setZoom(18)
     map.setMapTypeId('hybrid')
-  }, 1500);
+  }, 1700);
 
   // Show notification on map load
   // showMapNotification("Map loaded successfully!");
