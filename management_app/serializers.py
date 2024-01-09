@@ -24,7 +24,8 @@ class RoomListSerializer(serializers.ModelSerializer):
                  'bed_space_left',
                  'number_of_tenants',
                  'detail_url',
-                 'room_id',)
+                 'room_id',
+                 'gender',)
 
     #Return the deatail url for the each room in the list
     def get_detail_url(self, obj: RoomProfile):
