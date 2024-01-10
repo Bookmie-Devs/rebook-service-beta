@@ -125,12 +125,14 @@
     <br />
     <hr />
 
+    <div class="select">
     <select class="form-select" id="colleges">
       <option selected value="">Choose Your College</option>
       {% for college in colleges %}
       <option value="{{ college.coordinate }}">{{college.name.title}}</option>
       {% endfor %}
     </select>
+    </div>
 
     <div id="map">
       <!-- MAP SPACE -->

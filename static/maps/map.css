@@ -19,6 +19,16 @@
     padding: 0;
   }
 
+    @media (min-width: 600px) {
+      .select{
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 9;
+      }
+    }
+
  
 /* ROTAION BUTTONS */
 /* .ui-button {
