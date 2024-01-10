@@ -38,10 +38,9 @@ async function initMap() {
   });
   
   setTimeout(() => {
-    map.setCenter(campusEntrancePosition)
     map.setZoom(18)
     map.setMapTypeId('hybrid')
-  }, 1500);
+  }, 1250);
 
 
   // Show notification on map load
