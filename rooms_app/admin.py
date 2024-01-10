@@ -26,7 +26,7 @@ class CustomRoomAdminPanel(admin.ModelAdmin):
         ('System Status', {'fields':('booking_occupied','platform_occupied','occupied')}),
     )
 
-    list_filter = ('campus', 'occupied','room_capacity',)
+    list_filter = ('campus', 'occupied','room_capacity','gender',)
 
     actions = [make_all_rooms_unoccupied]
 

@@ -29,7 +29,7 @@ class RoomProfile(models.Model):
     gender = models.CharField(max_length=20,
                             choices=[('female','female'),('male','male'),('open','open')],
                             verbose_name="Gender of room",
-                            default="male")
+                            default="open")
     # managers price
     room_price = models.DecimalField(blank=False, decimal_places=2, max_digits=8)
     # platform pricing(selling price)
@@ -122,6 +122,13 @@ class RoomProfile(models.Model):
         """
         available: bool = capacity_available(self)
         return available
+
+    def change_room_gender(self, members, user_gender:str):
+        if members==1 and self.gender.lower()=='open':
+            self.gender=user_gender.lower()
+            self.save()
+        else:
+            pass
 
     def get_detail_url(self):
         return reverse("rooms:profile", kwargs={'room_id':self.room_id})

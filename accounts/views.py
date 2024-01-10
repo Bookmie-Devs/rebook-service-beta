@@ -73,7 +73,7 @@ def signup(request: HttpRequest):
                             username=f"{request.POST.get('first_name')}_{request.POST.get('middle_name')} {request.POST.get('last_name')}",
 
                             password=request.POST.get('password'), phone=check_number(request.POST.get('phone')), 
-                            student_id=request.POST.get('student_id'), is_active=False)
+                            student_id=request.POST.get('student_id'), gender=request.POST.get('gender').lower() ,is_active=False)
                         new_user.save()
                         
                           
