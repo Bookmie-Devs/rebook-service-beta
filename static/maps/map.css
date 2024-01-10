@@ -21,7 +21,7 @@
 
   .select {
     border-style:solid;
-    border-radius: 10px;
+    border-radius: 6px;
   }
 
   @media (min-width: 600px) {
