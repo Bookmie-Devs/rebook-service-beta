@@ -26,12 +26,12 @@
   .select{
     padding: 8px;
     background: var(--dark);
-    position: fixed;
+    /* position: fixed; */
     left: 50%;
-    transform: translateX(-50%);
-    z-index: 1;
+    /* transform: translateX(-50%); */
+    /* z-index: 1;
     border-radius: 0 0 10px 10px;
-    width: 80%;
+    /* width: 80%; */
   }
 
   @media (min-width: 600px) {

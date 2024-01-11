@@ -1,3 +1,4 @@
+// import { parseCoordinate } from "./map_views";
 // Initialize and add the map
 let map;
 let directionsService;
@@ -29,18 +30,20 @@ async function initMap() {
     mapId: "90f87356969d889c",
     // heading: -195,
     // tilt: 60,
+    mapTypeId:"satellite",
     streetViewControl: false,
     zoomControl: false,
     mapTypeControl: true,
     mapTypeControlOptions: {
+      mapTypeIds: ['roadmap','satellite','hybrid'],
       style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
       position: google.maps.ControlPosition.TOP_CENTER,},
   });
   
   setTimeout(() => {
-    map.setZoom(18)
-    map.setMapTypeId('hybrid')
-  }, 1250);
+    map.setCenter(campusEntrancePosition)
+    map.setZoom(17)
+  }, 1200);
 
 
   // Show notification on map load
@@ -86,7 +89,7 @@ async function initMap() {
  directionsRenderer = new google.maps.DirectionsRenderer({
   polylineOptions: {
     strokeColor: '#FE9901', 
-    strokeWeight: 7
+    strokeWeight: 6
   },
   preserveViewport: true,
   suppressMarkers: true,  // Show markers on the map
@@ -175,12 +178,72 @@ async function initMap() {
 
     changeWindowWhenMarkerMoves(campusEntranceInfoWindow, "New Origin")
   });
-}
 
+
+  let previousMarker = null;
+  let previousInfoWindow = null;
+
+colleges = document.getElementById('colleges');
+
+colleges.addEventListener('change', (event) => {
+  // Get the selected option
+  const selectedOption = colleges.options[colleges.selectedIndex];
+
+  // Check if an option is selected
+  if (selectedOption) {
+    const collegeCoordinate = parseCoordinate(selectedOption.value);
+
+    // Remove previous marker and info window if they exist
+    if (previousMarker) {
+      previousMarker.setMap(null);
+      previousMarker = null;
+    }
+
+    if (previousInfoWindow) {
+      previousInfoWindow.close();
+      previousInfoWindow = null;
+    }
+
+    // Create new marker and info window
+    const collegeEntranceMarker = new AdvancedMarkerElement({
+      map: map,
+      position: collegeCoordinate,
+      // Customize the title to your taste
+      title: `${selectedOption.innerText}`,
+    });
+
+    const infoWindow = new google.maps.InfoWindow({
+      content: collegeWindowFunction("#", selectedOption.innerText),
+    });
+
+    map.setCenter(collegeCoordinate);
+
+    infoWindow.open(map, collegeEntranceMarker);
+    // Store the new marker and info window
+    previousMarker = collegeEntranceMarker;
+    previousInfoWindow = infoWindow;
+
+    // Get the inner text of the selected option
+    calculateAndDisplayRoute(collegeCoordinate, hostelPosition, directionsRenderer);
+  }
+  });
+}
 
 // Function for infoWindow
 function infoWindowFunction(url, name) {
   return `<a href="${url}"><h6>${name}</h6></a>`
+}
+
+function collegeWindowFunction(url, name) {
+  // return ``
+  return `<a type="button"  class="btn btn-primary" href="${url}"
+  style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+  From ${name}
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+  <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
+  <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+  </svg>
+  </a>`
 }
 
 function calculateAndDisplayRoute(origin, destination, directionsRenderer) {
@@ -230,6 +293,11 @@ function showMapNotification(message) {
   }, 2000);
 }
 
+function parseCoordinate(coordinateString) {
+  const {lat, lng} = JSON.parse(coordinateString.replace(/'/g, '"'))
+
+  return {lat:parseFloat(lat), lng:parseFloat(lng)}
+}
 
 initMap();
 

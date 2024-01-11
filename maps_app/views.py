@@ -9,9 +9,11 @@ def hostel_direction(request, hostel_id):
     coordinate:GeoPt = hostel_profile.geolocation
     # coordinate of campus
     campus_coordinates: GeoPt = hostel_profile.campus.geolocation
+    colleges = CollegeProfile.objects.filter(campus_name=hostel_profile.campus).all()
+    college_coordinates = [{'coordinate':{'lat':college.geolocation.lat, 'lng':college.geolocation.lon,}, 'name':college.college_name} for college in colleges]
     return render(request=request,
            template_name= 'maps/map_direction.html/',
-           context={'coordinate': coordinate,"campus_coordinates":campus_coordinates ,'user':request.user ,'hostel':hostel_profile})
+           context={'coordinate': coordinate,"campus_coordinates":campus_coordinates ,'user':request.user ,'hostel':hostel_profile, 'colleges':college_coordinates})
 
 
 def map_views(request, campus_code):

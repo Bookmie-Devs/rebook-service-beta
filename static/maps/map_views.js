@@ -56,6 +56,7 @@ const campusEntrancePosition = {lat: parseFloat(document.getElementById('campus-
   directionsService = new google.maps.DirectionsService();
   // directionsRenderer = new google.maps.DirectionsRenderer();
 
+  
  
    // Center the map on the first place
    map = new Map(document.getElementById("map"), {
@@ -69,6 +70,7 @@ const campusEntrancePosition = {lat: parseFloat(document.getElementById('campus-
     mapId: "90f87356969d889c",
     mapTypeControl: true,
     mapTypeControlOptions: {
+      mapTypeIds: ['roadmap','satellite'],
       style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
       position: google.maps.ControlPosition.TOP_CENTER,},
       
@@ -165,6 +167,7 @@ const campusEntrancePosition = {lat: parseFloat(document.getElementById('campus-
     });
   campusEntranceInfoWindow.open(map, campusEntranceMarker);
 
+  
 let previousMarker = null;
 let previousInfoWindow = null;
 
@@ -249,7 +252,8 @@ function calculateAndDisplayRoutes(origin, destinations, map) {
 }
 
 function parseCoordinate(coordinateString) {
-  const {lat, lng} = JSON.parse(coordinateString.replace(/'/g, '"'))
+
+  const {lat, lng} = JSON.parse(coordinateString.replace(/None/g, 'null').replace(/'/g, '"'))
 
   return {lat:parseFloat(lat), lng:parseFloat(lng)}
 }
@@ -263,27 +267,10 @@ function clearDirectionsRenderers() {
   directionsRenderers = [];
 }
 
-
-function changeOriginToCollege() {
-    // Get the selected option element
-    const selectedOption = document.getElementById('colleges').options[document.getElementById('colleges').selectedIndex];
-
-    // Check if an option is selected
-    if (selectedOption) {
-      // Get the value of the selected option
-      const selectedValue = selectedOption.value;
-
-      // Use the selectedValue as needed
-      console.log('Selected Value:', selectedValue);
-    }
-}
  
  initMap();
 
-
-
-
-
+ export {parseCoordinate, collegeWindowFunction}
 
 
 
