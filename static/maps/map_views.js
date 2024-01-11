@@ -5,6 +5,8 @@ let directionsService;
 let directionsRenderers = [];
 let campusEntranceInfoWindow;
 let colleges;
+
+
  // campus main entrance coordinates
 const campusEntrancePosition = {lat: parseFloat(document.getElementById('campus-lat').value), 
                                 lng: parseFloat(document.getElementById('campus-lng').value) };
@@ -64,7 +66,7 @@ const campusEntrancePosition = {lat: parseFloat(document.getElementById('campus-
     center: campusEntrancePosition,
     // heading: -180,
     streetViewControl: false,
-    tilt: 36.6,
+    // tilt: 36.6,
     gestureHandling: "greedy",
     mapTypeId: 'satellite',
     mapId: "90f87356969d889c",
@@ -184,6 +186,7 @@ colleges.addEventListener('change', (event) => {
   if (selectedOption) {
     const collegeCoordinate = parseCoordinate(selectedOption.value);
 
+    campusEntranceMarker.setMap(null)
     // Remove previous marker and info window if they exist
     if (previousMarker) {
       previousMarker.setMap(null);

@@ -170,16 +170,14 @@ async function initMap() {
   window.location.href = document.getElementById('hostel-url').value;
   });
 
-  // Add dragend event listener to the marker
+  // dragend event listener to the marker
   campusEntranceMarker.addListener('dragend', function (event) {
     // Update the selectedStartingPoint when marker is dragged
     selectedStartingPoint = { lat: event.latLng.lat(), lng: event.latLng.lng() };
-    
+    // campusEntranceMarker.setContent(originMarkerContent("sjd").outerHTML)
     // Recalculate and display route with the new starting point
     calculateAndDisplayRoute(selectedStartingPoint, hostelPosition, directionsRenderer);
-    // showMapNotification("New Direction For Origin");
 
-    // changeWindowWhenMarkerMoves(campusEntranceInfoWindow, "New Origin")
   });
 
 
@@ -194,6 +192,7 @@ async function initMap() {
 
   // Check if an option is selected
   if (selectedOption) {
+    campusEntranceMarker.setMap(null)
     const collegeCoordinate = parseCoordinate(selectedOption.value);
 
     // Remove previous marker and info window if they exist
@@ -266,20 +265,11 @@ function calculateAndDisplayRoute(origin, destination, directionsRenderer) {
 }
 
 
-function changeWindowWhenMarkerMoves(info_window, message) {
-  const newContent = `<button type="button" class="btn btn-success">
-    ${message}
-  <i class="bi bi-signpost"></i>
-  </button>`;
-  info_window.setContent(newContent);
-
+function changeWindowWhenMarkerMoves(message) {
+  originMarkerContent(message);
   setTimeout(() => {
-    const newContent = `<button type="button" class="btn btn-primary"
-    style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-    Move Marker To Change Origin
-    <i class="bi bi-signpost"></i>
-    </button>`;
-  info_window.setContent(newContent);
+  const newContent = 'Move Marker To Change Origin'
+  originMarkerContent(newContent);
   }, 3000);
 }
 
