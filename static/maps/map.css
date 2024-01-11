@@ -19,9 +19,19 @@
     padding: 0;
   }
 
-  .select {
-    border-style:solid;
-    border-radius: 6px;
+  .nav{
+    z-index: 99 !important;
+  }
+
+  .select{
+    padding: 8px;
+    background: var(--dark);
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    border-radius: 0 0 10px 10px;
+    width: 80%;
   }
 
   @media (min-width: 600px) {
@@ -29,11 +39,12 @@
       position: fixed;
       bottom: 0;
       left: 50%;
-      height: 10%;
-      width: 30%;
-      background-color: rgba(2, 8, 39, 0.959);
       transform: translateX(-50%);
       z-index: 9;
+      padding: 8px;
+      background: var(--dark);
+      border-radius: 10px 10px 0 0;
+      width: initial;
     }
   }
 
@@ -41,11 +52,7 @@
 /* ROTAION BUTTONS */
 .ui-button {
   background-color: #fff;
-  border: 0;
-  border-style: solid;
-  border-color: rgb(3, 3, 51);
   border-radius: 2px;
-  box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
   margin: 10px;
   padding: 0 0.5em;
   font: 400 18px Roboto, Arial, sans-serif;
