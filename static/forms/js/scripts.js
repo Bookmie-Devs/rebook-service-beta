@@ -17,7 +17,8 @@ try {
     let msgDiv = document.getElementById('msgDiv');
     let section1a = document.querySelector('.section1a').value;
     let section1b = document.querySelector('.section1b').value;
-    let sectionInputs = [section1a, section1b];
+    let section1c = document.querySelector('.section1c').value;
+    let sectionInputs = [section1a, section1b, section1c];
     let emptyInput = sectionInputs.some( input => input.trim() === '');
     
     if(emptyInput){
@@ -36,27 +37,25 @@ try {
 }
 try {
   
-  let msgDiv2 = document.getElementById('msgDiv2');
   function showSection3(sectionNumber) {
     // Hide all sections
     document.querySelectorAll('.section').forEach((section) => {
       section.style.display = 'none';
     });
     // Show the selected section on a condition
-    let sectionInputs = [
-        document.querySelector('.section2a').value.trim(),
-        document.querySelector('.section2c').value.trim(),
-        document.querySelector('.section2b').value.trim()
-    ];
-    let emptyInput = sectionInputs.some( input => input === '');
-    console.log(sectionInputs)
+    let msgDiv2 = document.getElementById('msgDiv2');
+    let section2a = document.querySelector('.section2a').value;
+    let section2b = document.querySelector('.section2b').value;
+    let section2c = document.querySelector('.section2c').value;
+    let sectionInputs = [section2a, section2b, section2c];
+    let emptyInput = sectionInputs.some( input => input.trim() === '');
+
     if(emptyInput){
       document.getElementById('section2').style.display = 'block';
-      msgDiv2.innerHTML = `<ul class="list-group"><li class="list-group-item list-group-item-danger">Inputs are required</li></ul>`;
-      setTimeout(function () {
+      msgDiv2.innerHTML = `<ul class="list-group"><li class="list-group-item list-group-item-danger">Inputs are required</li></ul>`
+       setTimeout(function () {
          msgDiv2.innerHTML = ''
       }, 4000);
-      
     } else{
     document.getElementById(`section${sectionNumber}`).style.display = 'block';
     }
