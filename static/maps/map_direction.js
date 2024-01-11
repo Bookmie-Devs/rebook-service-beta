@@ -7,6 +7,7 @@ let directionsRenderer;
 let hostelInfoWindow;
 let campusEntranceInfoWindow;
 let selectedStartingPoint;
+let colleges;
 
 async function initMap() {
   // campus main entrance coordinates
@@ -183,9 +184,9 @@ async function initMap() {
   let previousMarker = null;
   let previousInfoWindow = null;
 
-colleges = document.getElementById('colleges');
+  colleges = document.getElementById('colleges');
 
-colleges.addEventListener('change', (event) => {
+  colleges.addEventListener('change', (event) => {
   // Get the selected option
   const selectedOption = colleges.options[colleges.selectedIndex];
 
