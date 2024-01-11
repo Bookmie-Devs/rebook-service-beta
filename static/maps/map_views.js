@@ -239,8 +239,9 @@ function calculateAndDisplayRoutes(origin, destinations, map) {
               // Create a new DirectionsRenderer for each route
               const newRenderer = new google.maps.DirectionsRenderer({
                   polylineOptions: {
-                      strokeColor: '#FE9901',
-                      strokeWeight: 4,
+                    strokeOpacity: 1.0,
+                    strokeColor: '#FE9901',
+                    strokeWeight: 4,
                   },
                   preserveViewport: true,
                   suppressMarkers: true,

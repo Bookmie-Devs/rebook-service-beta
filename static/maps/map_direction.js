@@ -174,7 +174,7 @@ async function initMap() {
   campusEntranceMarker.addListener('dragend', function (event) {
     // Update the selectedStartingPoint when marker is dragged
     selectedStartingPoint = { lat: event.latLng.lat(), lng: event.latLng.lng() };
-    // campusEntranceMarker.setContent(originMarkerContent("sjd").outerHTML)
+    // campusEntranceMarker.setContent(originMarkerContent("sjd"))
     // Recalculate and display route with the new starting point
     calculateAndDisplayRoute(selectedStartingPoint, hostelPosition, directionsRenderer);
 
