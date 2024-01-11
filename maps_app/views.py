@@ -23,7 +23,7 @@ def map_views(request, campus_code):
     # # hostel coordinates on map
     # coordinatet = hostel_profile.geolocation
     # coordinate. 
-    coordinates:GeoPt= [{'lat': hostel.geolocation.lat, 'lng': hostel.geolocation.lon, 'url':f'/hostels/profile/{hostel.hostel_id}/','name':hostel.hostel_name.lower()} for hostel in hostel_profiles]
+    coordinates:GeoPt= [{'lat': hostel.geolocation.lat, 'lng': hostel.geolocation.lon, 'url':f'/hostels/profile/{hostel.hostel_id}/','name':hostel.hostel_name.title()} for hostel in hostel_profiles]
     college_coordinates = [{'coordinate':{'lat':college.geolocation.lat, 'lng':college.geolocation.lon,}, 'name':college.college_name} for college in colleges]
     # return render(request, 'your_template.html', })
     return render(request=request,
