@@ -63,3 +63,122 @@
 .ui-button:hover {
   background: rgb(255, 166, 0);
 }
+
+
+.hostel-marker-content {
+  background-color: #051836;
+  border: 2px solid #FFFFFF;
+  border-radius: 8px;
+  color: #FFFFFF;
+  font-size: 14px;
+  padding: 10px;
+  position: relative;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.hostel-marker-content:hover {
+  background-color: #1b3854;
+  border-color: #ffb006;
+  animation: bounce 0.6s ease infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-20px);
+  }
+  60% {
+    transform: translateY(-10px);
+  }
+}
+
+.hostel-marker-content::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translate(-50%, 0);
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid #011129;
+  z-index: 1;
+}
+
+.hostel-marker-content::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translate(-50%, 0);
+  width: 16px;
+  height: 16px;
+  background-color: #ffb006;
+  border: 2px solid #ff500b;
+  border-radius: 50%;
+  z-index: 0;
+}
+
+
+
+
+
+.origin-marker-content {
+  background-color: #2e7d32;
+  border: 2px solid #FFFFFF;
+  border-radius: 12px;
+  color: #FFFFFF;
+  font-size: 16px;
+  padding: 12px;
+  position: relative;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.origin-marker-content:hover {
+  background-color: #388e3c;
+  border-color: #ff5722;
+  animation: bounce 0.6s ease;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-20px);
+  }
+  60% {
+    transform: translateY(-10px);
+  }
+}
+
+.origin-marker-content::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translate(-50%, 0);
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-top: 12px solid #2e7d32;
+  z-index: 1;
+}
+
+.origin-marker-content::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translate(-50%, 0);
+  width: 20px;
+  height: 20px;
+  background-color: #ff5722;
+  border: 2px solid #FFFFFF;
+  border-radius: 50%;
+  z-index: 0;
+}

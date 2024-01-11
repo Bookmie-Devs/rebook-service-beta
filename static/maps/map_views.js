@@ -64,7 +64,7 @@ const campusEntrancePosition = {lat: parseFloat(document.getElementById('campus-
     center: campusEntrancePosition,
     // heading: -180,
     streetViewControl: false,
-    // tilt: 36.6,
+    tilt: 36.6,
     gestureHandling: "greedy",
     mapTypeId: 'satellite',
     mapId: "90f87356969d889c",
@@ -77,8 +77,9 @@ const campusEntrancePosition = {lat: parseFloat(document.getElementById('campus-
    });
    setTimeout(() => {
     map.setCenter(campusEntrancePosition)
-    map.setZoom(17)
+    map.setZoom(15)
    }, 1200); 
+
 
   //  const buttons = [
   //   // ["<", "rotate", 20, google.maps.ControlPosition.LEFT_CENTER],
@@ -119,6 +120,7 @@ const campusEntrancePosition = {lat: parseFloat(document.getElementById('campus-
    const marker = new AdvancedMarkerElement({
     map: map,
     position: place,
+    content: hostelMarkerContent(`${place.name}`),
     // the hostel name as title
     title: place.name, // Set the title for the marker (used as a tooltip)
    });
@@ -143,9 +145,9 @@ const campusEntrancePosition = {lat: parseFloat(document.getElementById('campus-
  });
 
   // Open InfoWindows for each marker by default
-  markers.forEach((marker, index) => {
-    infoWindows[index].open(map, marker);
-  });
+  // markers.forEach((marker, index) => {
+  //   infoWindows[index].open(map, marker);
+  // });
 
   // Calculate and display directions for the campus entrance to each destination
   calculateAndDisplayRoutes(campusEntrancePosition, places, map);
@@ -155,17 +157,18 @@ const campusEntrancePosition = {lat: parseFloat(document.getElementById('campus-
   const campusEntranceMarker = new AdvancedMarkerElement({
     map: map,
     position: campusEntrancePosition,
+    content: originMarkerContent(`${document.getElementById('campus').value} Main Entrance`),
     // Customize the title to your taste
     title: `${document.getElementById('campus').value} Campus Entrance`,
   });
     
-  campusEntranceInfoWindow = new google.maps.InfoWindow({
-    content: `<button type="button" class="btn btn-primary">
-    ${document.getElementById('campus').value} Main Entrance
-    <i class="bi bi-signpost"></i>
-    </button>`
-    });
-  campusEntranceInfoWindow.open(map, campusEntranceMarker);
+  // campusEntranceInfoWindow = new google.maps.InfoWindow({
+  //   content: `<button type="button" class="btn btn-primary">
+  //   ${document.getElementById('campus').value} Main Entrance
+  //   <i class="bi bi-signpost"></i>
+  //   </button>`
+  //   });
+  // campusEntranceInfoWindow.open(map, campusEntranceMarker);
 
   
 let previousMarker = null;
@@ -196,6 +199,7 @@ colleges.addEventListener('change', (event) => {
     const collegeEntranceMarker = new AdvancedMarkerElement({
       map: map,
       position: collegeCoordinate,
+      content: originMarkerContent(`From ${selectedOption.innerText}`),
       // Customize the title to your taste
       title: `${selectedOption.innerText}`,
     });
@@ -206,7 +210,7 @@ colleges.addEventListener('change', (event) => {
 
     map.setCenter(collegeCoordinate);
 
-    infoWindow.open(map, collegeEntranceMarker);
+    // infoWindow.open(map, collegeEntranceMarker);
     // Store the new marker and info window
     previousMarker = collegeEntranceMarker;
     previousInfoWindow = infoWindow;
@@ -267,7 +271,21 @@ function clearDirectionsRenderers() {
   directionsRenderers = [];
 }
 
+function originMarkerContent(textContent) {
+  const content = document.createElement("div");
+  content.className = "origin-marker-content";
+  content.textContent = textContent;
+  return content
+}
  
+function hostelMarkerContent(textContent) {
+  const content = document.createElement("div");
+  content.className = "hostel-marker-content";
+  content.textContent = textContent;
+
+  return content
+}
+
  initMap();
 
  export {parseCoordinate, collegeWindowFunction}

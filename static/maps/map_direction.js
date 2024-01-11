@@ -43,7 +43,7 @@ async function initMap() {
   
   setTimeout(() => {
     map.setCenter(campusEntrancePosition)
-    map.setZoom(17)
+    map.setZoom(16)
   }, 1200);
 
 
@@ -126,6 +126,7 @@ async function initMap() {
   const campusEntranceMarker = new AdvancedMarkerElement({
       map: map,
       position: campusEntrancePosition,
+      content: originMarkerContent(`${document.getElementById('campus').value} Entrance`),
       title: 'Origin',
       gmpDraggable: true,
     });
@@ -134,30 +135,31 @@ async function initMap() {
   const hostelMarker = new AdvancedMarkerElement({
     map: map,
     position: hostelPosition,
+    content: hostelMarkerContent(document.getElementById('hostel-name').value),
     // element: document.getElementById('hostel-name'),
     // the hostel name as title
     title:document.getElementById('hostel-name').value,
   });
 
   // Funtion for showing info window for campus 
-  function openCampusInfo(info_window, map, marker) {
+  // function openCampusInfo(info_window, map, marker) {
 
-    info_window.open(map, marker);
-    // Close the notification window after a certain duration (e.g., 3 seconds)
-    setTimeout(() => {
-      const newContent = `<button type="button" class="btn btn-primary"
-      style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-      Move Marker To Change Origin
-      <i class="bi bi-signpost"></i>
-      </button>`;
-    info_window.setContent(newContent);
-    }, 3000);
-  }
+  //   info_window.open(map, marker);
+  //   // Close the notification window after a certain duration (e.g., 3 seconds)
+  //   setTimeout(() => {
+  //     const newContent = `<button type="button" class="btn btn-primary"
+  //     style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+  //     Move Marker To Change Origin
+  //     <i class="bi bi-signpost"></i>
+  //     </button>`;
+  //   info_window.setContent(newContent);
+  //   }, 3000);
+  // }
   
 
   // Open info windows immediately
-  hostelInfoWindow.open(map, hostelMarker);
-  openCampusInfo(campusEntranceInfoWindow, map, campusEntranceMarker);
+  // hostelInfoWindow.open(map, hostelMarker);
+  // openCampusInfo(campusEntranceInfoWindow, map, campusEntranceMarker);
  
 
   ///////////////////EVENT LISTENERS///////////////////////////
@@ -177,12 +179,12 @@ async function initMap() {
     calculateAndDisplayRoute(selectedStartingPoint, hostelPosition, directionsRenderer);
     // showMapNotification("New Direction For Origin");
 
-    changeWindowWhenMarkerMoves(campusEntranceInfoWindow, "New Origin")
+    // changeWindowWhenMarkerMoves(campusEntranceInfoWindow, "New Origin")
   });
 
 
   let previousMarker = null;
-  let previousInfoWindow = null;
+  // let previousInfoWindow = null;
 
   colleges = document.getElementById('colleges');
 
@@ -200,29 +202,30 @@ async function initMap() {
       previousMarker = null;
     }
 
-    if (previousInfoWindow) {
-      previousInfoWindow.close();
-      previousInfoWindow = null;
-    }
+    // if (previousInfoWindow) {
+    //   previousInfoWindow.close();
+    //   previousInfoWindow = null;
+    // }
 
     // Create new marker and info window
     const collegeEntranceMarker = new AdvancedMarkerElement({
       map: map,
       position: collegeCoordinate,
+      content: originMarkerContent(`${selectedOption.innerText}`),
       // Customize the title to your taste
       title: `${selectedOption.innerText}`,
     });
 
-    const infoWindow = new google.maps.InfoWindow({
-      content: collegeWindowFunction("#", selectedOption.innerText),
-    });
+    // const infoWindow = new google.maps.InfoWindow({
+    //   content: collegeWindowFunction("#", selectedOption.innerText),
+    // });
 
     map.setCenter(collegeCoordinate);
 
-    infoWindow.open(map, collegeEntranceMarker);
+    // infoWindow.open(map, collegeEntranceMarker);
     // Store the new marker and info window
     previousMarker = collegeEntranceMarker;
-    previousInfoWindow = infoWindow;
+    // previousInfoWindow = infoWindow;
 
     // Get the inner text of the selected option
     calculateAndDisplayRoute(collegeCoordinate, hostelPosition, directionsRenderer);
@@ -279,6 +282,23 @@ function changeWindowWhenMarkerMoves(info_window, message) {
   info_window.setContent(newContent);
   }, 3000);
 }
+
+function originMarkerContent(textContent) {
+  const content = document.createElement("div");
+  content.className = "origin-marker-content";
+  content.textContent = textContent;
+  return content
+}
+ 
+
+function hostelMarkerContent(textContent) {
+  const content = document.createElement("div");
+  content.className = "hostel-marker-content";
+  content.textContent = textContent;
+
+  return content
+}
+
 
 function showMapNotification(message) {
   const notificationInfoWindow = new google.maps.InfoWindow({
