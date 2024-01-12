@@ -17,12 +17,12 @@ from django.utils import timezone
 from django.utils.timezone import timedelta
 from django.shortcuts import redirect
 from django.contrib import messages
+from django.shortcuts import resolve_url
 from django.contrib.auth.decorators import login_required
+from .decorators import login_required_htmx
 
 
-@login_required()
-# allow strictly only POST
-@require_http_methods(['POST'])
+@login_required_htmx
 def book_room(request: HttpRequest) -> HttpResponse:     
     room_id = request.POST.get('room_id')
     room = RoomProfile.objects.get(room_id=room_id)
@@ -30,10 +30,16 @@ def book_room(request: HttpRequest) -> HttpResponse:
     if Tenant.objects.filter(user=request.user).exists():
         """
         Check if tenant exits
-        """
-        messages.info(request, 'Tenants can not book after payment')
-        return redirect('accounts:booking-and-payments')
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        """ 
+        message ={'message':'Tenant is active'}
+        return render(request,'htmx_message_templates/htmx_booking_message.html', message)
+        # messages.info(request, 'Tenants can not book after payment',extra_tags=f'{room.room_id}')
+        # # return redirect('accounts:booking-and-payments')
+        # return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    
+    elif request.user.gender.lower()!=room.gender.lower():
+        message ={'message':f'Room is for {room.gender}s'}
+        return render(request,'htmx_message_templates/htmx_booking_message.html', message)
     
     elif Booking.objects.filter(user=request.user, payed=False).exists():
         """
@@ -42,24 +48,31 @@ def book_room(request: HttpRequest) -> HttpResponse:
         messages.info(request, 'You already booked for a room please proceed to payment or delete booking!!!')
         # print(request.META.get(''))    
         # return redirect(request.META.get('HTTP_REFERER'))
-        return redirect('accounts:booking-and-payments')
+        response = HttpResponse()
+        response['HX-Redirect'] = resolve_url('accounts:booking-and-payments')
+        return response
+        # return redirect('accounts:booking-and-payments')
     
     elif not room.is_space_available():
         """
         Second check for room capacity
         """
-        messages.info(request, 'Please room is full')
-        # print(request.META.get(''))    
-        # return redirect(request.META.get('HTTP_REFERER'))
-        return redirect('accounts:booking-and-payments')
+        message ={'message':'Please room is full'}
+        return render(request,'htmx_message_templates/htmx_booking_message.html', message)
+        # messages.info(request, 'Please room is full')
+        # # print(request.META.get(''))    
+        # # return redirect(request.META.get('HTTP_REFERER'))
+        # return redirect('accounts:booking-and-payments')
 
     # Check if room is occupied or avaialable for booking
     elif room.occupied or not room.is_available_for_booking():
         # message
-        messages.info(request, 'Sorry, this room is on pending by other users for 1 hour, please select new one')
-        # print(request.META.get(''))    
-        # return redirect(request.META.get('HTTP_REFERER'))
-        return redirect('accounts:booking-and-payments')
+        message ={'message':'Sorry room on pending for a user...'}
+        return render(request,'htmx_message_templates/htmx_booking_message.html', message)
+        # messages.info(request, 'Sorry, this room is on pending by other users for 1 hour, please select new one')
+        # # print(request.META.get(''))    
+        # # return redirect(request.META.get('HTTP_REFERER'))
+        # return redirect('accounts:booking-and-payments')
 
     # Creating booking for user
     else:
@@ -75,4 +88,7 @@ def book_room(request: HttpRequest) -> HttpResponse:
         booking.save()
         
         #redirect user for payment
-        return redirect('accounts:booking-and-payments')
+        response = HttpResponse()
+        response['HX-Redirect'] = resolve_url('accounts:booking-and-payments')
+        return response
+        # return redirect('accounts:booking-and-payments')
