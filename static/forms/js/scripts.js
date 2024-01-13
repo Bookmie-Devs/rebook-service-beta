@@ -17,13 +17,27 @@ try {
     let msgDiv = document.getElementById('msgDiv');
     let section1a = document.querySelector('.section1a').value;
     let section1b = document.querySelector('.section1b').value;
-    let section1c = document.querySelector('.section1c').value;
-    let sectionInputs = [section1a, section1b, section1c];
+    let gender = document.getElementsByName('gender');
+    let genderArr = []
+    for (let j =0; j <gender.length; j++) {
+      if (gender[j].checked) {
+      genderArr.push('checked')
+    } else{
+      genderArr.push('')
+    }
+    }
+    let genderArr1
+    if(genderArr.some(item=> item != '')){
+      genderArr1 = genderArr.filter(item => item !== '')
+    }else{
+      genderArr1 = genderArr
+    }
+    let sectionInputs = [section1a, section1b, ...genderArr1];
     let emptyInput = sectionInputs.some( input => input.trim() === '');
     
     if(emptyInput){
       document.getElementById('section1').style.display = 'block';
-      msgDiv.innerHTML = `<ul class="list-group"><li class="list-group-item list-group-item-danger">Inputs are required</li></ul>`
+      msgDiv.innerHTML = `<ul class="list-group mt-2"><li class="list-group-item list-group-item-danger">Inputs are required</li></ul>`
        setTimeout(function () {
          msgDiv.innerHTML = ''
       }, 4000);

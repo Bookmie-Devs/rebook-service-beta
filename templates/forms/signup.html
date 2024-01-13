@@ -105,12 +105,15 @@
               required
             />
           </div>
-          <div class="input-container mb-2">
-            <select name="gender" id="gender" class="section1c">
-              <option value="">Your Gender</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-            </select>
+          <div class="input-container mt-2 text-light d-flex justify-content-evenly">
+            <div>
+           <input type="radio" id="male" name="gender" value="male">
+            <label for="male">Male</label>
+            </div>
+            <div class="">
+            <input type="radio" id="female" name="gender" value="female">
+            <label for="female">Female</label>
+            </div>
           </div>
         
           <div id="msgDiv" role="alert">
