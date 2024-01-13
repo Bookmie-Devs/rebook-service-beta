@@ -192,6 +192,16 @@ async function initMap() {
 
   // Check if an option is selected
   if (selectedOption) {
+    if (selectedOption.value==""){
+      calculateAndDisplayRoute(campusEntrancePosition, hostelPosition, directionsRenderer);
+      if (previousMarker) {
+        previousMarker.setMap(null);
+        previousMarker = null;
+      }
+      campusEntranceMarker.setMap(map)
+      map.setCenter(campusEntrancePosition);
+    }
+    else{
     campusEntranceMarker.setMap(null)
     const collegeCoordinate = parseCoordinate(selectedOption.value);
 
@@ -228,7 +238,7 @@ async function initMap() {
 
     // Get the inner text of the selected option
     calculateAndDisplayRoute(collegeCoordinate, hostelPosition, directionsRenderer);
-  }
+  }}
   });
 }
 
