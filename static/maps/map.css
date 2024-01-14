@@ -21,12 +21,21 @@
   }
 
   .nav{
-    z-index: 99 !important;
+    display: grid;
+    grid-template-columns: 10% 85%;
+    gap: 5%;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  h1{
+    display: inline-block;
   }
 
   .select{
     padding: 8px;
     background: var(--dark);
+    width: 100%;
     /* position: fixed; */
     /* left: 50%; */
     /* transform: translateX(-50%); */
@@ -35,21 +44,37 @@
     /* width: 80%; */
   }
 
+  h1{
+    display: none;
+  }
+
+  .logo{
+    display: inline;
+  }
+
   @media (min-width: 600px) {
     .select{
-      position: fixed;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 9;
       padding: 8px;
       background: var(--dark);
       border-radius: 10px 10px 0 0;
-      width: initial;
     }
 
     #map{
       height: 92%;
+    }
+
+    .nav{
+      grid-template-columns: 45% 50%;
+      gap: 5%;
+      padding-right: 40px;
+    }
+
+    .logo {
+      display: none;
+    }
+
+    h1{
+      display: inline;
     }
   }
 
