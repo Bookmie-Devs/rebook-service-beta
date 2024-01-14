@@ -184,6 +184,16 @@ colleges.addEventListener('change', (event) => {
 
   // Check if an option is selected
   if (selectedOption) {
+    if (selectedOption.value==""){
+      calculateAndDisplayRoutes(campusEntrancePosition, places, map);
+      if (previousMarker) {
+        previousMarker.setMap(null);
+        previousMarker = null;
+      }
+      campusEntranceMarker.setMap(map)
+      map.setCenter(campusEntrancePosition);
+    }
+    else{
     const collegeCoordinate = parseCoordinate(selectedOption.value);
 
     campusEntranceMarker.setMap(null)
@@ -220,7 +230,7 @@ colleges.addEventListener('change', (event) => {
 
     // Get the inner text of the selected option
     calculateAndDisplayRoutes(collegeCoordinate, places, map);
-  }
+  }}
   });
 }
 
