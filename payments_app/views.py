@@ -44,7 +44,8 @@ def initiate_payment(request: HttpRequest, room_id):
         and create a new payment history and skip the
         check for if room is occupied (beacuse at the time of update it will surely be occcupied)
         """
-        if Booking.objects.get(user=request.user).is_updating_vcode:
+        booking = Booking.objects.get(user=request.user)
+        if booking.is_updating_vcode:
             #save payment details
             payment = PaymentHistory.objects.create(user=request.user,
                                 email=request.POST.get('email'),
@@ -57,11 +58,13 @@ def initiate_payment(request: HttpRequest, room_id):
 
         elif room.occupied:
             messages.info(request, 'Sorry, room has just been occupied by someone, please select new one')
-            # print(request.META.get(''))    
-            # return redirect(request.META.get('HTTP_REFERER'))
-            Booking.objects.get(user=request.user).delete()
+            booking.delete()
             return redirect('accounts:booking-and-payments')
         
+        if booking._has_expired():
+            booking.delete()
+            messages.info(request, 'Sorry, Booking has expired please book another room')
+            return redirect('accounts:booking-and-payments')
         else:
             if PaymentHistory.objects.filter(user=request.user, successful=False).exists():
                 # check if there is an unsuccessful payment
@@ -73,7 +76,6 @@ def initiate_payment(request: HttpRequest, room_id):
                                     room=room,hostel=room.hostel,)
                 payment.save()
                 return redirect('payments:make-payment', reference_id=payment.reference_id, room_id=room.room_id)
-            
             else:
                 #save payment details
                 payment = PaymentHistory.objects.create(user=request.user,

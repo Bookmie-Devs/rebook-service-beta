@@ -69,7 +69,7 @@ const campusEntrancePosition = {lat: parseFloat(document.getElementById('campus-
     // tilt: 36.6,
     gestureHandling: "greedy",
     mapTypeId: 'satellite',
-    mapId: "90f87356969d889c",
+    mapId: "DEMO_MAP_ID",
     mapTypeControl: true,
     mapTypeControlOptions: {
       mapTypeIds: ['roadmap','satellite'],
