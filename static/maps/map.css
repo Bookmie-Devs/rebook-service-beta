@@ -95,6 +95,10 @@
   align-items: center; 
 }
 
+/* remove blue border around map */
+.gm-style iframe + div { border:none!important; }
+
+
 .ui-button:hover {
   background-color: #2980b9; 
 }

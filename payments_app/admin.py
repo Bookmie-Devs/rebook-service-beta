@@ -2,6 +2,8 @@ from django.contrib import admin
 from .models import PaymentHistory, PaystackSubAccount
 
 # Register your models here.
+def update_hostel_percentage_charge(modeladmin, request, queryset:PaystackSubAccount):
+    queryset.update()
 
 class CustomPaystackSubAccountAdminPanel(admin.ModelAdmin):
 
@@ -11,6 +13,7 @@ class CustomPaystackSubAccountAdminPanel(admin.ModelAdmin):
                     'settlement_bank','bank_code',
                     'percentage_charge',
                     'account_verified',)
+    
     
 # customize payment history admin panel
 class CustomPaymentsAdminPanel(admin.ModelAdmin):

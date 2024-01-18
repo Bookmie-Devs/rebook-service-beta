@@ -13,7 +13,7 @@ class PaymentHistory(models.Model):
     paystack_reference = models.CharField(max_length=500, default='unavailable')
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
     email = models.EmailField()
-    amount = models.DecimalField(decimal_places=1, max_digits=7)
+    amount = models.DecimalField(decimal_places=2, max_digits=7)
     account_payed_to = models.CharField(max_length=300)
     room = models.ForeignKey(RoomProfile, on_delete=models.SET_NULL, null=True)
     hostel = models.ForeignKey(HostelProfile, on_delete=models.SET_NULL, null=True)
@@ -48,7 +48,8 @@ class PaystackSubAccount(models.Model):
     bank_code = models.CharField(max_length=50, default="unavailable")
     settlement_bank = models.CharField(max_length=80, default="unavailable")
     percentage_charge = models.DecimalField(max_digits=5, 
-                                            decimal_places=2,
+                                            decimal_places=3,
+                                            verbose_name="percentage charge %",
                                             default=0)
     account_verified = models.BooleanField(default=False)
 
