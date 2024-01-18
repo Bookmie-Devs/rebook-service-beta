@@ -17,7 +17,7 @@
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
     />
-    <!-- bootstrap-icons -->
+    {% comment %} <!-- bootstrap-icons --> {% endcomment %}
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
       rel="stylesheet"
@@ -28,7 +28,7 @@
     />
   </head>
   <body>
-    <!-- Navigation -->
+    {% comment %} <!-- Navigation --> {% endcomment %}
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
         <a class="navbar-brand px-4" style="color: #ff4500; margin: 0;" href="#!"
@@ -149,7 +149,7 @@
       </div>
     </div>
 
-    <!-- Loader -->
+    {% comment %} <!-- Loader --> {% endcomment %}
     <div class="load">
       <div class="loader">
         <div class="spinner"></div>
@@ -175,7 +175,7 @@
             <a href="tel:0206237060" type="button" class="btn btn-success">Call Customer Service
               <i class="bi bi-telephone-outbound"></i>
             </a>
-            <!-- <h1 class="display-5 h1">🎓{{ booking.user.username }}</h1> -->
+            {% comment %} <!-- <h1 class="display-5 h1">🎓{{ booking.user.username }}</h1> --> {% endcomment %}
             <div class="box mb-4">
               <div class="">
                 <a
@@ -251,7 +251,7 @@
 
           
             </div>
-            <!-- <div class="small mb-1"><h5>Username</h5></div> -->
+            {% comment %} <!-- <div class="small mb-1"><h5>Username</h5></div> --> {% endcomment %}
             <br />
             <h1 style="color: orange;">{{ booking.hostel.hostel_name }}
               <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-building-check" viewBox="0 0 16 16">
@@ -259,7 +259,7 @@
                 <path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6.5a.5.5 0 0 1-1 0V1H3v14h3v-2.5a.5.5 0 0 1 .5-.5H8v4H3a1 1 0 0 1-1-1z"/>
                 <path d="M4.5 2a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-6 3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-6 3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z"/>
               </svg>
-            </h1> <!-- This does not display-->
+            {% comment %} </h1> <!-- This does not display--> {% endcomment %}
             <h4>Floor {{ booking.room.floor_no }}</h4>
             <h4>Room {{ booking.room.room_no }}</h4>
             <h4>{{ booking.room.gender.capitalize }} Room</h4>
@@ -281,7 +281,7 @@
           <a href="tel:0206237060" type="button" class="btn btn-success mb-2">Call Customer Service
             <i class="bi bi-telephone-outbound"></i>
           </a>
-          <!-- <h1 class="display-5 h1">🎓{{ tenant.user.username }}</h1> -->
+          {% comment %} <!-- <h1 class="display-5 h1">🎓{{ tenant.user.username }}</h1> --> {% endcomment %}
           {% if tenant.checked_in %}
           <h4>
             Status: Checked in
@@ -328,7 +328,7 @@
                 class="btn btn-success"
               >
                 Get User Credentials(V-code)
-                <!-- QRCODE ICON -->
+                {% comment %} <!-- QRCODE ICON --> {% endcomment %}
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-qr-code-scan" viewBox="0 0 16 16">
                   <path d="M0 .5A.5.5 0 0 1 .5 0h3a.5.5 0 0 1 0 1H1v2.5a.5.5 0 0 1-1 0zm12 0a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0V1h-2.5a.5.5 0 0 1-.5-.5M.5 12a.5.5 0 0 1 .5.5V15h2.5a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5v-3a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1 0-1H15v-2.5a.5.5 0 0 1 .5-.5M4 4h1v1H4z"/>
                   <path d="M7 2H2v5h5zM3 3h3v3H3zm2 8H4v1h1z"/>
@@ -371,7 +371,7 @@
               >
                 Room Profile
 
-                <!-- room icon -->
+                {% comment %} <!-- room icon --> {% endcomment %}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -425,7 +425,7 @@
             <strong> Exp Date:</strong> {{ tenant.end_date.date }}
           </h4>
           <hr />
-          <!-- <div class="small mb-1"><h5>Username</h5></div> -->
+          {% comment %} <!-- <div class="small mb-1"><h5>Username</h5></div> --> {% endcomment %}
           <h1 style="color: orange;">{{ tenant.room.hostel.hostel_name }}
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-building-check" viewBox="0 0 16 16">
               <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m1.679-4.493-1.335 2.226a.75.75 0 0 1-1.174.144l-.774-.773a.5.5 0 0 1 .708-.708l.547.548 1.17-1.951a.5.5 0 1 1 .858.514Z"/>
@@ -448,14 +448,14 @@
 
     </div>
 
-    <!-- Footer -->
+    {% comment %} <!-- Footer --> {% endcomment %}
     <footer class="container-fluid footer_section">
       <div class="">
         <p>Copyright &copy; Bookmie 2023</p>
       </div>
     </footer>
 
-    <!-- Custom Js -->
+    {% comment %} <!-- Custom Js --> {% endcomment %}
     <script src="{% static 'booking_and_payments/script.js' %}"></script>
   </body>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>

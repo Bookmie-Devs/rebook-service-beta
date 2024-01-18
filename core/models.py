@@ -48,7 +48,7 @@ class Booking(models.Model):
         start usese auto_now_add which is NoneType until the
         the data is saved to the database
         """
-        self.end_time = (timezone.now() + timedelta(minutes=1))
+        self.end_time = (timezone.now() + timedelta(minutes=60))
         return super().save(*args, **kwargs)
 
     def __str__(self):

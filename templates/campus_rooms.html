@@ -7,7 +7,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <!-- Site Metas -->
+    {% comment %} <!-- Site Metas --> {% endcomment %}
   <meta name="description" content="Welcome to Bookmie.com, offering comfortable and affordable accommodation in Ghana. Explore our website and easily book a room now.">
   <meta name="keywords" content="hostel, accommodation, rooms, Student hostel, budget stay">
   <meta name="author" content="Bookmie.com">
@@ -17,7 +17,7 @@
   <meta name="revisit-after" content="1 day">
   <meta name="rating" content="General">
 
-  <!-- for social media sharing -->
+  {% comment %} <!-- for social media sharing --> {% endcomment %}
   <meta property="og:title" content="Bookmie.com">
   <meta property="og:description" content="Explore comfortable and affordable accommodation in Ghana. Explore our website and easily book a room now.">
   <meta property="og:image" content="../static/home/images/favicon.ico">
@@ -29,13 +29,13 @@
   
     <title>Get All Available Rooms on Campus | Bookmie.com</title>
   <link rel="icon" type="image/x-icon" href="{% static 'home/images/favicon.ico' %}">
-    <!-- Favicon-->
+    {% comment %} <!-- Favicon--> {% endcomment %}
     <link
       rel="icon"
       type="image/x-icon"
       href="{% static 'home/assets/favicon.ico' %}"
     />
-    <!-- Bootstrap icons-->
+    {% comment %} <!-- Bootstrap icons--> {% endcomment %}
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
       rel="stylesheet"
@@ -46,15 +46,15 @@
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
     />
-    <!-- Core theme CSS (includes Bootstrap)-->
+    {% comment %} <!-- Core theme CSS (includes Bootstrap)--> {% endcomment %}
     
     <link href="{% static 'list_staticfiles/css/styles.css' %}" rel="stylesheet" />
   </head>
   <body>
 
 
-      <!-- Loader -->
-    <div class="load">
+      {% comment %} <!-- Loader --> {% endcomment %}
+    <div id="loading-indicator" class="load">
       <div class="loader">
         <div class="spinner"></div>
         <p id="loading-option"></p>
@@ -62,7 +62,7 @@
     </div>  
   
 
-    <!-- Navigation-->
+    {% comment %} <!-- Navigation--> {% endcomment %}
     <nav class="nav navbar navbar-expand-lg navbar-light ">
       <div class="container px-4 px-lg-5">
 <h1><a class="h1" href="{% url 'core:index' %}"><img src="{% static 'home/images/favicon1.png' %}" alt="" style="height: 40px; width: 40px; margin-top: -5px;">Bookmie.com</a></h1> 
@@ -111,7 +111,6 @@
              
           </ul>
         {% if user.is_anonymous %}
-          <!-- <form > -->
             <div class="bttn">
             <a class="d-flex justify-content-center" href="{% url 'accounts:signup' %}">
               <button class="btn btn-outline-warning px-4" type="submit">
@@ -127,7 +126,6 @@
               </button>
             </a>
             </div>
-          <!-- </form> -->
         {% else %}
         <div class="bttn">
           <a class="d-flex justify-content-center" href="{% url 'accounts:booking-and-payments' %}">
@@ -136,19 +134,18 @@
               <i class="bi bi-person-circle "></i>
             </button>
           </a>
-        <!-- <form > -->
+
           <a class="d-flex justify-content-center" href="{% url 'accounts:logout' %}">
             <button class="btn btn-outline-warning px-4" type="submit">
               Log out
               <i class="bi bi-box-arrow-right"></i>
             </button>
           </a>
-        <!-- </form> -->
       {% endif %}
         </div>
       </div>
     </nav>
-    <!-- Header-->
+    {% comment %} <!-- Header--> {% endcomment %}
     <header class="bg-dark header">
       <div class="box bg-outline-dark">
       <div class="btn-box">
@@ -229,20 +226,20 @@
       </div>
     </header>
 
-    <!-- Section-->
+    {% comment %} <!-- Section--> {% endcomment %}
     <section class="">
       <div class="container px-4 px-lg-5 mt-5">
         <div id="search-results" class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-    <!-- check if rooms filter is not none -->
+    {% comment %} <!-- check if rooms filter is not none --> {% endcomment %}
     {% if rooms %}
           {% for room in rooms %}
           <a style="text-decoration:none; color:rgb(48, 45, 45);" href="{{ room.get_detail_url }}">
           <div class="col mb-5">
             <div class="card h-100">
-              <!-- Product details-->
+              {% comment %} <!-- Product details--> {% endcomment %}
               <div class="card-body p-2">
                 <div class="text-center">
-                  <!-- Sale badge-->
+                  {% comment %} <!-- Sale badge--> {% endcomment %}
                   <div
                     class="badge bg-dark text-white position-absolute"
                     style="top: 0.5rem; right: 0.5rem">
@@ -265,10 +262,10 @@
                   </svg>
                   </div>
                   <br>
-                  <!-- Product name-->
+                  {% comment %} <!-- Product name--> {% endcomment %}
                   <h6 class="fw-bold mt-2">{{ room.hostel.hostel_name.title }}</h6>
                   <h6 class="">{{ room.gender.capitalize }} Room</h6>
-                  <!-- <h5 class="fw-bolder">{{ room.rating }}</h5> -->
+                  {% comment %} <!-- <h5 class="fw-bolder">{{ room.rating }}</h5> --> {% endcomment %}
                   {% comment %} <div
                     class="d-flex justify-content-center small text-warning mb-2"
                   >
@@ -279,11 +276,11 @@
                     <div class="bi-star-fill"></div>
                   </div> {% endcomment %}
                   <div class="">{{ room.room_capacity }} in a Room🏠</div>
-                  <!-- Product price-->
+                  {% comment %} <!-- Product price--> {% endcomment %}
                   <div>GH&#8373;{{ room.ptf_room_price }}💵</div>
                 </div>
               </div>
-              <!-- Booking form-->
+              {% comment %} <!-- Booking form--> {% endcomment %}
               <form
               hx-post="{% url 'core:booking'  %}"
               hx-target="#htmx-message-{{room.room_id}}"
@@ -304,14 +301,14 @@
         </a>
           {% endfor %}
 
-        <!-- Dont display section with divs if room filter returns null -->
+        {% comment %} <!-- Dont display section with divs if room filter returns null --> {% endcomment %}
         {% else %}
         <br>
-        <!-- message if there no room available -->
+        {% comment %} <!-- message if there no room available --> {% endcomment %}
         <a style="text-decoration: none;" href="{% url 'rooms:campus-rooms' campus.campus_code %}" class="w-75">
           <div class="col w-100 mb-5">
 
-            <!-- class = "border border-danger" from boostrap -->
+            {% comment %} <!-- class = "border border-danger" from boostrap --> {% endcomment %}
             <div class="card w-100 h-100  border border-danger">
               <div class="card-body p-4">
                 <div class="text-center">
@@ -327,7 +324,7 @@
 
 
           
-    <!-- Footer-->
+    {% comment %} <!-- Footer--> {% endcomment %}
     <footer class="py-5 bg-dark footer">
       <div class="custom-shape-divider-top-1695573055">
         <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
@@ -341,31 +338,29 @@
         <p class="m-0 text-center text-white filter">Copyright &copy; Bookmie 2023</p>
       </div>
     </footer>
-    <!-- HTMX SCRIPTS -->
+    {% comment %} <!-- HTMX SCRIPTS --> {% endcomment %}
     <script src="https://unpkg.com/htmx.org@1.9.8" integrity="sha384-rgjA7mptc2ETQqXoYC3/zJvkU7K/aP44Y+z7xQuJiVnB/422P/Ak+F/AqFR7E4Wr" crossorigin="anonymous"></script>
 
-    <!-- Bootstrap core JS-->
+    {% comment %} <!-- Bootstrap core JS--> {% endcomment %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Core theme JS-->
+    {% comment %} <!-- Core theme JS--> {% endcomment %}
     <script src="{% static 'list_staticfiles/js/scripts.js' %}"></script>
 
 
 
 
-    <!-- some debounce logic on the client side to prevent too many requests 
+    {% comment %} <!-- some debounce logic on the client side to prevent too many requests 
     from being sent too quickly as the user interacts with the form inputs(htmx). 
-    This can help reduce server load and improve the user experience. -->
+    This can help reduce server load and improve the user experience. --> {% endcomment %}
     <script src="https://unpkg.com/lodash@4.17.21/lodash.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var form = document.getElementById('filter-form');
-
             // debounce function to limit the rate of AJAX requests
             var debounceFilter = _.debounce(function () {
                 form.dispatchEvent(new Event('change', { bubbles: true }));
             }, 300); // the debounce time as needed
-
             // Attach the debounce function to the input elements
             form.addEventListener('input', debounceFilter);
         });
