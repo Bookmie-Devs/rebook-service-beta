@@ -11192,3 +11192,12 @@ animation-duration: 3s;
   text-align: center;
   margin: 10px 5px; /* Adjust margin for spacing */
 }
+
+
+/* loader css for htmx */
+.htmx-request .load{
+  display:flex;
+}
+.htmx-request.load{
+  display:flex;
+}
