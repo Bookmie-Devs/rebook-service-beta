@@ -1,15 +1,4 @@
 @charset "UTF-8";
-/*!
-* Start Bootstrap - Shop Item v5.0.6 (https://startbootstrap.com/template/shop-item)
-* Copyright 2013-2023 Start Bootstrap
-* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-shop-item/blob/master/LICENSE)
-*/
-/*!
- * Bootstrap  v5.2.3 (https://getbootstrap.com/)
- * Copyright 2011-2022 The Bootstrap Authors
- * Copyright 2011-2022 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
- */
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
@@ -11044,4 +11033,69 @@ textarea.form-control-lg {
   .d-print-none {
     display: none !important;
   }
+}
+
+
+
+/* Loader */
+.load{
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.9);
+  display: none;
+}
+
+.loader{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader p{
+  font-size: 1.5rem;
+  color: var(--light);
+}
+
+.spinner {
+width: 56px;
+height: 56px;
+display: grid;
+border: 4px solid #0000;
+border-radius: 50%;
+border-right-color: var(--primary);
+animation: spinner-a4dj62 1s infinite linear;
+}
+
+.spinner::before,
+.spinner::after {
+content: "";
+grid-area: 1/1;
+margin: 2px;
+border: inherit;
+border-radius: 50%;
+animation: spinner-a4dj62 2s infinite;
+}
+
+.spinner::after {
+margin: 8px;
+animation-duration: 3s;
+}
+
+@keyframes spinner-a4dj62 {
+100% {
+ transform: rotate(1turn);
+}
+}
+
+/* loader css for htmx */
+.htmx-request .load{
+  display:flex;
+}
+.htmx-request.load{
+  display:flex;
 }
