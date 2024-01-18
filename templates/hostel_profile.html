@@ -115,7 +115,7 @@
                     <div class="col-md-6"><a href="{{ hostel.hostel_image.url }}"><img class="card-img-top mb-5 mb-md-0 img" src="{{ hostel.hostel_image.url }}" alt="Hostel_Pic" /></a></div>
                     <div class="col-md-6 text-center">
 
-                        <h1 class="display-5 fw-bolder" style="color: orange;">{{ hostel.hostel_name.title }}</h1>
+                        <h1 class="display-5 fw-bolder" style="color: orange;">{{ hostel.hostel_name.upper }}</h1>
                         <div class="small mb-1"><h6>&#x2713;Registered to {{ hostel.campus.alias_name.upper }}</h6> </div>
                         <span><strong>Price range: GH&#8373;: {{ hostel.price_range }}</strong></span>
                         {% comment %} <!-- <h4 class="fw-bolder">Contact {{ hostel.hostel_contact }}</h4> --> {% endcomment %}
