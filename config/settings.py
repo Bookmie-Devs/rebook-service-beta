@@ -293,7 +293,7 @@ USE_I18N = True
 USE_TZ = True
 
 # Supply Perentage
-SUPPLY_COST_PERCENTAGE = 0.032  
+SUPPLY_COST_PERCENTAGE = 0.035
 
 # Paystack Percentage
 SUBACCOUNT_PERCENTAGE = calculate_upstream_percentage(SUPPLY_COST_PERCENTAGE)
