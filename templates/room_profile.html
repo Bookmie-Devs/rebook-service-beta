@@ -18,12 +18,18 @@
         <link href="{% static 'profileStaticfiles/css/styles.css' %}" rel="stylesheet" />
     </head>
     <body>
+        {% comment %} loader {% endcomment %}
+        <div id="loading-indicator" class="load">
+            <div class="loader">
+            <div class="spinner"></div>
+            <p id="loading-option"></p>
+            </div>
+        </div>
         {% comment %} <!-- Navigation--> {% endcomment %}
         <nav class="nav navbar navbar-expand-lg navbar-light">
-
             <div class="container px-4 px-lg-5">
-<h1><a class="h1" href="{% url 'core:index' %}"><img src="{% static 'home/images/favicon1.png' %}" alt="" style="height: 40px; width: 40px; margin-top: -5px;">Bookmie.com</a></h1>
-                <div id="menu-btn" class="custom_menu-btn">
+            <h1><a class="h1" href="{% url 'core:index' %}"><img src="{% static 'home/images/favicon1.png' %}" alt="" style="height: 40px; width: 40px; margin-top: -5px;">Bookmie.com</a></h1>
+            <div id="menu-btn" class="custom_menu-btn">
               <button>
                 <span class="s-1">
 
@@ -89,7 +95,7 @@
                 </div>
             </div>
         </nav>
-        <!-- Product section-->
+        {% comment %} <!-- Product section--> {% endcomment %}
         <section class="py-5 section" style="color: white;">
             <div class="box bg-outline-dark">
       <div class="btn-box">
@@ -148,7 +154,7 @@
                             </button>
                         </div>
                     </div>
-                        <!-- <a href="{{ room.hostel.room_image.url }}"><img class="card-img-top mb-5 mb-md-0 img" src="{{ room.hostel.room_image.url}}" alt="..." /></a> -->
+                        {% comment %} <!-- <a href="{{ room.hostel.room_image.url }}"><img class="card-img-top mb-5 mb-md-0 img" src="{{ room.hostel.room_image.url}}" alt="..." /></a> --> {% endcomment %}
                     <div class="col-md-6 text-center">
                         <div class="small mb-1">Registered to {{ room.campus.alias_name.upper}}: BST-498</div>
                         <h3 class="display-5 fw-bolder" style="color: orange;">{{ room.hostel.hostel_name }}</h3>
@@ -219,10 +225,10 @@
                             <p>No air condition <span class="badge text-bg-danger">&#x2718;</span></p>
                         {% endif %}
                         <div class="fs-5 mb-5">
-                            <!-- Dynamic room price -->
-                            <!-- <span>GH&#8373;{{ Room.Room_Price }}</span> -->
+                            {% comment %} <!-- Dynamic room price --> {% endcomment %}
+                            {% comment %} <!-- <span>GH&#8373;{{ Room.Room_Price }}</span> --> {% endcomment %}
 
-                            <!-- <span>GH&#8373;2687</span> -->
+                            {% comment %} <!-- <span>GH&#8373;2687</span> --> {% endcomment %}
                         </div>
                         <p class="lead"><h1 style="color: orange;">Important Notice</h1>
 
@@ -232,7 +238,7 @@
                         <a href="{% url 'hostels:profile' room.hostel.hostel_id %}" style="margin: auto;">
                             {% comment %} <input type="hidden" name="room_id" value="{{ room.room_id }}"> {% endcomment %}
                             <button class="btn btn-secondary" type="submit">
-                                View Room's Hostel
+                                Room's Hostel
                                 <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="16"
@@ -255,7 +261,9 @@
                 </div>
             </div>
         </section>
-        
+
+      
+
         {% comment %} <!-- Footer--> {% endcomment %}
         <footer class="py-5 bg-dark footer">
 
