@@ -157,6 +157,7 @@ class HostelDetialsSerializer(serializers.ModelSerializer):
     number_of_3_in_a_room = serializers.SerializerMethodField(read_only=True)
     number_of_2_in_a_room = serializers.SerializerMethodField(read_only=True)
     number_of_1_in_a_room = serializers.SerializerMethodField(read_only=True)
+    total_bed_space = serializers.SerializerMethodField(read_only=True)
     total_bed_space_left = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
@@ -179,6 +180,7 @@ class HostelDetialsSerializer(serializers.ModelSerializer):
                   'number_of_tenants',
                   'number_rooms_occupied',
                   'total_sales',
+                  'total_bed_space',
                   'total_bed_space_left',
                   'number_of_4_in_a_room',
                   'number_of_3_in_a_room',
@@ -194,6 +196,15 @@ class HostelDetialsSerializer(serializers.ModelSerializer):
         # request = self.context.get('request')
         room_count = RoomProfile.objects.filter(hostel=obj).count()
         return room_count
+    
+    def get_total_bed_space(self, obj:HostelProfile):
+        total_bed_space: int = 0
+        rooms = RoomProfile.objects.filter(hostel=obj)
+        for room in rooms:
+        # add bed spaces
+            total_bed_space = total_bed_space + room.room_capacity
+        # return value
+        return total_bed_space
 
     def get_total_bed_space_left(self, obj:HostelProfile):
         total_bed_space_left: int = 0

@@ -10,11 +10,8 @@ let selectedStartingPoint;
 let colleges;
 
 async function initMap() {
-  // campus main entrance coordinates
   const campusEntrancePosition = {lat: parseFloat(document.getElementById('campus-lat').value), 
                                   lng: parseFloat(document.getElementById('campus-lng').value) };
-  // alert(campusEntrancePosition.lat)
-  // The location of hostel
   const hostelPosition = {lat: parseFloat(document.getElementById('lat').value), 
                           lng: parseFloat(document.getElementById('lng').value) };
   // Request needed libraries.
@@ -22,9 +19,8 @@ async function initMap() {
   const { Map } = await google.maps.importLibrary("maps");
   const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
 
-  // The map, centered at hostel locaiton
   map = new Map(document.getElementById("map"), {
-    zoom: 15,
+    zoom: 16,
     center: campusEntrancePosition,
     gestureHandling: "greedy",
     // mapId: "DEMO_MAP_ID",
@@ -40,16 +36,8 @@ async function initMap() {
       style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
       position: google.maps.ControlPosition.TOP_CENTER,},
   });
-  
-  setTimeout(() => {
-    map.setCenter(campusEntrancePosition)
-    map.setZoom(16)
-  }, 1200);
-
-
   // Show notification on map load
   // showMapNotification("Map loaded successfully!");
-
   const buttons = [
     ["<", "rotate", 20, google.maps.ControlPosition.LEFT_CENTER],
     [">", "rotate", -20, google.maps.ControlPosition.RIGHT_CENTER],
@@ -83,14 +71,12 @@ async function initMap() {
     }
   };
 
-
-
- // Initialize Directions Service and Renderer
  directionsService = new google.maps.DirectionsService();
  directionsRenderer = new google.maps.DirectionsRenderer({
   polylineOptions: {
+    strokeOpacity: 1.0,
     strokeColor: '#FE9901', 
-    strokeWeight: 6
+    strokeWeight: 4
   },
   preserveViewport: true,
   suppressMarkers: true,  // Show markers on the map
@@ -117,29 +103,23 @@ async function initMap() {
   <i class="bi bi-signpost"></i>
   </button>`
   });
-
-  
-  // Calculate and display directions immediately
-  calculateAndDisplayRoute(campusEntrancePosition, hostelPosition, directionsRenderer);
-
-    // The marker for campus entrance
   const campusEntranceMarker = new AdvancedMarkerElement({
       map: map,
       position: campusEntrancePosition,
-      content: originMarkerContent(`${document.getElementById('campus').value} Entrance`),
+      content: originMarkerContent(`From ${document.getElementById('campus').value} Entrance`),
       title: 'Origin',
       gmpDraggable: true,
     });
   
-  // The marker, positioned at hostel
   const hostelMarker = new AdvancedMarkerElement({
     map: map,
     position: hostelPosition,
     content: hostelMarkerContent(document.getElementById('hostel-name').value),
-    // element: document.getElementById('hostel-name'),
-    // the hostel name as title
     title:document.getElementById('hostel-name').value,
   });
+
+  calculateAndDisplayRoute(campusEntrancePosition, hostelPosition, directionsRenderer);
+
 
   // Funtion for showing info window for campus 
   // function openCampusInfo(info_window, map, marker) {
@@ -220,7 +200,7 @@ async function initMap() {
     const collegeEntranceMarker = new AdvancedMarkerElement({
       map: map,
       position: collegeCoordinate,
-      content: originMarkerContent(`${selectedOption.innerText}`),
+      content: originMarkerContent(`From ${selectedOption.innerText}`),
       // Customize the title to your taste
       title: `${selectedOption.innerText}`,
     });
@@ -236,7 +216,6 @@ async function initMap() {
     previousMarker = collegeEntranceMarker;
     // previousInfoWindow = infoWindow;
 
-    // Get the inner text of the selected option
     calculateAndDisplayRoute(collegeCoordinate, hostelPosition, directionsRenderer);
   }}
   });
@@ -287,6 +266,9 @@ function originMarkerContent(textContent) {
   const content = document.createElement("div");
   content.className = "origin-marker-content";
   content.textContent = textContent;
+  setTimeout(() => {
+    content.textContent = "Move To New Origin"
+  }, 9000);
   return content
 }
  
@@ -295,7 +277,6 @@ function hostelMarkerContent(textContent) {
   const content = document.createElement("div");
   content.className = "hostel-marker-content";
   content.textContent = textContent;
-
   return content
 }
 

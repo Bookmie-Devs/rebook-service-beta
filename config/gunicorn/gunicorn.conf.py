@@ -1,4 +1,5 @@
-"""Gunicorn *development* config file"""
+import multiprocessing
+"""Gunicorn config file"""
 
 # Django WSGI application path in pattern MODULE_NAME:VARIABLE_NAME
 wsgi_app = "config.wsgi:application"
@@ -7,7 +8,7 @@ wsgi_app = "config.wsgi:application"
 loglevel = "debug"
 
 # The number of worker processes for handling requests
-workers = 2
+workers = multiprocessing.cpu_count() * 2 + 1
 
 # The socket to bind
 bind = "0.0.0.0:8000"
@@ -16,15 +17,15 @@ bind = "0.0.0.0:8000"
 # reload = True
 
 # Write access and error info to /var/log
-accesslog = "/var/log/gunicorn/error.log"
+accesslog = "/var/log/gunicorn/bookmie.com/error.log"
 
-errorlog = "/var/log/gunicorn/access.log"
+errorlog = "/var/log/gunicorn/bookmie.com/access.log"
 
 # Redirect stdout/stderr to log file
 capture_output = True
 
 # PID file so you can easily fetch process ID
-pidfile = "/var/run/gunicorn/gunicorn.pid"
+pidfile = "/var/run/gunicorn/bookmie.com/gunicorn.pid"
 
 # Daemonize the Gunicorn process (detach & enter background)
 daemon = True

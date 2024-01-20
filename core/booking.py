@@ -37,7 +37,7 @@ def book_room(request: HttpRequest) -> HttpResponse:
         # # return redirect('accounts:booking-and-payments')
         # return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     
-    elif request.user.gender.lower()!=room.gender.lower():
+    elif request.user.gender.lower()!=room.gender.lower() and room.gender.lower()!='open':
         message ={'message':f'Room is for {room.gender}s'}
         return render(request,'htmx_message_templates/htmx_booking_message.html', message)
     

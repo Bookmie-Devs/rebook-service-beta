@@ -38,8 +38,12 @@ class Booking(models.Model):
         query = Booking.objects.get(booking_id=self.booking_id)
         query.delete()
     
+    def _has_expired(self, *args, **kwargs):
+        return timezone.now().time() >= self.end_time.time()
+
+    
     def save(self, *args, **kwargs):
-        """
+        """ 
         using timezone.now() instead of start_time because
         start usese auto_now_add which is NoneType until the
         the data is saved to the database

@@ -25,7 +25,6 @@ def create_sub_account(sender, instance, created, **kwargs):
             
             # if sub_account is created(201)
             if paystack_auth.status_code == 201:
-                print(paystack_auth.json())
                 sub_account.subaccount_code = paystack_auth.json()['data'].get('subaccount_code')
 
                 sub_account.percentage_charge = paystack_auth.json()['data'].get('percentage_charge')

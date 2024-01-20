@@ -116,7 +116,7 @@
               
               <div class="btn-box d d2">
                 <a href="{% url 'campus:campus-list' 'map-router' %}" class="">
-                  Search On Map (Recommend) 
+                  Campus Hostels (Recommend) 
                   <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -135,11 +135,11 @@
                 </a>
               </div>
 
-              <div class="btn-box t d3">
+              {% comment %} <div class="btn-box t d3">
                 <a href="{% url 'campus:campus-list' 'hostel-router' %}" class="">
                   Campus Hostels
                 </a>
-              </div>
+              </div> {% endcomment %}
               {% if user.is_anonymous %}
               <div class="btn-box d d4">
                 <a href="{% url 'accounts:signup' %}" class="">

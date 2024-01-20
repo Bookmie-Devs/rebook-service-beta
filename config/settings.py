@@ -16,7 +16,7 @@ from datetime import timedelta
 #load environment variables
 from decouple import config
 from django.conf import settings
-
+from payments_app.upstream import calculate_upstream_percentage
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -293,9 +293,10 @@ USE_I18N = True
 USE_TZ = True
 
 # Supply Perentage
-SUPPLY_COST_PERCENTAGE = 0.032  
+SUPPLY_COST_PERCENTAGE = 0.035
+
 # Paystack Percentage
-SUBACCOUNT_PERCENTAGE = SUPPLY_COST_PERCENTAGE*100
+SUBACCOUNT_PERCENTAGE = calculate_upstream_percentage(SUPPLY_COST_PERCENTAGE)
 
 
 # Static files (CSS, JavaScript, Images)
