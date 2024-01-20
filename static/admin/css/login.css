@@ -11,13 +11,21 @@
     justify-content: center;
 }
 
+#branding{
+    gap: 15px;
+}
+
+#branding button{
+    transform: scale(1.5);
+}
+
 .login #header h1 {
-    font-size: 1.125rem;
+    font-size: 2rem;
     margin: 0;
 }
 
 .login #header h1 a {
-    color: var(--header-link-color);
+    color: var(--accent);
 }
 
 .login #content {
