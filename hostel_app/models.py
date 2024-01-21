@@ -58,6 +58,15 @@ class HostelProfile(models.Model):
 
     hostel_image = models.ImageField(upload_to='HostelProfiles',
                                       default='unavailable.jpg')
+    hostel_image2 = models.ImageField(upload_to='HostelProfiles',
+                                      default='unavailable.jpg')
+    hostel_image3 = models.ImageField(upload_to='HostelProfiles',
+                                      default='unavailable.jpg')
+    hostel_image4 = models.ImageField(upload_to='HostelProfiles',
+                                      default='unavailable.jpg')
+    hostel_image5 = models.ImageField(upload_to='HostelProfiles',
+                                      default='unavailable.jpg')
+    
     # for hostel managers
     hostel_manager_profile_picture = models.ImageField(default="unknown_profile.jpg", upload_to="ManagersProfilePictures")
 
@@ -67,6 +76,12 @@ class HostelProfile(models.Model):
     room_image2 = models.ImageField(upload_to='RoomImages',verbose_name="Image2 of one room",
                                       default='unavailable.jpg')
     room_image3 = models.ImageField(upload_to='RoomImages',verbose_name="Image3 of one room",
+                                      default='unavailable.jpg')
+    room_image4 = models.ImageField(upload_to='RoomImages',verbose_name="Image4 of one room",
+                                      default='unavailable.jpg')
+    room_image5 = models.ImageField(upload_to='RoomImages',verbose_name="Image5 of one room",
+                                      default='unavailable.jpg')
+    room_image6 = models.ImageField(upload_to='RoomImages',verbose_name="Image6 of one room",
                                       default='unavailable.jpg')
     
     category = models.CharField(max_length=15,
