@@ -41,19 +41,18 @@ def signup(request: HttpRequest):
 
                     # checking if number is valid
                     if check_number(request.POST.get('phone')) == 400:
-                        
-                        message ={'message':'Phone number incorrect, please go back and check'}
+                        message ={'message':'Phone number incorrect, please go back and check','tag':'danger'}
                         return render(request,'htmx_message_templates/message.html', message)
                     
                     #existance of phone number 
                     elif CustomUser.objects.filter(phone=request.POST.get('phone')).exists():
                         # htmx message for signup
-                        message ={'message':'Phone Number has already been registered'}
+                        message ={'message':'Phone Number has already been registered','tag':'info'}
                         return render(request,'htmx_message_templates/message.html', message)
                     
                     elif CustomUser.objects.filter(email=email).exists():
                         # htmx message for signup
-                        message ={'message':'Eamil has already been registered'}
+                        message ={'message':'Email has already been registered','tag':'warning'}
                         return render(request,'htmx_message_templates/message.html', message)
 
                     
@@ -61,7 +60,7 @@ def signup(request: HttpRequest):
                         # messages.info(request, 'Stundent has already been registered')
                         # return redirect('accounts:signup')
                         # htmx message for signup
-                        message ={'message':'Account with studnet ID already exists(check ID)'}
+                        message ={'message':'Account with studnet ID already exists(check ID)','tag':'danger'}
                         return render(request,'htmx_message_templates/message.html', message)
                         
 
@@ -80,25 +79,25 @@ def signup(request: HttpRequest):
                         # Send verification email
                         send_verification_email(request=request, user=new_user)
                         
-                        messages.success(request, 'Please check your email to complete the registration.')
+                        messages.success(request, 'Please check your email to complete the registration.', extra_tags='success')
                         response = HttpResponse()
                         response['HX-Redirect'] = '/accounts/login/'
                         return response
                     
                 except ValidationError as e:
                     for err in e:
-                        message ={'message':f'{err}'}
+                        message ={'message':f'{err}','tag':'warning'}
                         return render(request,'htmx_message_templates/message.html', message)
 
             else:
                 # htmx message for signup
-                message ={'message':'Password is not matching'}
+                message ={'message':'Password is not matching','tag':'danger'}
                 return render(request,'htmx_message_templates/message.html', message)
 
             
         else:
             # htmx message for signup
-            message ={'message':'BookUp is not yet registered on your campus'}
+            message ={'message':'Bookmie.com is not yet registered on your campus','tag':'info'}
             return render(request,'htmx_message_templates/message.html', message)
         
         
@@ -130,7 +129,7 @@ def login(request: HttpRequest):
 
             return redirect('accounts:booking-and-payments')
         else:
-            messages.error(request, 'Credentials invalid')
+            messages.error(request, 'Credentials invalid', extra_tags="danger")
             return redirect('accounts:login')
 
     return render(request, 'forms/login.html')
@@ -198,7 +197,6 @@ def activate(request, uidb64, token):
         # will celery later to send sms
         msg = render_to_string('emails/signup_sms.html',{'user':request.user})
         send_sms_message(user_contact=request.user.phone, msg=msg)
-        
         # # email msg with celery
         email_message = render_to_string('emails/signup_congrat.html',{'user':request.user})
         # send_email_task.delay(f'Welcome to Bookmie.com!, {request.user.username} Your signup was successful.', 
@@ -210,8 +208,7 @@ def activate(request, uidb64, token):
                         email_message, 
                         settings.EMAIL_HOST_USER, 
                         [request.user.email])
-        
-        messages.success(request, 'Your account has been activated successfully.')
+        messages.success(request, 'Your account has been activated successfully.', extra_tags="info")
         return redirect('accounts:booking-and-payments')
     
     else:
