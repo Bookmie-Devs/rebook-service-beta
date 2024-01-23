@@ -23,7 +23,10 @@
         </div>
         <div class="col-lg-4 col-md-5 ">
           <div class="form_container">
-            <form id="contact-form">
+            <form 
+            hx-post="{% url 'reviews:customer-care' %}"
+            hx-target="#customer-care-button-div"
+            id="contact-form">
               {% csrf_token %}
               <div class="inputbox">
                 <input id="username" name="name" required="required" type="text">
@@ -45,7 +48,7 @@
           <span>Problem/Message</span>
           <i></i>
       </div>
-              <div class="d-flex ">
+              <div id="customer-care-button-div" class="d-flex ">
                 <button id="contact-button" type="submit">
                   Send
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
