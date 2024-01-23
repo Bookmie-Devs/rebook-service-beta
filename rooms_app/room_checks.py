@@ -8,13 +8,10 @@ from core.models import Booking, Tenant
 from rooms_app.models import RoomProfile
 from django.utils import timezone
 
-
 def active_bookings(room_instance: RoomProfile) -> int:
     # return the number of active of bookings for room
-    campus = room_instance.campus
-    number_of_active_bookings_in_room = Booking.objects.filter(room=room_instance, end_time__gt=campus.end_of_acadamic_year).count()
+    number_of_active_bookings_in_room = Booking.objects.filter(room=room_instance, end_time__gt=timezone.now()).count()
     return number_of_active_bookings_in_room
-
 
 def active_tenants(room_instance: RoomProfile) -> int:
     # return the number of active tenants in room
@@ -44,7 +41,6 @@ def capacity_available(room_instance: RoomProfile) -> bool:
         room_instance.save()
         # return false is not available
         return False
-        
     else:
         # if room is not full with tenants
         return True
