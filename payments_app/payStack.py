@@ -1,7 +1,6 @@
 import requests
 from django.conf import settings
 from hostel_app.models import HostelProfile
-from .models import PaystackSubAccount
 from django.urls import reverse
 
 headers = {
@@ -46,9 +45,23 @@ def payment_is_confirm(data, payment):
         return False
     
 
+def update_subaccount(subaccount_id, hostel_name, settlement_bank, account_number, percentage_charge):
+    paystack_url = f'https://api.paystack.co/subaccount/{subaccount_id}'
+    data = {
+    'business_name':f'{hostel_name}',
+    'settlement_bank':f'{settlement_bank}',
+    'account_number': f'{account_number}',
+    'percentage_charge':f'{percentage_charge}',
+    }
+    response = requests.put(url=paystack_url, json=data, headers=headers)
+    print(response.json())
+    if response.status_code==200 and response.json().get('status')==True:
+        return response.json().get('message')
+    else:
+        return "Error Occured"
 # def redirect_payment(customer_email=None, reference=None, room_price=None, hostel=None):
 
-#     #   get hostel sub account
+#     #   get hostel sub account    
 #     hostel_sub_account = PaystackSubAccount.objects.get(hostel=hostel)
 
 #     # paystack transaction endpoint

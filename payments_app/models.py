@@ -1,8 +1,11 @@
+from collections.abc import Iterable
 from django.db import models
 from accounts.models import CustomUser
 from hostel_app.models import HostelProfile
 from rooms_app.models import RoomProfile
 import uuid
+from django.conf import settings
+from .payStack import update_subaccount
 from django.utils import timezone
 
 # Date
@@ -52,10 +55,20 @@ class PaystackSubAccount(models.Model):
                                             verbose_name="percentage charge %",
                                             default=0)
     account_verified = models.BooleanField(default=False)
+    # check field when you want to update field
+    is_updating_subaccount = models.BooleanField(default=False)
+    update_message = models.CharField(max_length=30, null=True, blank=True)
 
     class Meta:
         db_table = 'paystack_sub_accounts'
 
+    def save(self, *args, **kwargs):
+        if self.is_updating_subaccount:
+            self.percentage_charge = settings.SUBACCOUNT_PERCENTAGE
+            self.update_message = update_subaccount(self.subaccount_code, self.bussiness_name, self.settlement_bank, self.account_number, self.percentage_charge)
+            # setting value back to default after updating
+            self.is_updating_subaccount=False
+        return super().save(*args, **kwargs)
 
     def __str__(self) -> str:
         return f'{self.hostel} SubAccount'
