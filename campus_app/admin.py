@@ -9,6 +9,17 @@ class CustomCampusAdminPanel(admin.ModelAdmin):
 
     list_display = ('campus_name','campus_code','address')
 
+    fieldsets = (
+        ('General', {
+            "fields": (
+                'campus_name','alias_name','campus_code','flag',
+            ),
+        }),
+        ('Location', {'fields': ('location','address','geolocation',)}),
+        ('Verifications',{'fields':('available_on_campus','end_of_acadamic_year',)}),
+    )
+    
+
     formfield_overrides = {
         map_fields.AddressField: {'widget': map_widgets.GoogleMapsAddressWidget},
     }
