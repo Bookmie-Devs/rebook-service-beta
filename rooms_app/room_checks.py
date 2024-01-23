@@ -3,7 +3,7 @@ room check logics and functions here to avoid
 circular import errors with importing
 classes
 """
-
+from campus_app.models import CampusProfile
 from core.models import Booking, Tenant
 from rooms_app.models import RoomProfile
 from django.utils import timezone
@@ -11,18 +11,21 @@ from django.utils import timezone
 
 def active_bookings(room_instance: RoomProfile) -> int:
     # return the number of active of bookings for room
-    number_of_active_bookings_in_room = Booking.objects.filter(room=room_instance, end_time__gt=timezone.now()).count()
+    campus = room_instance.campus
+    number_of_active_bookings_in_room = Booking.objects.filter(room=room_instance, end_time__gt=campus.end_of_acadamic_year).count()
     return number_of_active_bookings_in_room
 
 
 def active_tenants(room_instance: RoomProfile) -> int:
     # return the number of active tenants in room
-    number_of_active_tenants_in_room = Tenant.objects.filter(room=room_instance, end_date__lt=timezone.now()).count()
+    campus = room_instance.campus
+    number_of_active_tenants_in_room = Tenant.objects.filter(room=room_instance, end_date__gt=campus.end_of_acadamic_year).count()
     return number_of_active_tenants_in_room
 
 def capacity_available(room_instance: RoomProfile) -> bool:
     # count all tenants in room
-    count_members = Tenant.objects.filter(room=room_instance, end_date__lt=timezone.now()).count()
+    campus = room_instance.campus
+    count_members = Tenant.objects.filter(room=room_instance, end_date__gt=campus.end_of_acadamic_year).count()
     if room_instance.room_capacity <= count_members:
         """
         Room will likely not show for booking but incase it shows
