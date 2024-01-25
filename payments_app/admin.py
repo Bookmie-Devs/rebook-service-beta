@@ -6,8 +6,17 @@ def update_hostel_percentage_charge(modeladmin, request, queryset:PaystackSubAcc
     queryset.update()
 
 class CustomPaystackSubAccountAdminPanel(admin.ModelAdmin):
-
-    search_fields = ('hostel','subaccount_code')
+    fieldsets = (
+        ('General', {
+            "fields": (
+                'hostel','bussiness_name','account_number','subaccount_code','primary_contact_name','bank_code',
+                'settlement_bank','percentage_charge','account_verified',
+            ),
+        }),
+        ('Use This Section When Updating Subaccount',{'fields':('is_updating_subaccount','update_message',)})
+    )
+    
+    search_fields = ('subaccount_code',)
 
     list_display = ('bussiness_name','subaccount_code',
                     'settlement_bank','bank_code',
