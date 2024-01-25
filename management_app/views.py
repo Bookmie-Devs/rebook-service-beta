@@ -162,7 +162,7 @@ class TenantListView(generics.ListAPIView):
 class SalesStatsView(generics.ListAPIView):
     permission_classes = [IsAuthenticated, IsHostelManager]  
 
-    authentication_classes = [SessionAuthentication]
+    # authentication_classes = [SessionAuthentication]
     def get(self, request: HttpRequest):
         from .models import SalesStatistics
         try:
