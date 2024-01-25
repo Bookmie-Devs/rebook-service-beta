@@ -160,7 +160,6 @@ async function initMap() {
 
   });
 
-
   let previousMarker = null;
   // let previousInfoWindow = null;
 
@@ -172,30 +171,31 @@ async function initMap() {
 
   // Check if an option is selected
   if (selectedOption) {
-    if (selectedOption.value==""){
-      calculateAndDisplayRoute(campusEntrancePosition, hostelPosition, directionsRenderer);
-      if (previousMarker) {
-        previousMarker.setMap(null);
-        previousMarker = null;
-      }
+    if (selectedOption.value==""){    r
+      // assuming the marker has been draged previously
+      campusEntranceMarker.setMap(null)
+      // if (previousMarker) {
+      //   previousMarker.setMap(null);
+      //   previousMarker = null;
+      // }
+      // previousMarker.setMap(null)
       campusEntranceMarker.setMap(map)
       map.setCenter(campusEntrancePosition);
+      previousMarker = campusEntranceMarker
+      calculateAndDisplayRoute(campusEntrancePosition, hostelPosition, directionsRenderer);
     }
     else{
     campusEntranceMarker.setMap(null)
     const collegeCoordinate = parseCoordinate(selectedOption.value);
-
     // Remove previous marker and info window if they exist
     if (previousMarker) {
       previousMarker.setMap(null);
       previousMarker = null;
     }
-
     // if (previousInfoWindow) {
     //   previousInfoWindow.close();
     //   previousInfoWindow = null;
     // }
-
     // Create new marker and info window
     const collegeEntranceMarker = new AdvancedMarkerElement({
       map: map,
@@ -268,7 +268,7 @@ function originMarkerContent(textContent) {
   content.textContent = textContent;
   setTimeout(() => {
     content.textContent = "Move To New Origin"
-  }, 9000);
+  }, 5000);
   return content
 }
  

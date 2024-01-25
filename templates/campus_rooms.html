@@ -175,7 +175,7 @@
           <a class="nav-link active" aria-current="page" href="#!"><h3 class="fw-bolder" style="color: orange;">Lets Help You Get A Room🏠</h3></a>
             <form 
             hx-get="{% url 'rooms:campus-rooms' campus.campus_code %}"
-            hx-trigger="change input"
+            hx-trigger="submit, change"
             hx-target="#search-results"
             id="filter-form"
              data-action="Searching..." class="row g-2 align-items-center">
@@ -217,9 +217,9 @@
                 >
               </div>
             
-              <a  href="" id='search-button' class="btn drop">
-               Show All Rooms <i class="bi bi-arrow-repeat"></i>
-              </a> 
+              <button type="submit" id='search-button' class="btn drop">
+               Search... <i class="bi bi-search"></i>
+              </button> 
             </form>
             
         </div>
@@ -360,11 +360,11 @@
             // debounce function to limit the rate of AJAX requests
             var debounceFilter = _.debounce(function () {
                 form.dispatchEvent(new Event('change', { bubbles: true }));
-            }, 300); // the debounce time as needed
+            }, 500); // the debounce time as needed
             // Attach the debounce function to the input elements
             form.addEventListener('input', debounceFilter);
         });
-    </script>
+    </script> 
 
   </body>
 </html>

@@ -5,14 +5,14 @@
 /* VARIABLE DEFINITIONS */
 html[data-theme="light"],
 :root {
-    --primary: #79aec8;
-    --secondary: #417690;
-    --accent: #f5dd5d;
+    --primary: #FEA116;
+    --secondary: #0F172B;
+    --accent: #ff4500;
     --primary-fg: #fff;
 
     --body-fg: #333;
-    --body-bg: #fff;
-    --body-quiet-color: #666;
+    --body-bg: #F1F8FF;
+    --body-quiet-color: var(--secondary);
     --body-loud-color: #000;
 
     --header-color: #ffc;
@@ -20,12 +20,12 @@ html[data-theme="light"],
     --header-bg: var(--secondary);
     --header-link-color: var(--primary-fg);
 
-    --breadcrumbs-fg: #c4dce8;
+    --breadcrumbs-fg: var(--secondary);
     --breadcrumbs-link-fg: var(--body-bg);
     --breadcrumbs-bg: var(--primary);
 
-    --link-fg: #417893;
-    --link-hover-color: #036;
+    --link-fg: #1a2749;
+    --link-hover-color: #5b80b2;
     --link-selected-fg: #5b80b2;
 
     --hairline-color: #e8e8e8;
@@ -43,9 +43,9 @@ html[data-theme="light"],
 
     --button-fg: #fff;
     --button-bg: var(--primary);
-    --button-hover-bg: #609ab6;
+    --button-hover-bg: #fcb140;
     --default-button-bg: var(--secondary);
-    --default-button-hover-bg: #205067;
+    --default-button-hover-bg: #1a2749;
     --close-button-bg: #747474;
     --close-button-hover-bg: #333;
     --delete-button-bg: #ba2121;
@@ -938,8 +938,8 @@ a.deletelink:focus, a.deletelink:hover {
     padding: 0;
     margin: 0;
     margin-inline-end: 20px;
-    font-weight: 300;
-    font-size: 1.5rem;
+    font-weight: bolder;
+    font-size: 2rem;
     color: var(--header-branding-color);
 }
 

@@ -21,7 +21,7 @@ from django.utils import timezone
 from rest_framework.permissions import (IsAuthenticatedOrReadOnly,
                                         IsAuthenticated,
                                         DjangoModelPermissions) 
-
+from .sales import convert_sales
 from rest_framework.decorators import (permission_classes,
                                        authentication_classes)
 from rooms_app.models import RoomProfile
@@ -161,13 +161,15 @@ class TenantListView(generics.ListAPIView):
 
 class SalesStatsView(generics.ListAPIView):
     permission_classes = [IsAuthenticated, IsHostelManager]  
+
+    authentication_classes = [SessionAuthentication]
     def get(self, request: HttpRequest):
         from .models import SalesStatistics
         try:
             hostel = HostelProfile.objects.get(hostel_manager=request.user)
             sales = SalesStatistics.objects.filter(hostel=hostel).all()
-            serializer = SalesStatSerializer(sales, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            # serializer = SalesStatSerializer(sales, many=True)
+            return Response(convert_sales(sales=sales), status=status.HTTP_200_OK)
         except:
             return Response({'MESSAGE':'NO_DATA_FOUND'},status=status.HTTP_404_NOT_FOUND)
         
