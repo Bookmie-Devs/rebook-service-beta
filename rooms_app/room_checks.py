@@ -15,14 +15,14 @@ def active_bookings(room_instance: RoomProfile) -> int:
 
 def active_tenants(room_instance: RoomProfile) -> int:
     # return the number of active tenants in room
-    campus = room_instance.campus
-    number_of_active_tenants_in_room = Tenant.objects.filter(room=room_instance, end_date__gt=campus.end_of_acadamic_year).count()
+    campus_end_year = room_instance.campus.end_of_acadamic_year
+    number_of_active_tenants_in_room = Tenant.objects.filter(room=room_instance, end_date__gt=campus_end_year).count()
     return number_of_active_tenants_in_room
 
 def capacity_available(room_instance: RoomProfile) -> bool:
     # count all tenants in room
-    campus = room_instance.campus
-    count_members = Tenant.objects.filter(room=room_instance, end_date__gt=campus.end_of_acadamic_year).count()
+    campus_end_year = room_instance.campus.end_of_acadamic_year
+    count_members = Tenant.objects.filter(room=room_instance, end_date__gt=campus_end_year).count()
     if room_instance.room_capacity <= count_members:
         """
         Room will likely not show for booking but incase it shows
