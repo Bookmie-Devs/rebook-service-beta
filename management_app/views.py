@@ -7,8 +7,7 @@ from rest_framework.decorators import api_view
 
 from .serializers import (RoomListSerializer,
                           RoomDetailSerializer,
-                          HostelDetialsSerializer,
-                          SalesStatSerializer)
+                          HostelDetialsSerializer,)
 
 from rest_framework.authentication import SessionAuthentication
 # from core.models import Booking
@@ -168,7 +167,6 @@ class SalesStatsView(generics.ListAPIView):
         try:
             hostel = HostelProfile.objects.get(hostel_manager=request.user)
             sales = SalesStatistics.objects.filter(hostel=hostel).all()
-            # serializer = SalesStatSerializer(sales, many=True)
             return Response(convert_sales(sales=sales), status=status.HTTP_200_OK)
         except:
             return Response({'MESSAGE':'NO_DATA_FOUND'},status=status.HTTP_404_NOT_FOUND)
