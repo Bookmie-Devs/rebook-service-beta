@@ -1,6 +1,5 @@
- // Initialize and add the map
 let map;
-let infoWindows = []; // Array to store InfoWindows
+let infoWindows = [];
 let directionsService;
 let directionsRenderers = [];
 let campusEntranceInfoWindow;
@@ -19,7 +18,6 @@ const campusEntrancePosition = {lat: parseFloat(document.getElementById('campus-
     </a>`
  }
  function collegeWindowFunction(url, name) {
-  // return ``
   return `<a type="button"  class="btn btn-primary" href="${url}"
   style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
   From ${name}
@@ -33,13 +31,9 @@ const campusEntrancePosition = {lat: parseFloat(document.getElementById('campus-
    let jsonString = document.getElementById('hostel-coordinates').value
    jsonString = jsonString.replace(/None/g, 'null').replace(/'/g, '"');
    const places = JSON.parse(jsonString)
-   // Request needed libraries.
-   //@ts-ignore
    const { Map } = await google.maps.importLibrary("maps");
    const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
 
-
-  // Initialize Directions Service and Renderer
   directionsService = new google.maps.DirectionsService();
   // directionsRenderer = new google.maps.DirectionsRenderer();
   map = new Map(document.getElementById("map"), {
@@ -61,8 +55,6 @@ const campusEntrancePosition = {lat: parseFloat(document.getElementById('campus-
     map.setCenter(campusEntrancePosition)
     map.setZoom(15)
    }, 1200); 
-
-
   //  const buttons = [
   //   // ["<", "rotate", 20, google.maps.ControlPosition.LEFT_CENTER],
   //   // [">", "rotate", -20, google.maps.ControlPosition.RIGHT_CENTER],
@@ -96,43 +88,32 @@ const campusEntrancePosition = {lat: parseFloat(document.getElementById('campus-
   //   }
   // };
 
-   
- // Add markers for each place
  const markers = places.map(place => {
    const marker = new AdvancedMarkerElement({
     map: map,
     position: place,
     content: hostelMarkerContent(`${place.name}`),
-    // the hostel name as title
     title: place.name, // Set the title for the marker (used as a tooltip)
    });
-   // Create an info window for each marker
   const infoWindow = new google.maps.InfoWindow({
   content: infoWindowFunction(place.url, place.name),
   });
-  // Store the InfoWindow in the array
   infoWindows.push(infoWindow);
   marker.addListener('click', () => {
      window.location.href = (place.url);
    });
    return marker;
   });
-
-  // Open InfoWindows for each marker by default
   // markers.forEach((marker, index) => {
   //   infoWindows[index].open(map, marker);
   // });
-  // The marker for campus entrance
   const campusEntranceMarker = new AdvancedMarkerElement({
     map: map,
     position: campusEntrancePosition,
     content: originMarkerContent(`${document.getElementById('campus').value} Main Entrance`),
-    // Customize the title to your taste
     title: `${document.getElementById('campus').value} Campus Entrance`,
   });
-
   calculateAndDisplayRoutes(campusEntrancePosition, places, map);
-    
   // campusEntranceInfoWindow = new google.maps.InfoWindow({
   //   content: `<button type="button" class="btn btn-primary">
   //   ${document.getElementById('campus').value} Main Entrance
@@ -140,18 +121,14 @@ const campusEntrancePosition = {lat: parseFloat(document.getElementById('campus-
   //   </button>`
   //   });
   // campusEntranceInfoWindow.open(map, campusEntranceMarker);
-
-  
 let previousMarker = null;
 let previousInfoWindow = null;
 
 colleges = document.getElementById('colleges');
 
 colleges.addEventListener('change', (event) => {
-  // Get the selected option
   const selectedOption = colleges.options[colleges.selectedIndex];
 
-  // Check if an option is selected
   if (selectedOption) {
     if (selectedOption.value==""){
       calculateAndDisplayRoutes(campusEntrancePosition, places, map);
@@ -166,44 +143,32 @@ colleges.addEventListener('change', (event) => {
     const collegeCoordinate = parseCoordinate(selectedOption.value);
 
     campusEntranceMarker.setMap(null)
-    // Remove previous marker and info window if they exist
     if (previousMarker) {
       previousMarker.setMap(null);
       previousMarker = null;
     }
-
     if (previousInfoWindow) {
       previousInfoWindow.close();
       previousInfoWindow = null;
     }
-
-    // Create new marker and info window
     const collegeEntranceMarker = new AdvancedMarkerElement({
       map: map,
       position: collegeCoordinate,
       content: originMarkerContent(`From ${selectedOption.innerText}`),
-      // Customize the title to your taste
       title: `${selectedOption.innerText}`,
     });
 
     const infoWindow = new google.maps.InfoWindow({
       content: collegeWindowFunction("#", selectedOption.innerText),
     });
-
     map.setCenter(collegeCoordinate);
-
-    // infoWindow.open(map, collegeEntranceMarker);
-    // Store the new marker and info window
     previousMarker = collegeEntranceMarker;
     previousInfoWindow = infoWindow;
 
-    // Get the inner text of the selected option
     calculateAndDisplayRoutes(collegeCoordinate, places, map);
   }}
   });
 }
-
-
 
 function calculateAndDisplayRoutes(origin, destinations, map) {
   clearDirectionsRenderers()
@@ -211,11 +176,10 @@ function calculateAndDisplayRoutes(origin, destinations, map) {
       const request = {
           origin: origin,
           destination: destination,
-          travelMode: 'WALKING', // or other travel modes like 'BICYCLING', etc.
+          travelMode: 'WALKING',
       };
       directionsService.route(request, function (result, status) {
           if (status === 'OK') {
-              // Create a new DirectionsRenderer for each route
               const newRenderer = new google.maps.DirectionsRenderer({
                   polylineOptions: {
                     strokeOpacity: 1.0,
@@ -227,9 +191,6 @@ function calculateAndDisplayRoutes(origin, destinations, map) {
               });
               newRenderer.setMap(map);
               newRenderer.setDirections(result);
-
-            // Store the DirectionsRenderer in an array in to
-            // be able to clear it 
             directionsRenderers.push(newRenderer);
           } else {
               console.error('Error fetching directions:', status);
@@ -246,11 +207,9 @@ function parseCoordinate(coordinateString) {
 }
 
 function clearDirectionsRenderers() {
-  // Remove all existing DirectionsRenderers from the map
   directionsRenderers.forEach(renderer => {
     renderer.setMap(null);
   });
-  // Clear the array
   directionsRenderers = [];
 }
 
@@ -265,7 +224,6 @@ function hostelMarkerContent(textContent) {
   const content = document.createElement("div");
   content.className = "hostel-marker-content";
   content.textContent = textContent;
-
   return content
 }
 

@@ -3,7 +3,6 @@
 let map;
 let directionsService;
 let directionsRenderer;
-// info windows var
 let hostelInfoWindow;
 let campusEntranceInfoWindow;
 let selectedStartingPoint;
@@ -14,8 +13,7 @@ async function initMap() {
                                   lng: parseFloat(document.getElementById('campus-lng').value) };
   const hostelPosition = {lat: parseFloat(document.getElementById('lat').value), 
                           lng: parseFloat(document.getElementById('lng').value) };
-  // Request needed libraries.
-  //@ts-ignore
+
   const { Map } = await google.maps.importLibrary("maps");
   const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
 
@@ -79,13 +77,10 @@ async function initMap() {
     strokeWeight: 4
   },
   preserveViewport: true,
-  suppressMarkers: true,  // Show markers on the map
-  // suppressPolylines: false // Show the polyline on the map
-
+  suppressMarkers: true,  
   });
  directionsRenderer.setMap(map);
 
-  // open info windows
   hostelInfoWindow = new google.maps.InfoWindow({
     content: `<a href="${document.querySelector('#hostel-url').value}" type="button" class="btn btn-warning">
     ${document.getElementById('hostel-name').value}
@@ -120,65 +115,24 @@ async function initMap() {
 
   calculateAndDisplayRoute(campusEntrancePosition, hostelPosition, directionsRenderer);
 
-
-  // Funtion for showing info window for campus 
-  // function openCampusInfo(info_window, map, marker) {
-
-  //   info_window.open(map, marker);
-  //   // Close the notification window after a certain duration (e.g., 3 seconds)
-  //   setTimeout(() => {
-  //     const newContent = `<button type="button" class="btn btn-primary"
-  //     style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-  //     Move Marker To Change Origin
-  //     <i class="bi bi-signpost"></i>
-  //     </button>`;
-  //   info_window.setContent(newContent);
-  //   }, 3000);
-  // }
-  
-
-  // Open info windows immediately
-  // hostelInfoWindow.open(map, hostelMarker);
-  // openCampusInfo(campusEntranceInfoWindow, map, campusEntranceMarker);
- 
-
-  ///////////////////EVENT LISTENERS///////////////////////////
-
-  // Add click event listener to the hostelMarker
   hostelMarker.addListener('click', () => {
-  // Open the associated URL in a new tab or window
   window.location.href = document.getElementById('hostel-url').value;
   });
 
-  // dragend event listener to the marker
   campusEntranceMarker.addListener('dragend', function (event) {
-    // Update the selectedStartingPoint when marker is dragged
     selectedStartingPoint = { lat: event.latLng.lat(), lng: event.latLng.lng() };
-    // campusEntranceMarker.setContent(originMarkerContent("sjd"))
-    // Recalculate and display route with the new starting point
     calculateAndDisplayRoute(selectedStartingPoint, hostelPosition, directionsRenderer);
 
   });
 
   let previousMarker = null;
-  // let previousInfoWindow = null;
-
   colleges = document.getElementById('colleges');
 
   colleges.addEventListener('change', (event) => {
-  // Get the selected option
   const selectedOption = colleges.options[colleges.selectedIndex];
-
-  // Check if an option is selected
   if (selectedOption) {
     if (selectedOption.value==""){    r
-      // assuming the marker has been draged previously
       campusEntranceMarker.setMap(null)
-      // if (previousMarker) {
-      //   previousMarker.setMap(null);
-      //   previousMarker = null;
-      // }
-      // previousMarker.setMap(null)
       campusEntranceMarker.setMap(map)
       map.setCenter(campusEntrancePosition);
       previousMarker = campusEntranceMarker
@@ -187,41 +141,24 @@ async function initMap() {
     else{
     campusEntranceMarker.setMap(null)
     const collegeCoordinate = parseCoordinate(selectedOption.value);
-    // Remove previous marker and info window if they exist
     if (previousMarker) {
       previousMarker.setMap(null);
       previousMarker = null;
     }
-    // if (previousInfoWindow) {
-    //   previousInfoWindow.close();
-    //   previousInfoWindow = null;
-    // }
-    // Create new marker and info window
     const collegeEntranceMarker = new AdvancedMarkerElement({
       map: map,
       position: collegeCoordinate,
       content: originMarkerContent(`From ${selectedOption.innerText}`),
-      // Customize the title to your taste
       title: `${selectedOption.innerText}`,
     });
 
-    // const infoWindow = new google.maps.InfoWindow({
-    //   content: collegeWindowFunction("#", selectedOption.innerText),
-    // });
-
     map.setCenter(collegeCoordinate);
-
-    // infoWindow.open(map, collegeEntranceMarker);
-    // Store the new marker and info window
     previousMarker = collegeEntranceMarker;
-    // previousInfoWindow = infoWindow;
-
     calculateAndDisplayRoute(collegeCoordinate, hostelPosition, directionsRenderer);
   }}
   });
 }
 
-// Function for infoWindow
 function infoWindowFunction(url, name) {
   return `<a href="${url}"><h6>${name}</h6></a>`
 }
@@ -242,7 +179,7 @@ function calculateAndDisplayRoute(origin, destination, directionsRenderer) {
   const request = {
     origin: origin,
     destination: destination,
-    travelMode: 'WALKING', //'WALKING', 'BICYCLING', etc.
+    travelMode: 'WALKING',
   };
   directionsService.route(request, function (result, status) {
     if (status == 'OK') {
@@ -272,14 +209,12 @@ function originMarkerContent(textContent) {
   return content
 }
  
-
 function hostelMarkerContent(textContent) {
   const content = document.createElement("div");
   content.className = "hostel-marker-content";
   content.textContent = textContent;
   return content
 }
-
 
 function showMapNotification(message) {
   const notificationInfoWindow = new google.maps.InfoWindow({
@@ -289,7 +224,6 @@ function showMapNotification(message) {
   });
   notificationInfoWindow.setPosition(map.getCenter());
   notificationInfoWindow.open(map);
-  // Close the notification window after a certain duration (e.g., 3 seconds)
   setTimeout(() => {
     notificationInfoWindow.close();
   }, 2000);
@@ -297,7 +231,6 @@ function showMapNotification(message) {
 
 function parseCoordinate(coordinateString) {
   const {lat, lng} = JSON.parse(coordinateString.replace(/'/g, '"'))
-
   return {lat:parseFloat(lat), lng:parseFloat(lng)}
 }
 
