@@ -41,6 +41,7 @@ class PaymentHistory(models.Model):
 
 
 class PaystackSubAccount(models.Model):
+    # subaccount_id = models.UUIDField(primary_key=True, unique=True, editable=False, default=uuid.uuid4)
     hostel = models.OneToOneField(HostelProfile,on_delete=models.CASCADE) 
     bussiness_name = models.CharField(max_length=50)
     account_number = models.CharField(max_length=50)
