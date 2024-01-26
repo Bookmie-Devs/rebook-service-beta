@@ -11,6 +11,8 @@ import uuid
 
 class CampusProfile(models.Model):
     campus_name = models.CharField(max_length=100)
+    # make campus_id primary key before producation
+    campus_id = models.UUIDField(default=uuid.uuid4, unique=True,)
     # name known to the public
     alias_name =  models.CharField(max_length=100, blank=True, null=True)
     campus_code = models.CharField(max_length=100, unique=True)

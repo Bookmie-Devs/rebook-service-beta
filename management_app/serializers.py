@@ -251,14 +251,14 @@ class HostelDetialsSerializer(serializers.ModelSerializer):
         return number_of_1_in_a_room
     
     
-class SalesStatSerializer(serializers.ModelSerializer):
-    amount= serializers.SerializerMethodField(read_only=True, method_name='amount_in_float')
-    class Meta:
-        model = SalesStatistics
-        fields = (
-            'year',  
-            'amount',
-        )
-    def amount_in_float(self, obj: SalesStatistics):
-        return float(obj.amount_made)
+# class SalesStatSerializer(serializers.ModelSerializer):
+#     amount= serializers.SerializerMethodField(read_only=True, method_name='amount_in_float')
+#     class Meta:
+#         model = SalesStatistics
+#         fields = (
+#             'year',  
+#             'amount',
+#         )
+#     def amount_in_float(self, obj: SalesStatistics):
+#         return float(obj.amount_made)
     

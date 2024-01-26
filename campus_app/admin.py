@@ -12,7 +12,7 @@ class CustomCampusAdminPanel(admin.ModelAdmin):
     fieldsets = (
         ('General', {
             "fields": (
-                'campus_name','alias_name','campus_code','flag',
+                'campus_id','campus_name','alias_name','campus_code','flag',
             ),
         }),
         ('Location', {'fields': ('location','address','geolocation',)}),
