@@ -1,18 +1,18 @@
 const items = document.querySelectorAll('.item')
 
 window.addEventListener('load', ()=>{
-    document.querySelectorAll('.contain').forEach((contain) => {
+    document.querySelectorAll('.contan').forEach((contain) => {
       contain.style.display = 'none'
     })
-    document.querySelector(`.container0`).style.display = 'flex';
+    document.querySelector(`.contaner0`).style.display = 'flex';
 })
 
 function showContainer(containerNumber) {
-    document.querySelectorAll('.contain').forEach((contain) => {
+    document.querySelectorAll('.contan').forEach((contain) => {
       contain.style.display = 'none'
     })
 
-    document.querySelector(`.container${containerNumber}`).style.display = 'flex';
+    document.querySelector(`.contaner${containerNumber}`).style.display = 'flex';
 }
 
 document.querySelectorAll('.bttn').forEach((item, index) => item.addEventListener('click', ()=>{
