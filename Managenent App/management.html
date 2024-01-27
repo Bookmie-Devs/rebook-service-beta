@@ -8,13 +8,19 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
       rel="stylesheet"
     />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
     <title>Bookmie.com|Managenent</title>
   </head>
   <body>
     <header>
       <nav>
         <h1 class="h1" onclick="showContainer('0')">
-          <img src="img/favicon1.png" alt="logo" />Bookmie.com
+          <img src="../static/home/images/favicon1.png" alt="logo" />Bookmie.com
         </h1>
         <input type="checkbox" id="check" />
       <label for="check">
@@ -35,7 +41,7 @@
           </label>
           <div class="profile"></div>
           <div class="name"><h3>Eyram Aggor Kobbie</h3></div>
-          <div class="id"><p><svg style="transform: translateY(3px);" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hash" viewBox="0 0 16 16">
+          <div class="id"><p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hash" viewBox="0 0 16 16">
   <path d="M8.39 12.648a1 1 0 0 0-.015.18c0 .305.21.508.5.508.266 0 .492-.172.555-.477l.554-2.703h1.204c.421 0 .617-.234.617-.547 0-.312-.188-.53-.617-.53h-.985l.516-2.524h1.265c.43 0 .618-.227.618-.547 0-.313-.188-.524-.618-.524h-1.046l.476-2.304a1 1 0 0 0 .016-.164.51.51 0 0 0-.516-.516.54.54 0 0 0-.539.43l-.523 2.554H7.617l.477-2.304c.008-.04.015-.118.015-.164a.51.51 0 0 0-.523-.516.54.54 0 0 0-.531.43L6.53 5.484H5.414c-.43 0-.617.22-.617.532s.187.539.617.539h.906l-.515 2.523H4.609c-.421 0-.609.219-.609.531s.188.547.61.547h.976l-.516 2.492c-.008.04-.015.125-.015.18 0 .305.21.508.5.508.265 0 .492-.172.554-.477l.555-2.703h2.242zm-1-6.109h2.266l-.515 2.563H6.859l.532-2.563z"/>
 </svg> 3368422</p></div>
           <div class="hostel"><p>Sucka Hostel</p></div>
@@ -71,7 +77,7 @@
         </div>
       </aside>
       <section id="root">
-        <div class="container0 contain">
+        <div class="contaner0 contan">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             data-name="Layer 1"
@@ -609,7 +615,8 @@
           </svg>
           <h1 class="title">Bookmie Management Office</h1>
         </div>
-        <div class="container1 contain">
+        <div class="contaner1 contan">
+          <form action="">
           <div class="search">
             <span>
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
@@ -618,9 +625,21 @@
               </span
             ><input placeholder="Search By Room Number" type="text" />
           </div>
-          <div class="btns">
-            <button>Filter By Tenants</button>
-            <button>Filter By Gender</button>
+          <div class="filters">
+            <select name="tenants" id="tenants">
+              <option value="">Filter By Tenants</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+            <select name="gender" id="gender">
+              <option value="">Filter By Gender</option>
+              <option value="all">All Genders</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="open">Open</option>
+            </select>
           </div>
           <div class="filter">
             <select name="capacity" id="capacity">
@@ -635,8 +654,9 @@
               <input type="checkbox" name="occupied" id="occupied" />
             </div>
           </div>
-          <div class="cards">
-            <div class="card">
+          </form>
+          <div class="cads">
+            <div class="cad">
               <p class="head">Room No: 32</p>
               <p>Capacity: 4</p>
               <p>GH&#8373;4000.00</p>
@@ -687,7 +707,7 @@
                 <button class="bttn">Edit</button>
               </div>
             </div>
-            <div class="card">
+            <div class="cad">
               <p class="head">Room No: 32</p>
               <p>Capacity: 4</p>
               <p>GH&#8373;4000.00</p>
@@ -738,7 +758,7 @@
                 <button class="bttn">Edit</button>
               </div>
             </div>
-            <div class="card">
+            <div class="cad">
               <p class="head">Room No: 32</p>
               <p>Capacity: 4</p>
               <p>GH&#8373;4000.00</p>
@@ -789,7 +809,7 @@
                 <button class="bttn">Edit</button>
               </div>
             </div>
-            <div class="card">
+            <div class="cad">
               <p class="head">Room No: 32</p>
               <p>Capacity: 4</p>
               <p>GH&#8373;4000.00</p>
@@ -840,7 +860,7 @@
                 <button class="bttn">Edit</button>
               </div>
             </div>
-            <div class="card">
+            <div class="cad">
               <p class="head">Room No: 32</p>
               <p>Capacity: 4</p>
               <p>GH&#8373;4000.00</p>
@@ -891,7 +911,7 @@
                 <button class="bttn">Edit</button>
               </div>
             </div>
-            <div class="card">
+            <div class="cad">
               <p class="head">Room No: 32</p>
               <p>Capacity: 4</p>
               <p>GH&#8373;4000.00</p>
@@ -942,7 +962,7 @@
                 <button class="bttn">Edit</button>
               </div>
             </div>
-            <div class="card">
+            <div class="cad">
               <p class="head">Room No: 32</p>
               <p>Capacity: 4</p>
               <p>GH&#8373;4000.00</p>
@@ -993,7 +1013,7 @@
                 <button class="bttn">Edit</button>
               </div>
             </div>
-            <div class="card">
+            <div class="cad">
               <p class="head">Room No: 32</p>
               <p>Capacity: 4</p>
               <p>GH&#8373;4000.00</p>
@@ -1044,7 +1064,7 @@
                 <button class="bttn">Edit</button>
               </div>
             </div>
-            <div class="card">
+            <div class="cad">
               <p class="head">Room No: 32</p>
               <p>Capacity: 4</p>
               <p>GH&#8373;4000.00</p>
@@ -1095,7 +1115,7 @@
                 <button class="bttn">Edit</button>
               </div>
             </div>
-            <div class="card">
+            <div class="cad">
               <p class="head">Room No: 32</p>
               <p>Capacity: 4</p>
               <p>GH&#8373;4000.00</p>
@@ -1148,7 +1168,7 @@
             </div>
           </div>
         </div>
-        <div class="container2 contain">
+        <div class="contaner2 contan">
           <div class="filter">
             <select name="room_no" id="room_no">
               <option value="">Room Number</option>
@@ -1162,8 +1182,8 @@
               <input type="checkbox" name="checked_in" id="checked_in" />
             </div>
           </div>
-          <div class="cards">
-            <div class="card">
+          <div class="cads">
+            <div class="cad">
               <div class="pic"><span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
   <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"/>
@@ -1178,7 +1198,7 @@
                 <p>Phone Number: Null</p>
               </div>
             </div>
-            <div class="card">
+            <div class="cad">
               <div class="pic"><span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
   <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"/>
@@ -1193,7 +1213,7 @@
                 <p>Phone Number: Null</p>
               </div>
             </div>
-            <div class="card">
+            <div class="cad">
               <div class="pic"><span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
   <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"/>
@@ -1208,7 +1228,7 @@
                 <p>Phone Number: Null</p>
               </div>
             </div>
-            <div class="card">
+            <div class="cad">
               <div class="pic"><span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
   <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"/>
@@ -1223,7 +1243,7 @@
                 <p>Phone Number: Null</p>
               </div>
             </div>
-            <div class="card">
+            <div class="cad">
               <div class="pic"><span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
   <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"/>
@@ -1238,7 +1258,7 @@
                 <p>Phone Number: Null</p>
               </div>
             </div>
-            <div class="card">
+            <div class="cad">
               <div class="pic"><span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
   <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"/>
@@ -1253,7 +1273,7 @@
                 <p>Phone Number: Null</p>
               </div>
             </div>
-            <div class="card">
+            <div class="cad">
               <div class="pic"><span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
   <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"/>
@@ -1268,7 +1288,7 @@
                 <p>Phone Number: Null</p>
               </div>
             </div>
-            <div class="card">
+            <div class="cad">
               <div class="pic"><span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
   <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"/>
@@ -1283,7 +1303,7 @@
                 <p>Phone Number: Null</p>
               </div>
             </div>
-            <div class="card">
+            <div class="cad">
               <div class="pic"><span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
   <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"/>
@@ -1298,7 +1318,7 @@
                 <p>Phone Number: Null</p>
               </div>
             </div>
-            <div class="card">
+            <div class="cad">
               <div class="pic"><span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
   <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"/>
@@ -1315,7 +1335,7 @@
             </div>
           </div>
         </div>
-        <div class="container3">
+        <div class="contaner3 contan">
           <form action="" method="">
             <div class="room">
               <p>Select room capacity edit</p>
@@ -1333,7 +1353,7 @@
               </div>
             </div>
             <div class="change">
-              <button type="submit" class="change-btn">Apply Changes <svg style="transform: translateY(3px);" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-floppy" viewBox="0 0 16 16">
+              <button type="submit" class="change-btn">Apply Changes <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-floppy" viewBox="0 0 16 16">
   <path d="M11 2H9v3h2z"/>
   <path d="M1.5 0h11.586a1.5 1.5 0 0 1 1.06.44l1.415 1.414A1.5 1.5 0 0 1 16 2.914V14.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 14.5v-13A1.5 1.5 0 0 1 1.5 0M1 1.5v13a.5.5 0 0 0 .5.5H2v-4.5A1.5 1.5 0 0 1 3.5 9h9a1.5 1.5 0 0 1 1.5 1.5V15h.5a.5.5 0 0 0 .5-.5V2.914a.5.5 0 0 0-.146-.353l-1.415-1.415A.5.5 0 0 0 13.086 1H13v4.5A1.5 1.5 0 0 1 11.5 7h-7A1.5 1.5 0 0 1 3 5.5V1H1.5a.5.5 0 0 0-.5.5m3 4a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5V1H4zM3 15h10v-4.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5z"/>
 </svg></button>

@@ -1,6 +1,6 @@
 * {
     /* outline: 1px solid green; */
-    margin: 0;
+    margin: 0 !important;
     padding: 0;
     box-sizing: border-box;
 }
@@ -77,12 +77,12 @@ ul .profile{
     height: 200px;
     width: 200px;
     border-radius: 50%;
-    margin-bottom: 20px;
+    margin-bottom: 20px !important;
     background: var(--gray);
 }
 ul .name{
     display:flex;
-    align-items: center;
+    margin-bottom: 10px !important;
 }
 
 ul .hostel{
@@ -98,7 +98,7 @@ ul :is(.name, .id, .hostel){
 }
 
 .h1 {
-    color: var(--logo);
+    color: var(--logo) !important;
     font-weight: 800;
     text-shadow: 2px 2px 2px black;
     vertical-align: center !important;
@@ -154,7 +154,7 @@ section {
     overflow: hidden;
 }
 
-.container0{
+.contaner0{
     padding: 40px;
     width: 100%;
     height: 100%;
@@ -165,19 +165,19 @@ section {
     gap: 20px;
 }
 
-.container1, .container2, .container3{
+.contaner1, .contaner2, .contaner3{
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
 }
 
-:where(.container1, .container2, .container3) :is(.search, .btns, .filter){
+:where(.contaner1, .contaner2, .contaner3) :is(.search, .filters, .filter){
     width: 100%;
     height: 60px;
 }
 
-:where(.container1, .container2) .cards{
+:where(.contaner1, .contaner2) .cads{
     height: calc(100% - 180px);
     overflow-y: scroll;
     display: flex;
@@ -188,7 +188,7 @@ section {
     flex-direction: row;
 }
 
-.container1 .search{
+.contaner1 .search{
     padding: 10px 0;
     display: grid;
     grid-template-columns: 40px 80%;
@@ -196,7 +196,7 @@ section {
     position: relative;
 }
 
-.container1 .search input{
+.contaner1 .search input{
     width: 80%;
     height: 40px;
     padding-left: 60px;
@@ -213,7 +213,7 @@ section {
     outline: none;
 }
 
-.container1 .search span{
+.contaner1 .search span{
     position: absolute;
     left: 12%;
     top: 21px;
@@ -222,29 +222,17 @@ section {
     font-size: 1.5rem;
 }
 
-:where(.container1, .container2) :is(.btns, .filter){
+:where(.contaner1, .contaner2) :is(.filters, .filter){
     display: flex;
     justify-content: space-evenly;
     align-items: center;
 }
 
-.container1 .btns button{
-    height: 40px;
-    padding: 0 15px;
-    font-size: 1rem;
-    border:  1px solid transparent;
-    cursor: pointer;
-    border-radius: 5px;
-    background: var(--primary);
-    /* color: var(--light); */
-    transition: var(--trans);
-}
-
-:where(.container1 .btns button, .bttn, .bttns button, .container3 button):hover {
+:where(.bttn, .bttns button, .contaner3 button):hover {
     box-shadow: 0 1px 5px 0 #000;
 }
 
-:where(.container1, .container2) .filter select{
+:where(.contaner1, .contaner2) :is(.filter select, .filters select){
     background: transparent;
     border: none;
     border-bottom: 1px solid var(--gray);
@@ -253,7 +241,7 @@ section {
     padding: 0 20px;
 }
 
-:where(.container1, .container2) .filter .occupied{
+:where(.contaner1, .contaner2) .filter .occupied{
     height: 40px;
     display: flex;
     align-items: center;
@@ -262,7 +250,7 @@ section {
     gap: 5px;
 }
 
-:where(.container1, .container2) .cards .card{
+:where(.contaner1, .contaner2) .cads .cad{
     width: 180px;
     height: 230px;
     border-radius: 5px;
@@ -276,29 +264,37 @@ section {
     background: var(--gray-light);
 }
 
-:where(.container1, .container2) .cards .card:hover{
+.contaner1 .cads .cad {
+    justify-content: end;
+}
+
+.contaner2 .cads .cad {
+    align-items: end;
+}
+
+:where(.contaner1, .contaner2) .cads .cad:hover{
     box-shadow: 0 2px 5px 0 #000;
     transition: var(--trans);
     cursor: pointer;
 }
 
-:where(.container1, .container2) .cards .card .head{
+:where(.contaner1, .contaner2) .cads .cad .head{
     font-weight: bold;
     font-size: 1.1rem;
     color: var(--primary);
     position: absolute;
-    top: 10px;
+    top: 0;
 }
 
-.container3 .history {
+.contaner3 .history {
     height: calc(100% - 120px);
 }
 
-.container2 .cards{
+.contaner2 .cads{
     height: calc(100% - 60px);
 }
 
-.container2 .cards .card{
+.contaner2 .cads .cad{
     width: 45%;
     height: 150px;
     display: grid;
@@ -306,11 +302,11 @@ section {
     gap: 4%;
 }
 
-.container2 .cards .card > *, .container2 .cards .card .pic span{
+.contaner2 .cads .cad > *, .contaner2 .cads .cad .pic span{
     height: 100%;
 }
 
-.container2 .cards .card .details{
+.contaner2 .cads .cad .details{
     height: 80%;
     display: flex;
     flex-direction: column;
@@ -318,7 +314,7 @@ section {
     gap: 1px;
 }
 
-.container0 svg{
+.contaner0 svg{
     width: 300px;
     height: 300px;
 }
@@ -344,6 +340,7 @@ footer{
     display: flex;
     align-items: center;
     padding: 0 9px;
+    transition: var(--trans);
 }
 
 .item .icon {
@@ -354,17 +351,11 @@ footer{
     flex-shrink: 0;
 }
 
-.item .icon span svg{
+.item .icon span svg, .item .icon span{
     height: 30px;
     width: 30px;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     color: var(--dark);
-}
-
-div >span {
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .item .text {
@@ -373,9 +364,16 @@ div >span {
     font-size: 20px;
 }
 
-.item:hover {
+.item:hover *{
     cursor: pointer;
     color: var(--primary);
+}
+
+div > span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: scale(1.4);
 }
 
 .d {
@@ -433,8 +431,7 @@ div >span {
 }
 
 .d1 {
-    margin-bottom: -20px;
-    padding-top: 20px;
+    margin: 10px 0 !important;
 }
 
 .bttn, .d form .bttns button{
@@ -446,12 +443,12 @@ div >span {
     cursor: pointer;
 }
 
-.container3 :is(.change, .changes){
+.contaner3 :is(.change, .changes){
     display: grid;
     place-items: center;
 }
 
-.container3 button{
+.contaner3 button{
     width: 400px;
     border: none;
     height: 30px;
@@ -462,12 +459,12 @@ div >span {
     cursor: pointer;
 }
 
-.container3 :is(.room, .price, .change, .changes){
+.contaner3 :is(.room, .price, .change, .changes){
     width: 100%;
     height: 80px;
 }
 
-.container3 :is(.room, .price){
+.contaner3 :is(.room, .price){
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -475,7 +472,7 @@ div >span {
     padding: 0 10px;
 }
 
-.container3 :is(select, input){
+.contaner3 :is(select, input){
     width: 90%;
     font-size: 1rem;
     align-self: center;
@@ -486,7 +483,7 @@ div >span {
     border-bottom: 1px solid var(--gray);
 }
 
-.container3 input{
+.contaner3 input{
     width: 70%;
     margin-left: 20px;
 }
@@ -500,7 +497,7 @@ div >span {
         width: 70%;
     }
 
-    .container0{
+    .contaner0{
         flex-direction: column;
         gap: 40px;
     }
@@ -521,9 +518,9 @@ div >span {
         transition: var(--trans);
     }
     
-    aside:hover {
+    /* aside:hover {
         width: 50lvw;
-    }
+    } */
 
     .item .text{
         opacity: 0;
@@ -532,75 +529,70 @@ div >span {
         font-weight: bold;
     }
 
-    aside:hover .text{
+    /* aside:hover .text{
         opacity: 1;
-    }
+    } */
 
     section {
         width: calc(100lvw - 60px);
         transition: 400ms width ease-in-out;
     }
     
-    aside:hover ~ section {
+    /* aside:hover ~ section {
         width: 50lvw;
         opacity: 1;
-    }
+    } */
 
     .h1, h1 span{
         font-size: 1.4rem;
     }
 
-    :where(.container1, .container2) :is(.search, .btns, .filter){
+    :where(.contaner1, .contaner2) :is(.search, .filters, .filter){
         height: 50px;
     }
 
-    .container1 .cards {
+    .contaner1 .cads {
         height: calc(100% - 150px);
         gap: 10px;
     }
 
-    .container1 .search input, .container1 .search span{
+    .contaner1 .search input, .contaner1 .search span{
         top: 10px;
         height: 30px;
         font-size: 0.8rem;
     }
 
-    .container1 .search input{
+    .contaner1 .search input{
         padding-left: 40px;
     }
 
-    .container1 .search span{
+    .contaner1 .search span{
         width: 30px;
         font-size: 1.2rem;
     }
-    
-    .container1 .btns button{
-        transform: scale(0.7);
-        padding: 0 8px;
-    }
 
-    :where(.container1, .container2) .filter :is(select, .occupied){
+    :where(.contaner1, .contaner2) :is(.filter select, .filter .occupied, .filters select){
         font-size: 0.8rem;
         height: 30px;
         padding: 0 3px;
     }
     
-    :where(.container1, .container2) .cards .card {
+    :where(.contaner1, .contaner2) .cads .cad {
         width: 120px;
         height: 180px;
         font-size: 0.8rem;
     }
 
-    :where(.container1, .container2) .cards .card .head{
-        top: 5px;
+    :where(.contaner1, .contaner2) .cads .cad .head{
+        top: 0;
         font-size: 0.9rem;
     }
 
-    .container2 .cards {
+    .contaner2 .cads {
         height: calc(100% - 50px);
     }
 
-    .container2 .cards .card {
+    .contaner2 .cads .cad {
         width: 90%;
         height: 120px;
     }
@@ -614,7 +606,7 @@ div >span {
         font-size: 1.5rem;
     }
         
-    .container0 svg{
+    .contaner0 svg{
         width: 200px;
         height: 200px;
     }
@@ -625,14 +617,14 @@ div >span {
 
     .bttn{
         padding: 5px 20px;
-            border-radius: 2px;
+        border-radius: 2px;
     }
 
     .d1{
-        padding-top: 10px;
+        margin: 5px 0 !important;
     }
 
-    .container3 button{
+    .contaner3 button{
         width: 80%;
     }
 
@@ -646,6 +638,6 @@ div >span {
     }
 
     ul .name{
-        font-size: 0.9rem;
+        font-size: 0.8rem;
     }
 }
