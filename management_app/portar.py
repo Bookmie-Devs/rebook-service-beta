@@ -73,6 +73,7 @@ def edit_room(request: HttpRequest, room_id):
     try:
         portar = Worker.objects.get(user=request.user)
         room = RoomProfile.objects.get(room_id=room_id, hostel=portar.hostel)
+        context.update({'portar':portar})
         if request.method=="POST":
             price = float(request.POST.get('price'))
             number_of_bed_spaces = int(request.POST.get('bed_space'))
