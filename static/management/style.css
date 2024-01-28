@@ -1,0 +1,645 @@
+* {
+    /* outline: 1px solid green; */
+    margin: 0 !important;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --trans: 300ms all ease-in-out;
+    --primary: #FEA116;
+    --light: #F1F8FF;
+    --dark: #0F172B;
+    --logo: #ff4500;
+    --bg2: #eaecff;
+    --bg: #ffffff;
+    --gray: #afafaf;
+    --gray-light: #e0e0e0;
+}
+
+body {
+    width: 100%;
+    height: calc(100lvh + 70px);
+    background-color: var(--bg);
+    font-family: sans-serif;
+    overflow-x: hidden;
+}
+
+header {
+    height: 70px;
+    width: 100%;
+}
+
+nav {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    background: var(--dark);
+    padding: 10px 40px;
+}
+
+nav input{
+    display: none;
+}
+
+ul {
+    position: fixed;
+    width: 25%;
+    height: 100vh;
+    background: rgb(255, 255, 255);
+    top: 0;
+    right: -100%;
+    text-align: center;
+    transition: var(--trans);
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    padding-top: 50px;
+    padding-left: 20px;
+    z-index: 100;
+    background: var(--bg2);
+}
+
+#check:checked~ul {
+    right: 0;
+    top: 0;
+}
+
+.checkbtn{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+ul .profile{
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    margin-bottom: 20px !important;
+    background: var(--gray);
+}
+ul .name{
+    display:flex;
+    margin-bottom: 10px !important;
+}
+
+ul .hostel{
+    font-weight: bold;
+}
+
+ul :is(.name, .id, .hostel){
+    width: 100%;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    justify-content: start;
+}
+
+.h1 {
+    color: var(--logo) !important;
+    font-weight: 800;
+    text-shadow: 2px 2px 2px black;
+    vertical-align: center !important;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+nav label{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+label span svg{
+    color: var(--light);
+    height: 30px;
+    width: 30px;
+}
+
+ul label span svg{
+    color: var(--dark);
+}
+
+img{
+    height: 40px;
+    width: 40px;
+}
+
+main {
+    width: 100%;
+    height: calc(100lvh - 70px);
+    display: flex;
+    flex-direction: row;
+}
+
+aside {
+    height: 100%;
+    width: 300px;
+    background: var(--bg2);
+    overflow: hidden;
+    padding: 40px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+section {
+    /* outline: 2px solid red; */
+    height: 100%;
+    width: calc(100lvw - 250px);
+    overflow: hidden;
+}
+
+.contaner0{
+    padding: 40px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.contaner1, .contaner2, .contaner3{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+:where(.contaner1, .contaner2, .contaner3) :is(.search, .filters, .filter){
+    width: 100%;
+    height: 60px;
+}
+
+:where(.contaner1, .contaner2) .cads{
+    height: calc(100% - 120px);
+    overflow-y: scroll;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 0;
+    flex-direction: row;
+}
+
+.contaner1 .search{
+    padding: 10px 0;
+    display: grid;
+    grid-template-columns: 40px 80%;
+    justify-content: center;
+    position: relative;
+}
+
+.contaner1 .search input{
+    width: 80%;
+    height: 40px;
+    padding-left: 60px;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--gray);
+    font-size: 1rem;
+    position: absolute;
+    top: 10px;
+    left: 10%;
+}
+
+:where(input, select):focus-within{
+    outline: none;
+}
+
+.contaner1 .search span{
+    position: absolute;
+    left: 12%;
+    top: 21px;
+    display: flex;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+:where(.contaner1, .contaner2) :is(.filters, .filter){
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+:where(.bttn, .bttns button, .contaner3 button):hover {
+    box-shadow: 0 1px 5px 0 #000;
+}
+
+:where(.contaner1, .contaner2) :is(.filter select, .filters select){
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--gray);
+    font-size: 1rem;
+    height: 40px;
+    padding: 0 20px;
+}
+
+:where(.contaner1, .contaner2) .filter .occupied{
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    gap: 5px;
+}
+
+:where(.contaner1, .contaner2) .cads .cad{
+    width: 180px;
+    height: 230px;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    gap: 1px;
+    background: var(--gray-light);
+}
+
+.contaner1 .cads .cad {
+    justify-content: center;
+    padding-top: 20px !important;
+}
+
+.contaner2 .cads .cad {
+    align-items: center;
+}
+
+:where(.contaner1, .contaner2) .cads .cad:hover{
+    box-shadow: 0 2px 5px 0 #000;
+    transition: var(--trans);
+    cursor: pointer;
+}
+
+:where(.contaner1, .contaner2) .cads .cad .head{
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: var(--primary);
+    position: absolute;
+    top: 5px;
+}
+
+.contaner3 .history {
+    height: calc(100% - 120px);
+}
+
+.contaner2 .cads{
+    height: calc(100% - 60px);
+}
+
+.contaner2 .cads .cad{
+    width: 45%;
+    height: 150px;
+    display: grid;
+    grid-template-columns: 15% 81%;
+    gap: 4%;
+}
+
+.contaner2 .cads .cad > *, .contaner2 .cads .cad .pic span{
+    height: 100%;
+}
+
+.contaner2 .cads .cad .details{
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    gap: 1px;
+}
+
+.contaner0 svg{
+    width: 300px;
+    height: 300px;
+}
+
+.title{
+    color: var(--primary);
+    font-size: 3rem;
+    text-align: center;
+}
+
+footer{
+    height: 70px;
+    width: 100%;
+    text-align: center;
+    background-color: var(--dark);
+    color: var(--light);
+    font-size: 1rem;
+    display: grid;
+    place-items: center;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    padding: 0 9px;
+    transition: var(--trans);
+}
+
+.item .icon {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+}
+
+.item .icon span svg, .item .icon span{
+    height: 30px;
+    width: 30px;
+    font-size: 1.2rem;
+    color: var(--dark);
+}
+
+.item .text {
+    margin-left: 20px;
+    white-space: nowrap;
+    font-size: 20px;
+}
+
+.item:hover *{
+    cursor: pointer;
+    color: var(--primary);
+}
+
+div > span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: scale(1.4);
+}
+
+.d {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    scale: 0;
+    transition: var(--trans);
+    border: 1px solid var(--gray);
+    border-radius: 5px;
+    width: 300px;
+}
+
+.d form{
+    display: flex;
+    padding: 25px;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.d form .fhead{
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: var(--primary);
+}
+
+.d form :not(:nth-child(1)){
+    width: 100%;
+}
+
+.d form :is(.input, select){
+    border: none;
+    height: 30px;
+    border-bottom: 1px solid var(--gray);
+    padding-left: 10px;
+}
+
+.d form .bttns{
+    display: grid;
+    grid-template-columns: 80px 80px;
+    gap: 20px;
+    justify-content: center;
+}
+
+.d[open] {
+    opacity: 1;
+    scale: 1;
+}
+
+.d::backdrop {
+    backdrop-filter: blur(3px);
+}
+
+.d1 {
+    margin: 10px 0 !important;
+}
+
+.bttn, .d form .bttns button{
+    background: var(--primary);
+    /* color: var(--light); */
+    border: none;
+    padding: 5px 30px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.contaner3 :is(.change, .changes){
+    display: grid;
+    place-items: center;
+}
+
+.contaner3 button{
+    width: 400px;
+    border: none;
+    height: 30px;
+    border-radius: 3px;
+    background: var(--primary);
+    /* color: var(--light); */
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.contaner3 :is(.room, .price, .change, .changes){
+    width: 100%;
+    height: 80px;
+}
+
+.contaner3 :is(.room, .price){
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    padding: 0 10px;
+}
+
+.contaner3 :is(select, input){
+    width: 90%;
+    font-size: 1rem;
+    align-self: flex-start;
+    border: none;
+    background: transparent;
+    height: 30px;
+    padding-left: 10px;
+    border-bottom: 1px solid var(--gray);
+}
+
+.contaner3 input{
+    width: 70%;
+    margin-left: 20px;
+}
+
+@media (max-width: 1024px) {
+    aside {
+        width: 30%;
+    }
+
+    section {
+        width: 70%;
+    }
+
+    .contaner0{
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .title{
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 600px) {
+
+    nav{
+        padding: 10px 15px;
+    }
+
+    aside {
+        width: 60px;
+        transition: var(--trans);
+    }
+    
+    /* aside:hover {
+        width: 50lvw;
+    } */
+
+    .item .text{
+        opacity: 0;
+        transition: var(--trans);
+        font-size: 1rem;
+        font-weight: bold;
+    }
+
+    /* aside:hover .text{
+        opacity: 1;
+    } */
+
+    section {
+        width: calc(100lvw - 60px);
+        transition: 400ms width ease-in-out;
+    }
+    
+    /* aside:hover ~ section {
+        width: 50lvw;
+        opacity: 1;
+    } */
+
+    .h1, h1 span{
+        font-size: 1.4rem;
+    }
+
+    :where(.contaner1, .contaner2) :is(.search, .filters, .filter){
+        height: 50px;
+    }
+
+    .contaner1 .cads {
+        height: calc(100% - 150px);
+        gap: 10px;
+    }
+
+    .contaner1 .search input, .contaner1 .search span{
+        top: 10px;
+        height: 30px;
+        font-size: 0.8rem;
+    }
+
+    .contaner1 .search input{
+        padding-left: 40px;
+    }
+
+    .contaner1 .search span{
+        width: 30px;
+        font-size: 1.2rem;
+    }
+
+    :where(.contaner1, .contaner2) :is(.filter select, .filter .occupied, .filters select){
+        font-size: 0.8rem;
+        height: 30px;
+        padding: 0 3px;
+    }
+    
+    :where(.contaner1, .contaner2) .cads .cad {
+        width: 120px;
+        height: 180px;
+        font-size: 0.8rem;
+    }
+
+    :where(.contaner1, .contaner2) .cads .cad .head{
+        top: 0;
+        font-size: 0.9rem;
+    }
+
+    .contaner2 .cads {
+        height: calc(100% - 50px);
+    }
+
+    .contaner2 .cads .cad {
+        width: 90%;
+        height: 120px;
+    }
+    
+    img{
+        height: 30px;
+            width: 30px;
+        }
+        
+    .title{
+        font-size: 1.5rem;
+    }
+        
+    .contaner0 svg{
+        width: 200px;
+        height: 200px;
+    }
+
+    footer{
+        font-size: 0.8rem;
+    }
+
+    .bttn{
+        padding: 5px 20px;
+        border-radius: 2px;
+    }
+
+    .d1{
+        margin: 5px 0 !important;
+    }
+
+    .contaner3 button{
+        width: 80%;
+    }
+
+    ul{
+        width: 60%;
+    }
+
+    ul .profile{
+        height: 150px;
+        width: 150px;
+    }
+
+    ul .name{
+        font-size: 0.8rem;
+    }
+}

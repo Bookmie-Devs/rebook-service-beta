@@ -115,6 +115,8 @@ def login(request: HttpRequest):
         login_user = auth.authenticate(email=email, password=password)
         if login_user is not None:
             auth.login(request, login_user)
+            if request.user.is_hostel_worker or request.user.is_hostel_manager:
+                return redirect("management:portar-office")
             # send_sms_message
             # current_domain == get_current_site(request)
             current_domain = request.META.get('HTTP_X_FORWARDED_HOST', request.META['HTTP_HOST'])
@@ -142,17 +144,20 @@ def logout(request):
 
 @login_required()
 def booking_and_payments(request):
-    get_user = CustomUser.objects.get(id=request.user.id)
-    if Booking.objects.filter(user=request.user).exists():
+    user = CustomUser.objects.get(id=request.user.id)
+    if user.is_hostel_manager or user.is_hostel_worker:
+        return redirect("management:portar-office")
+
+    elif Booking.objects.filter(user=request.user).exists():
         booking = Booking.objects.get(user=request.user)
         tenant = False
-        context = {'user':get_user, 'tenant':tenant,'booking': booking,}
+        context = {'user':user, 'tenant':tenant,'booking': booking,}
         return render(request, 'booking_and_payments.html',context=context)
     
     elif Tenant.objects.filter(user=request.user).exists():
         tenant = Tenant.objects.get(user=request.user)
         booking = False
-        context = {'user':get_user,'booking': booking,'tenant':tenant}
+        context = {'user':user,'booking': booking,'tenant':tenant}
         return render(request, 'booking_and_payments.html',context=context)
     
     else:

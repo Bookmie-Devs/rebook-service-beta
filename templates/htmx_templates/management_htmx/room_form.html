@@ -1,0 +1,54 @@
+<form method="dialog post"
+  hx-post="{% url 'management:portar-edit-room' room.room_id %}"
+  hx-trigger="submit"
+  hx-target="#card{{room.room_id}}"
+  >
+  {% csrf_token %}
+    <p class="fhead">Edit Room Details</p>
+    <input
+    class="input"
+    value={{room.room_no}}
+    name="room_number"
+    type="text"
+    placeholder="Room Number"
+  />
+  <input
+    class="input"
+    type="number"
+    name="room_capacity"
+    value={{room.room_capacity}}
+    placeholder="Room Capacity"
+  />
+  <input
+    class="input"
+    type="number"
+    name="price"
+    value={{room.room_price}}
+    placeholder="Room Price"
+  />
+  <input
+    class="input"
+    type="number"
+    name="bed_space"
+    value={{room.bed_space_left}}
+    placeholder="Space Left"
+  />
+  <select name="gender" id="">
+    <option value="{{room.gender}}">Currently {{ room.gender.title }} Room</option>
+    <option value="open">Open</option>
+    <option value="male">Male</option>
+    <option value="female">Female</option>
+  </select>
+    <div class="bttns">
+      <label for="occupy">Occupied</label>
+      {% if room.occupied %}
+      <input type="checkbox" value="1" checked name="occupied" id="occupy" />
+      {% else %}
+      <input type="checkbox" value="1" name="occupied" id="occupy" />
+      {% endif %}
+    </div>
+    <div class="bttns">
+      <button data-id="{{room.room_id}}" onclick="document.querySelector(`#card${this.dataset.id}`).close()" type="button" class="exit">Exit</button>
+      <button data-id="{{room.room_id}}" type="submit" class="submit">Save</button>
+    </div>
+  </form>

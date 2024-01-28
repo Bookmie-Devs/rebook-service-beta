@@ -1,9 +1,10 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="{% static 'management/style.css' %}" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
       rel="stylesheet"
@@ -14,13 +15,13 @@
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
     />
-    <title>Bookmie.com|Managenent</title>
+    <title>Bookmie.com | Managenent</title>
   </head>
   <body>
     <header>
       <nav>
         <h1 class="h1" onclick="showContainer('0')">
-          <img src="../static/home/images/favicon1.png" alt="logo" />Bookmie.com
+          <img src="{% static 'home/images/favicon1.png' %}" alt="logo" />Bookmie.com
         </h1>
         <input type="checkbox" id="check" />
       <label for="check">
@@ -626,12 +627,12 @@
             ><input placeholder="Search By Room Number" type="text" />
           </div>
           <div class="filters">
-            <select name="tenants" id="tenants">
-              <option value="">Filter By Tenants</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
+            <select name="capacity" id="capacity">
+              <option value="">Filter By Capacity</option>
+              <option value="1">1 in a Room</option>
+              <option value="2">2 in a Room</option>
+              <option value="3">3 in a Room</option>
+              <option value="4">4 in a Room</option>
             </select>
             <select name="gender" id="gender">
               <option value="">Filter By Gender</option>
@@ -640,15 +641,6 @@
               <option value="female">Female</option>
               <option value="open">Open</option>
             </select>
-          </div>
-          <div class="filter">
-            <select name="capacity" id="capacity">
-              <option value="">Filter By Capacity</option>
-              <option value="1">1 in a Room</option>
-              <option value="2">2 in a Room</option>
-              <option value="3">3 in a Room</option>
-              <option value="4">4 in a Room</option>
-            </select>
             <div class="occupied">
               <label for="occupied">Occupied Only</label>
               <input type="checkbox" name="occupied" id="occupied" />
@@ -656,516 +648,30 @@
           </div>
           </form>
           <div class="cads">
+            {% for room in rooms %}
             <div class="cad">
-              <p class="head">Room No: 32</p>
-              <p>Capacity: 4</p>
-              <p>GH&#8373;4000.00</p>
-              <p>Space Left: 0</p>
-              <p>Tenants: 0</p>
-              <p>Gender: Male</p>
-              <p>Occupied: No</p>
+              <p class="head">Room No: {{ room.room_no }}</p>
+              <p>Capacity: {{ room.room_capacity }}</p>
+              <p>GH&#8373; {{ room.room_price }}</p>
+              <p>Space Left: {{ room.bed_space_left }}</p>
+              <p>Gender: {{ room.gender }}</p>
+              {% if room.occupied %}
+                <p>Occupied: Yes</p>
+              {% else %}
+                <p>Occupied: No</p>
+              {% endif %}
               <div class="d1">
-                <dialog id="card1" class="d">
-                  <form method="dialog post">
-                    <p class="fhead">Edit Room Details</p>
-                    <input
-                      class="input"
-                      type="text"
-                      placeholder="Room Number"
-                    />
-                    <input
-                      class="input"
-                      type="number"
-                      placeholder="Room Capacity"
-                    />
-                    <input
-                      class="input"
-                      type="number"
-                      placeholder="Room Price"
-                    />
-                    <input
-                      class="input"
-                      type="number"
-                      placeholder="Space Left"
-                    />
-                    <select name="" id="">
-                      <option value="">Gender</option>
-                      <option value="open">Open</option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                    </select>
-                    <div class="bttns">
-                      <label for="occupy">Occupied</label>
-                      <input type="checkbox" name="occupy" id="occupy" />
-                    </div>
-                    <div class="bttns">
-                      <button class="exit">Exit</button>
-                      <button type="submit" class="submit">Save</button>
-                    </div>
-                  </form>
+                <dialog id="card{{room.room_id}}" class="d">
+                 
                 </dialog>
-                <button class="bttn">Edit</button>
+                <button data-id="{{room.room_id}}" 
+                hx-get="{% url 'management:portar-edit-room' room.room_id %}"
+                hx-trigger="click"
+                hx-target="#card{{room.room_id}}"
+                class="bttn">Edit</button>
               </div>
             </div>
-            <div class="cad">
-              <p class="head">Room No: 32</p>
-              <p>Capacity: 4</p>
-              <p>GH&#8373;4000.00</p>
-              <p>Space Left: 0</p>
-              <p>Tenants: 0</p>
-              <p>Gender: Male</p>
-              <p>Occupied: No</p>
-              <div class="d1">
-                <dialog id="card2" class="d">
-                  <form method="dialog post">
-                    <p class="fhead">Edit Room Details</p>
-                    <input
-                      class="input"
-                      type="text"
-                      placeholder="Room Number"
-                    />
-                    <input
-                      class="input"
-                      type="number"
-                      placeholder="Room Capacity"
-                    />
-                    <input
-                      class="input"
-                      type="number"
-                      placeholder="Room Price"
-                    />
-                    <input
-                      class="input"
-                      type="number"
-                      placeholder="Space Left"
-                    />
-                    <select name="" id="">
-                      <option value="">Gender</option>
-                      <option value="open">Open</option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                    </select>
-                    <div class="bttns">
-                      <label for="occupy">Occupied</label>
-                      <input type="checkbox" name="occupy" id="occupy" />
-                    </div>
-                    <div class="bttns">
-                      <button class="exit">Exit</button>
-                      <button type="submit" class="submit">Save</button>
-                    </div>
-                  </form>
-                </dialog>
-                <button class="bttn">Edit</button>
-              </div>
-            </div>
-            <div class="cad">
-              <p class="head">Room No: 32</p>
-              <p>Capacity: 4</p>
-              <p>GH&#8373;4000.00</p>
-              <p>Space Left: 0</p>
-              <p>Tenants: 0</p>
-              <p>Gender: Male</p>
-              <p>Occupied: No</p>
-              <div class="d1">
-                <dialog id="card3" class="d">
-                  <form method="dialog post">
-                    <p class="fhead">Edit Room Details</p>
-                    <input
-                      class="input"
-                      type="text"
-                      placeholder="Room Number"
-                    />
-                    <input
-                      class="input"
-                      type="number"
-                      placeholder="Room Capacity"
-                    />
-                    <input
-                      class="input"
-                      type="number"
-                      placeholder="Room Price"
-                    />
-                    <input
-                      class="input"
-                      type="number"
-                      placeholder="Space Left"
-                    />
-                    <select name="" id="">
-                      <option value="">Gender</option>
-                      <option value="open">Open</option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                    </select>
-                    <div class="bttns">
-                      <label for="occupy">Occupied</label>
-                      <input type="checkbox" name="occupy" id="occupy" />
-                    </div>
-                    <div class="bttns">
-                      <button class="exit">Exit</button>
-                      <button type="submit" class="submit">Save</button>
-                    </div>
-                  </form>
-                </dialog>
-                <button class="bttn">Edit</button>
-              </div>
-            </div>
-            <div class="cad">
-              <p class="head">Room No: 32</p>
-              <p>Capacity: 4</p>
-              <p>GH&#8373;4000.00</p>
-              <p>Space Left: 0</p>
-              <p>Tenants: 0</p>
-              <p>Gender: Male</p>
-              <p>Occupied: No</p>
-              <div class="d1">
-                <dialog id="card4" class="d">
-                  <form method="dialog post">
-                    <p class="fhead">Edit Room Details</p>
-                    <input
-                      class="input"
-                      type="text"
-                      placeholder="Room Number"
-                    />
-                    <input
-                      class="input"
-                      type="number"
-                      placeholder="Room Capacity"
-                    />
-                    <input
-                      class="input"
-                      type="number"
-                      placeholder="Room Price"
-                    />
-                    <input
-                      class="input"
-                      type="number"
-                      placeholder="Space Left"
-                    />
-                    <select name="" id="">
-                      <option value="">Gender</option>
-                      <option value="open">Open</option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                    </select>
-                    <div class="bttns">
-                      <label for="occupy">Occupied</label>
-                      <input type="checkbox" name="occupy" id="occupy" />
-                    </div>
-                    <div class="bttns">
-                      <button class="exit">Exit</button>
-                      <button type="submit" class="submit">Save</button>
-                    </div>
-                  </form>
-                </dialog>
-                <button class="bttn">Edit</button>
-              </div>
-            </div>
-            <div class="cad">
-              <p class="head">Room No: 32</p>
-              <p>Capacity: 4</p>
-              <p>GH&#8373;4000.00</p>
-              <p>Space Left: 0</p>
-              <p>Tenants: 0</p>
-              <p>Gender: Male</p>
-              <p>Occupied: No</p>
-              <div class="d1">
-                <dialog id="card5" class="d">
-                  <form method="dialog post">
-                    <p class="fhead">Edit Room Details</p>
-                    <input
-                      class="input"
-                      type="text"
-                      placeholder="Room Number"
-                    />
-                    <input
-                      class="input"
-                      type="number"
-                      placeholder="Room Capacity"
-                    />
-                    <input
-                      class="input"
-                      type="number"
-                      placeholder="Room Price"
-                    />
-                    <input
-                      class="input"
-                      type="number"
-                      placeholder="Space Left"
-                    />
-                    <select name="" id="">
-                      <option value="">Gender</option>
-                      <option value="open">Open</option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                    </select>
-                    <div class="bttns">
-                      <label for="occupy">Occupied</label>
-                      <input type="checkbox" name="occupy" id="occupy" />
-                    </div>
-                    <div class="bttns">
-                      <button class="exit">Exit</button>
-                      <button type="submit" class="submit">Save</button>
-                    </div>
-                  </form>
-                </dialog>
-                <button class="bttn">Edit</button>
-              </div>
-            </div>
-            <div class="cad">
-              <p class="head">Room No: 32</p>
-              <p>Capacity: 4</p>
-              <p>GH&#8373;4000.00</p>
-              <p>Space Left: 0</p>
-              <p>Tenants: 0</p>
-              <p>Gender: Male</p>
-              <p>Occupied: No</p>
-              <div class="d1">
-                <dialog id="card6" class="d">
-                  <form method="dialog post">
-                    <p class="fhead">Edit Room Details</p>
-                    <input
-                      class="input"
-                      type="text"
-                      placeholder="Room Number"
-                    />
-                    <input
-                      class="input"
-                      type="number"
-                      placeholder="Room Capacity"
-                    />
-                    <input
-                      class="input"
-                      type="number"
-                      placeholder="Room Price"
-                    />
-                    <input
-                      class="input"
-                      type="number"
-                      placeholder="Space Left"
-                    />
-                    <select name="" id="">
-                      <option value="">Gender</option>
-                      <option value="open">Open</option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                    </select>
-                    <div class="bttns">
-                      <label for="occupy">Occupied</label>
-                      <input type="checkbox" name="occupy" id="occupy" />
-                    </div>
-                    <div class="bttns">
-                      <button class="exit">Exit</button>
-                      <button type="submit" class="submit">Save</button>
-                    </div>
-                  </form>
-                </dialog>
-                <button class="bttn">Edit</button>
-              </div>
-            </div>
-            <div class="cad">
-              <p class="head">Room No: 32</p>
-              <p>Capacity: 4</p>
-              <p>GH&#8373;4000.00</p>
-              <p>Space Left: 0</p>
-              <p>Tenants: 0</p>
-              <p>Gender: Male</p>
-              <p>Occupied: No</p>
-              <div class="d1">
-                <dialog id="card7" class="d">
-                  <form method="dialog post">
-                    <p class="fhead">Edit Room Details</p>
-                    <input
-                      class="input"
-                      type="text"
-                      placeholder="Room Number"
-                    />
-                    <input
-                      class="input"
-                      type="number"
-                      placeholder="Room Capacity"
-                    />
-                    <input
-                      class="input"
-                      type="number"
-                      placeholder="Room Price"
-                    />
-                    <input
-                      class="input"
-                      type="number"
-                      placeholder="Space Left"
-                    />
-                    <select name="" id="">
-                      <option value="">Gender</option>
-                      <option value="open">Open</option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                    </select>
-                    <div class="bttns">
-                      <label for="occupy">Occupied</label>
-                      <input type="checkbox" name="occupy" id="occupy" />
-                    </div>
-                    <div class="bttns">
-                      <button class="exit">Exit</button>
-                      <button type="submit" class="submit">Save</button>
-                    </div>
-                  </form>
-                </dialog>
-                <button class="bttn">Edit</button>
-              </div>
-            </div>
-            <div class="cad">
-              <p class="head">Room No: 32</p>
-              <p>Capacity: 4</p>
-              <p>GH&#8373;4000.00</p>
-              <p>Space Left: 0</p>
-              <p>Tenants: 0</p>
-              <p>Gender: Male</p>
-              <p>Occupied: No</p>
-              <div class="d1">
-                <dialog id="card8" class="d">
-                  <form method="dialog post">
-                    <p class="fhead">Edit Room Details</p>
-                    <input
-                      class="input"
-                      type="text"
-                      placeholder="Room Number"
-                    />
-                    <input
-                      class="input"
-                      type="number"
-                      placeholder="Room Capacity"
-                    />
-                    <input
-                      class="input"
-                      type="number"
-                      placeholder="Room Price"
-                    />
-                    <input
-                      class="input"
-                      type="number"
-                      placeholder="Space Left"
-                    />
-                    <select name="" id="">
-                      <option value="">Gender</option>
-                      <option value="open">Open</option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                    </select>
-                    <div class="bttns">
-                      <label for="occupy">Occupied</label>
-                      <input type="checkbox" name="occupy" id="occupy" />
-                    </div>
-                    <div class="bttns">
-                      <button class="exit">Exit</button>
-                      <button type="submit" class="submit">Save</button>
-                    </div>
-                  </form>
-                </dialog>
-                <button class="bttn">Edit</button>
-              </div>
-            </div>
-            <div class="cad">
-              <p class="head">Room No: 32</p>
-              <p>Capacity: 4</p>
-              <p>GH&#8373;4000.00</p>
-              <p>Space Left: 0</p>
-              <p>Tenants: 0</p>
-              <p>Gender: Male</p>
-              <p>Occupied: No</p>
-              <div class="d1">
-                <dialog id="card9" class="d">
-                  <form method="dialog post">
-                    <p class="fhead">Edit Room Details</p>
-                    <input
-                      class="input"
-                      type="text"
-                      placeholder="Room Number"
-                    />
-                    <input
-                      class="input"
-                      type="number"
-                      placeholder="Room Capacity"
-                    />
-                    <input
-                      class="input"
-                      type="number"
-                      placeholder="Room Price"
-                    />
-                    <input
-                      class="input"
-                      type="number"
-                      placeholder="Space Left"
-                    />
-                    <select name="" id="">
-                      <option value="">Gender</option>
-                      <option value="open">Open</option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                    </select>
-                    <div class="bttns">
-                      <label for="occupy">Occupied</label>
-                      <input type="checkbox" name="occupy" id="occupy" />
-                    </div>
-                    <div class="bttns">
-                      <button class="exit">Exit</button>
-                      <button type="submit" class="submit">Save</button>
-                    </div>
-                  </form>
-                </dialog>
-                <button class="bttn">Edit</button>
-              </div>
-            </div>
-            <div class="cad">
-              <p class="head">Room No: 32</p>
-              <p>Capacity: 4</p>
-              <p>GH&#8373;4000.00</p>
-              <p>Space Left: 0</p>
-              <p>Tenants: 0</p>
-              <p>Gender: Male</p>
-              <p>Occupied: No</p>
-              <div class="d1">
-                <dialog id="card10" class="d">
-                  <form method="dialog post">
-                    <p class="fhead">Edit Room Details</p>
-                    <input
-                      class="input"
-                      type="text"
-                      placeholder="Room Number"
-                    />
-                    <input
-                      class="input"
-                      type="number"
-                      placeholder="Room Capacity"
-                    />
-                    <input
-                      class="input"
-                      type="number"
-                      placeholder="Room Price"
-                    />
-                    <input
-                      class="input"
-                      type="number"
-                      placeholder="Space Left"
-                    />
-                    <select name="" id="">
-                      <option value="">Gender</option>
-                      <option value="open">Open</option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                    </select>
-                    <div class="bttns">
-                      <label for="occupy">Occupied</label>
-                      <input type="checkbox" name="occupy" id="occupy" />
-                    </div>
-                    <div class="bttns">
-                      <button class="exit">Exit</button>
-                      <button type="submit" class="submit">Save</button>
-                    </div>
-                  </form>
-                </dialog>
-                <button class="bttn">Edit</button>
-              </div>
-            </div>
+            {% endfor %}
           </div>
         </div>
         <div class="contaner2 contan">
@@ -1183,160 +689,42 @@
             </div>
           </div>
           <div class="cads">
+
+          {% for tenant in tenants %}
             <div class="cad">
               <div class="pic"><span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
-  <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"/>
-</svg>
-              </span></div>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
+    <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"/>
+  </svg>
+                </span></div>
               <div class="details">
-                <p class="head">Enoch Lemon</p>
-                <p>Room Number: 67</p>
-                <p>student ID: 20951781</p>
-                <p>Paid: True</p>
-                <p>Checked In: True</p>
-                <p>Phone Number: Null</p>
+                <p class="head">{{ tenant.user.username }}</p>
+                <p>Room Number: {{ tenant.room.room_no }}</p>
+                <p>student ID: {{ tenant.user.student_id}}</p>
+                {% if tenant.checked_in %}
+                  <p>Checked In: True</p>
+                {% else %}
+                <p>Checked In: False</p>
+                {% endif %}
+                <p>Phone Number: {{ tenant.user.phone }}</p>
               </div>
-            </div>
-            <div class="cad">
-              <div class="pic"><span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
-  <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"/>
-</svg>
-              </span></div>
-              <div class="details">
-                <p class="head">Enoch Lemon</p>
-                <p>Room Number: 67</p>
-                <p>student ID: 20951781</p>
-                <p>Paid: True</p>
-                <p>Checked In: True</p>
-                <p>Phone Number: Null</p>
-              </div>
-            </div>
-            <div class="cad">
-              <div class="pic"><span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
-  <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"/>
-</svg>
-              </span></div>
-              <div class="details">
-                <p class="head">Enoch Lemon</p>
-                <p>Room Number: 67</p>
-                <p>student ID: 20951781</p>
-                <p>Paid: True</p>
-                <p>Checked In: True</p>
-                <p>Phone Number: Null</p>
-              </div>
-            </div>
-            <div class="cad">
-              <div class="pic"><span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
-  <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"/>
-</svg>
-              </span></div>
-              <div class="details">
-                <p class="head">Enoch Lemon</p>
-                <p>Room Number: 67</p>
-                <p>student ID: 20951781</p>
-                <p>Paid: True</p>
-                <p>Checked In: True</p>
-                <p>Phone Number: Null</p>
-              </div>
-            </div>
-            <div class="cad">
-              <div class="pic"><span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
-  <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"/>
-</svg>
-              </span></div>
-              <div class="details">
-                <p class="head">Enoch Lemon</p>
-                <p>Room Number: 67</p>
-                <p>student ID: 20951781</p>
-                <p>Paid: True</p>
-                <p>Checked In: True</p>
-                <p>Phone Number: Null</p>
-              </div>
-            </div>
-            <div class="cad">
-              <div class="pic"><span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
-  <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"/>
-</svg>
-              </span></div>
-              <div class="details">
-                <p class="head">Enoch Lemon</p>
-                <p>Room Number: 67</p>
-                <p>student ID: 20951781</p>
-                <p>Paid: True</p>
-                <p>Checked In: True</p>
-                <p>Phone Number: Null</p>
-              </div>
-            </div>
-            <div class="cad">
-              <div class="pic"><span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
-  <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"/>
-</svg>
-              </span></div>
-              <div class="details">
-                <p class="head">Enoch Lemon</p>
-                <p>Room Number: 67</p>
-                <p>student ID: 20951781</p>
-                <p>Paid: True</p>
-                <p>Checked In: True</p>
-                <p>Phone Number: Null</p>
-              </div>
-            </div>
-            <div class="cad">
-              <div class="pic"><span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
-  <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"/>
-</svg>
-              </span></div>
-              <div class="details">
-                <p class="head">Enoch Lemon</p>
-                <p>Room Number: 67</p>
-                <p>student ID: 20951781</p>
-                <p>Paid: True</p>
-                <p>Checked In: True</p>
-                <p>Phone Number: Null</p>
-              </div>
-            </div>
-            <div class="cad">
-              <div class="pic"><span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
-  <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"/>
-</svg>
-              </span></div>
-              <div class="details">
-                <p class="head">Enoch Lemon</p>
-                <p>Room Number: 67</p>
-                <p>student ID: 20951781</p>
-                <p>Paid: True</p>
-                <p>Checked In: True</p>
-                <p>Phone Number: Null</p>
-              </div>
-            </div>
-            <div class="cad">
-              <div class="pic"><span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
-  <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"/>
-</svg>
-              </span></div>
-              <div class="details">
-                <p class="head">Enoch Lemon</p>
-                <p>Room Number: 67</p>
-                <p>student ID: 20951781</p>
-                <p>Paid: True</p>
-                <p>Checked In: True</p>
-                <p>Phone Number: Null</p>
-              </div>
-            </div>
           </div>
+          {% endfor %}
         </div>
-        <div class="contaner3 contan">
-          <form action="" method="">
+        </div>
+        <div class="contaner3 contan pt-4">
+          {% if messages %}
+          {% for message in messages %}
+          <div class="alert alert-{{ message.extra_tags }} w-50 text-center mx-auto mb-4" role="alert">
+            <strong>{{ message }}</strong>
+          </div>
+          {% endfor %}
+          {% endif %}
+          <form 
+          method="POST" 
+          action="{% url 'management:portar-update-prices' %}"
+          >
+          {% csrf_token %}
             <div class="room">
               <p>Select room capacity edit</p>
               <select name="room_cap" id="room_cap">
@@ -1349,10 +737,10 @@
             <div class="price">
               <p>Enter the new room price</p>
               <div>
-                GH&#8373;<input class="_input" type="number" value="" />
+                GH&#8373;<input name="new_price" class="_input" type="number" value="" required/>
               </div>
             </div>
-            <div class="change">
+            <div id="button-div" class="change">
               <button type="submit" class="change-btn">Apply Changes <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-floppy" viewBox="0 0 16 16">
   <path d="M11 2H9v3h2z"/>
   <path d="M1.5 0h11.586a1.5 1.5 0 0 1 1.06.44l1.415 1.414A1.5 1.5 0 0 1 16 2.914V14.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 14.5v-13A1.5 1.5 0 0 1 1.5 0M1 1.5v13a.5.5 0 0 0 .5.5H2v-4.5A1.5 1.5 0 0 1 3.5 9h9a1.5 1.5 0 0 1 1.5 1.5V15h.5a.5.5 0 0 0 .5-.5V2.914a.5.5 0 0 0-.146-.353l-1.415-1.415A.5.5 0 0 0 13.086 1H13v4.5A1.5 1.5 0 0 1 11.5 7h-7A1.5 1.5 0 0 1 3 5.5V1H1.5a.5.5 0 0 0-.5.5m3 4a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5V1H4zM3 15h10v-4.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5z"/>
@@ -1365,7 +753,8 @@
       </section>
     </main>
     <footer><p>Copyright &copy; Bookmie.com 2023</p></footer>
-
-    <script src="scripts.js"></script>
+    {% comment %} <!-- HTMX SCRIPTS --> {% endcomment %}
+    <script src="https://unpkg.com/htmx.org@1.9.8" integrity="sha384-rgjA7mptc2ETQqXoYC3/zJvkU7K/aP44Y+z7xQuJiVnB/422P/Ak+F/AqFR7E4Wr" crossorigin="anonymous"></script>
+    <script src="{% static 'management/scripts.js' %}"></script>
   </body>
 </html>
