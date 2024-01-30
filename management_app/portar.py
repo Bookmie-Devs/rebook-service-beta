@@ -65,16 +65,6 @@ def search_rooms(request: HttpRequest):
         return HttpResponseForbidden("You do not have permission to access this page")
 
 
-def profile(request: HttpRequest):
-    try:
-        portar = Worker.objects.get(user=request.user)
-        hostel = portar.hostel
-        context={'rooms':rooms, 'user':request.user}
-        return render(request, "portar_htmx/",context)
-    except Worker.DoesNotExist:
-        return HttpResponseForbidden("You do not have permission to access this page")
-
-
 def update_room_price(request:HttpRequest, *args, **kwargs):
     context = {"message":None,"tag":None}
     try:
