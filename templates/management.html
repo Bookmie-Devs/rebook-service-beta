@@ -41,11 +41,11 @@
             </span>
           </label>
           <div class="profile"></div>
-          <div class="name"><h3>Eyram Aggor Kobbie</h3></div>
+          <div class="name"><h3>{{ portar.user.username }}</h3></div>
           <div class="id"><p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hash" viewBox="0 0 16 16">
   <path d="M8.39 12.648a1 1 0 0 0-.015.18c0 .305.21.508.5.508.266 0 .492-.172.555-.477l.554-2.703h1.204c.421 0 .617-.234.617-.547 0-.312-.188-.53-.617-.53h-.985l.516-2.524h1.265c.43 0 .618-.227.618-.547 0-.313-.188-.524-.618-.524h-1.046l.476-2.304a1 1 0 0 0 .016-.164.51.51 0 0 0-.516-.516.54.54 0 0 0-.539.43l-.523 2.554H7.617l.477-2.304c.008-.04.015-.118.015-.164a.51.51 0 0 0-.523-.516.54.54 0 0 0-.531.43L6.53 5.484H5.414c-.43 0-.617.22-.617.532s.187.539.617.539h.906l-.515 2.523H4.609c-.421 0-.609.219-.609.531s.188.547.61.547h.976l-.516 2.492c-.008.04-.015.125-.015.18 0 .305.21.508.5.508.265 0 .492-.172.554-.477l.555-2.703h2.242zm-1-6.109h2.266l-.515 2.563H6.859l.532-2.563z"/>
-</svg> 3368422</p></div>
-          <div class="hostel"><p>Sucka Hostel</p></div>
+</svg> {{ portar.worker_code }}</p></div>
+          <div class="hostel"><p>{{ portar.hostel.hostel_name }}</p></div>
       </ul>
       </nav>
     </header>
@@ -617,37 +617,50 @@
           <h1 class="title">Bookmie Management Office</h1>
         </div>
         <div class="contaner1 contan">
-          <form action="">
+        
           <div class="search">
+            <form hx-get="{% url 'management:portar-search-rooms' %}"
+            hx-trigger="input"
+            hx-target="#room-cads-id">
             <span>
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
   <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
 </svg>
               </span
-            ><input placeholder="Search By Room Number" type="text" />
+            ><input placeholder="Search By Room Number" name="room_number" type="text" />
+            </form>
           </div>
+          <form
+          hx-get="{% url 'management:portar-filter-rooms' %}"
+          hx-trigger="change"
+          hx-target="#room-cads-id"
+          >
           <div class="filters">
-            <select name="capacity" id="capacity">
-              <option value="">Filter By Capacity</option>
+            <select name="room_capacity" id="capacity">
+              <option selected value="">Filter By Capacity</option>
               <option value="1">1 in a Room</option>
               <option value="2">2 in a Room</option>
               <option value="3">3 in a Room</option>
               <option value="4">4 in a Room</option>
             </select>
             <select name="gender" id="gender">
-              <option value="">Filter By Gender</option>
-              <option value="all">All Genders</option>
+              <option selected value="">Filter By Gender</option>
+              <option value="">All Genders</option>
               <option value="male">Male</option>
               <option value="female">Female</option>
               <option value="open">Open</option>
             </select>
             <div class="occupied">
-              <label for="occupied">Occupied Only</label>
-              <input type="checkbox" name="occupied" id="occupied" />
+              <select name="occupied" id="gender">
+                <option selected value="">Occupied</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+                <option value="unknown">All</option>
+              </select>
             </div>
           </div>
-          </form>
-          <div class="cads">
+        </form>
+          <div id="room-cads-id" class="cads">
             {% for room in rooms %}
             <div class="cad">
               <p class="head">Room No: {{ room.room_no }}</p>
@@ -675,21 +688,28 @@
           </div>
         </div>
         <div class="contaner2 contan">
+          <form
+          hx-get="{% url 'management:portar-filter-tenants' %}"
+          hx-trigger="change"
+          hx-target="#tenant-cads-id">  
           <div class="filter">
-            <select name="room_no" id="room_no">
-              <option value="">Room Number</option>
-              <option value="1">Room Number 1</option>
-              <option value="2">Room Number 2</option>
-              <option value="3">Room Number 3</option>
-              <option value="4">Room Number 4</option>
+            <select name="room_number" id="room_no">
+              <option selected value="">Room Number</option>
+              {% for room in rooms %}
+              <option value="{{room.room_no}}">Room {{room.room_no}}</option>
+              {% endfor %}
             </select>
             <div class="occupied">
-              <label for="checked_in">Checked In</label>
-              <input type="checkbox" name="checked_in" id="checked_in" />
+              <select name="checked_in" id="gender">
+                <option selected value="unknown">Is Tenant Checked In</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+              </select>
             </div>
           </div>
-          <div class="cads">
-
+          </form>
+    
+          <div id="tenant-cads-id" class="cads">
           {% for tenant in tenants %}
             <div class="cad">
               <div class="pic"><span>

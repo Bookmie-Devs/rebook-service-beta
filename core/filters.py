@@ -5,6 +5,7 @@ from django_filters import (RangeFilter,
                             ChoiceFilter,)
 from hostel_app.models import HostelProfile
 from rooms_app.models import RoomProfile
+from .models import Tenant
 from django.contrib import admin
 from django.db import models
 from django.utils import timezone
@@ -31,10 +32,24 @@ class RoomFilters(django_filters.FilterSet):
         fields = ['ptf_room_price', 'room_capacity', 'gender',]
 
 
+class PortarRoomFilters(django_filters.FilterSet):
+    gender = ChoiceFilter(choices=[('female','female'),('male','male'),('open','open'),])
+    room_capacity = NumberFilter(field_name='room_capacity')
+    occupied = BooleanFilter(field_name="occupied")
+    class Meta:
+        model = RoomProfile
+        fields = ['gender','room_capacity', 'occupied']
 
+
+class PortarTenantFilters(django_filters.FilterSet):
+    room_number = NumberFilter(field_name='room_number')
+    checked_in = BooleanFilter(field_name='checked_in')
+
+    class Meta:
+        model = Tenant
+        fields = ['room_number','checked_in']
 
 import django_filters
-
 class ProductFilter(django_filters.FilterSet):
     name = django_filters.CharFilter(lookup_expr='icontains')
 

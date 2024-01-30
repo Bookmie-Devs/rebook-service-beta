@@ -1,5 +1,7 @@
 from django.conf import settings
 from django.http import HttpRequest, HttpResponseForbidden
+from django.views.decorators.http import require_http_methods
+from core.decorators import login_required_htmx
 from django.shortcuts import redirect, render
 from .models import Worker
 from django.contrib import messages
@@ -7,6 +9,7 @@ from core.models import Tenant
 from rooms_app.models import RoomProfile
 from django.utils import timezone
 from hostel_app.models import HostelProfile
+from core.filters import PortarRoomFilters, PortarTenantFilters
 from django.db.models import F
 from django.contrib.auth.decorators import login_required
 
@@ -17,7 +20,7 @@ def portar_office(request: HttpRequest):
         hostel = portar.hostel
         rooms = RoomProfile.objects.filter(hostel=hostel).all().order_by('room_no')
         all_active_tenants = Tenant.objects.filter(hostel=hostel, end_date__gt=timezone.now()).all()
-        context={'user':request.user,'portar':portar, 'hostel':hostel,'rooms':rooms,'tenants':all_active_tenants}
+        context={'user':request.user,'portar':portar, 'hostel':hostel,'rooms':rooms,'tenants':all_active_tenants,}
         return render(request, "management.html",context)
     except Worker.DoesNotExist:
         return HttpResponseForbidden("You do not have permission to access this page")
@@ -27,21 +30,40 @@ def filter_tenants(request: HttpRequest):
         capacity = request.GET.get('room_capacity')
         portar = Worker.objects.get(user=request.user)
         hostel = portar.hostel
+        tenants = Tenant.objects.filter(hostel=hostel, end_date__gt=hostel.campus.end_of_acadamic_year)
         # tenants = Tenant.objects.filter(hostel=hostel,d=F('')l)
-        context={'tenants':all_active_tenants,'user':request.user}
-        return render(request, "portar_htmx/",context)
+        filtered_tenants = PortarTenantFilters(request.GET, queryset=tenants).qs
+        context={'tenants':filtered_tenants,'user':request.user}
+        return render(request, "htmx_templates/management_htmx/htmx_tenant_filter.html/",context)
     except Worker.DoesNotExist:
         return HttpResponseForbidden("You do not have permission to access this page")
-    
-def rooms(request: HttpRequest):
+
+@login_required_htmx
+@require_http_methods(['GET'])
+def filter_rooms(request: HttpRequest):
     try:
         portar = Worker.objects.get(user=request.user)
         hostel = portar.hostel
-   
-        context={'rooms':rooms, 'user':request.user}
-        return render(request, "portar_htmx/",context)
+        rooms = RoomProfile.objects.filter(hostel=hostel).all()
+        filtered_roooms = PortarRoomFilters(request.GET, queryset=rooms,).qs
+        context={'rooms':filtered_roooms, 'user':request.user}
+        return render(request, "htmx_templates/management_htmx/htmx_room_filter.html",context)
     except Worker.DoesNotExist:
         return HttpResponseForbidden("You do not have permission to access this page")
+
+@login_required_htmx
+@require_http_methods(['GET'])
+def search_rooms(request: HttpRequest):
+    try:
+        room_number = request.GET.get('room_number')
+        portar = Worker.objects.get(user=request.user)
+        hostel = portar.hostel
+        rooms = RoomProfile.objects.filter(hostel=hostel,room_no__icontains=room_number)
+        context={'rooms':rooms, 'user':request.user}
+        return render(request, "htmx_templates/management_htmx/htmx_room_filter.html",context)
+    except Worker.DoesNotExist:
+        return HttpResponseForbidden("You do not have permission to access this page")
+
 
 def profile(request: HttpRequest):
     try:

@@ -21,6 +21,8 @@ urlpatterns=[
     path('view-tenants/', views.TenantListView.as_view(), name='view-tenants'),
 
     path("portar-office/", portar.portar_office, name="portar-office"),
+    path("portar-office/filter-rooms/", portar.filter_rooms, name="portar-filter-rooms"),
+    path("portar-office/search-rooms/", portar.search_rooms, name="portar-search-rooms"),
     path("portar-office/filter-tenants/", portar.filter_tenants, name="portar-filter-tenants"),
     path("portar-office/edit-room/<str:room_id>/", portar.edit_room , name="portar-edit-room"),
     path("portar-office/update-prices/", portar.update_room_price, name="portar-update-prices"),
