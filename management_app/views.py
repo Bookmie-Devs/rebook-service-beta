@@ -28,7 +28,7 @@ from django.db.models import Q
 from rest_framework import generics
 
 # custom permissions
-from .custom_permissions import IsHostelManager
+from .custom_permissions import IsHostelManager, IsHostelPortar
 
 
 class RoomListView(generics.ListAPIView):
@@ -171,9 +171,9 @@ class SalesStatsView(generics.ListAPIView):
         except:
             return Response({'MESSAGE':'NO_DATA_FOUND'},status=status.HTTP_404_NOT_FOUND)
         
-
-@permission_classes([IsAuthenticated])    
+  
 @api_view(['POST'])
+@permission_classes([IsAuthenticated, IsHostelPortar])  
 def verify_tenant(request):
     verification_code = request.data.get('verification_code')
     
