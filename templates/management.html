@@ -696,6 +696,7 @@
           <div class="filter">
             <select name="room_number" id="room_no">
               <option selected value="">Room Number</option>
+              <option selected value="">All Rooms</option>
               {% for room in rooms %}
               <option value="{{room.room_no}}">Room {{room.room_no}}</option>
               {% endfor %}
