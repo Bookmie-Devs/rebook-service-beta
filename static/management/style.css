@@ -178,12 +178,13 @@ section {
 }
 
 :where(.contaner1, .contaner2) .cads{
-    height: calc(100% - 180px);
+    height: calc(100% - 120px);
     overflow-y: scroll;
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
     justify-content: center;
+    align-items: center;
     padding: 15px 0;
     flex-direction: row;
 }
@@ -226,6 +227,7 @@ section {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 :where(.bttn, .bttns button, .contaner3 button):hover {
@@ -265,11 +267,12 @@ section {
 }
 
 .contaner1 .cads .cad {
-    justify-content: end;
+    justify-content: center;
+    padding-top: 20px !important;
 }
 
 .contaner2 .cads .cad {
-    align-items: end;
+    align-items: center;
 }
 
 :where(.contaner1, .contaner2) .cads .cad:hover{
@@ -283,7 +286,7 @@ section {
     font-size: 1.1rem;
     color: var(--primary);
     position: absolute;
-    top: 0;
+    top: 5px;
 }
 
 .contaner3 .history {
@@ -467,7 +470,6 @@ div > span{
 .contaner3 :is(.room, .price){
     display: flex;
     flex-direction: column;
-    justify-content: center;
     gap: 7px;
     padding: 0 10px;
 }
@@ -475,7 +477,7 @@ div > span{
 .contaner3 :is(select, input){
     width: 90%;
     font-size: 1rem;
-    align-self: center;
+    align-self: flex-start;
     border: none;
     background: transparent;
     height: 30px;

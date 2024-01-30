@@ -68,13 +68,15 @@ class Tenant(models.Model):
                                         default='unavailable', 
                                         unique=True,
                                         editable=False)
-    
+    room_number = models.CharField(max_length=10, default=000,verbose_name='Room number')
     start_date = models.DateTimeField(auto_now_add=True)
     end_date = models.DateTimeField()
     class Meta:
         ordering = ('-start_date',)
 
     def save(self, *args, **kwargs):
+        # set room
+        self.room_number=self.room.room_no
         """
         using timezone.now() instead of start_time because
         start usese auto_now_add which is NoneType until the
@@ -92,7 +94,7 @@ class Tenant(models.Model):
     
     def is_active(self):
         # check if user time is up and needs to update V-code
-        return self.user.campus.end_of_acadamic_year < self.end_date.date()
+        return self.user.campus.end_of_acadamic_year.date() < self.end_date.date()
     
     def delete_if_expired(self):
         if not self.is_active():

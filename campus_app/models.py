@@ -21,7 +21,7 @@ class CampusProfile(models.Model):
     location = models.CharField(max_length=255, null=True, blank=True)
     address = map_fields.AddressField(max_length=200, blank=True, null=True)
     geolocation = map_fields.GeoLocationField(max_length=500, blank=True, null=True)
-    end_of_acadamic_year = models.DateField(null=True, blank=True)
+    end_of_acadamic_year = models.DateTimeField(null=True, blank=True)
     def __str__(self) -> str:
         return f'{self.campus_name}'
 
