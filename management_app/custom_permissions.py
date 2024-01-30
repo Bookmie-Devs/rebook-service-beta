@@ -12,9 +12,9 @@ class IsHostelManager(BasePermission):
     
 
 """Check if user is a hostel worker """
-class IsHostelWorker(BasePermission):
+class IsHostelPortar(BasePermission):
 
     def has_permission(self, request, view):
 
         # is a user and hostel worker/porter
-        return bool(request.user and request.is_hostel_worker)
+        return bool(request.user and request.user.is_hostel_worker)
