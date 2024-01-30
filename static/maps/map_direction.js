@@ -131,12 +131,24 @@ async function initMap() {
   colleges.addEventListener('change', (event) => {
   const selectedOption = colleges.options[colleges.selectedIndex];
   if (selectedOption) {
-    if (selectedOption.value==""){    r
-      campusEntranceMarker.setMap(null)
-      campusEntranceMarker.setMap(map)
-      map.setCenter(campusEntrancePosition);
-      previousMarker = campusEntranceMarker
+    if (selectedOption.value==""){  
+      previousMarker.setMap(null);
+      previousMarker = null;
+      const newCampusEntranceMarker = new AdvancedMarkerElement({
+        map: map,
+        position: campusEntrancePosition,
+        gmpDraggable: true,
+        content: originMarkerContent(`From Entrance`),
+        title: `${selectedOption.innerText}`,
+      });
+      map.setCenter(campusEntrancePosition)
+      previousMarker = newCampusEntranceMarker
       calculateAndDisplayRoute(campusEntrancePosition, hostelPosition, directionsRenderer);
+      
+      newCampusEntranceMarker.addListener('dragend', function (event) {
+      selectedStartingPoint = { lat: event.latLng.lat(), lng: event.latLng.lng() };
+      calculateAndDisplayRoute(selectedStartingPoint, hostelPosition, directionsRenderer);
+    });
     }
     else{
     campusEntranceMarker.setMap(null)
@@ -148,6 +160,7 @@ async function initMap() {
     const collegeEntranceMarker = new AdvancedMarkerElement({
       map: map,
       position: collegeCoordinate,
+      gmpDraggable: true,
       content: originMarkerContent(`From ${selectedOption.innerText}`),
       title: `${selectedOption.innerText}`,
     });
@@ -155,6 +168,12 @@ async function initMap() {
     map.setCenter(collegeCoordinate);
     previousMarker = collegeEntranceMarker;
     calculateAndDisplayRoute(collegeCoordinate, hostelPosition, directionsRenderer);
+
+    collegeEntranceMarker.addListener('dragend', function (event) {
+      selectedStartingPoint = { lat: event.latLng.lat(), lng: event.latLng.lng() };
+      calculateAndDisplayRoute(selectedStartingPoint, hostelPosition, directionsRenderer);
+    
+    });
   }}
   });
 }
