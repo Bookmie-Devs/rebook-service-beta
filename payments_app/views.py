@@ -130,7 +130,7 @@ def verify_payment(request: HttpRequest, reference_id, paystack_reference):
         payment.successful = True
         payment.save()
         # count active tenants in th room after user booking is payed for
-        count_members: int = Tenant.objects.filter(room=payment.room, end_date__gt=timezone.now()).count()
+        count_members: int = Tenant.objects.filter(room=payment.room, end_date__gt=payment.room.campus.end_of_acadamic_year).count()
     
         # SET ROOM TO FULL IF CAPACITY HAS BEEN FIELED OR REDUCE BED SPACE LEFT
         acquired_room.reduce_bed_spaces(count_members=count_members)
