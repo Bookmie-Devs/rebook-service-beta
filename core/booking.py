@@ -45,7 +45,7 @@ def book_room(request: HttpRequest) -> HttpResponse:
         """
         Check if room is full
         """
-        messages.info(request, 'You already booked for a room please proceed to payment or delete booking!!!')
+        messages.info(request, 'Booking active, proceed to payment or delete booking!!!', extra_tags="danger")
         # print(request.META.get(''))    
         # return redirect(request.META.get('HTTP_REFERER'))
         response = HttpResponse()

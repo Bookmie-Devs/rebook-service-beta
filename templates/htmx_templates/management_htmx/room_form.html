@@ -1,6 +1,8 @@
+{% load static %}
 <form method="dialog post"
   hx-post="{% url 'management:portar-edit-room' room.room_id %}"
   hx-trigger="submit"
+  hx-indicator="#loading-spinner"
   hx-target="#card{{room.room_id}}"
   >
   {% csrf_token %}
@@ -51,4 +53,5 @@
       <button data-id="{{room.room_id}}" onclick="document.querySelector(`#card${this.dataset.id}`).close()" type="button" class="exit">Exit</button>
       <button data-id="{{room.room_id}}" type="submit" class="submit">Save</button>
     </div>
+    <img  id="loading-spinner" style="width: 25px; height: 25px;" class="htmx-indicator ml-2" src="{% static 'gifs/loading.gif' %}"/>
   </form>
