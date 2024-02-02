@@ -643,3 +643,15 @@ div > span{
         font-size: 0.8rem;
     }
 }
+
+
+.my-indicator{
+    display:none;
+  }
+  .htmx-request .my-indicator{
+    display:inline;
+  }
+  .htmx-request.my-indicator{
+    display:inline;
+  }
+  

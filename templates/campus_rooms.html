@@ -176,6 +176,7 @@
             <form 
             hx-get="{% url 'rooms:campus-rooms' campus.campus_code %}"
             hx-trigger="submit, change"
+            hx-indicator="#loading-spinner"
             hx-target="#search-results"
             id="filter-form"
              data-action="Searching..." class="row g-2 align-items-center">
@@ -206,6 +207,7 @@
                 type="number"
                 name="ptf_room_price_min"
                 placeholder="Least price"
+                min="800"
                 >
               </div>
 
@@ -214,11 +216,13 @@
                 type="number"
                 name="ptf_room_price_max"
                 placeholder="Highest price"
+                min="800"
                 >
               </div>
             
               <button type="submit" id='search-button' class="btn drop">
-               Search... <i class="bi bi-search"></i>
+               Search <i class="bi bi-search"></i>
+               <img  id="loading-spinner" style="width: 25px; height: 25px;" class="htmx-indicator ml-2" src="{% static 'gifs/loading.gif' %}"/>
               </button> 
             </form>
             

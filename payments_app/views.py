@@ -36,7 +36,12 @@ from reportlab.lib import colors
 
 @login_required()
 def initiate_payment(request: HttpRequest, room_id):
+    booking = Booking.objects.get(user=request.user)
     room = RoomProfile.objects.get(room_id=room_id)
+    if booking._has_expired():
+        booking.delete()
+        messages.info(request, 'Sorry, Booking has expired please book another room', extra_tags="danger")
+        return redirect('accounts:booking-and-payments')
 
     if request.method == 'POST':
         """
@@ -44,7 +49,6 @@ def initiate_payment(request: HttpRequest, room_id):
         and create a new payment history and skip the
         check for if room is occupied (beacuse at the time of update it will surely be occcupied)
         """
-        booking = Booking.objects.get(user=request.user)
         if booking.is_updating_vcode:
             #save payment details
             payment = PaymentHistory.objects.create(user=request.user,
@@ -60,11 +64,7 @@ def initiate_payment(request: HttpRequest, room_id):
             messages.info(request, 'Sorry, room has just been occupied by someone, please select new one')
             booking.delete()
             return redirect('accounts:booking-and-payments')
-        
-        if booking._has_expired():
-            booking.delete()
-            messages.info(request, 'Sorry, Booking has expired please book another room')
-            return redirect('accounts:booking-and-payments')
+
         else:
             if PaymentHistory.objects.filter(user=request.user, successful=False).exists():
                 # check if there is an unsuccessful payment
@@ -130,7 +130,7 @@ def verify_payment(request: HttpRequest, reference_id, paystack_reference):
         payment.successful = True
         payment.save()
         # count active tenants in th room after user booking is payed for
-        count_members: int = Tenant.objects.filter(room=payment.room, end_date__gt=timezone.now()).count()
+        count_members: int = Tenant.objects.filter(room=payment.room, end_date__gt=payment.room.campus.end_of_acadamic_year).count()
     
         # SET ROOM TO FULL IF CAPACITY HAS BEEN FIELED OR REDUCE BED SPACE LEFT
         acquired_room.reduce_bed_spaces(count_members=count_members)

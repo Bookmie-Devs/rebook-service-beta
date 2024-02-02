@@ -121,10 +121,6 @@ class HostelProfile(models.Model):
 
     location = models.CharField(max_length=500, default="location unavailable")
 
-    
-    main_website = models.URLField(null=True, blank=True, 
-                                verbose_name='Hostel Website')
-
     verified = models.BooleanField(default=False)
     occupied = models.BooleanField(default=False)
    

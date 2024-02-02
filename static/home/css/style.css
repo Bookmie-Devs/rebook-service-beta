@@ -1375,3 +1375,18 @@ opacity: 0;
     max-width: 1170px;
   }
 }
+
+
+.my-indicator{
+  display:none;
+}
+.htmx-request .my-indicator{
+  display:inline;
+}
+.htmx-request.my-indicator{
+  display:inline;
+}
+
+*{
+  /* outline: 1px solid green; */
+}

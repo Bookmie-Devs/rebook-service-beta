@@ -172,7 +172,7 @@ class HostelDetialsSerializer(serializers.ModelSerializer):
                   'mobile_money',
                   'hostel_email',
                   'price_range',
-                  'main_website',
+                  'facilities',
                   'location',
                   
                 #  statistics
