@@ -226,7 +226,9 @@
               hx-get="{% url 'core:hostels' campus.campus_code %}"
               hx-trigger="keyup delay:100ms changed"
               hx-target="#search-results"
+              hx-indicator="#loading-spinner"
             />
+            <img  id="loading-spinner" style="width: 25px; height: 25px;" class="htmx-indicator ml-2" src="{% static 'gifs/loading.gif' %}"/>
             <!-- <button  class="drop btn mb-2" id="search-button" type="submit">
                 Search
               </button> -->
