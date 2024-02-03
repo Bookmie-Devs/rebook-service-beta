@@ -15,6 +15,7 @@
      
     </dialog>
     <button data-id="{{room.room_id}}" 
+    onclick=" document.querySelector(`#card${this.dataset.id}`).showModal()"
     hx-get="{% url 'management:portar-edit-room' room.room_id %}"
     hx-trigger="click"
     hx-target="#card{{room.room_id}}"
