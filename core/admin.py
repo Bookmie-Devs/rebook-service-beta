@@ -25,12 +25,14 @@ class CustomTenantAdminPanel(admin.ModelAdmin):
         'room_number',
         'payed',
         'checked_in',)}),
-        ("DO NOT EDIT",{"fields":('end_date',)}))
+        ("DO NOT EDIT",{"fields":('end_date',)}),
+        ("PART PAYMENT MODEL", {'fields':('made_part_payment','amount_left_to_pay','completed_payment',)})
+        )
 
   
     search_fields = ('user',)
 
-    list_filter = ('payed','checked_in','end_date',)
+    list_filter = ('payed','checked_in','end_date','made_part_payment',)
 
     list_display = ('user','room','checked_in','start_date','end_date','payed','is_active_display',)
 

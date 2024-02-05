@@ -162,11 +162,11 @@
           {% if booking %}
           <div>
             <div class="alert alert-warning" role="alert">
-              <h4 style="text-align: center">
+              <h5 style="text-align: center">
                 NB: Booking will last for 1 hour 
                 <br>
                 <i class="bi bi-clock"></i> {{ booking.end_time.time }}
-              </h4>
+              </h5>
             </div>
             <h1>
               Booking Details
@@ -182,10 +182,21 @@
                   href="{% url 'payments:init-payment' booking.room.room_id %}"
                   class="btn btn-success"
                 >
-                  Pay for Booking
+                  Pay Full
                   <i class="bi bi-wallet2"></i>
                 </a>
               </div>
+              {% if booking.room.accept_half_payment %}
+              <div class="">
+                <a
+                  href="{% url 'payments:init-part-payment' booking.room.room_id %}"
+                  class="btn btn-info"
+                >
+                Pay Half
+                  <i class="bi bi-wallet2"></i>
+                </a>
+              </div>
+              {% endif %}
 
               <div class="">
                 <a
@@ -392,7 +403,14 @@
                 </svg>
               </a>
             </div>
-
+            {% if tenant.made_part_payment %}
+            <div class="">
+                <a href="{% url 'payments:complete-part-payment' %}" class="btn btn-primary">
+                    Complete Payment
+                  <i class="bi bi-wallet2"></i>
+                </a>
+            </div>
+            {% else %}
             <div class="">
               <form method="POST" action="{% url 'core:update-v-code' %}">
                 {% csrf_token %}
@@ -407,8 +425,8 @@
                 </button>
               </form>
             </div>
+            {% endif %}
           </div>
-
           <h4>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -437,7 +455,11 @@
           <h4>Room {{ tenant.room.room_no }}</h4>
           <h4>{{ tenant.room.gender.capitalize }} Room</h4>
           <h4>{{ tenant.room.room_capacity }} in a room</h4>
+          {% if tenant.made_part_payment %}
+          <h4>GH₵ {{ tenant.amount_left_to_pay }} Left To Pay</h4>
+          {% else %}
           <h4>GH₵ {{ tenant.room.ptf_room_price }}</h4>
+          {% endif %}
           <br />
         </div>
         <br />

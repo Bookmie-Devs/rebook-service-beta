@@ -23,7 +23,7 @@ class CustomRoomAdminPanel(admin.ModelAdmin):
         ('Specs', {'fields':('inbuilt_kitchen','inbuilt_bathroom',
                              'inbuilt_balcony','air_condition',)}),
 
-        ('System Status', {'fields':('booking_occupied','platform_occupied','occupied')}),
+        ('System Status', {'fields':('booking_occupied','platform_occupied','accept_half_payment','occupied')}),
     )
 
     list_filter = ('campus', 'occupied','room_capacity','gender',)

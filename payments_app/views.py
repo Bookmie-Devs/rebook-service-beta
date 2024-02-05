@@ -89,18 +89,19 @@ def initiate_payment(request: HttpRequest, room_id):
                 return redirect('payments:make-payment', reference_id=payment.reference_id, room_id=room.room_id)
             
     # return redirect
-    return render(request, 'payments/initiate_payment.html',
-                                    {'room':room, 'user':request.user,})
+    is_part_payment = False
+    return render(request, 'payments/initiate_payment.html',{'room':room, 'user':request.user,'is_part_payment': is_part_payment})
 
 @login_required()
 def make_payment(request: HttpRequest, reference_id,  room_id):
     room = RoomProfile.objects.get(room_id=room_id)
+    payment = get_object_or_404(PaymentHistory, user=request.user, reference_id=reference_id)
     subaccount = PaystackSubAccount.objects.get(hostel=room.hostel)
     # make payment ot subaccount
     return render(request=request,template_name='payments/make_payment.html', 
-                  context={'room':room,'reference_id': reference_id, 
+                  context={'amount':payment.amount,'reference_id': reference_id, 
                            'subaccount':subaccount.subaccount_code,
-                           'user':request.user, 
+                           'user':request.user, 'is_completing_payment':False,
                            'paystack_public_key':settings.PAYSTACK_PUBLIC_KEY })
 
 @login_required()
@@ -117,17 +118,24 @@ def verify_payment(request: HttpRequest, reference_id, paystack_reference):
     # checkout validation from api response after passing paystack_reference
     response_data = paystack_verification(paystack_reference)
     # confrim payment
-    if payment_is_confirm(data=response_data, payment=payment):
+    if payment_is_confirm(data=response_data, amount=payment.amount):
         # create tenent object if reponse is positive
-        tenant = Tenant.objects.create(user=request.user, room=payment.room,
-                                       hostel=payment.hostel, payed=True,)
-        tenant.save()
+        if payment.is_half_payment:
+            tenant = Tenant.objects.create(user=request.user, room=payment.room,
+                                        hostel=payment.hostel, payed=True, made_part_payment=True,
+                                        amount_left_to_pay=payment.amount)
+            tenant.save()
+        else:
+            tenant = Tenant.objects.create(user=request.user, room=payment.room,
+                                        hostel=payment.hostel, payed=True, completed_payment=True)
+            tenant.save()
         # calculate sales on each payment
         calculate_year_sales(hostel=payment.hostel,amount_paid=payment.room.room_price)
 
         #DECLARE SUCCESSFULL TRUE if PAYMENT WAS A SUCCESS
         payment.paystack_reference = paystack_reference
         payment.successful = True
+        payment.completed_full_payment =True
         payment.save()
         # count active tenants in th room after user booking is payed for
         count_members: int = Tenant.objects.filter(room=payment.room, end_date__gt=payment.room.campus.end_of_acadamic_year).count()

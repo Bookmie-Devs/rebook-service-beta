@@ -61,7 +61,12 @@
             &#8373;{{ room.ptf_room_price }}💵
         </div>
         </div>
-
+        {% if room.accept_half_payment %}
+        <small class="type part btn badge w-75 mx-auto mb-2">Accepts Part Payment</small>
+        {% else %}
+        <small class="type btn badge w-75 mx-auto mb-2">Full Payment Required</small>
+        {% endif %}
+        <br>    
         <!--booking form for each room-->
         <form
         hx-post="{% url 'core:booking'  %}"

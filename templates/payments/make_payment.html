@@ -20,13 +20,13 @@
     </header>
 
     <div class="container">
-      <h3>Make Payment Of ₵{{ room.ptf_room_price }}</h3>
+      <h3>Make Payment Of ₵{{amount}}</h3>
       <div class="bttn">
         <button id="pay" onclick="payWithPaystack()">Pay💳</button>
       </div>
     </div>
 
-    <!-- paystack js script-->
+    {% comment %} <!-- paystack js script--> {% endcomment %}
     <script src="https://js.paystack.co/v1/inline.js"></script>
 
     <script>
@@ -34,15 +34,20 @@
       paymentForm.addEventListener("submit", payWithPaystack, false);
       function payWithPaystack() {
         var handler = PaystackPop.setup({
-          key: "{{ paystack_public_key }}", // Replace with your public key
+          key: "{{ paystack_public_key }}", 
           email: "{{ user.email }}",
-          amount: parseFloat("{{ room.ptf_room_price }}") * 100, // the amount value is multiplied by 100 to convert to the lowest currency unit
-          currency: "GHS", // Use GHS for Ghana Cedis or USD for US Dollars
+          amount: parseFloat("{{amount}}") * 100, 
+          currency: "GHS", 
           subaccount: "{{ subaccount }}",
           callback: function (response) {
-            //this happens after the payment is completed successfully
             var paystack_reference = response.reference;
-            window.location.href = `/payments/verify-payment/{{reference_id}}/${paystack_reference}/`
+            window.location.href = `
+            {% if is_completing_payment %}
+            /payments/verify-complete-payment/{{reference_id}}/${paystack_reference}/
+            {% else %}
+            /payments/verify-payment/{{reference_id}}/${paystack_reference}/
+            {% endif %}
+            `
           },
           onClose: function () {
             alert("Transaction was not completed, window closed.");
@@ -53,7 +58,7 @@
         handler.openIframe();
       }
     </script>
-    <!-- Loader -->
+    {% comment %} <!-- Loader --> {% endcomment %}
     <div class="load">
       <div class="loader">
         <div class="spinner"></div>

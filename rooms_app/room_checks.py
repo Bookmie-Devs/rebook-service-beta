@@ -23,7 +23,7 @@ def capacity_available(room_instance: RoomProfile) -> bool:
     # count all tenants in room
     campus_end_year = room_instance.campus.end_of_acadamic_year
     count_members = Tenant.objects.filter(room=room_instance, end_date__gt=campus_end_year).count()
-    if room_instance.room_capacity <= count_members:
+    if room_instance.bed_space_left <= count_members:
         """
         Room will likely not show for booking but incase it shows
         """

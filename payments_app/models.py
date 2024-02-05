@@ -22,7 +22,8 @@ class PaymentHistory(models.Model):
     hostel = models.ForeignKey(HostelProfile, on_delete=models.SET_NULL, null=True)
     successful = models.BooleanField(default=False)
     date_of_payment = models.DateTimeField(auto_now_add=True)
-
+    is_half_payment =  models.BooleanField(default=False)
+    completed_full_payment =  models.BooleanField(default=False)
     def __str__(self) -> str:
         return f'{self.user} payed on {self.date_of_payment.date()} @{self.date_of_payment.hour}:{self.date_of_payment.minute}'
 
