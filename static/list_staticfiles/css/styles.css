@@ -212,6 +212,21 @@ body {
   border: none;
 }
 
+.card .type{
+  color: var(--primary) !important;
+  border: 1px solid var(--primary) !important;
+}
+
+.card .type.part{
+  color: var(--bs-success) !important;
+  border: 1px solid var(--bs-success) !important;
+}
+
+.card:hover .type{
+  color: var(--light) !important;
+  border: 1px solid var(--light) !important;
+}
+
 .btn:hover{
   background: var(--light);
   color: var(--primary);

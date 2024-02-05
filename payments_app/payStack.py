@@ -36,10 +36,10 @@ def paystack_verification(reference):
     return response
 
 # confirm payment dat from paystack
-def payment_is_confirm(data, payment):
+def payment_is_confirm(data, amount):
     if (data.status_code==200 and 
         data.json()['data'].get('status')=="success" and
-        data.json()['data'].get('amount')==payment.room.ptf_room_price*100):
+        data.json()['data'].get('amount')==amount*100):
         return True
     else:
         return False

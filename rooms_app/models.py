@@ -34,10 +34,13 @@ class RoomProfile(models.Model):
     room_price = models.DecimalField(blank=False, decimal_places=2, max_digits=8)
     # platform pricing(selling price)
     ptf_room_price = models.DecimalField(default=0.0, editable=False, decimal_places=2, max_digits=8)
+    # for half payment
+    half_pricing = models.DecimalField(default=0.0, editable=False, decimal_places=2, max_digits=8)
     """
     field just there to compare and check if the field "room price"
     has been changed or not when the save method is called on an object
     """
+    accept_half_payment =  models.BooleanField(default=False)
     previous_price_check = models.DecimalField(blank=True, editable=False,
                                       null=True, decimal_places=2, max_digits=7)
 
@@ -68,7 +71,11 @@ class RoomProfile(models.Model):
         # and upadte itself.
         if self.room_price!=self.previous_price_check:
             addtional_pricing: float = float(self.room_price) * settings.SUPPLY_COST_PERCENTAGE
+            # additional price for half payment
+            addtional_half_pricing: float = float(self.room_price/2) * settings.SUPPLY_COST_PERCENTAGE
+            # new prices
             self.ptf_room_price = float(self.room_price) + addtional_pricing
+            self.half_pricing = float(self.room_price/2) + addtional_half_pricing
             # equate the two to maintain the balance
             self.previous_price_check = self.room_price
         else:

@@ -71,6 +71,9 @@ class Tenant(models.Model):
     room_number = models.CharField(max_length=10, default=000,verbose_name='Room number')
     start_date = models.DateTimeField(auto_now_add=True)
     end_date = models.DateTimeField()
+    made_part_payment = models.BooleanField(default=False, verbose_name="MADE PART PAYMENT")
+    amount_left_to_pay = models.DecimalField(default=0.0, decimal_places=2, max_digits=8, verbose_name="AMOUNT LEFT TO PAY")
+    completed_payment =  models.BooleanField(default=False, verbose_name="COMPLETED PAYMENT")
     class Meta:
         ordering = ('-start_date',)
 

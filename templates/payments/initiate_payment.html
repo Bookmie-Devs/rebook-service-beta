@@ -39,9 +39,11 @@
                </div>
           </div>
           <div class="second-content">
-          <!-- Second Page -->
-      <h2 class="label">₵{{ room.ptf_room_price }} to {{ room.hostel.hostel_name}}</h2>
-      <form data-action="Proceeding.." id="paymentForm" method="POST" action="{% url 'payments:init-payment' room.room_id %}">
+          {% comment %} <!-- Second Page --> {% endcomment %}
+      <h2 class="label">₵
+      {% if is_part_payment %}{{ room.half_pricing }}{% else %}{{ room.ptf_room_price }}{% endif %} to {{ room.hostel.hostel_name}}</h2>
+      <form data-action="Proceeding.." id="paymentForm" method="POST" action="
+      {% if is_part_payment %}{% url 'payments:init-part-payment' room.room_id %}{% else %}{% url 'payments:init-payment' room.room_id %}{% endif %}">
         {% csrf_token %}
         <div class="input-container">
           <input

@@ -22,6 +22,7 @@ class RoomListSerializer(serializers.ModelSerializer):
                  'room_price',
                  'occupied',
                  'bed_space_left',
+                 'accept_half_payment',
                  'number_of_tenants',
                  'detail_url',
                  'room_id',
@@ -48,6 +49,7 @@ class RoomDetailSerializer(serializers.ModelSerializer):
                  'occupied',
                  'bed_space_left',
                  'hostel',
+                 'accept_half_payment',
                  'gender',)
 
     #Returns the hostel name
@@ -75,6 +77,7 @@ class TenantListSerializer(serializers.ModelSerializer):
             'payed',
             'checked_in',
             'phone',
+            'completed_payment',
         )
 
     """Serializer methods"""
@@ -112,6 +115,7 @@ class TenantVerificationSerializer(serializers.ModelSerializer):
             'tenant_name',
             'student_id',
             'checked_in_status',
+            'completed_payment',
             )
     # """Serializer methods"""
     # hostel name

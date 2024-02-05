@@ -22,5 +22,7 @@ def send_sms_task(phone, msg) -> None:
 
 @shared_task()
 def test_function():
-    from time import sleep
-    sleep(32)
+    from core.models import Booking
+    from django.utils import timezone
+    unpaid_bookings = Booking.objects.filter(end_time__lt=timezone.now())
+    unpaid_bookings.delete()
