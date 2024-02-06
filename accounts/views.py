@@ -115,20 +115,22 @@ def login(request: HttpRequest):
         login_user = auth.authenticate(email=email, password=password)
         if login_user is not None:
             auth.login(request, login_user)
+            # current_domain == get_current_site(request)
+            # send user notice of login
+            current_domain = request.META.get('HTTP_X_FORWARDED_HOST', request.META['HTTP_HOST'])
+            msg = render_to_string("emails/login_sms.html", {'user':request.user,'time':timezone.now(),'domain':current_domain})
             if request.user.is_hostel_worker or request.user.is_hostel_manager:
+                # send_sms_task.delay(request.user.phone, msg)
+                # for testing
+                send_sms_task(request.user.phone, msg)
                 return redirect("management:portar-office")
             # send_sms_message
-            # current_domain == get_current_site(request)
-            current_domain = request.META.get('HTTP_X_FORWARDED_HOST', request.META['HTTP_HOST'])
-            msg = render_to_string("emails/login_sms.html", {'user':request.user,'time':timezone.now(),
-                                                             'domain':current_domain})
             """
             Send sms with celery
             """
             # send_sms_task.delay(request.user.phone, msg)
             # for testing
             send_sms_task(request.user.phone, msg)
-
             return redirect('accounts:booking-and-payments')
         else:
             messages.error(request, 'Credentials invalid', extra_tags="danger")
