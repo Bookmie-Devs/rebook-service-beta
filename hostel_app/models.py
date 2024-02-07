@@ -148,7 +148,7 @@ class HostelProfile(models.Model):
         #  create hostel code on save
         self.hostel_code = f'{self.hostel_name[:3].upper()}{str(self.hostel_id)[:4]}'
 
-        if self.send_management_sms:
+        if self.send_management_sms and self.verified:
             msg = self.message
             # send_sms_task.delay(self.manager_contact,msg)
             sms.send_sms_message(self.manager_contact,msg)
