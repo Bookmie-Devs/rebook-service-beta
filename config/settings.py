@@ -77,6 +77,7 @@ INSTALLED_APPS = [
     'django_google_maps',
 
     # platform apps
+    'agents_app',
     'maps_app',
     'core',
     'management_app',

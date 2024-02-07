@@ -18,10 +18,13 @@ class CustomUser(AbstractUser):
     student_id = models.CharField(max_length=20, blank=False)
     
     # is a hostel manager ot not
-    is_hostel_manager = models.BooleanField(default=False, verbose_name="manager")
+    is_hostel_manager = models.BooleanField(default=False, verbose_name="Manager")
     
     # is a hostel worker not manager(work at the hostel/Porter)
     is_hostel_worker = models.BooleanField(default=False, verbose_name='Hostel Woker')
+    
+     # is a hostel worker not manager(work at the hostel agent)
+    is_hostel_agent = models.BooleanField(default=False, verbose_name='Hostel Agent')
 
     def __str__(self) -> str:
         return f'{self.username}'

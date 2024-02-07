@@ -13,6 +13,7 @@ class CustomHostelAdminPanel(admin.ModelAdmin):
                           'price_range',
                           'number_of_rooms',
                           'campus','hostel_manager',
+                          'agent_affiliate',
                           )}),
         ('Hostel Images', {"fields":('hostel_image','hostel_image2','hostel_image3', 'hostel_image4','hostel_image5',)}),
         ('Room Images', {"fields":('room_image','room_image2','room_image3','room_image4','room_image5','room_image6')}),
@@ -32,12 +33,15 @@ class CustomHostelAdminPanel(admin.ModelAdmin):
         ('Facilities',{"fields":('facilities',),}),
         #forbid
         ('Forbbiden',{'fields':('hostel_code',)}),
+        ('Message Purposes',{'fields':('send_management_sms','message',)}),
     )
 
     formfield_overrides = {
         map_fields.AddressField: {'widget': map_widgets.GoogleMapsAddressWidget},
     }
     search_fields = ('hostel_name','hostel_code')
+
+    list_filter = ('campus', 'agent_affiliate',)
 
     list_display = ('hostel_name','hostel_code','hostel_manager','hostel_contact','verified',)
 
