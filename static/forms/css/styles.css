@@ -1,6 +1,6 @@
 :root{
     --primary: #FEA116;
-    --light: #F1F8FF;
+    --light: #fff;
     --dark: #0F172B;
 }
 *{
@@ -14,12 +14,13 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
-    margin: 0;
+    margin: 0 !important;
     padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 100vh;
+    min-height: 100dvh;
+    padding-top: 35px;
 }
 
 .alert-p-tags {
@@ -29,7 +30,7 @@ body {
 
 span {
     font-size: 10px;
-    color: gray;
+    color: black;
 }
 
 h1{
@@ -42,24 +43,24 @@ h1{
 
 #box-alert {
     padding: 15px;
-    background-color: #f36257; /* Red background color */
-    color: white; /* White text color */
+    background-color: #f36257;
+    color: red; 
     border-radius: 4px;
     margin-bottom: 15px;
 }
 
 .container {
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8));
+    background: var(--light);
     padding: 20px;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     width: 350px;
     text-align: center;
     overflow: hidden;
 }
 
 h2 {
-    color: var(--primary);
+    color: var(--dark);
+    font-weight: bold;
     margin-bottom: 20px;
 }
 
@@ -79,9 +80,10 @@ input[type="password"]{
     padding: 10px;
     border: none;
     font-size: 20px;
-    border-bottom: 1px solid var(--primary);
+    border-bottom: 1px solid var(--dark);
     background-color: transparent;
-    color: var(--light);
+    color: var(--dark);
+    width: 90%;
 }
 
 input::placeholder {
@@ -90,7 +92,7 @@ input::placeholder {
 
 input:hover{
     transition: 300ms;
-    border-bottom: 1px solid var(--dark);
+    border-bottom: 1px solid var(--primary);
 }
 
 :where(input, select):focus {
@@ -99,12 +101,12 @@ input:hover{
 
 button{
     border: none;
-    background: rgb(43, 43, 43);
+    background: black;
     position: relative;
     cursor: pointer;
     padding: 5px 10px;
     margin-top: 20px;
-    width: 110px;
+    width: 90%;
     border-radius: 5px;
     font-weight: bold;
     font-size: 20px;
@@ -136,7 +138,7 @@ button::before{
 }
 
 button:hover{
-    color: var(--dark);
+    color: black;
     z-index: 1;
 }
 
@@ -146,8 +148,7 @@ button:hover::before{
 }
 
 p{
-    color: var(--light);
-    opacity: 0.5;
+    color: var(--dark);
 }
 
 a{
@@ -186,10 +187,6 @@ a:hover{
 
     h1{
         font-size: 30px;
-    }
-
-    h2{
-        font-size: 15px;
     }
 }
 
@@ -259,7 +256,7 @@ footer{
  /* Password toggle */
  .password-container {
      position: relative;
-     width: min-content;
+     width: 100%;
      margin: auto;
  }
  

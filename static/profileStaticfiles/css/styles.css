@@ -104,6 +104,32 @@ body {
   border-radius: 10px !important;
 }
 
+.likes{
+  position: absolute;
+  top: 8px;
+  right: 15px;
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #000;
+}
+
+.likes label{
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.likes input{
+  display: none;
+}
+
+#like:checked~label i{
+  color: red;
+}
+
 .section{
   animation: myAnim 2s ease 0s 1 normal forwards;
 }

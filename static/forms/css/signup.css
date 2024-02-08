@@ -1,6 +1,6 @@
 :root{
     --primary: #FEA116;
-    --light: #F1F8FF;
+    --light: #fff;
     --dark: #0F172B;
 }
 *{
@@ -14,12 +14,13 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
-    margin: 0;
+    margin: 0 !important;
     padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 100vh;
+    min-height: 100dvh;
+    padding-top: 35px;
 }
 
 h1{
@@ -32,21 +33,21 @@ h1{
 
 span {
     font-size: 10px;
-    color: gray;
+    color: black;
 }
 
 .container {
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8));
+    background: var(--light);
     padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;;
     width: 350px;
     text-align: center;
     overflow: hidden;
 }
 
 h2 {
-    color: var(--primary);
+    color: var(--dark);
+    font-weight: bold;
     margin-bottom: 20px;
 }
 
@@ -66,9 +67,9 @@ input[type="password"],
 select{
     padding: 10px;
     border: none;
-    border-bottom: 1px solid var(--primary);
+    border-bottom: 1px solid var(--dark);
     background-color: transparent;
-    color: var(--light);
+    color: var(--dark);
     width: 250px;
     font-size: 20px;
 }
@@ -82,16 +83,16 @@ input::placeholder {
 }
 
 select{
-    color: gray;
-}
-
-option:not(:first-child){
-    background: black;
+    color: var(--dark);
 }
 
 input:hover, select:hover{
     transition: 300ms;
-    border-bottom: 1px solid var(--dark);
+    border-bottom: 1px solid var(--primary);
+}
+
+label{
+    color: var(--dark);
 }
 
 .bttn{
@@ -105,7 +106,7 @@ input:hover, select:hover{
 
 button{
     border: none;
-    background: rgb(43, 43, 43);
+    background: black;
     position: relative;
     cursor: pointer;
     padding: 5px 10px;
@@ -136,7 +137,7 @@ button::before{
 }
 
 button:hover{
-    color: var(--dark);
+    color: black;
     z-index: 1;
 }
 
@@ -146,8 +147,7 @@ button:hover::before{
 }
 
 p{
-    color: var(--light);
-    opacity: 0.5;
+    color: var(--dark);
 }
 
 p a{

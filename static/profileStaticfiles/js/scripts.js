@@ -59,3 +59,10 @@ function checkBgb() {
 function openNav() {
     document.getElementById("menu-btn").classList.toggle("menu_btn-style")
 }
+
+const icon = document.getElementById('icon')
+
+function fill(){
+  icon.classList.toggle('bi-heart-fill')
+  icon.classList.toggle('bi-heart')
+}

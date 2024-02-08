@@ -121,7 +121,7 @@
                 <div class="row gx-4 gx-lg-5 align-items-center">
                     
                     <div class="col-md-6">
-                        <div id="carouselExampleIndicators" class="carousel slide" data-bs-touch="false">
+                        <div id="carouselExampleIndicators" class="carousel slide" data-bs-touch="false" style="position: relative;">
                             <div class="carousel-indicators">
                                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -170,6 +170,13 @@
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Next</span>
                             </button>
+                            <form action="" class="likes">
+                                <input type="checkbox" name="like" value="`1" id="like">
+                                <label for="like" class="like">
+                                    <i class="bi bi-heart" id="icon" onclick="fill()"></i>
+                                </label>
+                                <small>100K</small>
+                            </form>
                         </div>
                     </div>
                         {% comment %} <!-- <a href="{{ room.hostel.room_image.url }}"><img class="card-img-top mb-5 mb-md-0 img" src="{{ room.hostel.room_image.url}}" alt="..." /></a> --> {% endcomment %}
