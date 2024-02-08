@@ -9,7 +9,8 @@
 
 body {
     font-family: Arial, sans-serif;
-    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.0)), url(../img/dorm.jpg);
+    background: linear-gradient(rgba(0, 0, 0, 0.658), rgba(0, 0, 0, 0.74)), url(../img/dorm.jpg);
+    /* background: linear-gradient(180deg,black,orange); */
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -34,7 +35,7 @@ span {
 }
 
 h1{
-    font-size: 50px;
+    font-size: 40px;
     font-weight: 600;
     color: orangered;
     margin: 10px;
@@ -59,7 +60,7 @@ h1{
 }
 
 h2 {
-    color: var(--dark);
+    color: #000;
     font-weight: bold;
     margin-bottom: 20px;
 }
@@ -80,10 +81,11 @@ input[type="password"]{
     padding: 10px;
     border: none;
     font-size: 20px;
-    border-bottom: 1px solid var(--dark);
+    border: 1px solid gray;
     background-color: transparent;
     color: var(--dark);
     width: 90%;
+    border-radius: 5px;
 }
 
 input::placeholder {
@@ -92,11 +94,12 @@ input::placeholder {
 
 input:hover{
     transition: 300ms;
-    border-bottom: 1px solid var(--primary);
+    border: 1px solid var(--dark);
 }
 
 :where(input, select):focus {
     outline: none !important;
+    border: 1px solid var(--dark);
 }
 
 button{
@@ -181,6 +184,11 @@ a:hover{
 }
 
 @media screen and (max-width: 480px) {
+    img{
+        width: 40px !important;
+        height: 40px !important;
+    }
+
     .container {
         width: 90%;
     }
@@ -262,7 +270,7 @@ footer{
  
  .toggle-password {
      position: absolute;
-     right: 20px;
+     right: 30px;
      top: 50%;
      transform: translateY(-50%);
      cursor: pointer;
