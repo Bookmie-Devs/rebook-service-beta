@@ -56,6 +56,10 @@ form {
     gap: 10px;
 }
 
+:where(input, select):focus {
+    outline: none !important;
+}
+
 button {
     border: none;
     background: rgb(43, 43, 43);
@@ -146,6 +150,7 @@ footer{
     z-index: 2;
     background: rgba(0, 0, 0, 0.9);
     display: none;
+    top: 0;
 }
 
 .loader{

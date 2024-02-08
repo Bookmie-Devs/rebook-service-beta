@@ -215,6 +215,7 @@ body {
 .card .type{
   color: var(--primary) !important;
   border: 1px solid var(--primary) !important;
+  width: 75%;
 }
 
 .card .type.part{
@@ -374,6 +375,11 @@ h1 {
           
           margin-left: -10% !important;
         }
+
+        .card .type{
+          transform: scale(0.8);
+          width: 100%;
+        }
 }
 @media screen and (max-width:375px) {
 
@@ -383,6 +389,13 @@ h1 {
           margin-left: -32% !important;
           margin-bottom: -10px !important;
         }
+}
+@media screen and (max-width:320px) {
+
+  .card .type{
+    transform: scale(0.7) translateX(-15px);
+    width: 120%;
+  }
 }
 
 @media screen and (max-width:991px){

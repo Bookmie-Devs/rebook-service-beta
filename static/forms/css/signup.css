@@ -77,8 +77,8 @@ input::placeholder {
     color: gray;
 }
 
-input:focus {
-    border: none !important;
+:where(input, select):focus {
+    outline: none !important;
 }
 
 select{
@@ -213,6 +213,7 @@ footer{
     z-index: 2;
     background: rgba(0, 0, 0, 0.9);
     display: none;
+    top: 0;
 }
 
 

@@ -43,6 +43,10 @@ span{
     color: black;
 }
 
+:where(input, select):focus {
+  outline: none !important;
+}
+
 /* Card Begins */
 .container1 {
     background-color: transparent;
