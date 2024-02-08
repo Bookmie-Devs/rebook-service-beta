@@ -46,6 +46,7 @@ class RoomProfile(models.Model):
 
     rating = models.IntegerField(choices=rating ,blank=False, 
                                  default='⭐', )
+    no_of_likes = models.IntegerField(verbose_name='Likes', default=1)
     # count the number of users who book this room
     booking_count = models.PositiveIntegerField(default=0)
     # occupied by users who booked but not payed yet

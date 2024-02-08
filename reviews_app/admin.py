@@ -1,6 +1,8 @@
 from django.contrib import (admin,)
 from .models import (FeedBackMessage, 
                      CustomerCare, 
+                     HostelLike,
+                     RoomLike,
                      RecomendationFeedBacks)
 # Register your models here.
 
@@ -32,3 +34,5 @@ class ReccomendationAdmin(admin.ModelAdmin):
     list_display = ('name','image')
 
 admin.site.register(RecomendationFeedBacks, ReccomendationAdmin)
+admin.site.register(HostelLike)
+admin.site.register(RoomLike)

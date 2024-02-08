@@ -2,6 +2,7 @@ from django.db import models
 from campus_app.models import CampusProfile
 import uuid
 from config import sms
+from django.utils.translation import gettext_lazy as _
 from accounts.task import send_sms_task
 from django.urls import reverse
 from accounts.models import CustomUser
@@ -93,6 +94,7 @@ class HostelProfile(models.Model):
 
     rating = models.IntegerField(choices=rating, verbose_name='Stars',
                                        default=1)
+    no_of_likes = models.IntegerField(verbose_name='Likes', default=1)
     
     price_range = models.CharField(max_length=50, 
                                    default='unavailable', 
@@ -125,6 +127,7 @@ class HostelProfile(models.Model):
 
     location = models.CharField(max_length=500, default="location unavailable")
 
+    main_website = models.URLField(_("Main Website"), max_length=200, null=True, blank=True)
     verified = models.BooleanField(default=False)
     occupied = models.BooleanField(default=False)
    

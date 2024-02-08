@@ -19,6 +19,7 @@ class CustomHostelAdminPanel(admin.ModelAdmin):
         ('Room Images', {"fields":('room_image','room_image2','room_image3','room_image4','room_image5','room_image6')}),
         ('Location',{"fields":('location','address','geolocation')}),
         ('Contact Details', {'fields':('hostel_email',
+                                       'main_website',
                                        'hostel_contact',
                                        'other_contact',
                                     )},),     
@@ -30,7 +31,7 @@ class CustomHostelAdminPanel(admin.ModelAdmin):
 
         ('verification', {"fields": ('verified',)}),
 
-        ('Facilities',{"fields":('facilities',),}),
+        ('Facilities',{"fields":('facilities','no_of_likes',),}),
         #forbid
         ('Forbbiden',{'fields':('hostel_code',)}),
         ('Message Purposes',{'fields':('send_management_sms','message',)}),

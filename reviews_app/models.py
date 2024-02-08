@@ -1,5 +1,8 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from accounts.models import CustomUser
+from hostel_app.models import HostelProfile
+from rooms_app.models import RoomProfile
 
 # feedback model
 class FeedBackMessage(models.Model):
@@ -38,3 +41,13 @@ class RecomendationFeedBacks(models.Model):
 
     def __str__(self):
         return self.name
+    
+
+class HostelLike(models.Model):
+    hostel = models.ForeignKey(HostelProfile, on_delete=models.CASCADE)
+    user = models.ManyToManyField(CustomUser)
+
+
+class RoomLike(models.Model):
+    room = models.ForeignKey(RoomProfile, on_delete=models.CASCADE)
+    user = models.ManyToManyField(CustomUser)
