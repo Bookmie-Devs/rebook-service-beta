@@ -1,8 +1,11 @@
 from django.db import models
 from campus_app.models import CampusProfile
 import uuid
+from config import sms
+from accounts.task import send_sms_task
 from django.urls import reverse
 from accounts.models import CustomUser
+from agents_app.models import HostelAgent
 from django_google_maps import fields as map_fields
 
 
@@ -101,6 +104,7 @@ class HostelProfile(models.Model):
     hostel_manager = models.OneToOneField(CustomUser, on_delete=models.SET_NULL,
                                           related_name='hostels', null=True,)
     
+    agent_affiliate = models.ForeignKey(HostelAgent, on_delete=models.SET_NULL, null=True, blank=True)
     hostel_email = models.EmailField(blank=True)
 
     account_number = models.CharField(max_length=70,
@@ -130,6 +134,9 @@ class HostelProfile(models.Model):
 
     facilities = models.TextField(default="unavailable")
 
+    send_management_sms = models.BooleanField(default=False)
+    message = models.TextField(default="Type New Message")
+
     class Meta:
         db_table = 'hostel_profiles'
         
@@ -140,6 +147,13 @@ class HostelProfile(models.Model):
 
         #  create hostel code on save
         self.hostel_code = f'{self.hostel_name[:3].upper()}{str(self.hostel_id)[:4]}'
+
+        if self.send_management_sms and self.verified:
+            msg = self.message
+            # send_sms_task.delay(self.manager_contact,msg)
+            sms.send_sms_message(self.manager_contact,msg)
+            self.send_management_sms = False
+            self.message = "Type New Message"
 
         return super().save(*args, **kwargs)
 

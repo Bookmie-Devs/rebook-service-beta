@@ -15,7 +15,7 @@ from django.shortcuts import resolve_url
 def authenticated_or_not(view_function):
     def wrapper_function(request, *args, **kwargs):
         if request.user.is_authenticated:
-             return redirect('accounts:booking-and-payments')
+            return redirect('accounts:booking-and-payments')
         else:
             return view_function(request, *args, **kwargs)
     return wrapper_function
