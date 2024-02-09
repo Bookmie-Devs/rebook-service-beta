@@ -170,13 +170,13 @@
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Next</span>
                             </button>
-                            <form action="" class="likes">
+                            {% comment %} <form action="" class="likes">
                                 <input type="checkbox" name="like" value="`1" id="like">
                                 <label for="like" class="like">
                                     <i class="bi bi-heart" id="icon" onclick="fill()"></i>
                                 </label>
                                 <small>100K</small>
-                            </form>
+                            </form> {% endcomment %}
                         </div>
                     </div>
                         {% comment %} <!-- <a href="{{ room.hostel.room_image.url }}"><img class="card-img-top mb-5 mb-md-0 img" src="{{ room.hostel.room_image.url}}" alt="..." /></a> --> {% endcomment %}
@@ -263,7 +263,7 @@
                         <a href="{% url 'hostels:profile' room.hostel.hostel_id %}" style="margin: auto;">
                             {% comment %} <input type="hidden" name="room_id" value="{{ room.room_id }}"> {% endcomment %}
                             <button class="btn btn-secondary" type="submit">
-                                Room's Hostel
+                                {{ room.hostel.hostel_name.title }}
                                 <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="16"
