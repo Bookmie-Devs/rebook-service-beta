@@ -11,6 +11,7 @@ from .serializers import (RoomListSerializer,
 
 from rest_framework.authentication import SessionAuthentication
 # from core.models import Booking
+from accounts.models import OtpCodeData
 from .serializers import TenantListSerializer
 from core.models import Tenant
 from rest_framework import status
@@ -28,7 +29,7 @@ from django.db.models import Q
 from rest_framework import generics
 
 # custom permissions
-from .custom_permissions import IsHostelManager, IsHostelPortar
+from .custom_permissions import IsHostelManager, IsHostelPortar, IsHostelAgent
 
 
 class RoomListView(generics.ListAPIView):
@@ -180,3 +181,25 @@ def verify_tenant(request):
     # Verify Tenant
     return verify(request=request, verification_code=verification_code)
   
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated, IsHostelPortar, IsHostelAgent])  
+def get_otp_phone(request: HttpRequest):
+    otp = OtpCodeData.objects.create(user=request.user)
+    otp.save()
+    return Response({'message':'Code Sent'}, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated, IsHostelPortar, IsHostelAgent])  
+def confirm_otp_phone(request: HttpRequest):
+    otp_code = request.data.get('otp_code')
+    if OtpCodeData.objects.filter(user=request.user, otp_code=otp_code).exists():
+        code = OtpCodeData.objects.get(user=request.user, otp_code=otp_code)
+        if not code.has_expired():
+            code.delete()
+            return Response({'message':'Code Accepted'}, status=status.HTTP_200_OK)
+        else:
+            return Response({'message':'Code Rejected'}, status=status.HTTP_403_FORBIDDEN)
+    else:
+        return Response({'message':'Code Rejected'}, status=status.HTTP_403_FORBIDDEN)

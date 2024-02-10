@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import CustomUser, Student
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
-from .models import CustomUser
+from .models import CustomUser, OtpCodeData
 
 
 # custom admin panels (altered)
@@ -65,3 +65,5 @@ class CustomAdminPanel(UserAdmin):
 
 admin.site.register(CustomUser, CustomAdminPanel)
 admin.site.register(Student, CustomStudentAdmin)
+admin.site.register(OtpCodeData)
+
