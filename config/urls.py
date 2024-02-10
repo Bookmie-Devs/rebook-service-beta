@@ -4,13 +4,14 @@ from django.urls import include
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib.auth.decorators import permission_required
-from django.conf.urls import handler404, handler500
+from django.conf.urls import handler404, handler500, handler403
 from django.views.generic import TemplateView
 from django.contrib.auth import views as auth_view
 
 # error handlers
 handler404 = TemplateView.as_view(template_name='error/404.html')
 handler500 = TemplateView.as_view(template_name='error/500.html')
+handler403 = TemplateView.as_view(template_name='error/403.html')
 
 app_name='main'
 urlpatterns = [

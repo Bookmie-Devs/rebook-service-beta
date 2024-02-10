@@ -24,10 +24,10 @@ def room_profile(request, room_id):
 
 """when user clicks on a campus card"""
 class CampusRoomListView(generic.ListView):
-    def get(self, request: HttpRequest, campus_code:str ,*args: Any, **kwargs: Any) -> HttpResponse:
+    def get(self, request: HttpRequest, campus_id:str ,*args: Any, **kwargs: Any) -> HttpResponse:
         # get campus code
         try:
-            campus = CampusProfile.objects.get(campus_code = campus_code)
+            campus = CampusProfile.objects.get(campus_id = campus_id)
         except:
             pass
         

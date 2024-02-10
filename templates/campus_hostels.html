@@ -115,7 +115,7 @@
               <a
                 class="nav-link active"
                 aria-current="page"
-                href="{% url 'core:contact' %}"
+                href="{% url 'reviews:contact' %}"
                 >Report</a
               >
             </li>
@@ -177,7 +177,7 @@
 
         <div class="btn-box">
           <a
-            href="{% url 'maps:map-views' campus.campus_code %}"
+            href="{% url 'maps:map-views' campus.campus_id %}"
             class="fw-bold"
           >
             Map View
@@ -236,7 +236,7 @@
             <p class="lead fw-normal text-white-50 mb-0">
               Want a quick room🤔?
               <a
-                href="{% url 'rooms:campus-rooms' campus.campus_code %}"
+                href="{% url 'rooms:campus-rooms' campus.campus_id %}"
                 style="color: orange"
                 >click me!</a
               >

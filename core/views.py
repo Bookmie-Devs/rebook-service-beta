@@ -43,10 +43,10 @@ def index(request):
 
 
 class HostelListView(generic.ListView):
-    def get(self, request: HttpRequest, campus_code:str ,*args: Any, **kwargs: Any) -> HttpResponse:
+    def get(self, request: HttpRequest, campus_id:str ,*args: Any, **kwargs: Any) -> HttpResponse:
         """Get hostel that are related to particular campus and display it
         to the client"""
-        campus = CampusProfile.objects.get(campus_code=campus_code)
+        campus = CampusProfile.objects.get(campus_id=campus_id)
         campus_hostels = HostelProfile.objects.filter(campus=campus, verified=True)
         
         #context for the pages
@@ -55,7 +55,7 @@ class HostelListView(generic.ListView):
         """if user search for hostel"""
         if request.GET:
             search_data = request.GET['search_data']            
-            campus = CampusProfile.objects.get(campus_code=campus_code)
+            campus = CampusProfile.objects.get(campus_id=campus_id)
             #query of search 
             query = HostelProfile.objects.filter(Q(verified=True) & Q(campus=campus) & (Q(hostel_name__icontains=search_data) | Q(location__icontains=search_data)))
             #context containg search query page

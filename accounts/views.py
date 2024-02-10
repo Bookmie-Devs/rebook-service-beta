@@ -4,6 +4,7 @@ from .models import Student
 from core.decorators import authenticated_or_not
 from config.sms import send_sms_message
 from campus_app.models import CampusProfile
+from .models import Student
 from core.models import Booking, Tenant
 from core.phone import check_number
 from .task import send_email_task, send_sms_task
@@ -145,25 +146,27 @@ def logout(request):
 
 
 @login_required()
-def booking_and_payments(request):
-    user = CustomUser.objects.get(id=request.user.id)
+def booking_and_payments(request: HttpRequest):
+    user =request.user
+    student = Student.objects.get(user=user)
+    context = {'user':user, 'student':student}
     if user.is_hostel_manager or user.is_hostel_worker:
         return redirect("management:portar-office")
 
-    elif Booking.objects.filter(user=request.user).exists():
-        booking = Booking.objects.get(user=request.user)
+    elif Booking.objects.filter(student=student).exists():
+        booking = Booking.objects.get(student=student)
         tenant = False
-        context = {'user':user, 'tenant':tenant,'booking': booking,}
+        context.update({'tenant':tenant,'booking': booking,})
         return render(request, 'booking_and_payments.html',context=context)
     
-    elif Tenant.objects.filter(user=request.user).exists():
-        tenant = Tenant.objects.get(user=request.user)
+    elif Tenant.objects.filter(student=student).exists():
+        tenant = Tenant.objects.get(student=student)
         booking = False
-        context = {'user':user,'booking': booking,'tenant':tenant}
+        context.update({'tenant':tenant,'booking': booking,})
         return render(request, 'booking_and_payments.html',context=context)
     
     else:
-        return render(request, 'booking_and_payments.html')
+        return render(request, 'booking_and_payments.html', context=context)
 
 # EMAIL VERIFICATION
 from .tokens import account_activation_token

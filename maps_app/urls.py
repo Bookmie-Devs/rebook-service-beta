@@ -9,5 +9,5 @@ time = settings.BOOKMIE_CACHING_TIMEOUT
 
 urlpatterns = [
     path('hostel-direction/<str:hostel_id>/',cache_page(time)(views.hostel_direction), name="hostel-direction"),
-    path('all-hostels/<str:campus_code>/',cache_page(time)(views.map_views), name='map-views')
+    path('all-hostels/<str:campus_id>/',cache_page(time)(views.map_views), name='map-views')
     ]

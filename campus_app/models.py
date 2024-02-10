@@ -1,4 +1,5 @@
 from collections.abc import Iterable
+from random import randint
 from typing import Any, Type
 from django_google_maps import fields as map_fields
 from django.db import models
@@ -11,8 +12,7 @@ import uuid
 
 class CampusProfile(models.Model):
     campus_name = models.CharField(max_length=100)
-    # make campus_id primary key before producation
-    campus_id = models.UUIDField(default=uuid.uuid4, unique=True,)
+    campus_id = models.CharField(max_length=100, unique=True, blank=True)
     # name known to the public
     alias_name =  models.CharField(max_length=100, blank=True, null=True)
     campus_code = models.CharField(max_length=100, unique=True)
@@ -26,7 +26,8 @@ class CampusProfile(models.Model):
         return f'{self.campus_name}'
 
     def save(self, *args, **kwargs) -> None:
-        self.campus_code = self.campus_code.upper().strip()
+        code = f'verified-{self.campus_code.title()}#book-{self.pk}{randint(1000,10000)}-mie.com#Registered'
+        self.campus_id = code.strip()
         return super().save(*args, **kwargs)
     
 

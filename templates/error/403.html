@@ -1,0 +1,89 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/x-icon" href="{% static 'home/images/favicon.ico' %}">
+    <title>{% translate 'Page not found(404)' %}</title>
+    <style>
+      /* Your custom CSS styles go here */
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #000000;
+        width: 100vw;
+        height: 100vh;
+      }
+      .container {
+        text-align: center;
+        padding: 20px;
+      }
+      h1 {
+        font-size: 48px;
+        color: #ffb10a;
+      }
+      .h1 {
+        font-size: 40px;
+        color: #ffb10a;
+      }
+      p {
+        font-size: 20px;
+        color: #555;
+      }
+      .home-button {
+        font-size: 20px;
+        text-decoration: none;
+        background-color: #333;
+        color: #fff;
+        padding: 8px 10px;
+        border-radius: 5px;
+        display: inline-block;
+        margin-top: 20px;
+        transition: background-color 0.3s;
+      }
+
+      .home-button:hover {
+        background-color: #000;
+      }
+
+      @media (max-width: 768px) {
+        .contain {
+          position: relative;
+          display: grid;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -70%);
+        }
+        h1 {
+          font-size: 35px;
+        }
+        .h1 {
+          font-size: 20px;
+        }
+        p {
+          font-size: initial;
+        }
+        .home-button {
+          font-size: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="contain">
+      <div style="text-align: center">
+        <h1>Oops!😢</h1>
+        <h1 class="h1">Page not found (404)</h1>
+      </div>
+      <div class="container">
+        <a class="home-button" href="{% url 'core:index' %}"
+          >Let's Help You Back HOME
+        </a>
+        <p>
+          The page you're looking for doesn't exist. Let's get you back on track
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
