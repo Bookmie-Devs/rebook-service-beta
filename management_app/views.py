@@ -29,7 +29,7 @@ from django.db.models import Q
 from rest_framework import generics
 
 # custom permissions
-from .custom_permissions import IsHostelManager, IsHostelPortar, IsHostelAgent
+from .custom_permissions import IsHostelManager, IsHostelManagement, CanRequestOtpCode
 
 
 class RoomListView(generics.ListAPIView):
@@ -38,7 +38,7 @@ class RoomListView(generics.ListAPIView):
 
     # authentication_classes = [SessionAuthentication]
     permission_classes = [IsAuthenticated,
-                          IsHostelManager, 
+                          IsHostelManagement,
                           DjangoModelPermissions]
 
     def get(self, request, *args, **kwargs):
@@ -136,8 +136,8 @@ class TenantListView(generics.ListAPIView):
     # SessionAuthentication for testing
     # authentication_classes = [SessionAuthentication]
 
-    permission_classes = [IsAuthenticated, 
-                          DjangoModelPermissions]
+    permission_classes = [IsAuthenticated, IsHostelManagement,
+                          DjangoModelPermissions,]
     
     queryset = Tenant.objects.all()
     serializer_class = TenantListSerializer
@@ -174,7 +174,7 @@ class SalesStatsView(generics.ListAPIView):
         
   
 @api_view(['POST'])
-@permission_classes([IsAuthenticated, IsHostelPortar])  
+@permission_classes([IsAuthenticated, IsHostelManagement])  
 def verify_tenant(request):
     verification_code = request.data.get('verification_code')
     
@@ -183,7 +183,7 @@ def verify_tenant(request):
   
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated, IsHostelPortar, IsHostelAgent])  
+@permission_classes([IsAuthenticated, CanRequestOtpCode])  
 def get_otp_phone(request: HttpRequest):
     otp = OtpCodeData.objects.create(user=request.user)
     otp.save()
@@ -191,7 +191,7 @@ def get_otp_phone(request: HttpRequest):
 
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated, IsHostelPortar, IsHostelAgent])  
+@permission_classes([IsAuthenticated, CanRequestOtpCode])  
 def confirm_otp_phone(request: HttpRequest):
     otp_code = request.data.get('otp_code')
     if OtpCodeData.objects.filter(user=request.user, otp_code=otp_code).exists():

@@ -10,7 +10,7 @@ app_name='management'
 urlpatterns=[
     path('obtain-token/', TokenObtainPairView.as_view(), name=''),
     path('refresh-token/', TokenRefreshView.as_view(), name='refresh-token'),
-    path('get-otp-phone/', views.get_otp_phone, name='get-otp-phone'),
+    path('request-otp-phone/', views.get_otp_phone, name='request-otp-phone'),
     path('confirm-otp-phone/', views.confirm_otp_phone, name='confirm-otp-phone'),
 
     path('management-profile/', views.HostelProfileView.as_view(),name='hostel-profile-view'),
