@@ -12,4 +12,4 @@ class LoginForm(forms.Form):
 class SignUpForm(forms.ModelForm):
     class Meta:
         model = CustomUser
-        fields = ('first_name','middle_name','last_name','student_id','campus')
+        fields = ('first_name','middle_name','last_name',)

@@ -1,25 +1,22 @@
 from django.contrib import admin
 from .models import Booking
-from .models import (Tenant, 
-                     NewsletterEmails,
-                     GeneralNewsLetter,
-                     NewsLetterMessage,)
+from .models import Tenant
 # from .filters import IsActiveFilter
 
 
 class CustomBookingAdminPanel(admin.ModelAdmin):
 
-    search_fields = ['user']
+    search_fields = ['student_id']
 
     # list_filter = ('payed','hostel',)
 
-    list_display = ('user','room','start_time','end_time','payed',)
+    list_display = ('student','room','start_time','end_time','payed',)
 
 
 class CustomTenantAdminPanel(admin.ModelAdmin):
 
     fieldsets = (('DO NOT EDIT OR SAVE ANY INSTANCE HERE',{"fields":(
-        'user',
+        'student',
         'room',
         'hostel',
         'room_number',
@@ -30,11 +27,11 @@ class CustomTenantAdminPanel(admin.ModelAdmin):
         )
 
   
-    search_fields = ('user',)
+    search_fields = ('student',)
 
     list_filter = ('payed','checked_in','end_date','made_part_payment',)
 
-    list_display = ('user','room','checked_in','start_date','end_date','payed','is_active_display',)
+    list_display = ('student','room','checked_in','start_date','end_date','payed','is_active_display',)
 
     # display if user vcode is active
     def is_active_display(self, obj):
@@ -46,11 +43,6 @@ class CustomTenantAdminPanel(admin.ModelAdmin):
 admin.site.register(Booking, CustomBookingAdminPanel)
 
 admin.site.register(Tenant, CustomTenantAdminPanel)
-
-# MESSAGES
-admin.site.register(NewsletterEmails)
-admin.site.register(NewsLetterMessage)
-admin.site.register(GeneralNewsLetter)
 
 admin.site.site_header = "Bookmie.com"
 admin.site.site_title = "Bookmie.com"

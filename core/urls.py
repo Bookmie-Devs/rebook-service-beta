@@ -21,9 +21,7 @@ urlpatterns =[
     path('delete-booking/', views.delete_booking, name='delete-booking'),
     path('verification/success/', views.success_message, name="success"),
 
-    path('contact/',(cache_page(time*5))(views.ContactView.as_view()), name='contact'),
     path('about/', (cache_page(time*5))(views.AboutView.as_view()), name='about'),
-    path('news-letter/', views.news_letter, name="news-letter"),
 
     # APIS
     path('api/hostels/<str:campus_code>/', api_views.HostelListView.as_view(), name='api_hostels'),

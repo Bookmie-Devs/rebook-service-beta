@@ -1,5 +1,6 @@
 """Custom imports"""
 from .models import CustomUser
+from .models import Student
 from core.decorators import authenticated_or_not
 from config.sms import send_sms_message
 from campus_app.models import CampusProfile
@@ -55,26 +56,25 @@ def signup(request: HttpRequest):
                         message ={'message':'Email has already been registered','tag':'warning'}
                         return render(request,'htmx_message_templates/message.html', message)
 
-                    
-                    elif CustomUser.objects.filter(student_id = request.POST.get('student_id')).exists():
+                    elif Student.objects.filter(student_id = request.POST.get('student_id')).exists():
                         # messages.info(request, 'Stundent has already been registered')
                         # return redirect('accounts:signup')
                         # htmx message for signup
                         message ={'message':'Account with studnet ID already exists(check ID)','tag':'danger'}
                         return render(request,'htmx_message_templates/message.html', message)
                         
-
                     else:
                         """Creation of user model with details submitted"""
                         new_user = CustomUser.objects.create_user(first_name=request.POST.get('first_name'), 
                             last_name=request.POST.get('last_name'), middle_name=request.POST.get('middle_name') ,
-                            email=email, campus=get_campus, 
+                            email=email, is_student=True,
                             username=f"{request.POST.get('first_name')}_{request.POST.get('middle_name')} {request.POST.get('last_name')}",
-
                             password=request.POST.get('password'), phone=check_number(request.POST.get('phone')), 
-                            student_id=request.POST.get('student_id'), gender=request.POST.get('gender').lower() ,is_active=False)
+                            gender=request.POST.get('gender').lower() ,is_active=False)
                         new_user.save()
-                        
+
+                        student = Student.objects.create(user=new_user, student_id=request.POST.get('student_id'), campus=get_campus,)
+                        student.save()
                           
                         # Send verification email
                         send_verification_email(request=request, user=new_user)

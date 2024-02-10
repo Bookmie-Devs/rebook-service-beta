@@ -51,3 +51,30 @@ class HostelLike(models.Model):
 class RoomLike(models.Model):
     room = models.ForeignKey(RoomProfile, on_delete=models.CASCADE)
     user = models.ManyToManyField(CustomUser)
+
+
+
+class NewsletterEmails(models.Model):
+    email = models.EmailField()
+    class Meta:
+        verbose_name = _("News letter Emails")
+        verbose_name_plural = _("News letters Emails")
+
+    def __str__(self):
+        return self.email
+
+class NewsLetterMessage(models.Model):
+    subject = models.TextField()
+    message = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.date
+
+class GeneralNewsLetter(models.Model):
+    subject = models.TextField()
+    message = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.date

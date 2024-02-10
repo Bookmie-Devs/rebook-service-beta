@@ -1,22 +1,22 @@
 from django.contrib import admin
-from .models import CustomUser
+from .models import CustomUser, Student
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
 from .models import CustomUser
 
 
-# custom admin panel (altered)
+# custom admin panels (altered)
+class CustomStudentAdmin(admin.ModelAdmin):
+    list_display = ('user', 'student_id', 'campus')
 class CustomAdminPanel(UserAdmin):
     # list of fields on admin
-    list_display = ("email","username", "student_id", "first_name", "is_hostel_manager", "is_staff")
+    list_display = ("email","username", "first_name", "is_hostel_manager", "is_staff")
 
     fieldsets = (
         (None, {"fields": ("email", "password")}),
         (_("Personal info"), {"fields": ("first_name", "middle_name" 
                                          ,"last_name", "username",
-                                         "campus","student_id",
                                          "phone",   
-                                         "college",
                                          "gender")}),
         (
             _("Permissions"),
@@ -25,14 +25,17 @@ class CustomAdminPanel(UserAdmin):
                     "is_active",
                     "is_staff",
                     "is_superuser",
-                    "is_hostel_manager",
-                    "is_hostel_worker",
-                    "is_hostel_agent",
                     "groups",
                     "user_permissions",
                 ),
             },
         ),
+        (('Extra Permissions'), {'fields':(
+            "is_student",
+            "is_hostel_manager",
+            "is_hostel_worker",
+            "is_hostel_agent",
+        )}),
         (_("Important dates"), {"fields": ("last_login", "date_joined")}),
     )
     # custom filter list
@@ -61,3 +64,4 @@ class CustomAdminPanel(UserAdmin):
     )
 
 admin.site.register(CustomUser, CustomAdminPanel)
+admin.site.register(Student, CustomStudentAdmin)

@@ -3,7 +3,11 @@ from .models import (FeedBackMessage,
                      CustomerCare, 
                      HostelLike,
                      RoomLike,
-                     RecomendationFeedBacks)
+                     RecomendationFeedBacks,
+                     RecomendationFeedBacks,
+                     NewsletterEmails,
+                     GeneralNewsLetter,
+                     NewsLetterMessage,)
 # Register your models here.
 
 
@@ -36,3 +40,7 @@ class ReccomendationAdmin(admin.ModelAdmin):
 admin.site.register(RecomendationFeedBacks, ReccomendationAdmin)
 admin.site.register(HostelLike)
 admin.site.register(RoomLike)
+# MESSAGES
+admin.site.register(NewsletterEmails)
+admin.site.register(NewsLetterMessage)
+admin.site.register(GeneralNewsLetter)

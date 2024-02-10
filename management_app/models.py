@@ -24,9 +24,9 @@ class SalesStatistics(models.Model):
 
     
 class Worker(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     worker_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     worker_code = models.CharField(max_length=100, unique=True, null=True, blank=True)
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     profile_picture =models.ImageField(upload_to='WorkerImages',verbose_name="Portar Profile",default='unavailable.jpg')
     hostel = models.OneToOneField(HostelProfile, on_delete=models.SET_NULL, related_name='hostels', null=True,)
     is_active = models.BooleanField(default=False)

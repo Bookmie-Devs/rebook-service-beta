@@ -82,16 +82,16 @@ class TenantListSerializer(serializers.ModelSerializer):
 
     """Serializer methods"""
     def get_tenant_name(self, obj:Tenant):
-        return obj.user.username
+        return obj.student.user.username
     
     def get_phone(self, obj:Tenant) -> str:
-        return obj.user.phone
+        return obj.student.user.phone
     
     def get_room_number(self, obj:Tenant):
         return obj.room.room_no
     
     def get_student_id(self, obj:Tenant):
-        return obj.user.student_id
+        return obj.student.student_id
 
 
 # VERIFICATION RESPONSE
@@ -123,13 +123,13 @@ class TenantVerificationSerializer(serializers.ModelSerializer):
         return obj.hostel.hostel_name
 
     def get_tenant_name(self, obj) -> str:
-        return obj.user.username
+        return obj.student.user.username
     
     def get_room_number(self, obj:Tenant):
         return obj.room.room_no
     
     def get_student_id(self, obj:Tenant):
-        return obj.user.student_id
+        return obj.student.student_id
     
     # checked in status
     def get_checked_in_status(self, obj:Tenant) -> str:

@@ -2,28 +2,26 @@ from collections.abc import Iterable
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from campus_app.models import CampusProfile
+from django.utils.translation import gettext_lazy as _
 import uuid
 
 
 #User extention
 class CustomUser(AbstractUser):
-    middle_name = models.CharField(max_length=50, null=True,
-                                   blank=True,)
+    middle_name = models.CharField(max_length=50, null=True, blank=True,)
     username = models.CharField(max_length=150, unique=False)
     email = models.EmailField(blank=False, unique=True)
     phone = models.CharField(max_length=10, blank=False)
-    campus = models.ForeignKey(CampusProfile, on_delete=models.CASCADE, null=True)
-    college = models.CharField(max_length=70, blank=True, null=True)
     gender = models.CharField(max_length=7, null=True, blank=True)
-    student_id = models.CharField(max_length=20, blank=False)
-    
+
+    is_student = models.BooleanField(default=False)
     # is a hostel manager ot not
     is_hostel_manager = models.BooleanField(default=False, verbose_name="Manager")
     
     # is a hostel worker not manager(work at the hostel/Porter)
     is_hostel_worker = models.BooleanField(default=False, verbose_name='Hostel Woker')
     
-     # is a hostel worker not manager(work at the hostel agent)
+    # is a hostel worker not manager(work at the hostel agent)
     is_hostel_agent = models.BooleanField(default=False, verbose_name='Hostel Agent')
 
     def __str__(self) -> str:
@@ -42,7 +40,6 @@ class CustomUser(AbstractUser):
         self.first_name = str(self.first_name).strip()
         self.middle_name = str(self.middle_name).strip()
         self.last_name = str(self.last_name).strip()
-        self.student_id = str(self.student_id).strip()
         self.phone = str(self.phone).strip()
         self.email = str(self.email).strip()
 
@@ -57,3 +54,22 @@ class CustomUser(AbstractUser):
 
 
 
+class Student(models.Model):
+    user = models.OneToOneField(CustomUser, verbose_name=_("User"), on_delete=models.CASCADE)
+    student_id = models.CharField(max_length=20, blank=False, unique=True)
+    campus = models.ForeignKey(CampusProfile, on_delete=models.CASCADE, null=True)
+    college = models.CharField(max_length=70, blank=True, null=True)
+    
+    class Meta:
+        verbose_name = _("Student")
+        verbose_name_plural = _("Students") 
+
+    def save(self, *args, **kwargs) -> None:
+        self.student_id = str(self.student_id).strip()
+        return super().save(*args, **kwargs)
+    
+    def __str__(self):
+        return self.user.username
+
+    # def get_absolute_url(self):
+    #     return reverse("Student_detail", kwargs={"pk": self.pk})

@@ -11,6 +11,8 @@ from django.http import (HttpRequest,
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .notify import NotifyMe
+from django.views.generic import TemplateView
+from django.views.decorators.http import require_http_methods
 
 
 def feedback_message(request: HttpRequest) -> JsonResponse:
@@ -60,3 +62,15 @@ def like_hostel(request: HttpRequest):
         hostel.save() 
 
 
+
+@require_http_methods(['POST'])
+def news_letter(request: HttpRequest):
+    from .models import NewsletterEmails
+    news_letter = NewsletterEmails.objects.create(email=request.POST.get('email'))
+    news_letter.save()
+    return render(request, 'htmx_message_templates/feedback_message.html', {"message":"Email Submitted"})
+
+
+class ContactView(TemplateView):
+    
+    template_name = 'home/contact.html'

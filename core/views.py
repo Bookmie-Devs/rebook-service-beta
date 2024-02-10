@@ -122,22 +122,11 @@ def success_message(request):
 
     return render(request, 'successful.html')
 
-class ContactView(TemplateView):
-    
-    template_name = 'home/contact.html'
-
 
 class AboutView(TemplateView):
 
     template_name = 'home/about.html'
 
-
-@require_http_methods(['POST'])
-def news_letter(request: HttpRequest):
-    from .models import NewsletterEmails
-    news_letter = NewsletterEmails.objects.create(email=request.POST.get('email'))
-    news_letter.save()
-    return render(request, 'htmx_message_templates/feedback_message.html', {"message":"Email Submitted"})
 
 
 
