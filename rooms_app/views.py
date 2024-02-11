@@ -26,33 +26,18 @@ def room_profile(request, room_id):
 class CampusRoomListView(generic.ListView):
     def get(self, request: HttpRequest, campus_id:str ,*args: Any, **kwargs: Any) -> HttpResponse:
         # get campus code
-        try:
-            campus = CampusProfile.objects.get(campus_id = campus_id)
-        except:
-            pass
-        
-        # Use this query for KNUST till we expand to other campuses
-        all_rooms = RoomProfile.objects.filter(occupied=False).all()
-
+        campus = CampusProfile.objects.get(campus_id = campus_id)
         # Use if we expand to other campuses
         campus_rooms = RoomProfile.objects.filter(campus=campus, occupied=False).all()
-
-        all_hostels = HostelProfile.objects.all()
-
         # context for all pages if no search is return or
         # if there no qs for search data 
-        context = {'rooms': campus_rooms,
-                   'campus':campus, 
-                   'user':request.user,
-                   'hostels':all_hostels}
-        
+        context = {'rooms': campus_rooms, 'campus':campus, 'user':request.user,}        
         if request.GET:
-              # Search query
+            # Search query
             search = RoomFilters(request.GET, queryset=campus_rooms)
             query_set = search.qs
             # set rooms to seerch results after search
             context['rooms'] = query_set
-
             if query_set.exists():
                 return render(request,  'htmx_templates/htmx_campus_rooms_filter.html', context)
             # include context to let template have access

@@ -1,10 +1,11 @@
 from django.conf import settings
 from django.http import HttpRequest, Http404
-from django.shortcuts import render
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
-
+from accounts.task import send_sms_task
+from config.sms import send_sms_message
+from django.template.loader import render_to_string
 from .serializers import (RoomListSerializer,
                           RoomDetailSerializer,
                           HostelDetialsSerializer,)
@@ -185,9 +186,16 @@ def verify_tenant(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated, CanRequestOtpCode])  
 def get_otp_phone(request: HttpRequest):
-    otp = OtpCodeData.objects.create(user=request.user)
-    otp.save()
-    return Response({'message':'Code Sent'}, status=status.HTTP_200_OK)
+    if OtpCodeData.objects.filter(user=request.user).exists():
+        code = OtpCodeData.objects.get(user=request.user)
+        code.delete()
+    new_otp = OtpCodeData.objects.create(user=request.user)
+    new_otp.save()  
+    message = f"Your Bookmie.Office Code is {new_otp.otp_code}"
+    # send_sms_task.delay(request.user.phone, msg)
+    # for testing
+    send_sms_task(request.user.phone, message)
+    return Response({'message':'Office Code Sent'}, status=status.HTTP_200_OK)
 
 
 @api_view(['POST'])
@@ -200,6 +208,7 @@ def confirm_otp_phone(request: HttpRequest):
             code.delete()
             return Response({'message':'Code Accepted'}, status=status.HTTP_200_OK)
         else:
-            return Response({'message':'Code Rejected'}, status=status.HTTP_403_FORBIDDEN)
+            code.delete()
+            return Response({'message':'Code Rejected'}, status=status.HTTP_404_NOT_FOUND)
     else:
-        return Response({'message':'Code Rejected'}, status=status.HTTP_403_FORBIDDEN)
+        return Response({'message':'Code Rejected'}, status=status.HTTP_404_NOT_FOUND)

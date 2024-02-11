@@ -88,10 +88,6 @@ class OtpCodeData(models.Model):
             code = randint(100000,9000000)
         self.otp_code=code
         self.code_life_time = timezone.now() + timezone.timedelta(minutes=10)
-        msg = render_to_string('emails/otp_sms.html',{'user':self.user,'otp_code':self.otp_code})
-        # send_sms_task.delay(request.user.phone, msg)
-        # for testing
-        send_sms_task(self.user.phone, msg)
         return super().save(*args, **kwargs)
     
     def has_expired(self):
