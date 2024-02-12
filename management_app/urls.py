@@ -10,6 +10,8 @@ app_name='management'
 urlpatterns=[
     path('obtain-token/', TokenObtainPairView.as_view(), name=''),
     path('refresh-token/', TokenRefreshView.as_view(), name='refresh-token'),
+    path('request-office-otp/', views.get_otp_phone, name='request-office-otp'),
+    path('confirm-office-otp/', views.confirm_otp_phone, name='confirm-office-otp'),
 
     path('management-profile/', views.HostelProfileView.as_view(),name='hostel-profile-view'),
     path('sales-stats/', views.SalesStatsView.as_view(), name="sales-stats"),

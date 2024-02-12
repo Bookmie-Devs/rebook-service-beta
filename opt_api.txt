@@ -1,0 +1,51 @@
+send a get request to this endpiont after 
+user logs in with bearer
+
+http://127.0.0.1:9000/management/request-office-otp/
+
+##############response#############################
+status codes:
+code 403
+{
+  "detail": "You do not have permission to perform this action."
+}
+
+code 200
+{
+  "message": "Office Code Sent"
+}
+NB: code has been sent to sms
+
+
+
+
+After getting the code send a POST request to
+http://127.0.0.1:9000/management/confirm-office-otp/
+with data like this;
+{
+  "otp_code":"1357989"
+}
+
+
+##############response#############################
+status codes
+code 403
+{
+  "detail": "You do not have permission to perform this action."
+}
+
+
+code 200
+{
+  "message": "Code Accepted"
+}
+
+
+code 404
+when code is not found or has expired
+{
+  "message": "Code Rejected"
+}
+
+
+NB: CODE LAST FOR 10 MINUTES

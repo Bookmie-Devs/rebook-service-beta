@@ -3,6 +3,9 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from campus_app.models import CampusProfile
 from django.utils.translation import gettext_lazy as _
+from django.utils import timezone
+from .task import send_sms_task
+from django.template.loader import render_to_string
 import uuid
 
 
@@ -51,9 +54,6 @@ class CustomUser(AbstractUser):
 
         return super().save(*args,**kwargs)
     
-
-
-
 class Student(models.Model):
     user = models.OneToOneField(CustomUser, verbose_name=_("User"), on_delete=models.CASCADE)
     student_id = models.CharField(max_length=20, blank=False, unique=True)
@@ -73,3 +73,32 @@ class Student(models.Model):
 
     # def get_absolute_url(self):
     #     return reverse("Student_detail", kwargs={"pk": self.pk})
+
+class OtpCodeData(models.Model):
+    otp_code_id =  models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
+    otp_code = models.CharField(_("OTP CODE"), max_length=50, blank=True, null=True)
+    user =  models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    date_created = models.DateTimeField(auto_now_add=True)
+    code_life_time = models.DateTimeField(_("code life time"),auto_now=False,auto_now_add=False,blank=True,null=True)
+
+    def save(self, *args, **kwargs) -> None:
+        from random import randint
+        code = randint(100000,9000000)
+        while OtpCodeData.objects.filter(otp_code=code).exists():
+            code = randint(100000,9000000)
+        self.otp_code=code
+        self.code_life_time = timezone.now() + timezone.timedelta(minutes=10)
+        return super().save(*args, **kwargs)
+    
+    def has_expired(self):
+        return self.code_life_time <= timezone.now()
+    
+    class Meta:
+        verbose_name = _("OtpCodeData")
+        verbose_name_plural = _("OtpCodeDatas")
+
+    def __str__(self):
+        return self.user.username
+
+    # def get_absolute_url(self):
+    #     return reverse("OtpData_detail", kwargs={"pk": self.pk})

@@ -21,6 +21,4 @@ def send_sms_message(user_contact=None, msg=None):
        pass
     else:
         requests.post(url=endpoint, params=params)
-
-    # print(requests.post(url=endpoint, params=params).json())
     
