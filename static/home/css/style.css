@@ -1080,7 +1080,7 @@ opacity: 0;
 .cad svg {
   position: absolute;
   display: flex;
-  width: 60%;
+  width: 50%;
   height: 100%;
   font-size: 24px;
   font-weight: 700;
@@ -1090,12 +1090,12 @@ opacity: 0;
   cursor: pointer;
 }
 
-.cad .social-link1,.cad .social-link4,.cad .social-link5,.cad .social-link7,.cad .social-link8 {
+.cad .social-link1,.cad .social-link4,.cad .social-link5,.cad .social-link8 {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 25%;
+  width: 20%;
   color: whitesmoke;
   font-size: 24px;
   text-decoration: none;
@@ -1123,11 +1123,6 @@ opacity: 0;
 
 .cad .social-link5:hover {
   background-color: #2629f7;
-  animation: bounce_613 0.4s linear;
-}
-
-.cad .social-link7:hover {
-  background-color: #000000;
   animation: bounce_613 0.4s linear;
 }
 
