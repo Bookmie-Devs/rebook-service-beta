@@ -1,6 +1,6 @@
 from collections.abc import Iterable
 from django.db import models
-from accounts.models import CustomUser
+from accounts.models import CustomUser, Student
 from hostel_app.models import HostelProfile
 from rooms_app.models import RoomProfile
 import uuid
@@ -14,7 +14,8 @@ class PaymentHistory(models.Model):
     payment_id = models.UUIDField(primary_key=True, unique=True, editable=False, default=uuid.uuid4)
     reference_id = models.CharField(max_length=500, unique=True, editable=False,default='unavailable')
     paystack_reference = models.CharField(max_length=500, default='unavailable')
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, null=True)
+    # user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
     email = models.EmailField()
     amount = models.DecimalField(decimal_places=2, max_digits=7)
     account_payed_to = models.CharField(max_length=300)

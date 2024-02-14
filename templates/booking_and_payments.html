@@ -172,7 +172,7 @@
               Booking Details
               <i class="bi bi-person-check"></i>
             </h1>
-            <a href="tel:0206237060" type="button" class="btn btn-success">Call Agent
+            <a href="tel:{{booking.hostel.agent_affiliate.phone}}" type="button" class="btn btn-success">Call Agent
               <i class="bi bi-telephone-outbound"></i>
             </a>
             {% comment %} <!-- <h1 class="display-5 h1">🎓{{ booking.user.username }}</h1> --> {% endcomment %}
@@ -289,7 +289,7 @@
           <h1>Tenant Details
           <i class="bi bi-person-check"></i>
           </h1>
-          <a href="tel:0206237060" type="button" class="btn btn-success mb-2">Call Agent
+          <a href="tel:{{booking.hostel.agent_affiliate.phone}}" type="button" class="btn btn-success mb-2">Call Agent
             <i class="bi bi-telephone-outbound"></i>
           </a>
           {% comment %} <!-- <h1 class="display-5 h1">🎓{{ tenant.user.username }}</h1> --> {% endcomment %}

@@ -1,13 +1,13 @@
-from accounts.models import CustomUser
+from accounts.models import Student
 from core.models import Tenant
 from rooms_app.models import RoomProfile
 
-def tenant_auth_details(user:CustomUser=None, 
+def tenant_auth_details(student:Student=None, 
                         tenant:Tenant=None, 
                         room:RoomProfile=None):
     
-    return [f'Name: {user.username}',
-            f'Student ID: {user.student_id}',
+    return [f'Name: {student.user.username}',
+            f'Student ID: {student.student_id}',
             f'Room Number: {room.room_no}',
             f'Hostel: {room.hostel.hostel_name}',
             f'Payment made to: {room.hostel.account_number}',
@@ -20,7 +20,7 @@ def tenant_auth_details(user:CustomUser=None,
             f'be sent to {tenant.hostel.hostel_name}', 
             'for authentication',]
            
-def tenant_auth_message(user:CustomUser=None, 
+def tenant_auth_message(student:Student=None, 
                         tenant:Tenant=None, 
                         room:RoomProfile=None):
 

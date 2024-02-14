@@ -26,7 +26,7 @@ class HostelAgent(models.Model):
         return super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.user.username
+        return '%s || %s' % (self.agent_code, self.user.username)
 
     # def get_absolute_url(self):
     #     return reverse("HostelAgent_detail", kwargs={"pk": self.pk})

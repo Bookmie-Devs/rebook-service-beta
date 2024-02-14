@@ -4,7 +4,7 @@ from .models import HostelAgent
 
 
 class HostelAgentAdmin(admin.ModelAdmin):
-    list_display = ('user', 'campus_affiliation', 'is_verified',)
+    list_display = ('user', 'campus_affiliation', 'agent_code' ,'is_verified',)
 
 
 

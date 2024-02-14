@@ -32,7 +32,7 @@ class CustomPaymentsAdminPanel(admin.ModelAdmin):
     )
 
     list_display = (
-        'user', 'amount',
+        'student', 'amount',
         # 'access_code_used',
         'successful','date_of_payment',
     )

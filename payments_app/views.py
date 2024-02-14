@@ -12,6 +12,7 @@ from core import forms
 from .sales import calculate_year_sales
 from core.models import Tenant
 from core.models import Booking
+from accounts.models import Student
 from hostel_app.models import HostelProfile
 from .tenant_auth import (tenant_auth_details, 
                           tenant_auth_message)
@@ -36,7 +37,8 @@ from reportlab.lib import colors
 
 @login_required()
 def initiate_payment(request: HttpRequest, room_id):
-    booking = Booking.objects.get(user=request.user)
+    student = Student.objects.get(user=request.user)
+    booking = Booking.objects.get(student=student)
     room = RoomProfile.objects.get(room_id=room_id)
     if booking._has_expired():
         booking.delete()
@@ -51,7 +53,7 @@ def initiate_payment(request: HttpRequest, room_id):
         """
         if booking.is_updating_vcode:
             #save payment details
-            payment = PaymentHistory.objects.create(user=request.user,
+            payment = PaymentHistory.objects.create(student=student,
                                 email=request.POST.get('email'),
                                 amount=room.ptf_room_price,
                                 account_payed_to=room.hostel.account_number,
@@ -66,11 +68,11 @@ def initiate_payment(request: HttpRequest, room_id):
             return redirect('accounts:booking-and-payments')
 
         else:
-            if PaymentHistory.objects.filter(user=request.user, successful=False).exists():
+            if PaymentHistory.objects.filter(student=student, successful=False).exists():
                 # check if there is an unsuccessful payment
-                PaymentHistory.objects.filter(user=request.user, successful=False).delete()
+                PaymentHistory.objects.filter(student=student, successful=False).delete()
                     #save payment details
-                payment = PaymentHistory.objects.create(user=request.user,
+                payment = PaymentHistory.objects.create(student=student,
                                     email=request.POST.get('email'),amount=room.ptf_room_price,
                                     account_payed_to=room.hostel.account_number,
                                     room=room,hostel=room.hostel,)
@@ -78,7 +80,7 @@ def initiate_payment(request: HttpRequest, room_id):
                 return redirect('payments:make-payment', reference_id=payment.reference_id, room_id=room.room_id)
             else:
                 #save payment details
-                payment = PaymentHistory.objects.create(user=request.user,
+                payment = PaymentHistory.objects.create(student=student,
                                     email=request.POST.get('email'),
                                     amount=room.ptf_room_price,
                                     account_payed_to=room.hostel.account_number,
@@ -90,27 +92,29 @@ def initiate_payment(request: HttpRequest, room_id):
             
     # return redirect
     is_part_payment = False
-    return render(request, 'payments/initiate_payment.html',{'room':room, 'user':request.user,'is_part_payment': is_part_payment})
+    return render(request, 'payments/initiate_payment.html',{'room':room, 'student':student,'is_part_payment': is_part_payment})
 
 @login_required()
 def make_payment(request: HttpRequest, reference_id,  room_id):
+    student = Student.objects.get(user=request.user)
     room = RoomProfile.objects.get(room_id=room_id)
-    payment = get_object_or_404(PaymentHistory, user=request.user, reference_id=reference_id)
+    payment = get_object_or_404(PaymentHistory, student=student, reference_id=reference_id)
     subaccount = PaystackSubAccount.objects.get(hostel=room.hostel)
     # make payment ot subaccount
     return render(request=request,template_name='payments/make_payment.html', 
                   context={'amount':payment.amount,'reference_id': reference_id, 
                            'subaccount':subaccount.subaccount_code,
-                           'user':request.user, 'is_completing_payment':False,
+                           'student':student, 'is_completing_payment':False,
                            'paystack_public_key':settings.PAYSTACK_PUBLIC_KEY })
 
 @login_required()
 def verify_payment(request: HttpRequest, reference_id, paystack_reference):  
+    student = Student.objects.get(user=request.user)
     """
     To prevent more than one payament history being query use user
     and referene_id to query history after payment is made
     """
-    payment = get_object_or_404(PaymentHistory, user=request.user, reference_id=reference_id)
+    payment = get_object_or_404(PaymentHistory, student=student, reference_id=reference_id)
 
     # room payed for    
     acquired_room = RoomProfile.objects.get(room_id=payment.room.room_id)
@@ -121,12 +125,12 @@ def verify_payment(request: HttpRequest, reference_id, paystack_reference):
     if payment_is_confirm(data=response_data, amount=payment.amount):
         # create tenent object if reponse is positive
         if payment.is_half_payment:
-            tenant = Tenant.objects.create(user=request.user, room=payment.room,
+            tenant = Tenant.objects.create(student=student, room=payment.room,
                                         hostel=payment.hostel, payed=True, made_part_payment=True,
                                         amount_left_to_pay=payment.amount)
             tenant.save()
         else:
-            tenant = Tenant.objects.create(user=request.user, room=payment.room,
+            tenant = Tenant.objects.create(student=student, room=payment.room,
                                         hostel=payment.hostel, payed=True, completed_payment=True)
             tenant.save()
         # calculate sales on each payment
@@ -145,7 +149,7 @@ def verify_payment(request: HttpRequest, reference_id, paystack_reference):
         # change the room gender if the room is open and the the tenant is the first person
         acquired_room.change_room_gender(members=count_members,user_gender=tenant.user.gender)
         # DELETE BOOKING FOR USER
-        booking = Booking.objects.get(user=request.user)
+        booking = Booking.objects.get(student=student)
         booking.delete()
 
         current_domain = request.META.get('HTTP_X_FORWARDED_HOST', request.META['HTTP_HOST'])
@@ -172,9 +176,9 @@ def verify_payment(request: HttpRequest, reference_id, paystack_reference):
             
 @login_required()
 def tenant_auth(request):
+    student = Student.objects.get(user=request.user)
     try:
-        tenant_id = Tenant.objects.get(user=request.user).tenant_id
-        get_tenant = Tenant.objects.get(tenant_id=tenant_id)
+        get_tenant = Tenant.objects.get(student=student)
 
         # room of tenant
         room = get_tenant.room
@@ -189,10 +193,10 @@ def tenant_auth(request):
         subtitle = f"Congratulation On Securing A Room @{get_tenant.hostel.hostel_name.capitalize()}"
 
         """Fucntions to generate a list strings containing booking details for every user"""
-        booker_details= tenant_auth_details(user=request.user, 
+        booker_details= tenant_auth_details(student=student, 
                                             room=room, tenant=get_tenant)
 
-        text_template = tenant_auth_message(user=request.user, 
+        text_template = tenant_auth_message(student=student, 
                                             room=room, tenant=get_tenant)
 
 
