@@ -1,5 +1,9 @@
 """Custom Imports"""
 from typing import Any
+from accounts.models import Student
+from accounts.task import send_email_task, send_sms_task
+
+from config.sms import send_sms_message
 from .models import Booking
 from .models import Tenant
 from .filters import HostelFilter
@@ -20,6 +24,7 @@ from django.contrib.auth.models import AnonymousUser
 from django.views.decorators.http import require_http_methods
 from django.conf import settings
 from django.utils import timezone
+from django.template.loader import render_to_string
 from django.utils.timezone import timedelta
 from django.shortcuts import redirect
 from django.db.models import Q
@@ -128,7 +133,31 @@ class AboutView(TemplateView):
     template_name = 'home/about.html'
 
 
+def free_booking(request, room_id):
+    acquired_room = RoomProfile.objects.get(room_id=room_id)
+    student = Student.objects.get(user=request.user)
+    tenant = Tenant.objects.create(student=student, room=acquired_room,
+                                        hostel=acquired_room.hostel, payed=True, completed_payment=True)
+    tenant.save()
+    count_members: int = Tenant.objects.filter(room=acquired_room, end_date__gt=acquired_room.campus.end_of_acadamic_year).count()
 
+    # SET ROOM TO FULL IF CAPACITY HAS BEEN FIELED OR REDUCE BED SPACE LEFT
+    acquired_room.reduce_bed_spaces(count_members=count_members)
+    # change the room gender if the room is open and the the tenant is the first person
+    acquired_room.change_room_gender(members=count_members,user_gender=request.user.gender)
 
+    current_domain = request.META.get('HTTP_X_FORWARDED_HOST', request.META['HTTP_HOST'])
+    # send sms
+    # msg = render_to_string('emails/tenant_sms.html',{"user":request.user,"tenant":tenant,"amount":payment.amount,"domain":current_domain})
+    # send_sms_message(user_contact=request.user.phone, msg=msg)
+    # send sms to manager
+    manager_msg = render_to_string('emails/hostel_manager_msg.html',{'manager':tenant.hostel.hostel_manager,
+                                                                        'tenant':tenant})
+    send_sms_message(user_contact=tenant.hostel.hostel_manager.phone,msg=manager_msg)
 
-    
+    # send emails
+    # subject = f'Confirmation: Your Room Booking is Complete!'
+    # send_email_task(from_email=settings.EMAIL_HOST_USER, fail_silently=True,
+    # recipient_list=[request.user.email], subject=subject, 
+    # message=render_to_string('emails/tenant_email.html',{"user":request.user,"tenant":tenant,"amount":payment.amount,"domain":current_domain})),
+    return redirect('core:success')

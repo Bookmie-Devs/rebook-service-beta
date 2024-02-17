@@ -15,7 +15,7 @@ class CustomUser(AbstractUser):
     username = models.CharField(max_length=150, unique=False)
     email = models.EmailField(blank=False, unique=True)
     phone = models.CharField(max_length=10, blank=False)
-    gender = models.CharField(max_length=7, null=True, blank=True)
+    gender = models.CharField(max_length=7, default='')
 
     is_student = models.BooleanField(default=False)
     # is a hostel manager ot not

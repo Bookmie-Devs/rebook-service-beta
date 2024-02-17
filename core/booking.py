@@ -79,17 +79,20 @@ def book_room(request: HttpRequest) -> HttpResponse:
     # Creating booking for user
     else:
         booked_room = RoomProfile.objects.get(room_id=request.POST.get('room_id')) 
-        #Saving booking info
-        booking=Booking.objects.create(room=booked_room, student=student, 
-        room_number=booked_room.room_no, hostel=booked_room.hostel, 
-        student_id=student.student_id, status='Booked',campus=booked_room.campus)
-        """
-        Save booking model
-        """
-        booking.save()
-        
-        #redirect user for payment
+        if not booked_room.is_free:
+            #Saving booking info
+            booking=Booking.objects.create(room=booked_room, student=student, 
+            room_number=booked_room.room_no, hostel=booked_room.hostel, 
+            student_id=student.student_id, status='Booked',campus=booked_room.campus)
+            """
+            Save booking model
+            """
+            booking.save()
+            #redirect user for payment
+            response = HttpResponse()
+            response['HX-Redirect'] = resolve_url('accounts:booking-and-payments')
+            return response
         response = HttpResponse()
-        response['HX-Redirect'] = resolve_url('accounts:booking-and-payments')
+        response['HX-Redirect'] = resolve_url('core:free-booking', room_id=booked_room.room_id)
         return response
         # return redirect('accounts:booking-and-payments')

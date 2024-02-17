@@ -455,10 +455,14 @@
           <h4>Room {{ tenant.room.room_no }}</h4>
           <h4>{{ tenant.room.gender.capitalize }} Room</h4>
           <h4>{{ tenant.room.room_capacity }} in a room</h4>
+          {% if tenant.room.is_free %}
+          <h4>Winner of free room {{tenant.room.room_no }}</h4>
+          {% else %}
           {% if tenant.made_part_payment %}
           <h4>GH₵ {{ tenant.amount_left_to_pay }} Left To Pay</h4>
           {% else %}
           <h4>GH₵ {{ tenant.room.ptf_room_price }}</h4>
+          {% endif %}
           {% endif %}
           <br />
         </div>

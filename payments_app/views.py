@@ -147,10 +147,10 @@ def verify_payment(request: HttpRequest, reference_id, paystack_reference):
         # SET ROOM TO FULL IF CAPACITY HAS BEEN FIELED OR REDUCE BED SPACE LEFT
         acquired_room.reduce_bed_spaces(count_members=count_members)
         # change the room gender if the room is open and the the tenant is the first person
-        acquired_room.change_room_gender(members=count_members,user_gender=tenant.user.gender)
+        acquired_room.change_room_gender(members=count_members,user_gender=request.user.gender)
         # DELETE BOOKING FOR USER
         booking = Booking.objects.get(student=student)
-        booking.delete()
+        booking.delete()    
 
         current_domain = request.META.get('HTTP_X_FORWARDED_HOST', request.META['HTTP_HOST'])
         # send sms

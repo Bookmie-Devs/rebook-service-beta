@@ -24,6 +24,7 @@ class CustomRoomAdminPanel(admin.ModelAdmin):
                              'inbuilt_balcony','air_condition',)}),
 
         ('System Status', {'fields':('booking_occupied','platform_occupied','accept_half_payment','occupied')}),
+        ('Marketing',{'fields':('is_free',)}),
     )
 
     list_filter = ('campus', 'occupied','room_capacity','gender',)

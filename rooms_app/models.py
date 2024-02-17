@@ -62,6 +62,7 @@ class RoomProfile(models.Model):
 
     inbuilt_balcony = models.BooleanField(default=False)
     air_condition = models.BooleanField(default=False)
+    is_free =  models.BooleanField(default=False)
 
     class Meta:
         db_table = "room_profiles"

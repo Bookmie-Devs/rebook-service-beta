@@ -15,13 +15,12 @@ from django.utils.translation import gettext_lazy as _
 #Booking model
 # no
 class Booking(models.Model):
+    booking_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     student = models.OneToOneField(Student, on_delete=models.CASCADE)
     room = models.ForeignKey(RoomProfile, on_delete=models.CASCADE)
     room_number = models.CharField(max_length=20)
     hostel = models.ForeignKey(HostelProfile, on_delete=models.CASCADE)
     campus = models.ForeignKey(CampusProfile, on_delete=models.CASCADE)
-    # student_id = models.CharField(max_length=20)
-    booking_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     start_time = models.DateTimeField(auto_now_add=True)
     end_time = models.DateTimeField(null=True, blank=True)
     status = models.CharField(max_length=20)
