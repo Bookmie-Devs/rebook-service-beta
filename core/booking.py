@@ -2,6 +2,7 @@
 from typing import Any
 from .models import Booking
 from .models import Tenant
+from accounts.models import Student
 from rooms_app.models import RoomProfile
 
 """Built in Packages"""
@@ -25,9 +26,10 @@ from .decorators import login_required_htmx
 @login_required_htmx
 def book_room(request: HttpRequest) -> HttpResponse:     
     room_id = request.POST.get('room_id')
+    student = Student.objects.get(user=request.user)
     room = RoomProfile.objects.get(room_id=room_id)
 
-    if Tenant.objects.filter(user=request.user).exists():
+    if Tenant.objects.filter(student=student).exists():
         """
         Check if tenant exits
         """ 
@@ -41,7 +43,7 @@ def book_room(request: HttpRequest) -> HttpResponse:
         message ={'message':f'Room is for {room.gender}s'}
         return render(request,'htmx_message_templates/htmx_booking_message.html', message)
     
-    elif Booking.objects.filter(user=request.user, payed=False).exists():
+    elif Booking.objects.filter(student=student, payed=False).exists():
         """
         Check if room is full
         """
@@ -76,12 +78,11 @@ def book_room(request: HttpRequest) -> HttpResponse:
 
     # Creating booking for user
     else:
-        student_id = request.user.student_id  
         booked_room = RoomProfile.objects.get(room_id=request.POST.get('room_id')) 
         #Saving booking info
-        booking=Booking.objects.create(room=booked_room, user=request.user, 
+        booking=Booking.objects.create(room=booked_room, student=student, 
         room_number=booked_room.room_no, hostel=booked_room.hostel, 
-        student_id=student_id, status='Booked',campus=booked_room.campus)
+        student_id=student.student_id, status='Booked',campus=booked_room.campus)
         """
         Save booking model
         """

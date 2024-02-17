@@ -218,9 +218,41 @@
   z-index: 0;
 }
 
+#d {
+  position: fixed;
+  opacity: 0;
+  top: -100%;
+  transition: all 1s;
+  border-radius: 10px;
+  z-index: 99;
+  display: flex;
+  width: 300px;
+  text-align: center;
+  background: #ffffff;
+  padding: 20px ;
+  border: none;
+}
 
+#d form{
+  width: 100%;
+  font-weight: bold;
+}
 
+#d button{
+  padding: 10px 20px;
+  border: none !important;
+  border-radius: 10px;
+  background: #ffb006;
+  color: #fff;
+  outline: none;
+  /* float: right; */
+}
 
+#d[open] {
+  opacity: 1;
+  top: 0;
+}
 
-
-
+#d::backdrop {
+  backdrop-filter: blur(2px);
+}

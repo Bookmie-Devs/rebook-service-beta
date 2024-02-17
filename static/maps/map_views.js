@@ -231,7 +231,9 @@ function hostelMarkerContent(textContent) {
 
  export {parseCoordinate, collegeWindowFunction}
 
-
+window.addEventListener('load', ()=>{
+  document.getElementById('d').showModal()
+})
 
 
 

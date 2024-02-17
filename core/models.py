@@ -55,7 +55,7 @@ class Booking(models.Model):
 
 #Payed for booking
 class Tenant(models.Model):
-    student = models.OneToOneField(Student, on_delete=models.CASCADE, null=True)
+    student = models.OneToOneField(Student, on_delete=models.CASCADE)
     tenant_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     room = models.ForeignKey(RoomProfile, on_delete=models.CASCADE)
     hostel = models.ForeignKey(HostelProfile, on_delete=models.CASCADE)

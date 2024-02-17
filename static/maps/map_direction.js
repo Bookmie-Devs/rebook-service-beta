@@ -255,3 +255,6 @@ function parseCoordinate(coordinateString) {
 
 initMap();
 
+window.addEventListener('load', ()=>{
+  document.getElementById('d').showModal()
+})
