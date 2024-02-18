@@ -25,6 +25,7 @@ urlpatterns = [
     path('campuses/', include('campus_app.routing'), name='campus_urls'),
     path('hostels/', include('hostel_app.urls'), name='hostel_urls'),
     path('rooms/', include('rooms_app.urls'), name='room_urls'),
+    path('quick-rooms/', include('quick_rooms.urls'), name='quick_room_urls'),
     path('agents/', include('agents_app.urls'), name='agents_urls'),
     path('accounts/', include('accounts.urls'), name='accounts_urls'),
     path('payments/', include('payments_app.urls'), name='payment_urls'),

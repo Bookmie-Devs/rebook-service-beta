@@ -17,8 +17,8 @@ from campus_app.models import CampusProfile
 # room details
 def room_profile(request, room_id):
     room = RoomProfile.objects.get(room_id=room_id)
-    room_bookers = Booking.objects.filter(room=room).all()
-    return render(request, 'room_profile.html', {'room':room, 'room_bookers':room_bookers})
+    # room_bookers = Booking.objects.filter(room=room).all()
+    return render(request, 'room_profile.html', {'room':room,})
 
 
 

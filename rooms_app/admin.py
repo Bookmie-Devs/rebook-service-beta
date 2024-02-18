@@ -23,7 +23,7 @@ class CustomRoomAdminPanel(admin.ModelAdmin):
         ('Specs', {'fields':('inbuilt_kitchen','inbuilt_bathroom',
                              'inbuilt_balcony','air_condition',)}),
 
-        ('System Status', {'fields':('booking_occupied','platform_occupied', 'verified', 'accept_half_payment','occupied')}),
+        ('System Status', {'fields':('booking_occupied','platform_occupied', 'accept_half_payment','occupied', 'verified')}),
         ('Marketing',{'fields':('is_free',)}),
     )
 
