@@ -3,6 +3,7 @@ import uuid
 from django.db import models
 from accounts.models import CustomUser
 from campus_app.models import CampusProfile
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 # Create your models here.
 
@@ -30,3 +31,11 @@ class HostelAgent(models.Model):
 
     # def get_absolute_url(self):
     #     return reverse("HostelAgent_detail", kwargs={"pk": self.pk})
+
+
+class AgentSales(models.Model):
+    agent = models.ForeignKey(HostelAgent, on_delete=models.CASCADE)
+    date = models.DateField(_("date recorded"), auto_now=False, auto_now_add=True)
+    last_updated = models.DateField(_("last updated"), auto_now=True, auto_now_add=False)
+    year = models.PositiveIntegerField(default=timezone.now().year)
+    amount_made = models.DecimalField(default=0.00, decimal_places=2, max_digits=10)

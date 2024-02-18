@@ -44,8 +44,7 @@ class RoomProfile(models.Model):
     previous_price_check = models.DecimalField(blank=True, editable=False,
                                       null=True, decimal_places=2, max_digits=7)
 
-    rating = models.IntegerField(choices=rating ,blank=False, 
-                                 default='⭐', )
+    rating = models.IntegerField(choices=rating ,blank=False, default=1,)
     no_of_likes = models.IntegerField(verbose_name='Likes', default=1)
     # count the number of users who book this room
     booking_count = models.PositiveIntegerField(default=0)
@@ -64,6 +63,7 @@ class RoomProfile(models.Model):
     air_condition = models.BooleanField(default=False)
     is_free =  models.BooleanField(default=False)
 
+    verified = models.BooleanField(default=False)
     class Meta:
         db_table = "room_profiles"
 

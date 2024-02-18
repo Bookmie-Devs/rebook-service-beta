@@ -83,9 +83,9 @@ class OtpCodeData(models.Model):
 
     def save(self, *args, **kwargs) -> None:
         from random import randint
-        code = randint(100000,9000000)
+        code = randint(100000,999999)
         while OtpCodeData.objects.filter(otp_code=code).exists():
-            code = randint(100000,9000000)
+            code = randint(100000,999999)
         self.otp_code=code
         self.code_life_time = timezone.now() + timezone.timedelta(minutes=10)
         return super().save(*args, **kwargs)

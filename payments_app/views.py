@@ -9,7 +9,7 @@ from .payStack import (paystack_verification,
                     #    redirect_payment
                        )
 from core import forms
-from .sales import calculate_year_sales
+from .sales import calculate_year_sales, calculate_agent_year_sales
 from core.models import Tenant
 from core.models import Booking
 from accounts.models import Student
@@ -135,6 +135,8 @@ def verify_payment(request: HttpRequest, reference_id, paystack_reference):
             tenant.save()
         # calculate sales on each payment
         calculate_year_sales(hostel=payment.hostel,amount_paid=payment.room.room_price)
+        # agent sales
+        calculate_agent_year_sales(hostel=payment.hostel, amount_paid=payment.room.room_price)
 
         #DECLARE SUCCESSFULL TRUE if PAYMENT WAS A SUCCESS
         payment.paystack_reference = paystack_reference

@@ -20,7 +20,7 @@ urlpatterns =[
     path('update-v-code/',views.update_vcode, name='update-v-code'),
     path('delete-booking/', views.delete_booking, name='delete-booking'),
     path('verification/success/', views.success_message, name="success"),
-    path('free-booking/<room_id>', views.free_booking, name="free-booking"),
+    path('free-booking/<room_id>/', views.free_booking, name="free-booking"),
     path('about/', (cache_page(time*5))(views.AboutView.as_view()), name='about'),
 
     # APIS
