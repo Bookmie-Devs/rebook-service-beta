@@ -275,3 +275,15 @@ footer{
      transform: translateY(-50%);
      cursor: pointer;
  }
+
+
+ .my-indicator{
+    display:none;
+  }
+  .htmx-request .my-indicator{
+    display:inline;
+  }
+  .htmx-request.my-indicator{
+    display:inline;
+  }
+  

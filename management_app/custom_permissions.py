@@ -1,7 +1,6 @@
 
 from rest_framework.permissions import BasePermission
 
-
 """Custom class to check is user is a manager"""
 class IsHostelManager(BasePermission):
 

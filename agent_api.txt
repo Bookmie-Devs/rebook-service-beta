@@ -1,0 +1,94 @@
+1. TO get all hostels affilted to teh agent
+send a get request to this endpiont
+http://127.0.0.1:9000/agents/agent-hostels/
+
+NB: with bearer
+Responses:
+code 200:
+[
+    {
+        "hostel_name": "Wagyingo",
+        "hostel_code": "WAG2dd4",
+        "hostel_image": "/media/HostelProfiles/d-2_soY0tKL.jpg",
+        "verified": true,
+        "hostel_id": "2dd4e2b6-21dd-46ca-a910-8eb33a3f4464"
+    },
+    {
+        "hostel_name": "TUMI HOSTEL",
+        "hostel_code": "TUM8f2f",
+        "hostel_image": "/media/unavailable.jpg",
+        "verified": true,
+        "hostel_id": "8f2f5469-e7a3-47bb-8492-21336308c0ee"
+    },
+    {
+        "hostel_name": "Mancheter HOSTEL",
+        "hostel_code": "MANa6bc",
+        "hostel_image": "/media/unavailable.jpg",
+        "verified": true,
+        "hostel_id": "a6bcf064-bcf4-4e15-b0bd-ad4f9daa6926"
+    },
+    {
+        "hostel_name": "Evandy Hostel",
+        "hostel_code": "EVAdc0a",
+        "hostel_image": "/media/HostelProfiles/download_1.jpeg",
+        "verified": true,
+        "hostel_id": "dc0a647d-f320-48a8-b0c4-be7e09d2d63d"
+    }
+]
+
+
+code 403
+the user is not permitted on that endpiont
+{'message':'Not permitted'}
+
+
+2. 
+To view hostel details
+send a get request to this url 
+with the hostel id provied in the list view of all hostels
+http://127.0.0.1:9000/agents/agent-hostels/<hostel_id>/
+
+Response
+code 200:
+{
+    "hostel_id": "2dd4e2b6-21dd-46ca-a910-8eb33a3f4464",
+    "hostel_code": "WAG2dd4",
+    "hostel_name": "Wagyingo",
+    "number_of_rooms": 5,
+    "hostel_image": "/media/HostelProfiles/d-2_soY0tKL.jpg",
+    "address": "KNUST, Kumasi, Ghana",
+    "hostel_contact": "021141"
+}
+code 403
+the user is not permitted on that endpiont
+{'message':'Not permitted'}
+
+
+
+To create a room 
+login into the app go the profile of the hostel where your want to
+create the room and submit a Post request to that endpiont with
+the hostel id in the url( the url for the hostel profile)
+
+url for getting hostel profile
+http://127.0.0.1:9000/agents/agent-hostels/<hostel_id>/
+url = http://127.0.0.1:9000/agents/agent-hostels/a6bcf064-bcf4-4e15-b0bd-ad4f9daa6926/
+e.g:
+{
+"room_number" : "12RG",
+"room_price" : 1000,
+"floor_number" : 12,
+"bed_space_left" : 2,
+"gender" : "male"
+}
+
+Responses:
+code 201 
+the room has been created
+{
+    "message": "Room created"
+}
+
+code 403:
+{'message':'Not permitted'}
+the user is not permitted on that endpiont

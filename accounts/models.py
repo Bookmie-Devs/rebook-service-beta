@@ -15,7 +15,7 @@ class CustomUser(AbstractUser):
     username = models.CharField(max_length=150, unique=False)
     email = models.EmailField(blank=False, unique=True)
     phone = models.CharField(max_length=10, blank=False)
-    gender = models.CharField(max_length=7, null=True, blank=True)
+    gender = models.CharField(max_length=7, default='')
 
     is_student = models.BooleanField(default=False)
     # is a hostel manager ot not
@@ -83,9 +83,9 @@ class OtpCodeData(models.Model):
 
     def save(self, *args, **kwargs) -> None:
         from random import randint
-        code = randint(100000,9000000)
+        code = randint(100000,999999)
         while OtpCodeData.objects.filter(otp_code=code).exists():
-            code = randint(100000,9000000)
+            code = randint(100000,999999)
         self.otp_code=code
         self.code_life_time = timezone.now() + timezone.timedelta(minutes=10)
         return super().save(*args, **kwargs)

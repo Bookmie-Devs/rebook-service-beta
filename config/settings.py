@@ -86,6 +86,7 @@ INSTALLED_APPS = [
     'reviews_app',
     'rooms_app',
     'accounts',
+    'quick_rooms',
     'payments_app',
 ]
 
