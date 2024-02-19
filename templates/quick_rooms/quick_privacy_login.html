@@ -39,7 +39,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="{% static 'forms/css/styles.css' %}" />
-    <title>Log in | Sign in to Your Bookmie Profile</title>
+    <title>Private Booking | Bookmie.com Quick Login</title>
   </head>
   <body>
     <header>
@@ -55,9 +55,9 @@
     </div> -->
 
     <div class="container">
-      <p>Delete info after booking<a type="button" class="btn btn-warning" href="{% url 'accounts:signup' %}"><i class="bi bi-person-check"></i></a></p>
+      <p>Info is deleted after booking <a type="button" class="btn btn-warning" href="{% url 'accounts:signup' %}"><i class="bi bi-person-check"></i></a></p>
 
-      <h4 class="h2a">Quest House Privacy</h4>
+      <h4 class="h2a">Guest House Privacy</h4>
       {% if messages %} {% for message in messages %}
       <div class="alert alert-{{message.extra_tags}}" role="alert">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-x-fill" viewBox="0 0 16 16">
@@ -91,7 +91,7 @@
     </div>
         </div>
         <div class="bttn">
-          <button type="submit" id="login-button">Get Quick Room<i class="bi bi-box-arrow-in-right"></i>
+          <button type="submit" id="login-button">Get Quick Room<i   class="bi bi-box-arrow-in-right"></i>
             <img  id="loading-spinner" style="width: 25px; height: 25px;" class="htmx-indicator ml-2" src="{% static 'gifs/loading.gif' %}"/>
           </button>
         </div>

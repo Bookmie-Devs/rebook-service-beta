@@ -253,7 +253,7 @@
           id="search-results"
           class="row gx-sm-2 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
         >
-          {% if hostels %} {% for hostel in hostels %}
+          {% if rooms %} {% for room in rooms %}
           <div class="col mb-5">
             <div class="card h-100">
               <div
@@ -271,8 +271,8 @@
               <a href="{{ hostel.get_profile_url }}">
                 <img
                   class="card-img-top"
-                  src="{{ hostel.hostel_image.url }}"
-                  alt="Hostel_image"
+                  src="{{ room.room_image.url }}"
+                  alt="Guest_room_image"
                 />
               </a>
 

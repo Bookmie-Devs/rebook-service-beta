@@ -21,7 +21,7 @@ class AnonymousGuest(models.Model):
         from random import randint
         code = randint(100000,9000000)
         while AnonymousGuest.objects.filter(quest_code=code).exists():
-            code = randint(100000, 9000000)
+            code = randint(100000, 900000)
         self.quest_code=code
         self.code_life_time = timezone.now() + timezone.timedelta(minutes=10)
         return super().save(*args, **kwargs)
@@ -115,12 +115,30 @@ class GuestHouse(models.Model):
         return reverse("GuestHouse_detail", kwargs={"pk": self.pk})
 
 
-class GuestHouseRooms(models.Model):
-    pass
+class GuestHouseRoom(models.Model):
+    room_id = models.UUIDField(default=uuid4, editable=False, unique=True)
+    quest_house = models.ForeignKey(GuestHouse, on_delete=models.CASCADE)
+    room_image = models.ImageField(upload_to="GuestHouse")
+    room_image1 = models.ImageField(upload_to="GuestHouse")
+    room_image2 = models.ImageField(upload_to="GuestHouse")
+    room_image3 = models.ImageField(upload_to="GuestHouse")
+    room_price = models.DecimalField(decimal_places=2, max_digits=10,)
+    occupied = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = _("GuestHouseRoom")
+        verbose_name_plural = _("GuestHouseRooms")
+
+    def __str__(self):
+        pass
+
+    def get_absolute_url(self):
+        return reverse("GuestHouseRoom_detail", kwargs={"pk": self.pk})
+
 
 # Guest house booking
 class GuestBooking(models.Model):
-    room = models.ForeignKey(GuestHouseRooms, on_delete=models.CASCADE)
+    room = models.ForeignKey(GuestHouseRoom, on_delete=models.CASCADE)
     room_number = models.CharField(max_length=20)
     guest_house = models.ForeignKey(GuestHouse, on_delete=models.CASCADE)
     # campus = models.ForeignKey(CampusProfile, on_delete=models.CASCADE)
@@ -160,7 +178,7 @@ class GuestPaymentHistory(models.Model):
     email = models.EmailField()
     amount = models.DecimalField(decimal_places=1, max_digits=7)
     account_payed_to = models.CharField(max_length=300)
-    room = models.ForeignKey(GuestHouseRooms, on_delete=models.SET_NULL, null=True)
+    room = models.ForeignKey(GuestHouseRoom, on_delete=models.SET_NULL, null=True)
     hostel = models.ForeignKey(GuestHouse, on_delete=models.SET_NULL, null=True)
     successful = models.BooleanField(default=False)
     date_of_payment = models.DateTimeField(auto_now_add=True)
