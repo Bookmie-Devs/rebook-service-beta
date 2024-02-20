@@ -1,13 +1,17 @@
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import redirect, render, resolve_url
+from campus_app.models import CampusProfile
+from django.shortcuts import get_object_or_404, redirect, render, resolve_url
 from django.urls import resolve
+from django.conf import settings
 from accounts.task import send_sms_task
-from .models import AnonymousGuest, GuestHouseRoom
+from payments_app.payStack import payment_is_confirm, paystack_verification
+from .models import AnonymousGuest, GuestHouseRoom, GuestBooking, GuestPaymentHistory, PaystackGuestHouseSubAccount
 from django.views.decorators.http import require_http_methods
+from django.views.generic import TemplateView
 # Create your views here.
 
 
-def quick_room_login(request: HttpRequest):
+def request_code(request: HttpRequest, room_id):
     if request.method=="POST":
         phone = request.POST.get('phone')
         if AnonymousGuest.objects.filter(phone=phone).exists():
@@ -17,23 +21,64 @@ def quick_room_login(request: HttpRequest):
         new_otp.save()  
         message = f"Your Bookmie Privacy Code is {new_otp.quest_code}"
         send_sms_task(code.phone, message)
-        return render(request, 'quick_rooms/htmx/confirm_privacy.html',)
+        return render(request, 'quick_rooms/htmx/confirm_privacy.html',{'room_id':room_id})
 
-    return render(request, 'quick_rooms/quick_privacy_login.html',)
+    return render(request, 'quick_rooms/quick_privacy_login.html',{'room_id':room_id})
 
 
 @require_http_methods(['POST'])
-def confirm_code(request: HttpRequest):
-    phone = request.POST.get('code')
-    if AnonymousGuest.objects.filter(phone=phone).exists():
-        code = AnonymousGuest.objects.get(phone=phone)
-        code.delete()
+def generate_private_booking(request: HttpRequest):
+    quest_code = request.POST.get('code')
+    room_id = request.POST.get('room_id')
+    if AnonymousGuest.objects.filter(quest_code=quest_code).exists():
+        private_user = AnonymousGuest.objects.get(quest_code=quest_code)
+        room = GuestHouseRoom.objects.get(room_id=room_id)
+        booking = GuestBooking.objects.create(guest_user=private_user, campus=room.campus, room=room, guest_house=room.guest_house)
+        booking.save()
         response = HttpResponse()
-        response['HX-Redirect']=resolve_url('quick-rooms:rooms')
+        response['HX-Redirect']=resolve_url('quick-rooms:payment', booking_id=booking.booking_id)
         return response
-    return render(request, 'quick_rooms/htmx/message.html', {'message':'Code not valid', 'tag':'danger'})
+    else:
+        return render(request, 'quick_rooms/htmx/message.html', {'message':'Code not valid', 'tag':'danger'})
 
 
-def rooms(request: HttpRequest):
-    rooms = GuestHouseRoom.objects.all()
-    return render(request, 'quick_rooms/quick_rooms.html', {'rooms':rooms})
+def rooms(request: HttpRequest, campus_id):
+    campus = CampusProfile.objects.get(campus_id=campus_id)
+    rooms = GuestHouseRoom.objects.filter(campus=campus).all()
+    return render(request, 'quick_rooms/quick_rooms.html', {'rooms':rooms, 'campus':campus})
+
+
+def book_room(request: HttpRequest):
+    room_id = request.POST.get('room_id')
+    response = HttpResponse()
+    response['HX-Redirect']=resolve_url('quick-rooms:secure-privacy-code', room_id=room_id)
+    return response
+
+
+def make_payment(request, booking_id):
+    booking = GuestBooking.objects.get(booking_id=booking_id)
+    payment = GuestPaymentHistory.objects.create(amount=booking.room.ptf_room_price,booking=booking,)
+    payment.save()
+    subaccount = PaystackGuestHouseSubAccount.objects.get(guest_house=payment.guest_house)
+    return render(request, 'quick_rooms/make_payment.html', {'payment':payment, 'subaccount':subaccount,
+                                                             'paystack_public_key':settings.PAYSTACK_PUBLIC_KEY})
+
+
+def verify_quick_room_payment(request,  reference_id, paystack_reference, booking_id):
+    payment = get_object_or_404(GuestPaymentHistory, reference_id=reference_id)
+    booking = GuestBooking.objects.get(booking_id=booking_id)
+    response_data = paystack_verification(paystack_reference)
+    if payment_is_confirm(data=response_data, amount=payment.amount):
+        booking.payed = True
+        booking.save()
+        payment.successful =True
+        payment.save()
+    else:
+        pass
+    
+    pass
+
+
+class PrivacyPolicyView(TemplateView):
+
+    template_name = 'quick_rooms/privacy_policy.html'

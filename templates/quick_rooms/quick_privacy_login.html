@@ -68,7 +68,7 @@
       {% endfor %} {% endif %}
 
       <form id="login-form" 
-        hx-post="{% url 'quick-rooms:quick-privacy' %}"
+        hx-post="{% url 'quick-rooms:secure-privacy-code' room_id %}"
         hx-trigger="submit"
         hx-indicator="#loading-spinner"
         hx-swap="#login-form">
@@ -96,7 +96,7 @@
           </button>
         </div>
         <div class="log">
-          <p><a href="{% url 'reset_password' %}">Privacy Policy</a></p>
+          <p><a href="{% url 'quick-rooms:privacy-policy' %}">Privacy Policy</a></p>
         </div>
       </form>
     </div>

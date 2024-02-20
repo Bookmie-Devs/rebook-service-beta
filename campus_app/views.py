@@ -31,4 +31,9 @@ class CampusListView(ListView):
             """
             return render(request, template_name='home/map_redirect.html',context=context)
 
-
+        elif router_value=="quick-room-router":
+            """
+            checks router value and make sure user is seeing
+            map view of his campus and only hostel around
+            """
+            return render(request, template_name='home/quick_room_redirect.html',context=context)

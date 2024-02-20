@@ -27,7 +27,7 @@
   <meta name="twitter:description" content="Explore comfortable and affordable accommodation in Ghana. Book your stay now at Bookmie.com.">
   <meta name="twitter:image" content="../static/home/images/favicon.ico">
   
-    <title>Book Campus Hostels | Bookmie</title>
+    <title>Secure quest house booking | Bookmie.com</title>
   <link rel="icon" type="image/x-icon" href="{% static 'home/images/favicon.ico' %}">
     <!-- Favicon-->
     <link
@@ -54,14 +54,16 @@
     <!-- USING THIS LINK JUST FOR THE LOADER IN THE PAYMENT CSS -->
     <!-- <link rel="stylesheet" href="{% static 'payment/css/make_p.css' %}" /> -->
   </head>
+
   <body onload="hideLoader()">
-    <!-- Loader -->
-    <div id="hostel-loader" class="load">
+
+    {% comment %} <!-- Loader --> {% endcomment %}
+    <div id="loading-indicator" class="load">
       <div class="loader">
         <div class="spinner"></div>
         <p id="loading-option"></p>
-      </div>
-    </div>
+       </div>
+    </div> 
 
     <!-- Navigation-->
     <nav class="nav navbar navbar-expand-lg navbar-light">
@@ -120,7 +122,7 @@
               >
             </li>
           </ul>
-          {% if user.is_anonymous %}
+          {% comment %} {% if user.is_anonymous %}
           <!-- <form > -->
           <div class="bttn">
             <a
@@ -162,7 +164,7 @@
             </button>
           </a>
           </div>
-          {% endif %}
+          {% endif %} {% endcomment %}
         </div>
       </div>
     </nav>
@@ -205,45 +207,63 @@
         </div> -->
       </div>
 
-      <div class="container px-4 px-lg-5 my-5">
+      
+      <div class="container px-4 px-lg-5 my-5" style="padding-bottom: 30px;">
         <div class="text-center text-white filter">
-          <div class="container-fluid">
-            <!-- <form
-              data-action="Searching..."
-              action="{% url 'core:hostels' campus.campus_code %}"
-              class="d-flex"
-              role="search"
-            > -->
+          <a class="nav-link active" aria-current="page" href="#!"><h3 class="fw-bolder" style="color: orange;">Privately Book Guest House Rooms🏠</h3></a>
+            <form 
+            hx-get="{% url 'rooms:campus-rooms' campus.campus_code %}"
+            hx-trigger="submit, change"
+            hx-indicator="#loading-spinner"
+            hx-target="#search-results"
+            id="filter-form"
+             data-action="Searching..." class="row g-2 align-items-center">
+             
+              <div class="col-6 col-sm-3">
+                <label class="visually-hidden" for="specificSizeSelect">Preference</label>
+                <select name="room_capacity" class="form-select" id="specificSizeSelect">
+                  <option value="">All</option>
+                  <option value="1">One in a room</option>
+                  <option value="2">Two in a room</option>
+                  <option value="3">Three in a room</option>
+                  <option selected value="4">Four in a room</option>
+                </select>
+              </div> 
 
-            <!-- HTMX for getting search data -->
-            <input
-              class="form-control me-2 mb-2"
-              type="search"
-              required
-              name="search_data"
-              placeholder="Search for hostels"
-              aria-label="Search"
-              hx-get="{% url 'core:hostels' campus.campus_code %}"
-              hx-trigger="keyup delay:100ms changed"
-              hx-target="#search-results"
-              hx-indicator="#loading-spinner"
-            />
-            <img  id="loading-spinner" style="width: 25px; height: 25px;" class="htmx-indicator ml-2" src="{% static 'gifs/loading.gif' %}"/>
-            <!-- <button  class="drop btn mb-2" id="search-button" type="submit">
-                Search
-              </button> -->
-            <!-- </form> -->
-            <p class="lead fw-normal text-white-50 mb-0">
-              Want a quick room🤔?
-              <a
-                href="{% url 'rooms:campus-rooms' campus.campus_id %}"
-                style="color: orange"
-                >click me!</a
-              >
-            </p>
-          </div>
+              <div class="col-6 col-sm-3">
+                <label class="visually-hidden" for="specificSizeSelect">Preference</label>
+                <select name="gender" class="form-select" id="specificSizeSelect">
+                  <option selected value="male">Male Room</option>
+                  <option value="female">Female Room</option>
+                  <option value="open">Open Room</option>
+                </select>
+              </div>  
+
+              <div class="col-sm-3">
+                <input class="form-control"
+                type="number"
+                name="ptf_room_price_min"
+                placeholder="Least price"
+                min="800"
+                >
+              </div>
+
+              <div class="col-sm-3">
+                <input class="form-control"
+                type="number"
+                name="ptf_room_price_max"
+                placeholder="Highest price"
+                min="800"
+                >
+              </div>
+            
+              <button type="submit" id='search-button' class="btn drop">
+               Search <i class="bi bi-search"></i>
+               <img  id="loading-spinner" style="width: 25px; height: 25px;" class="htmx-indicator ml-2" src="{% static 'gifs/loading.gif' %}"/>
+              </button> 
+            </form>
+            
         </div>
-        <br />
       </div>
     </header>
     <!-- Section-->
@@ -262,13 +282,13 @@
               >
                 <a
                   style="text-decoration: none; color: rgb(255, 255, 255)"
-                  href="{% url 'hostels:profile' hostel.hostel_id %}"
+                  href=""
                   >View Facilities</a
                 >
               </div>
               <!-- Product image-->
               
-              <a href="{{ hostel.get_profile_url }}">
+              <a href="{{ room.room_image.url }}">
                 <img
                   class="card-img-top"
                   src="{{ room.room_image.url }}"
@@ -282,7 +302,7 @@
                   <!-- Sale badge-->
 
                   <!-- hostel name name-->
-                  <h6 class="fw-bold">{{ hostel.hostel_name.title }}</h6>
+                  <h6 class="fw-bold">{{ room.guest_house.name.title }}</h6>
                   <!-- <div
                     id="star-rating"
                     class="d-flex justify-content-center small text-warning mb-2"
@@ -302,7 +322,7 @@
               <div class="card-footer pb-3 pb-sm-4 pt-0 border-top-0 bg-transparent">
                 <div class="text-center">
                   <!-- location-->
-                  <a href="{% url 'maps:hostel-direction' hostel.hostel_id %}" class="btn mt-auto mb-1 smbtn">
+                  <a href="" class="btn mt-auto mb-1 smbtn">
                     Map Direction
                     <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -320,11 +340,19 @@
                     />
                   </svg>
                 </a>
-                  <a
-                    class="btn mt-auto smbtn px-3"
-                    href="{{ hostel.get_rooms  }}"
-                    >View Rooms🏠</a
+                  <form
+                  hx-post="{% url 'quick-rooms:booking'  %}"
+                  hx-target="#htmx-message-{{room.room_id}}"
+                  hx-trigger="submit"
+                  hx-indicator="#loading-indicator"
                   >
+                  {% csrf_token %}
+                  <input type="hidden", name="room_id" value="{{ room.room_id }}">
+                  <div id="htmx-message-{{room.room_id}}" class="text-center">
+                  <button type="submit" class="btn mt-auto">
+                    Book🏷️
+                  </button>
+                  </form>
                 </div>
               </div>
             </div>
@@ -343,14 +371,6 @@
                 <div class="card-body p-4">
                   <div class="text-center">
                     <h5 class="fw-bolder">No Result😭</h5>
-                  </div>
-                </div>
-
-                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                  <div class="text-center">
-                    <button type="submit" class="btn btn-outline-dark mt-auto">
-                      Search all rooms
-                    </button>
                   </div>
                 </div>
               </div>

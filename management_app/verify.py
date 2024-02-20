@@ -1,7 +1,7 @@
 from django.http import HttpRequest
 from hostel_app.models import HostelProfile
 from core.models import Tenant
-from .models import Worker
+from .models import Management
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import TenantVerificationSerializer
@@ -9,8 +9,8 @@ from .serializers import TenantVerificationSerializer
 def verify(request: HttpRequest=None, verification_code: str=None):
     try:
         # worker who is login to verify tenant
-        if Worker.objects.filter(user=request.user, is_active=True).exists():
-            portar = Worker.objects.get(user=request.user, is_active=True)
+        if Management.objects.filter(user=request.user, is_active=True).exists():
+            portar = Management.objects.get(user=request.user, is_active=True)
             tenant = Tenant.objects.get(verification_code=verification_code, payed=True)
             # check if tenant is Vcode hasnt expired
             if tenant.is_active():
