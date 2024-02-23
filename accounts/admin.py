@@ -7,7 +7,7 @@ from .models import CustomUser, OtpCodeData
 
 # custom admin panels (altered)
 class CustomStudentAdmin(admin.ModelAdmin):
-    list_display = ('user', 'student_id', 'campus')
+    list_display = ('user', 'student_id_number', 'campus')
 class CustomAdminPanel(UserAdmin):
     # list of fields on admin
     list_display = ("email","username", "first_name", "is_hostel_manager", "is_staff")

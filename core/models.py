@@ -1,14 +1,8 @@
-from collections.abc import Iterable
 from django.db import models
-from django.contrib.auth.models import AbstractUser
 from rooms_app.models import RoomProfile
 from django.utils import timezone 
 from django.utils.timezone import timedelta
-from datetime import datetime
 from hostel_app.models import HostelProfile
-from campus_app.models import CampusProfile
-from datetime import datetime
-import asyncio
 from accounts.models import CustomUser, Student
 import uuid
 from django.utils.translation import gettext_lazy as _

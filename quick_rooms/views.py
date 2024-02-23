@@ -36,7 +36,7 @@ def generate_private_booking(request: HttpRequest):
         booking = GuestBooking.objects.create(guest_user=private_user, campus=room.campus, room=room, guest_house=room.guest_house)
         booking.save()
         response = HttpResponse()
-        response['HX-Redirect']=resolve_url('quick-rooms:payments', booking_id=booking.booking_id)
+        response['HX-Redirect']=resolve_url('quick-rooms:profile', booking_id=booking.booking_id)
         return response
     else:
         return render(request, 'quick_rooms/htmx/message.html', {'message':'Code not valid', 'tag':'danger'})
@@ -77,6 +77,25 @@ def verify_quick_room_payment(request,  reference_id, paystack_reference, bookin
         pass
     
     pass
+
+
+def profile(request: HttpRequest, booking_id):
+    context = {'is_private_booking':True}
+
+    if GuestBooking.objects.filter(booking_id=booking_id).exists():
+        booking = GuestBooking.objects.get(booking_id=booking_id)
+        tenant = False
+        context.update({'booking': booking,})
+        return render(request, 'booking_and_payments.html',context=context)
+    
+    # elif Tenant.objects.filter(student=student).exists():
+    #     tenant = Tenant.objects.get(student=student)
+    #     booking = False
+    #     context.update({'tenant':tenant,'booking': booking,})
+    #     return render(request, 'booking_and_payments.html',context=context)
+    
+    else:
+        return render(request, 'booking_and_payments.html', context=context)
 
 
 class PrivacyPolicyView(TemplateView):

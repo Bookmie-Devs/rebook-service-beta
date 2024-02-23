@@ -11,6 +11,6 @@ urlpatterns = [
     path("generate-private-booking/", views.generate_private_booking, name="confirm-privacy"),
     path("book-room/", views.book_room, name="booking"),
     path("rooms/<campus_id>/", views.rooms , name="rooms"),
-    path("payments/<booking_id>/", views.private_payment , name="payments"),
+    path("profile/<booking_id>/", views.profile , name="profile"),
     path('privacy-policy/', (cache_page(time*5))(views.PrivacyPolicyView.as_view()), name='privacy-policy'),
 ]

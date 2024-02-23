@@ -7,6 +7,7 @@ from collections.abc import Iterable
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+from core.encryptions import encrypt_data
 # from guesthouses.models import GuestHouse, GuestHouseRooms
 from uuid import uuid4
 
@@ -17,16 +18,17 @@ from payments_app.payStack import update_subaccount
 class AnonymousGuest(models.Model):
     quest_id = models.UUIDField(_("guest id"), default=uuid4,editable=False, unique=True)
     phone = models.CharField(_("phone number"), max_length=15)
-    quest_code = models.CharField(_("anonymous code"), max_length=10, blank=True, null=True)
+    quest_code = models.CharField(_("anonymous code"), max_length=10, blank=True, null=True, editable=False)
     date_created = models.DateTimeField(auto_now_add=True)
     code_life_time = models.TimeField(_("code life time"),auto_now=False,auto_now_add=False,blank=True,null=True)
-
+    encryption_code = models.CharField(_("anonymous encryption"), max_length=10, blank=True, null=True, editable=False)
     def save(self, *args, **kwargs) -> None:
         from random import randint
         code = randint(100000,900000)
         while AnonymousGuest.objects.filter(quest_code=code).exists():
             code = randint(100000, 900000)
         self.quest_code=code
+        self.encryption_code = encrypt_data(code)
         self.code_life_time = timezone.now() + timezone.timedelta(minutes=10)
         return super().save(*args, **kwargs)
     
