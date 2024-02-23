@@ -20,7 +20,7 @@ def request_code(request: HttpRequest, room_id):
         new_otp = AnonymousGuest.objects.create(phone=phone)
         new_otp.save()  
         message = f"Your Bookmie Privacy Code is {new_otp.quest_code}"
-        send_sms_task(code.phone, message)
+        send_sms_task(phone, message)
         return render(request, 'quick_rooms/htmx/confirm_privacy.html',{'room_id':room_id})
 
     return render(request, 'quick_rooms/quick_privacy_login.html',{'room_id':room_id})
@@ -36,7 +36,7 @@ def generate_private_booking(request: HttpRequest):
         booking = GuestBooking.objects.create(guest_user=private_user, campus=room.campus, room=room, guest_house=room.guest_house)
         booking.save()
         response = HttpResponse()
-        response['HX-Redirect']=resolve_url('quick-rooms:payment', booking_id=booking.booking_id)
+        response['HX-Redirect']=resolve_url('quick-rooms:payments', booking_id=booking.booking_id)
         return response
     else:
         return render(request, 'quick_rooms/htmx/message.html', {'message':'Code not valid', 'tag':'danger'})
@@ -55,11 +55,11 @@ def book_room(request: HttpRequest):
     return response
 
 
-def make_payment(request, booking_id):
+def private_payment(request, booking_id):
     booking = GuestBooking.objects.get(booking_id=booking_id)
     payment = GuestPaymentHistory.objects.create(amount=booking.room.ptf_room_price,booking=booking,)
     payment.save()
-    subaccount = PaystackGuestHouseSubAccount.objects.get(guest_house=payment.guest_house)
+    subaccount = PaystackGuestHouseSubAccount.objects.get(guest_house=payment.booking.guest_house)
     return render(request, 'quick_rooms/make_payment.html', {'payment':payment, 'subaccount':subaccount,
                                                              'paystack_public_key':settings.PAYSTACK_PUBLIC_KEY})
 

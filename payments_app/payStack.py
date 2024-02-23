@@ -8,7 +8,6 @@ headers = {
     "Content-Type" : "application/json",
 }
 
-
 def create_subaccount(hostel: HostelProfile=None):
 
     paystack_url = 'https://api.paystack.co/subaccount'
@@ -19,6 +18,24 @@ def create_subaccount(hostel: HostelProfile=None):
         "account_number": str(hostel.account_number), 
     
         "primary_contact_name":str(hostel.hostel_contact),
+
+        #the percenetage charge for every hostel sub account
+        "percentage_charge": settings.SUBACCOUNT_PERCENTAGE, ############################
+    }
+    response = requests.post(url=paystack_url,headers=headers,json=data)
+    
+    return response
+
+def create_guest_house_subaccount(house=None):
+
+    paystack_url = 'https://api.paystack.co/subaccount'
+
+    data = {
+        "business_name": str(house.name).upper(), 
+        "bank_code": str(house.bank_code), 
+        "account_number": str(house.account_number), 
+    
+        "primary_contact_name":str(house.phone),
 
         #the percenetage charge for every hostel sub account
         "percentage_charge": settings.SUBACCOUNT_PERCENTAGE, ############################

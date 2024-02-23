@@ -113,7 +113,7 @@ class GuestHouse(models.Model):
         verbose_name_plural = _("Motels/GuestHouses")
 
     def __str__(self):
-        return self.house_name
+        return self.name
 
     def get_absolute_url(self):
         return reverse("GuestHouse_detail", kwargs={"pk": self.pk})
@@ -128,6 +128,9 @@ class GuestHouseRoom(models.Model):
     room_image2 = models.ImageField(upload_to="GuestHouse", default='unavailable.jpg')
     room_image3 = models.ImageField(upload_to="GuestHouse", default='unavailable.jpg')
     room_price = models.DecimalField(decimal_places=2, max_digits=10,)
+    previous_price_check = models.DecimalField(blank=True, editable=False,
+                                      null=True, decimal_places=2, max_digits=7)
+    ptf_room_price = models.DecimalField(default=0.0, editable=False, decimal_places=2, max_digits=8)
     campus = models.ForeignKey(CampusProfile, on_delete=models.SET_NULL,
                                 verbose_name="Campus where Room is located",
                                 null=True)
@@ -139,6 +142,28 @@ class GuestHouseRoom(models.Model):
 
     def __str__(self):
         return self.room_name
+    
+    def save(self, *args, **kwargs) -> None:
+            # CHECK IF ROOM PRICE IS SAME A PREVIOUS PRICE IF NOT UPDATE FIELDS
+        # Without this check, anytime the save method is called the pft_room_price will
+        # and upadte itself.
+        if self.room_price!=self.previous_price_check:
+            addtional_pricing: float = float(self.room_price) * settings.SUPPLY_COST_PERCENTAGE
+            # additional price for half payment
+            addtional_half_pricing: float = float(self.room_price/2) * settings.SUPPLY_COST_PERCENTAGE
+            # new prices
+            self.ptf_room_price = float(self.room_price) + addtional_pricing
+            self.half_pricing = float(self.room_price/2) + addtional_half_pricing
+            # equate the two to maintain the balance
+            self.previous_price_check = self.room_price
+        else:
+            """
+            Do nothing to ptf price if room price is still the same,
+            could be that the room has been updated but not the 
+            price which does not need to be updated
+            """
+            pass
+        return super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse("GuestHouseRoom_detail", kwargs={"pk": self.pk})
@@ -212,7 +237,7 @@ class PaystackGuestHouseSubAccount(models.Model):
 # Date
 timing = timezone.now()
 class GuestPaymentHistory(models.Model):
-    booking = models.OneToOneField(GuestBooking, on_delete=models.CASCADE)
+    booking = models.OneToOneField(GuestBooking, on_delete=models.CASCADE, null=True)
     payment_id = models.UUIDField(primary_key=True, unique=True, editable=False, default=uuid4)
     reference_id = models.CharField(max_length=500, unique=True, editable=False,default='unavailable')
     email = models.EmailField(default="bookmie.com@gmail.com")
@@ -231,7 +256,7 @@ class GuestPaymentHistory(models.Model):
         (makes sure there are no spaces to avoids reference
         errors with paystack) 
         """
-        self.reference_id = f'py0{timing.day}ref-{self.payment_id}-{self.user.first_name.lower()[:3]}-{self.user.student_id}-{self.user.last_name.lower()[:2]}-3369-{self.user.first_name.lower()}-0{timing.month}-{self.user.last_name.lower()}-0{timing.year}-pay-to-rbk'.replace(" ","") 
+        self.reference_id = f'py0{timing.day}ref-{self.payment_id}-3369-0{timing.month}-0{timing.year}-pay-to-rbk'.replace(" ","") 
         super().save(*args, **kwargs)
     
     def amount_value(self) -> int:

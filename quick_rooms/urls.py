@@ -8,8 +8,9 @@ app_name = 'quick-rooms'
 
 urlpatterns = [
     path("secure-privacy-code/<room_id>/", views.request_code, name="secure-privacy-code"),
-    path("generate-private-booking/<room_id>/", views.generate_private_booking, name="confirm-privacy"),
+    path("generate-private-booking/", views.generate_private_booking, name="confirm-privacy"),
     path("book-room/", views.book_room, name="booking"),
     path("rooms/<campus_id>/", views.rooms , name="rooms"),
+    path("payments/<booking_id>/", views.private_payment , name="payments"),
     path('privacy-policy/', (cache_page(time*5))(views.PrivacyPolicyView.as_view()), name='privacy-policy'),
 ]

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import AnonymousGuest, GuestHouse, GuestBooking, GuestHouseRoom, GuestPaymentHistory
+from .models import AnonymousGuest, GuestHouse, GuestBooking, GuestHouseRoom, PaystackGuestHouseSubAccount,GuestPaymentHistory
 from django_google_maps import fields as map_fields
 from django_google_maps import widgets as map_widgets
 #  Register your models here.
@@ -13,6 +13,7 @@ class CustomGuestHouseAdmin(admin.ModelAdmin):
     }
 
 admin.site.register(AnonymousGuest)
+admin.site.register(PaystackGuestHouseSubAccount)
 admin.site.register(GuestHouse, CustomGuestHouseAdmin)
 admin.site.register(GuestBooking)
 admin.site.register(GuestHouseRoom)

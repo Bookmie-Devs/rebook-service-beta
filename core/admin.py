@@ -4,13 +4,13 @@ from .models import Tenant
 # from .filters import IsActiveFilter
 
 
-class CustomBookingAdminPanel(admin.ModelAdmin):
+# class CustomBookingAdminPanel(admin.ModelAdmin):
 
-    search_fields = ['student_id']
+#     search_fields = ['student_id']
 
-    # list_filter = ('payed','hostel',)
+#     # list_filter = ('payed','hostel',)
 
-    list_display = ('student','room','start_time','end_time','payed',)
+#     list_display = ('student','room','start_time','end_time','payed',)
 
 
 class CustomTenantAdminPanel(admin.ModelAdmin):
@@ -40,7 +40,7 @@ class CustomTenantAdminPanel(admin.ModelAdmin):
     is_active_display.short_description = 'Is Active'
 
 
-admin.site.register(Booking, CustomBookingAdminPanel)
+# admin.site.register(Booking, CustomBookingAdminPanel)
 
 admin.site.register(Tenant, CustomTenantAdminPanel)
 
