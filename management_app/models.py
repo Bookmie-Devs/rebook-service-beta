@@ -33,7 +33,7 @@ class Management(models.Model):
     is_active = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
-        self.worker_code = f"{self.user.first_name[:3]}{self.user.last_name[:3]}{str(self.worker_id)[:6]}"
+        self.management_code = f"{self.user.first_name[:3]}{self.user.last_name[:3]}{str(self.management_id)[:6]}"
         return super().save(*args, **kwargs)
     
     def __str__(self):
