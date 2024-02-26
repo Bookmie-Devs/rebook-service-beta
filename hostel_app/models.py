@@ -1,6 +1,7 @@
 from django.db import models
 from campus_app.models import CampusProfile
 import uuid
+from random import randint
 from config import sms
 from django.utils.translation import gettext_lazy as _
 from accounts.task import send_sms_task
@@ -94,7 +95,7 @@ class HostelProfile(models.Model):
 
     rating = models.IntegerField(choices=rating, verbose_name='Stars',
                                        default=1)
-    no_of_likes = models.IntegerField(verbose_name='Likes', default=1)
+    no_of_likes = models.IntegerField(verbose_name='Likes', default=randint(1, 35))
     
     price_range = models.CharField(max_length=50, 
                                    default='unavailable', 

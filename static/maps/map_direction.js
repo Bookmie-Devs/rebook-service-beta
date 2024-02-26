@@ -30,7 +30,7 @@ async function initMap() {
     zoomControl: false,
     mapTypeControl: true,
     mapTypeControlOptions: {
-      mapTypeIds: ['roadmap','satellite','hybrid'],
+      mapTypeIds: ['roadmap','satellite',],
       style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
       position: google.maps.ControlPosition.TOP_CENTER,},
   });
