@@ -75,8 +75,9 @@ def update_vcode(request):
     """update tenant year of staying"""
 
     # check if tenant is still active
+    student = Student.objects.get(user=request.user)
     try:
-        tenant = Tenant.objects.get(user=request.user)
+        tenant = Tenant.objects.get(student=student)
         if tenant.is_active():
             messages.error(request,"Tenant V-code hasn't expired yet")
             return redirect("accounts:booking-and-payments")
@@ -104,15 +105,16 @@ def update_vcode(request):
 # Tenant.objects.filter(is)
 @login_required()
 def delete_booking(request):
+    student = Student.objects.get(user=request.user)
     try:
-        booking = Booking.objects.get(user=request.user)
+        booking = Booking.objects.get(student=student)
         booking.delete()
         
         #  delete any payment history id any
         from payments_app.models import PaymentHistory
 
-        if PaymentHistory.objects.filter(user=request.user, successful=False).exists():
-            PaymentHistory.objects.filter(user=request.user, successful=False).delete()
+        if PaymentHistory.objects.filter(student=student, successful=False).exists():
+            PaymentHistory.objects.filter(student=student, successful=False).delete()
             pass
         else:
             pass

@@ -1,14 +1,8 @@
-from collections.abc import Iterable
 from django.db import models
-from django.contrib.auth.models import AbstractUser
 from rooms_app.models import RoomProfile
 from django.utils import timezone 
 from django.utils.timezone import timedelta
-from datetime import datetime
 from hostel_app.models import HostelProfile
-from campus_app.models import CampusProfile
-from datetime import datetime
-import asyncio
 from accounts.models import CustomUser, Student
 import uuid
 from django.utils.translation import gettext_lazy as _
@@ -18,9 +12,7 @@ class Booking(models.Model):
     booking_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     student = models.OneToOneField(Student, on_delete=models.CASCADE)
     room = models.ForeignKey(RoomProfile, on_delete=models.CASCADE)
-    room_number = models.CharField(max_length=20)
     hostel = models.ForeignKey(HostelProfile, on_delete=models.CASCADE)
-    campus = models.ForeignKey(CampusProfile, on_delete=models.CASCADE)
     start_time = models.DateTimeField(auto_now_add=True)
     end_time = models.DateTimeField(null=True, blank=True)
     status = models.CharField(max_length=20)

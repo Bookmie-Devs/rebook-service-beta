@@ -7,16 +7,28 @@ let colleges;
 
 const campusEntrancePosition = {lat: parseFloat(document.getElementById('campus-lat').value), 
                                 lng: parseFloat(document.getElementById('campus-lng').value) };
- function infoWindowFunction(url, name) {
-    return `<a type="button" class="btn btn-warning" href="${url}"
-    style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-    ${name}
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-check" viewBox="0 0 16 16">
-    <path d="M7.293 1.5a1 1 0 0 1 1.414 0L11 3.793V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v3.293l2.354 2.353a.5.5 0 0 1-.708.708L8 2.207l-5 5V13.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 2 13.5V8.207l-.646.647a.5.5 0 1 1-.708-.708z"/>
-    <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m1.679-4.493-1.335 2.226a.75.75 0 0 1-1.174.144l-.774-.773a.5.5 0 0 1 .708-.707l.547.547 1.17-1.951a.5.5 0 1 1 .858.514Z"/>
-    </svg>
-    </a>`
+ function hostelInfoWindowFunction(url, category, name, pic_url, rooms_url, no_of_likes) {
+  return `
+    <div class="custom-card">
+      <img src="${pic_url}" class="custom-card-img-top" alt="place.name">
+      <div class="custom-card-body">
+        <div  class="btn-container">
+        <h5 class="custom-card-title">${name}</h5>
+        <div class="love-container">
+          <i class="bi bi-heart" id="icon"></i>
+          <small>${no_of_likes}</small>
+        </div>
+        </div>
+        <p class="custom-card-text">${category}</p>
+        <div class="btn-container">
+        <a href="${url}" class="custom-btn custom-btn-primary">Visit Hostel</a>
+        <a href="${rooms_url}" class="custom-btn custom-btn-secondary">Book A Room</a>
+        </div>
+      </div>
+    </div>
+  `;
  }
+
  function collegeWindowFunction(url, name) {
   return `<a type="button"  class="btn btn-primary" href="${url}"
   style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
@@ -27,6 +39,17 @@ const campusEntrancePosition = {lat: parseFloat(document.getElementById('campus-
   </svg>
   </a>`
 }
+
+function handleMarkerHover(map, marker, infoWindow) {
+  marker.addListener('mouseover', () => {
+    infoWindow.open(map, marker);
+  });
+
+  marker.addListener('mouseout', () => {
+    infoWindow.close();
+  });
+}
+
  async function initMap() {
    let jsonString = document.getElementById('hostel-coordinates').value
    jsonString = jsonString.replace(/None/g, 'null').replace(/'/g, '"');
@@ -95,13 +118,24 @@ const campusEntrancePosition = {lat: parseFloat(document.getElementById('campus-
     content: hostelMarkerContent(`${place.name}`),
     title: place.name, // Set the title for the marker (used as a tooltip)
    });
+
   const infoWindow = new google.maps.InfoWindow({
-  content: infoWindowFunction(place.url, place.name),
+  content: hostelInfoWindowFunction(place.url, place.category ,place.name, place.pic_url, place.rooms_url, place.no_of_likes),
   });
   infoWindows.push(infoWindow);
+
   marker.addListener('click', () => {
-     window.location.href = (place.url);
+    //  window.location.href = (place.url);
+    infoWindow.open(map, marker);
+    setTimeout(() => {
+      infoWindow.close()
+    }, 5000);
    });
+
+  // Call functions to handle marker events
+  handleMarkerHover(map, marker, infoWindow);
+  // handleMarkerClick(marker, place.url);
+
    return marker;
   });
   // markers.forEach((marker, index) => {

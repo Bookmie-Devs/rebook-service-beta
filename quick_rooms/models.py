@@ -1,28 +1,34 @@
+from django.conf import settings
 from django.db import models
 
 # Create your models here.
-
+from accounts.models import CustomUser
 from collections.abc import Iterable
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+from core.encryptions import encrypt_data
 # from guesthouses.models import GuestHouse, GuestHouseRooms
 from uuid import uuid4
+
+from campus_app.models import CampusProfile
+from payments_app.payStack import update_subaccount
 # Create your models here.
 
 class AnonymousGuest(models.Model):
     quest_id = models.UUIDField(_("guest id"), default=uuid4,editable=False, unique=True)
     phone = models.CharField(_("phone number"), max_length=15)
-    quest_code = models.CharField(_("anonymous code"), max_length=10, blank=True, null=True)
+    quest_code = models.CharField(_("anonymous code"), max_length=10, blank=True, null=True, editable=False)
     date_created = models.DateTimeField(auto_now_add=True)
     code_life_time = models.TimeField(_("code life time"),auto_now=False,auto_now_add=False,blank=True,null=True)
-
+    encryption_code = models.CharField(_("anonymous encryption"), max_length=10, blank=True, null=True, editable=False)
     def save(self, *args, **kwargs) -> None:
         from random import randint
-        code = randint(100000,9000000)
+        code = randint(100000,900000)
         while AnonymousGuest.objects.filter(quest_code=code).exists():
             code = randint(100000, 900000)
         self.quest_code=code
+        self.encryption_code = encrypt_data(code)
         self.code_life_time = timezone.now() + timezone.timedelta(minutes=10)
         return super().save(*args, **kwargs)
     
@@ -80,11 +86,11 @@ Banks = [
 
 
 class GuestHouse(models.Model):
-    house_name = models.CharField(max_length=100, verbose_name="Name")
+    name = models.CharField(max_length=100, verbose_name="Name")
     house_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     house_code = models.CharField(max_length=10,null=True, blank=True,unique=True)
     house_image = models.ImageField(upload_to='GuestHouseImage',default='unavailable.jpg')
-    # campus = models.ForeignKey(CampusProfile, on_delete=models.PROTECT)
+    campus = models.ForeignKey(CampusProfile, on_delete=models.PROTECT)
     phone = models.CharField(max_length=13, verbose_name="Guess House Number")
     # Bank Details
     mobile_money = models.CharField(max_length=14,default='unavailable',)
@@ -95,8 +101,8 @@ class GuestHouse(models.Model):
     # manager = models.OneToOneField(CustomUser, on_delete=models.SET_NULL,null=True,)
     manager_contact = models.CharField(max_length=10, blank=True, verbose_name="Manager's Contact")
 
-    location =models.CharField(max_length=10, verbose_name="Main location")
-
+    location =models.CharField(max_length=10, verbose_name="Main location") 
+    manager = models.OneToOneField(CustomUser, on_delete=models.SET_NULL, null=True)
     address = map_fields.AddressField(max_length=200, blank=True, null=True)
     geolocation = map_fields.GeoLocationField(max_length=500, blank=True, null=True)
 
@@ -109,20 +115,27 @@ class GuestHouse(models.Model):
         verbose_name_plural = _("Motels/GuestHouses")
 
     def __str__(self):
-        return self.guest_house_name
+        return self.name
 
     def get_absolute_url(self):
         return reverse("GuestHouse_detail", kwargs={"pk": self.pk})
 
 
 class GuestHouseRoom(models.Model):
+    room_name = models.CharField(max_length=50, default='unavailable')
     room_id = models.UUIDField(default=uuid4, editable=False, unique=True)
-    quest_house = models.ForeignKey(GuestHouse, on_delete=models.CASCADE)
-    room_image = models.ImageField(upload_to="GuestHouse")
-    room_image1 = models.ImageField(upload_to="GuestHouse")
-    room_image2 = models.ImageField(upload_to="GuestHouse")
-    room_image3 = models.ImageField(upload_to="GuestHouse")
+    guest_house = models.ForeignKey(GuestHouse, on_delete=models.CASCADE)
+    room_image = models.ImageField(upload_to="GuestHouse", default='unavailable.jpg')
+    room_image1 = models.ImageField(upload_to="GuestHouse", default='unavailable.jpg')
+    room_image2 = models.ImageField(upload_to="GuestHouse", default='unavailable.jpg')
+    room_image3 = models.ImageField(upload_to="GuestHouse", default='unavailable.jpg')
     room_price = models.DecimalField(decimal_places=2, max_digits=10,)
+    previous_price_check = models.DecimalField(blank=True, editable=False,
+                                      null=True, decimal_places=2, max_digits=7)
+    ptf_room_price = models.DecimalField(default=0.0, editable=False, decimal_places=2, max_digits=8)
+    campus = models.ForeignKey(CampusProfile, on_delete=models.SET_NULL,
+                                verbose_name="Campus where Room is located",
+                                null=True)
     occupied = models.BooleanField(default=False)
 
     class Meta:
@@ -130,7 +143,29 @@ class GuestHouseRoom(models.Model):
         verbose_name_plural = _("GuestHouseRooms")
 
     def __str__(self):
-        pass
+        return self.room_name
+    
+    def save(self, *args, **kwargs) -> None:
+            # CHECK IF ROOM PRICE IS SAME A PREVIOUS PRICE IF NOT UPDATE FIELDS
+        # Without this check, anytime the save method is called the pft_room_price will
+        # and upadte itself.
+        if self.room_price!=self.previous_price_check:
+            addtional_pricing: float = float(self.room_price) * settings.SUPPLY_COST_PERCENTAGE
+            # additional price for half payment
+            addtional_half_pricing: float = float(self.room_price/2) * settings.SUPPLY_COST_PERCENTAGE
+            # new prices
+            self.ptf_room_price = float(self.room_price) + addtional_pricing
+            self.half_pricing = float(self.room_price/2) + addtional_half_pricing
+            # equate the two to maintain the balance
+            self.previous_price_check = self.room_price
+        else:
+            """
+            Do nothing to ptf price if room price is still the same,
+            could be that the room has been updated but not the 
+            price which does not need to be updated
+            """
+            pass
+        return super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse("GuestHouseRoom_detail", kwargs={"pk": self.pk})
@@ -139,9 +174,8 @@ class GuestHouseRoom(models.Model):
 # Guest house booking
 class GuestBooking(models.Model):
     room = models.ForeignKey(GuestHouseRoom, on_delete=models.CASCADE)
-    room_number = models.CharField(max_length=20)
     guest_house = models.ForeignKey(GuestHouse, on_delete=models.CASCADE)
-    # campus = models.ForeignKey(CampusProfile, on_delete=models.CASCADE)
+    campus = models.ForeignKey(CampusProfile, on_delete=models.PROTECT, null=True)
     guest_user = models.ForeignKey(AnonymousGuest, on_delete=models.CASCADE)
     booking_id = models.UUIDField(primary_key=True, default=uuid4, editable=False, unique=True)
     start_time = models.DateTimeField(auto_now_add=True)
@@ -168,18 +202,49 @@ class GuestBooking(models.Model):
         return f'{self.user} || {self.room}'
 
 
+class PaystackGuestHouseSubAccount(models.Model):
+    # subaccount_id = models.UUIDField(primary_key=True, unique=True, editable=False, default=uuid.uuid4)
+    guest_house = models.OneToOneField(GuestHouse,on_delete=models.CASCADE) 
+    bussiness_name = models.CharField(max_length=50)
+    account_number = models.CharField(max_length=50)
+    subaccount_code = models.CharField(max_length=50, 
+                                       default="unavailable",
+                                       unique=True)
+    primary_contact_name = models.CharField(max_length=30, default="unavailable")
+    bank_code = models.CharField(max_length=50, default="unavailable")
+    settlement_bank = models.CharField(max_length=80, default="unavailable")
+    percentage_charge = models.DecimalField(max_digits=5, 
+                                            decimal_places=3,
+                                            verbose_name="percentage charge %",
+                                            default=0)
+    account_verified = models.BooleanField(default=False)
+    # check field when you want to update field
+    is_updating_subaccount = models.BooleanField(default=False)
+    update_message = models.CharField(max_length=30, null=True, blank=True)
+
+    class Meta:
+        db_table = 'paystack_guesthouse_sub_accounts'
+
+    def save(self, *args, **kwargs):
+        if self.is_updating_subaccount:
+            self.percentage_charge = settings.SUBACCOUNT_PERCENTAGE
+            self.update_message = update_subaccount(self.subaccount_code, self.bussiness_name, self.settlement_bank, self.account_number, self.percentage_charge)
+            # setting value back to default after updating
+            self.is_updating_subaccount=False
+        return super().save(*args, **kwargs)
+
+    def __str__(self) -> str:
+        return f'{self.hostel} SubAccount'
+
 # Date
 timing = timezone.now()
 class GuestPaymentHistory(models.Model):
+    booking = models.OneToOneField(GuestBooking, on_delete=models.CASCADE, null=True)
     payment_id = models.UUIDField(primary_key=True, unique=True, editable=False, default=uuid4)
-    reference = models.CharField(max_length=500, unique=True, editable=False,
-                                 default='unavailable')
-    guest_user = models.ForeignKey(AnonymousGuest, on_delete=models.CASCADE, null=True)
-    email = models.EmailField()
-    amount = models.DecimalField(decimal_places=1, max_digits=7)
+    reference_id = models.CharField(max_length=500, unique=True, editable=False,default='unavailable')
+    email = models.EmailField(default="bookmie.com@gmail.com")
+    amount = models.DecimalField(decimal_places=2, max_digits=7)
     account_payed_to = models.CharField(max_length=300)
-    room = models.ForeignKey(GuestHouseRoom, on_delete=models.SET_NULL, null=True)
-    hostel = models.ForeignKey(GuestHouse, on_delete=models.SET_NULL, null=True)
     successful = models.BooleanField(default=False)
     date_of_payment = models.DateTimeField(auto_now_add=True)
 
@@ -193,7 +258,7 @@ class GuestPaymentHistory(models.Model):
         (makes sure there are no spaces to avoids reference
         errors with paystack) 
         """
-        self.reference = f'py0{timing.day}ref-{self.payment_id}-{self.user.first_name.lower()[:3]}-{self.user.student_id}-{self.user.last_name.lower()[:2]}-3369-{self.user.first_name.lower()}-0{timing.month}-{self.user.last_name.lower()}-0{timing.year}-pay-to-rbk'.replace(" ","") 
+        self.reference_id = f'py0{timing.day}ref-{self.payment_id}-3369-0{timing.month}-0{timing.year}-pay-to-rbk'.replace(" ","") 
         super().save(*args, **kwargs)
     
     def amount_value(self) -> int:

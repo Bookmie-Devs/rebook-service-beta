@@ -74,7 +74,7 @@ def signup(request: HttpRequest):
                             gender=request.POST.get('gender').lower() ,is_active=False)
                         new_user.save()
 
-                        student = Student.objects.create(user=new_user, student_id=request.POST.get('student_id'), campus=get_campus,)
+                        student = Student.objects.create(user=new_user, student_id_number=request.POST.get('student_id'), campus=get_campus,)
                         student.save()
                           
                         # Send verification email
@@ -149,7 +149,7 @@ def logout(request):
 def booking_and_payments(request: HttpRequest):
     user =request.user
     student = Student.objects.get(user=user)
-    context = {'user':user, 'student':student}
+    context = {'user':user, 'student':student, 'is_private_booking':False}
     if user.is_hostel_manager or user.is_hostel_worker:
         return redirect("management:portar-office")
 

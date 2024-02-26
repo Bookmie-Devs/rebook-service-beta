@@ -4,6 +4,8 @@ const loginForm = document.querySelector('#login-form');
 // loader
 const Load = document.querySelector('.load');
 
+const phoneInput =document.getElementById('phone');
+
 
 // for changing sections of the signup page
 try {
@@ -19,7 +21,7 @@ try {
     let section1b = document.querySelector('.section1b').value;
     let gender = document.getElementsByName('gender');
     let genderArr = []
-    for (let j =0; j <gender.length; j++) {
+    for (let j =0; j < gender.length; j++) {
       if (gender[j].checked) {
       genderArr.push('checked')
     } else{
@@ -179,6 +181,18 @@ try {
 }
 
 
+//Phone Validators For quest house quick rooms
+phoneInput.addEventListener("input", validatePhone);
+
+function validatePhone() {
+  const phone = phoneInput.value.trim();
+
+  if (phone.length==10) {
+      document.getElementById('msgDiv2').style.display = "none"
+  } else {
+    document.getElementById('msgDiv2').style.display = "block"
+    document.getElementById('msgDiv2').innerHTML = `<ul class="list-group"><li class="list-group-item list-group-item-danger">Phone less than 10 or incorrect</li></ul>`;
+  }}
 
 // check is passwor is strong
 // function checkPasswordStrength(password) {

@@ -81,9 +81,7 @@ def book_room(request: HttpRequest) -> HttpResponse:
         booked_room = RoomProfile.objects.get(room_id=request.POST.get('room_id')) 
         if not booked_room.is_free:
             #Saving booking info
-            booking=Booking.objects.create(room=booked_room, student=student, 
-            room_number=booked_room.room_no, hostel=booked_room.hostel, 
-            student_id=student.student_id, status='Booked',campus=booked_room.campus)
+            booking=Booking.objects.create(room=booked_room, student=student, hostel=booked_room.hostel,status='Booked',)
             """
             Save booking model
             """

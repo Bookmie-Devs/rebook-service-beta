@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import SalesStatistics, Worker
+from .models import SalesStatistics, Management
 
 class SalesStatModalAdmin(admin.ModelAdmin):
     list_display = ('hostel','amount_made','year')
@@ -13,4 +13,4 @@ class WorkersModalAdmin(admin.ModelAdmin):
 
 admin.site.register(SalesStatistics, SalesStatModalAdmin)
 
-admin.site.register(Worker, WorkersModalAdmin)
+admin.site.register(Management, WorkersModalAdmin)

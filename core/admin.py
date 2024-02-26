@@ -6,7 +6,7 @@ from .models import Tenant
 
 class CustomBookingAdminPanel(admin.ModelAdmin):
 
-    search_fields = ['student_id']
+    search_fields = ['student_id_number']
 
     # list_filter = ('payed','hostel',)
 
@@ -40,7 +40,7 @@ class CustomTenantAdminPanel(admin.ModelAdmin):
     is_active_display.short_description = 'Is Active'
 
 
-admin.site.register(Booking, CustomBookingAdminPanel)
+# admin.site.register(Booking, CustomBookingAdminPanel)
 
 admin.site.register(Tenant, CustomTenantAdminPanel)
 

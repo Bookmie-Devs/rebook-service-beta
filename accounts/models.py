@@ -22,7 +22,7 @@ class CustomUser(AbstractUser):
     is_hostel_manager = models.BooleanField(default=False, verbose_name="Manager")
     
     # is a hostel worker not manager(work at the hostel/Porter)
-    is_hostel_worker = models.BooleanField(default=False, verbose_name='Hostel Woker')
+    is_hostel_worker = models.BooleanField(default=False, verbose_name='Hostel Woker/Portar')
     
     # is a hostel worker not manager(work at the hostel agent)
     is_hostel_agent = models.BooleanField(default=False, verbose_name='Hostel Agent')
@@ -56,7 +56,7 @@ class CustomUser(AbstractUser):
     
 class Student(models.Model):
     user = models.OneToOneField(CustomUser, verbose_name=_("User"), on_delete=models.CASCADE)
-    student_id = models.CharField(max_length=20, blank=False, unique=True)
+    student_id_number = models.CharField(primary_key=False, max_length=20, blank=False, unique=True)
     campus = models.ForeignKey(CampusProfile, on_delete=models.CASCADE, null=True)
     college = models.CharField(max_length=70, blank=True, null=True)
     
@@ -65,7 +65,7 @@ class Student(models.Model):
         verbose_name_plural = _("Students") 
 
     def save(self, *args, **kwargs) -> None:
-        self.student_id = str(self.student_id).strip()
+        self.student_id_number = str(self.student_id_number).strip()
         return super().save(*args, **kwargs)
     
     def __str__(self):
