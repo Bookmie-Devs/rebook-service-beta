@@ -1,0 +1,19 @@
+{% load static %}
+<form 
+hx-post="{% url 'reviews:like-hostel' %}"
+hx-trigger="submit"
+hx-target="#like-form"
+hx-indicator="#loading-spinner"
+class="likes">
+{% csrf_token %}
+{% comment %} <input type="checkbox" name="like" id="like"> {% endcomment %}
+<input type="hidden" name="hostel_id" value="{{ hostel.hostel_id}}">
+<button>
+    <label for="like" class="like">
+        <i class="bi bi-heart" id="icon" onclick="fill()"></i>
+    </label>
+    <img  id="loading-spinner" style="width: 22px; height: 22px;" class="htmx-indicator ml-2" src="{% static 'gifs/loading.gif' %}"/>
+    <small>{{ hostel.no_of_likes }}</small>
+</button>
+</form>    
+</div>

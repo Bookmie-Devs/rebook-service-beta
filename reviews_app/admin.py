@@ -2,7 +2,6 @@ from django.contrib import (admin,)
 from .models import (FeedBackMessage, 
                      CustomerCare, 
                      HostelLike,
-                     RoomLike,
                      RecomendationFeedBacks,
                      RecomendationFeedBacks,
                      NewsletterEmails,
@@ -39,7 +38,6 @@ class ReccomendationAdmin(admin.ModelAdmin):
 
 admin.site.register(RecomendationFeedBacks, ReccomendationAdmin)
 admin.site.register(HostelLike)
-admin.site.register(RoomLike)
 # MESSAGES
 admin.site.register(NewsletterEmails)
 admin.site.register(NewsLetterMessage)
