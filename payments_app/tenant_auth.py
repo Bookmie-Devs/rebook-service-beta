@@ -7,7 +7,7 @@ def tenant_auth_details(student:Student=None,
                         room:RoomProfile=None):
     
     return [f'Name: {student.user.username}',
-            f'Student ID: {student.student_id}',
+            f'Student ID: {student.student_id_number}',
             f'Room Number: {room.room_no}',
             f'Hostel: {room.hostel.hostel_name}',
             f'Payment made to: {room.hostel.account_number}',

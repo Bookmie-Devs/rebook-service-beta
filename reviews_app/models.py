@@ -45,12 +45,7 @@ class RecomendationFeedBacks(models.Model):
 
 class HostelLike(models.Model):
     hostel = models.ForeignKey(HostelProfile, on_delete=models.CASCADE)
-    user = models.ManyToManyField(CustomUser)
-
-
-class RoomLike(models.Model):
-    room = models.ForeignKey(RoomProfile, on_delete=models.CASCADE)
-    user = models.ManyToManyField(CustomUser)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
 
 

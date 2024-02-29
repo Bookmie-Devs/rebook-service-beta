@@ -43,8 +43,6 @@ class RoomProfile(models.Model):
     accept_half_payment =  models.BooleanField(default=False)
     previous_price_check = models.DecimalField(blank=True, editable=False,
                                       null=True, decimal_places=2, max_digits=7)
-
-    rating = models.IntegerField(choices=rating ,blank=False, default=1,)
     no_of_likes = models.IntegerField(verbose_name='Likes', default=1)
     # count the number of users who book this room
     booking_count = models.PositiveIntegerField(default=0)

@@ -82,7 +82,7 @@ class Tenant(models.Model):
             self.end_date = (self.start_date + timedelta(days=365))
 
         ############### ( ⚠️Critcal) verification code
-        self.verification_code = f'{self.hostel.hostel_code}-0{self.end_date.day}r0-{self.student.user.first_name[:2]}-0{self.end_date.month}b0-{self.student.user.last_name[:3]}-{self.tenant_id}-{self.student.user.first_name.lower()}-{self.student.student_id}-07{self.end_date.year}k0-{self.student.user.last_name.lower()}-{self.end_date.time()}-Grj'.replace(" ","")
+        self.verification_code = f'{self.hostel.hostel_code}-0{self.end_date.day}r0-{self.student.user.first_name[:2]}-0{self.end_date.month}b0-{self.student.user.last_name[:3]}-{self.tenant_id}-{self.student.user.first_name.lower()}-{self.student.student_id_number}-07{self.end_date.year}k0-{self.student.user.last_name.lower()}-{self.end_date.time()}-Grj'.replace(" ","")
         return super().save(*args, **kwargs)
     
     def is_active(self):

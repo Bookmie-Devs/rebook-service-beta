@@ -26,7 +26,7 @@ class PaymentHistory(models.Model):
     is_half_payment =  models.BooleanField(default=False)
     completed_full_payment =  models.BooleanField(default=False)
     def __str__(self) -> str:
-        return f'{self.user} payed on {self.date_of_payment.date()} @{self.date_of_payment.hour}:{self.date_of_payment.minute}'
+        return f'{self.student.user} payed on {self.date_of_payment.date()} @{self.date_of_payment.hour}:{self.date_of_payment.minute}'
 
     def save(self, *args, **kwargs):
         # reference for payment with datatime of payment
@@ -35,7 +35,7 @@ class PaymentHistory(models.Model):
         (makes sure there are no spaces to avoids reference
         errors with paystack)
         """
-        self.reference_id = f'py0{timing.day}ref-{self.payment_id}-{self.user.first_name.lower()[:3]}-{self.user.student_id}-{self.user.last_name.lower()[:2]}-3369-{self.user.first_name.lower()}-0{timing.month}-{self.user.last_name.lower()}-0{timing.year}-pay-to-rbk'.replace(" ","") 
+        self.reference_id = f'py0{timing.day}ref-{self.payment_id}-{self.student.user.first_name.lower()[:3]}-{self.student.student_id_number}-{self.student.user.last_name.lower()[:2]}-3369-{self.student.user.first_name.lower()}-0{timing.month}-{self.student.user.last_name.lower()}-0{timing.year}-pay-to-rbk'.replace(" ","") 
         super().save(*args, **kwargs)
     
     def get_amount_value(self) -> int:

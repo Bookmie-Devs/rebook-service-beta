@@ -3,7 +3,7 @@ from django.views.decorators.http import require_http_methods
 
 from hostel_app.models import HostelProfile
 from rooms_app.models import RoomProfile
-from .models import FeedBackMessage, CustomerCare, HostelLike, RoomLike
+from .models import FeedBackMessage, CustomerCare, HostelLike
 from core.decorators import login_required_htmx
 from django.http import (HttpRequest, 
                          HttpResponse, 
@@ -55,11 +55,14 @@ def like_hostel(request: HttpRequest):
     if HostelLike.objects.filter(user=request.user, hostel=hostel).exists():
         hostel.no_of_likes-=1
         hostel.save()
+        HostelLike.objects.get(user=request.user, hostel=hostel).delete()
+        return render(request, 'htmx_message_templates/like_htmx.html', {'hostel':hostel})
     else:
-        liked = HostelLike.objects.create(user=request.user, hostel=hostel)
+        liked = HostelLike.objects.create(hostel=hostel, user=request.user)
         liked.save()
         hostel.no_of_likes+=1
         hostel.save() 
+        return render(request, 'htmx_message_templates/like_htmx.html', {'hostel':hostel})
 
 
 

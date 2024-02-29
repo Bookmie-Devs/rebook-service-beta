@@ -4,8 +4,9 @@ from rest_framework.response import Response
 from agents_app.models import HostelAgent
 from hostel_app.models import HostelProfile
 from rooms_app.models import RoomProfile
-from .serializers import AgentHostelSerializer,  AgentHostelListSerializer
+from .serializers import AgentHostelSerializer,  AgentHostelListSerializer, HostelProfileSerializers, RoomProfileSerializer
 from rest_framework import status
+from rest_framework import generics
 from rest_framework.decorators import permission_classes, api_view, authentication_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import SessionAuthentication
@@ -49,10 +50,20 @@ def agent_hostel_profile(request: HttpRequest, hostel_id):
     
 
 
-def agent_rooms(request: HttpRequest):
+def agent_registered_rooms(request: HttpRequest):
     agent = HostelAgent.objects.get(user=request.user, is_verified=True, is_active=True)
-    agent_hostel = RoomProfile.objects.get(F('hostel'), verified=True)
+    agent_rooms = RoomProfile.objects.get(F('hostel'), verified=True)
+    serializer = RoomProfileSerializer(agent_rooms)
+    return Response(data=serializer.data, status=status.HTTP_200_OK)
 
 
-def agent_room_profile(request):
-    pass
+class RoomProfileView(generics.RetrieveUpdateAPIView):
+    lookup_field = 'room_id'
+    serializer_class = RoomProfileSerializer
+    queryset = RoomProfile.objects.all()
+
+
+
+class HostelProfileView(generics.CreateAPIView):
+    serializer_class = HostelProfileSerializers
+    queryset = HostelProfile.objects.all()
