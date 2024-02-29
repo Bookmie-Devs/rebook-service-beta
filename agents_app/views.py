@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from agents_app.models import HostelAgent
 from hostel_app.models import HostelProfile
 from rooms_app.models import RoomProfile
-from .serializers import AgentHostelSerializer,  AgentHostelListSerializer, HostelProfileSerializers, RoomProfileSerializer
+from .serializers import AgentHostelSerializer,  AgentHostelListSerializer, HostelProfileSerializers, RoomListSerializer, RoomProfileSerializer
 from rest_framework import status
 from rest_framework import generics
 from rest_framework.decorators import permission_classes, api_view, authentication_classes
@@ -49,12 +49,17 @@ def agent_hostel_profile(request: HttpRequest, hostel_id):
         return Response(data={'message':'Not permitted'}, status=status.HTTP_403_FORBIDDEN)
     
 
-
+@api_view(['GET'])
+# @permission_classes([IsAuthenticated])
+@authentication_classes([SessionAuthentication])
 def agent_registered_rooms(request: HttpRequest):
-    agent = HostelAgent.objects.get(user=request.user, is_verified=True, is_active=True)
-    agent_rooms = RoomProfile.objects.get(F('hostel'), verified=True)
-    serializer = RoomProfileSerializer(agent_rooms)
-    return Response(data=serializer.data, status=status.HTTP_200_OK)
+    try:
+        agent = HostelAgent.objects.get(user=request.user, is_verified=True, is_active=True)
+        agent_rooms = RoomProfile.objects.filter(hostel__agent_affiliate=agent)
+        serializer = RoomListSerializer(agent_rooms, many=True)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+    except HostelAgent.DoesNotExist:
+        return Response(status=status.HTTP_403_FORBIDDEN)
 
 
 class RoomProfileView(generics.RetrieveUpdateAPIView):
