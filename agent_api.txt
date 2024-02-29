@@ -1,6 +1,6 @@
 1. TO get all hostels affilted to teh agent
 send a get request to this endpiont
-http://127.0.0.1:9000/agents/agent-hostels/
+http://127.0.0.1:9000/agents/agent-registered-hostels/
 
 NB: with bearer
 Responses:
@@ -46,7 +46,7 @@ the user is not permitted on that endpiont
 To view hostel details
 send a get request to this url 
 with the hostel id provied in the list view of all hostels
-http://127.0.0.1:9000/agents/agent-hostels/<hostel_id>/
+http://127.0.0.1:9000/agents/agent-registered-hostels/<hostel_id>/
 
 Response
 code 200:
@@ -71,7 +71,7 @@ create the room and submit a Post request to that endpiont with
 the hostel id in the url( the url for the hostel profile)
 
 url for getting hostel profile
-http://127.0.0.1:9000/agents/agent-hostels/<hostel_id>/
+http://127.0.0.1:9000/agents/agent-registered-hostels/<hostel_id>/
 url = http://127.0.0.1:9000/agents/agent-hostels/a6bcf064-bcf4-4e15-b0bd-ad4f9daa6926/
 e.g:
 {
@@ -92,3 +92,92 @@ the room has been created
 code 403:
 {'message':'Not permitted'}
 the user is not permitted on that endpiont
+
+
+
+3.
+To get agents registered rooms
+
+make a get request to this endpiont
+with the bearer
+http://127.0.0.1:9000/agents/agent-registered-rooms/
+
+Response may look somethin like this
+[
+    {
+        "hostel_name": "Wagyingo",
+        "room_no": "32",
+        "bed_space_left": 0,
+        "occupied": false,
+        "verified": false,
+        "room_id": "d10c203d-1510-4e17-a322-0b30bbaadd7e"
+    },
+    {
+        "hostel_name": "Wagyingo",
+        "room_no": "45",
+        "bed_space_left": 1,
+        "occupied": false,
+        "verified": false,
+        "room_id": "edd1eab1-8fd7-4d6f-9f95-536233f92b2c"
+    },
+    {
+        "hostel_name": "Wagyingo",
+        "room_no": "67",
+        "bed_space_left": 1,
+        "occupied": false,
+        "verified": false,
+        "room_id": "b285ef3e-5075-499a-bcfc-641d320dbe7e"
+    },
+    {
+        "hostel_name": "Wagyingo",
+        "room_no": "45",
+        "bed_space_left": 4,
+        "occupied": false,
+        "verified": false,
+        "room_id": "f963b82c-7cf2-45e5-9f00-1f7020480161"
+    }
+]
+
+5.
+Just like the edit room at the managers side
+To retrieve room details and also update it
+
+send a get request
+
+GET <domain>/agents/agent-registered-rooms/cfcfde1b-7bb4-42fe-a536-5c62770d5d45/
+
+NB: with ROOM  ID
+{
+    "hostel_name": "Mancheter HOSTEL",
+    "room_no": "12RG",
+    "bed_space_left": 2,
+    "occupied": false,
+    "verified": false,
+    "room_id": "cfcfde1b-7bb4-42fe-a536-5c62770d5d45"
+}
+
+TO UPDATE ROOM details
+
+NB: agents CAN ONLY UPDATE THIS FIELDS:
+OCCUPIED and bed_space_left
+
+To update send Put request to 
+
+PUT <domain>/agents/agent-registered-rooms/cfcfde1b-7bb4-42fe-a536-5c62770d5d45/
+NB: WITH ROOM ID
+TO UPDATE ROOM
+
+e.g
+data in the form
+{
+    "bed_space_left": 2,
+    "occupied": false
+}
+
+Response
+CODE 200
+
+{
+    "bed_space_left": 2,
+    "occupied": false
+}

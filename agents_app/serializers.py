@@ -22,10 +22,19 @@ class AgentHostelSerializer(ModelSerializer):
         fields = ('hostel_id', 'hostel_code' ,'hostel_name', 'number_of_rooms' ,'hostel_image', 'address', 'hostel_contact', )
 
 
+class RoomListSerializer(ModelSerializer):
+    hostel_name = SerializerMethodField(read_only=True)
+    class Meta:
+        model = RoomProfile
+        fields = ('hostel_name', 'room_no', 'bed_space_left' ,'occupied', 'verified','room_id',)
+
+    def get_hostel_name(self, obj:RoomProfile):
+        return obj.hostel.hostel_name
+
 class RoomProfileSerializer(ModelSerializer):
     class Meta:
         model = RoomProfile
-        fields = ('room_number', 'bed_space_left' ,'occupied',)
+        fields = ('bed_space_left' ,'occupied',)
 
 
 class AgentRoomsSerializer(ModelSerializer):
