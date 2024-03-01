@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import HostelProfile
+from .models import HostelProfile, HostelManagement
 from django_google_maps import widgets as map_widgets
 from django_google_maps import fields as map_fields
 
@@ -46,6 +46,10 @@ class CustomHostelAdminPanel(admin.ModelAdmin):
 
     list_display = ('hostel_name','hostel_code','hostel_manager','hostel_contact','verified',)
 
+class ManagementModalAdmin(admin.ModelAdmin):
+    list_display = ('hostel','user','is_active')
+    list_filter = ('is_active',)
 
 admin.site.register(HostelProfile, CustomHostelAdminPanel)
 
+admin.site.register(HostelManagement, ManagementModalAdmin)

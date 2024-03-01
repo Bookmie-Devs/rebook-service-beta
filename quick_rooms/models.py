@@ -263,3 +263,28 @@ class GuestPaymentHistory(models.Model):
     
     def amount_value(self) -> int:
         return self.amount*100
+    
+
+
+
+class GuestHouseManager(models.Model):
+    manager_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    manager_code = models.CharField(max_length=10, editable=False, unique=True ,blank=True, null=True)
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    campus_affiliation =  models.OneToOneField(CampusProfile, on_delete=models.CASCADE)
+    phone = models.CharField(max_length=10, blank=False, unique=True)
+    mobile_money = models.CharField(max_length=10, blank=False)
+    manager_profile_picture = models.ImageField(default="unknown_profile.jpg", upload_to="AgentsProfilePictures")
+    is_verified = models.BooleanField(default=False)
+    is_active =  models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = _("Guest House Manager")
+        verbose_name_plural = _("Guest House Managers")
+
+    def save(self, *args, **kwargs) -> None:
+        self.manager_code = f"{self.user.first_name[:2]}{self.user.last_name[:2]}-{str(self.manager_id)[:4]}-{self.user.first_name[:2]}-0912"
+        return super().save(*args, **kwargs)
+
+    def __str__(self):
+        return '%s || %s' % (self.manager_code, self.user.username)

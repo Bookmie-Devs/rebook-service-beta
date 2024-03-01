@@ -23,6 +23,7 @@ from rest_framework.permissions import (IsAuthenticatedOrReadOnly,
                                         IsAuthenticated,
                                         DjangoModelPermissions) 
 from .sales import convert_sales
+from hostel_app.models import HostelManagement
 from rest_framework.decorators import (permission_classes,
                                        authentication_classes)
 from rooms_app.models import RoomProfile
@@ -48,7 +49,7 @@ class RoomListView(generics.ListAPIView):
     a particular hostel after getting the hostel code from the person who logs in"""
         
         try:
-            get_hostel=HostelProfile.objects.get(hostel_manager=request.user)
+            get_hostel=HostelProfile.objects.get(hostel_manager__user=request.user)
             get_rooms = RoomProfile.objects.filter(hostel=get_hostel)
             serializer = RoomListSerializer(get_rooms, many=True)
             return Response(serializer.data)
@@ -86,14 +87,14 @@ class HostelProfileView(generics.RetrieveUpdateAPIView):
     queryset = HostelProfile.objects.all()
 
     def get(self, request, *args, **kwargs):
-        hostel = HostelProfile.objects.get(hostel_manager=request.user)
+        hostel = HostelProfile.objects.get(hostel_manager__user=request.user)
         #serialized data
         serializer = HostelDetialsSerializer(hostel)   
 
         return Response(serializer.data)
     
     def update(self, request, *args, **kwargs):
-        hostel = HostelProfile.objects.get(hostel_manager=request.user)
+        hostel = HostelProfile.objects.get(hostel_manager__user=request.user)
 
         serializer = HostelDetialsSerializer(instance=hostel, data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -116,7 +117,7 @@ class UpdateRoomPrice(generics.UpdateAPIView):
     def update(self, request, *args, **kwargs):
         room_capacity = request.data.get('room_capacity') #room with capacity
         new_price = request.data.get('new_price') #price for those rooms
-        hostel = HostelProfile.objects.get(hostel_manager=request.user)
+        hostel = HostelProfile.objects.get(hostel_manager__user=request.user)
         # check if room exist
         if RoomProfile.objects.filter(hostel=hostel, room_capacity=room_capacity).exists():
             update_room = RoomProfile.objects.filter(hostel=hostel, room_capacity=room_capacity)
@@ -145,7 +146,7 @@ class TenantListView(generics.ListAPIView):
 
     def get(self, request, *args, **kwargs):
         try:
-            get_hostel = HostelProfile.objects.get(hostel_manager=request.user)
+            get_hostel = HostelProfile.objects.get(hostel_manager__user=request.user)
             get_tenants = Tenant.objects.filter(hostel=get_hostel).all()
 
             if get_tenants is not None:
@@ -167,7 +168,7 @@ class SalesStatsView(generics.ListAPIView):
     def get(self, request: HttpRequest):
         from .models import SalesStatistics
         try:
-            hostel = HostelProfile.objects.get(hostel_manager=request.user)
+            hostel = HostelProfile.objects.get(hostel_manager__user=request.user)
             sales = SalesStatistics.objects.filter(hostel=hostel).all()
             return Response(convert_sales(sales=sales), status=status.HTTP_200_OK)
         except:

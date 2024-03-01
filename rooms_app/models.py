@@ -4,7 +4,6 @@ from hostel_app.models import HostelProfile
 from campus_app.models import CampusProfile
 from django.utils import timezone
 from accounts.models import CustomUser
-from hostel_app.models import rating
 import uuid
 from django.urls import reverse
 from datetime import datetime
@@ -41,8 +40,7 @@ class RoomProfile(models.Model):
     has been changed or not when the save method is called on an object
     """
     accept_half_payment =  models.BooleanField(default=False)
-    previous_price_check = models.DecimalField(blank=True, editable=False,
-                                      null=True, decimal_places=2, max_digits=7)
+    previous_price_check = models.DecimalField(blank=True, editable=False, null=True, decimal_places=2, max_digits=7)
     no_of_likes = models.IntegerField(verbose_name='Likes', default=1)
     # count the number of users who book this room
     booking_count = models.PositiveIntegerField(default=0)

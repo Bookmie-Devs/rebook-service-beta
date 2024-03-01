@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.urls import path
+from . import management
 from . import views
 from django.views.decorators.cache import cache_page
 time = settings.BOOKMIE_CACHING_TIMEOUT
@@ -7,6 +8,7 @@ time = settings.BOOKMIE_CACHING_TIMEOUT
 app_name = 'quick-rooms'
 
 urlpatterns = [
+    path('request-office-otp/', management.get_otp_phone, name='request-office-otp'),
     path("secure-privacy-code/<room_id>/", views.request_code, name="secure-privacy-code"),
     path("generate-private-booking/", views.generate_private_booking, name="confirm-privacy"),
     path("book-room/", views.book_room, name="booking"),

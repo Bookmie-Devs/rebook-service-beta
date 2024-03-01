@@ -21,6 +21,7 @@ class CustomUser(AbstractUser):
     # is a hostel manager ot not
     is_hostel_manager = models.BooleanField(default=False, verbose_name="Manager")
     
+    is_guest_house_manager = models.BooleanField(default=False, verbose_name="Guest House Manager")
     # is a hostel worker not manager(work at the hostel/Porter)
     is_hostel_worker = models.BooleanField(default=False, verbose_name='Hostel Woker/Portar')
     
