@@ -28,4 +28,9 @@ urlpatterns=[
     path("portar-office/filter-tenants/", portar.filter_tenants, name="portar-filter-tenants"),
     path("portar-office/edit-room/<str:room_id>/", portar.edit_room , name="portar-edit-room"),
     path("portar-office/update-prices/", portar.update_room_price, name="portar-update-prices"),
+
+    #####################Guest house########################################################
+    path('guest-house/profile/', views.guest_house_profile_view, name='guest-house-profile'),
+    path('guest-house/rooms/', views.guest_house_rooms, name='guest-house-profile'),
+    path('guest-house/bookings/', views.GuestBookingsView.as_view(),)
 ]

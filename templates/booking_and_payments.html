@@ -651,13 +651,23 @@
                   <i class="bi bi-wallet2"></i>
                 </a>
               </div>
-              {% else %}
+
               <div class="">
                 <a
                   href="{% url 'payments:init-payment' booking.room.room_id %}"
                   class="btn btn-success"
                 >
                   Pay Full
+                  <i class="bi bi-wallet2"></i>
+                </a>
+              </div>
+              {% else %}
+              <div class="">
+                <a
+                  href="{% url 'payments:init-payment' booking.room.room_id %}"
+                  class="btn btn-success"
+                >
+                  Payment
                   <i class="bi bi-wallet2"></i>
                 </a>
               </div>

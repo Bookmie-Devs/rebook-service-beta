@@ -47,9 +47,18 @@ class CustomHostelAdminPanel(admin.ModelAdmin):
     list_display = ('hostel_name','hostel_code','hostel_manager','hostel_contact','verified',)
 
 class ManagementModalAdmin(admin.ModelAdmin):
-    list_display = ('hostel','user','is_active')
+    list_display = ('hostel','user','management_code','is_active')
     list_filter = ('is_active',)
 
 admin.site.register(HostelProfile, CustomHostelAdminPanel)
 
 admin.site.register(HostelManagement, ManagementModalAdmin)
+
+from .models import SalesStatistics
+
+class SalesStatModalAdmin(admin.ModelAdmin):
+    list_display = ('hostel','amount_made','year')
+    list_filter = ('year','hostel',)
+
+
+admin.site.register(SalesStatistics, SalesStatModalAdmin)
