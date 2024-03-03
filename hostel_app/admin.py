@@ -9,7 +9,6 @@ class CustomHostelAdminPanel(admin.ModelAdmin):
     fieldsets = (
         ('General', {"fields":('hostel_name',
                           'category',
-                          'rating',
                           'price_range',
                           'number_of_rooms',
                           'campus','hostel_manager',

@@ -2,12 +2,12 @@ from django.http import HttpRequest
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
 
 from rooms_app.models import RoomProfile
-from .models import HostelAgent
+from .models import Agent
 from hostel_app.models import HostelProfile
 
 class AgenProfilesSerilizer(ModelSerializer):
     class Meta:
-        model = HostelAgent
+        model = Agent
         fields ='__all__'
 
 class AgentHostelListSerializer(ModelSerializer):

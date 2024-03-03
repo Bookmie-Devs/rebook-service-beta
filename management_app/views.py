@@ -225,14 +225,14 @@ class GuestBookingsView(generics.ListAPIView):
 
 ################################OTP###########################################
 @api_view(['GET'])
-@permission_classes([IsAuthenticated, CanRequestOtpCode])  
+@permission_classes([IsAuthenticated, IsHostelManager])  
 def get_otp_phone(request: HttpRequest):
     if OtpCodeData.objects.filter(user=request.user).exists():
         code = OtpCodeData.objects.get(user=request.user)
         code.delete()
     new_otp = OtpCodeData.objects.create(user=request.user)
     new_otp.save()  
-    message = f"Your Bookmie.Office Code is {new_otp.otp_code}"
+    message = f"Your Bookmie Management Code is {new_otp.otp_code}"
     # send_sms_task.delay(request.user.phone, msg)
     # for testing
     send_sms_task(request.user.phone, message)

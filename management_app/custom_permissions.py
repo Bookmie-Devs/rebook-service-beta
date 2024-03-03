@@ -1,4 +1,4 @@
-from agents_app.models import HostelAgent
+from agents_app.models import Agent
 from rest_framework.permissions import BasePermission
 from quick_rooms.models import GuestHouseManager
 from hostel_app.models import HostelManagement
@@ -24,13 +24,13 @@ class IsHostelManagement(BasePermission):
             return False
 
 # is a hostel manager
-class IsHostelAgent(BasePermission):
+class IsBookmieAgent(BasePermission):
     def has_permission(self, request, view):
         try:
-            agent = HostelAgent.objects.get(user=request.user)
+            agent = Agent.objects.get(user=request.user)
             # is a user and hostel worker/porter
-            return bool(request.user and request.user.is_hostel_agent and agent.is_verified and agent.is_active)
-        except HostelAgent.DoesNotExist:
+            return bool(request.user and request.user.is_bookmie_agent and agent.is_verified and agent.is_active)
+        except Agent.DoesNotExist:
             return False
 
 class IsGuestHouseManager(BasePermission):
@@ -47,5 +47,5 @@ class IsGuestHouseManager(BasePermission):
 class CanRequestOtpCode(BasePermission):
 
     def has_permission(self, request, view):
-        worker = request.user.is_hostel_agent or request.user.is_hostel_worker or request.user.is_hostel_manager    
+        worker = request.user.is_bookmie_agent or request.user.is_hostel_worker or request.user.is_hostel_manager    
         return bool(request.user and worker)

@@ -25,8 +25,8 @@ class CustomUser(AbstractUser):
     # is a hostel worker not manager(work at the hostel/Porter)
     is_hostel_worker = models.BooleanField(default=False, verbose_name='Hostel Woker/Portar')
     
-    # is a hostel worker not manager(work at the hostel agent)
-    is_hostel_agent = models.BooleanField(default=False, verbose_name='Hostel Agent')
+    # work as bookmie agent)
+    is_bookmie_agent = models.BooleanField(default=False, verbose_name='Hostel Agent')
 
     def __str__(self) -> str:
         return f'{self.username}'

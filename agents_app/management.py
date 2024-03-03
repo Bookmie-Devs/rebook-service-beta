@@ -5,10 +5,10 @@ from rest_framework.permissions import IsAuthenticated
 from accounts.task import send_sms_task
 from rest_framework.response import Response
 from rest_framework import status
-from management_app.custom_permissions import IsHostelAgent
+from management_app.custom_permissions import IsBookmieAgent
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated, IsHostelAgent])  
+@permission_classes([IsAuthenticated, IsBookmieAgent])  
 def get_otp_phone(request: HttpRequest):
     if OtpCodeData.objects.filter(user=request.user).exists():
         code = OtpCodeData.objects.get(user=request.user)
