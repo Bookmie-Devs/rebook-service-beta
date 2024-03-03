@@ -19,7 +19,6 @@ class CustomTenantAdminPanel(admin.ModelAdmin):
         'student',
         'room',
         'hostel',
-        'room_number',
         'payed',
         'checked_in',)}),
         ("DO NOT EDIT",{"fields":('end_date',)}),
