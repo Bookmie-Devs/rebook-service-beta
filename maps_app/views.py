@@ -5,8 +5,8 @@ from campus_app.models import CampusProfile, CollegeProfile
 from hostel_app.models import HostelProfile
 from quick_rooms.models import GuestHouse
 
-def hostel_direction(request, hostel_id):
-    hostel_profile = HostelProfile.objects.get(hostel_id = hostel_id)
+def hostel_direction(request, hostel_code):
+    hostel_profile = HostelProfile.objects.get(hostel_code = hostel_code)
     # hostel coordinates on map
     coordinate:GeoPt = hostel_profile.geolocation
     # coordinate of campus
@@ -18,14 +18,14 @@ def hostel_direction(request, hostel_id):
            context={'coordinate': coordinate,"campus_coordinates":campus_coordinates ,'user':request.user ,'hostel':hostel_profile, 'colleges':college_coordinates})
 
 
-def map_views(request, campus_id):
-    campus = CampusProfile.objects.get(campus_id=campus_id)
+def map_views(request, campus_param_id):
+    campus = CampusProfile.objects.get(campus_param_id=campus_param_id)
     hostel_profiles = HostelProfile.objects.filter(verified=True,campus=campus).all()
     colleges = CollegeProfile.objects.filter(campus_name=campus).all()
     # # hostel coordinates on map
     # coordinatet = hostel_profile.geolocation
     # coordinate. 
-    coordinates:GeoPt= [{'lat': hostel.geolocation.lat, 'lng': hostel.geolocation.lon, 'url':f'/hostels/profile/{hostel.hostel_id}/','name':hostel.hostel_name.title(), 'pic_url':hostel.hostel_image.url,'rooms_url':f'/hostels/hostel-rooms/{hostel.hostel_id}/','category':hostel.category.title(), 'no_of_likes':hostel.no_of_likes} for hostel in hostel_profiles]
+    coordinates:GeoPt= [{'lat': hostel.geolocation.lat, 'lng': hostel.geolocation.lon, 'url':f'/hostels/profile/{hostel.hostel_code}/','name':hostel.hostel_name.title(), 'pic_url':hostel.hostel_image.url,'rooms_url':f'/hostels/hostel-rooms/{hostel.hostel_code}/','category':hostel.category.title(), 'no_of_likes':hostel.no_of_likes} for hostel in hostel_profiles]
     college_coordinates = [{'coordinate':{'lat':college.geolocation.lat, 'lng':college.geolocation.lon,}, 'name':college.college_name} for college in colleges]
     # return render(request, 'your_template.html', })
     return render(request=request,

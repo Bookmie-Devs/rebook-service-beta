@@ -7,7 +7,7 @@ hx-indicator="#loading-spinner"
 class="likes">
 {% csrf_token %}
 {% comment %} <input type="checkbox" name="like" id="like"> {% endcomment %}
-<input type="hidden" name="hostel_id" value="{{ hostel.hostel_id}}">
+<input type="hidden" name="hostel_code" value="{{ hostel.hostel_code}}">
 <button>
     <label for="like" class="like">
         <i class="bi bi-heart" id="icon" onclick="fill()"></i>

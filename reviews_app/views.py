@@ -51,7 +51,7 @@ def customer_care(request: HttpRequest) -> JsonResponse:
 @login_required_htmx
 @require_http_methods(['POST'])
 def like_hostel(request: HttpRequest):
-    hostel = HostelProfile.objects.get(hostel_id=request.POST.get('hostel_id'))
+    hostel = HostelProfile.objects.get(hostel_code=request.POST.get('hostel_code'))
     if HostelLike.objects.filter(user=request.user, hostel=hostel).exists():
         hostel.no_of_likes-=1
         hostel.save()

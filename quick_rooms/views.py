@@ -42,8 +42,8 @@ def generate_private_booking(request: HttpRequest):
         return render(request, 'quick_rooms/htmx/message.html', {'message':'Code not valid', 'tag':'danger'})
 
 
-def rooms(request: HttpRequest, campus_id):
-    campus = CampusProfile.objects.get(campus_id=campus_id)
+def rooms(request: HttpRequest, campus_param_id):
+    campus = CampusProfile.objects.get(campus_param_id=campus_param_id)
     rooms = GuestHouseRoom.objects.filter(campus=campus).all()
     return render(request, 'quick_rooms/quick_rooms.html', {'rooms':rooms, 'campus':campus})
 

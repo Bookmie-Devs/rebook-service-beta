@@ -1,5 +1,5 @@
 from agents_app.models import AgentSales
-from management_app.models import SalesStatistics
+from hostel_app.models import SalesStatistics
 from hostel_app.models import HostelProfile
 from django.utils.timezone import now
 

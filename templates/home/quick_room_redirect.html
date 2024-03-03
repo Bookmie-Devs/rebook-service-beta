@@ -5,7 +5,7 @@
 
 {% for campus in campuses %}
   {% if campus.available_on_campus %}
-    <a href="{% url 'quick-rooms:rooms' campus.campus_id %}">
+    <a href="{% url 'quick-rooms:rooms' campus.campus_param_id %}">
     <div class="card">
       <div class="content">
         <img src="{{ campus.flag.url }}" alt="">

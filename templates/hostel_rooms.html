@@ -137,7 +137,7 @@
 
         <div class="btn-box">
           <a
-            href="{% url 'rooms:campus-rooms' hostel.campus.campus_id %}"
+            href="{% url 'rooms:campus-rooms' hostel.campus.campus_param_id %}"
             class="fw-bold"
           >
             All Rooms
@@ -155,7 +155,7 @@
             <h1 class="fw-bolder">
               <a
                 style="color: rgb(254, 161, 22)"
-                href="{% url 'hostels:profile' hostel_id=hostel.hostel_id %}"
+                href="{% url 'hostels:profile' hostel_code=hostel.hostel_code %}"
                 >{{ hostel.hostel_name.title }}</a
               >🏢
             </h1>
@@ -164,7 +164,7 @@
             <div class="button-container">
               <form
                 id="filter"
-                hx-get="{% url 'hostels:hostel-rooms' hostel.hostel_id %}"
+                hx-get="{% url 'hostels:hostel-rooms' hostel.hostel_code %}"
                 hx-trigger="submit delay:100ms"
                 hx-target="#search-results"
                 hx-indicator="#loading-spinner"
@@ -175,7 +175,7 @@
 
               <form
                 id="filter"
-                hx-get="{% url 'hostels:hostel-rooms' hostel.hostel_id %}"
+                hx-get="{% url 'hostels:hostel-rooms' hostel.hostel_code %}"
                 hx-trigger="submit delay:100ms"
                 hx-target="#search-results"
                 hx-indicator="#loading-spinner"
@@ -186,7 +186,7 @@
 
               <form
                 id="filter"
-                hx-get="{% url 'hostels:hostel-rooms' hostel.hostel_id %}"
+                hx-get="{% url 'hostels:hostel-rooms' hostel.hostel_code %}"
                 hx-trigger="submit delay:100ms"
                 hx-target="#search-results"
                 hx-indicator="#loading-spinner"
@@ -197,7 +197,7 @@
 
               <form
                 id="filter"
-                hx-get="{% url 'hostels:hostel-rooms' hostel.hostel_id %}"
+                hx-get="{% url 'hostels:hostel-rooms' hostel.hostel_code %}"
                 hx-trigger="submit delay:100ms"
                 hx-target="#search-results"
                 hx-indicator="#loading-spinner"

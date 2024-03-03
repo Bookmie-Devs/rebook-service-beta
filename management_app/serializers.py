@@ -5,7 +5,7 @@ from hostel_app.models import HostelProfile
 from django.utils import timezone
 from core.models import Booking
 from rest_framework.reverse import reverse
-from .models import SalesStatistics
+from hostel_app.models import SalesStatistics
 
 class RoomListSerializer(serializers.ModelSerializer):
     
@@ -129,7 +129,7 @@ class TenantVerificationSerializer(serializers.ModelSerializer):
         return obj.room.room_no
     
     def get_student_id(self, obj:Tenant):
-        return obj.student.student_id
+        return obj.student.student_id_number
     
     # checked in status
     def get_checked_in_status(self, obj:Tenant) -> str:
@@ -266,3 +266,28 @@ class HostelDetialsSerializer(serializers.ModelSerializer):
 #     def amount_in_float(self, obj: SalesStatistics):
 #         return float(obj.amount_made)
     
+
+##################Guest House Manament api##############################
+from rest_framework.serializers import ModelSerializer, SerializerMethodField
+from quick_rooms.models import GuestHouseRoom, GuestHouse, GuestBooking
+
+class GuestHouseRoomSerializer(ModelSerializer):
+    class Meta:
+        model = GuestHouseRoom
+        fields = ('room_id', 'room_name','room_image', 'room_image2', 'room_image3', 'room_image4', 'room_price_per_night', 'occupied')
+
+
+class GuestHouseProfileSerializer(ModelSerializer):
+    class Meta:
+        model = GuestHouse
+        fields = ('name','house_id','house_code','phone','mobile_money','manager_contact','location')
+    
+
+class GuestBookingProfileSerializer(ModelSerializer):
+    user = SerializerMethodField(read_only=True)
+    class Meta:
+        model = GuestBooking
+        fields = ('user', 'start_time', 'end_time', 'payed',)
+
+    def get_user(self, obj: GuestBooking):
+        return obj.guest_user.phone

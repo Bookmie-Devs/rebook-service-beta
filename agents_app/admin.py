@@ -1,12 +1,21 @@
 from django.contrib import admin
-from .models import HostelAgent
+from .models import Agent
 # Register your models here.
 
 
-class HostelAgentAdmin(admin.ModelAdmin):
-    list_display = ('user', 'campus_affiliation', 'agent_code' ,'is_verified','is_active',)
+class AgentAdmin(admin.ModelAdmin):
+    fieldsets = (
+        (None, {
+            "fields": (
+                'user', 'phone', 'mobile_money', 'agent_profile_picture', 'ghana_card',
+                    'is_verified','is_active',
+            ),
+        }),
+    )
+    
+    list_display = ('user', 'agent_code' ,'is_verified','is_active','date_join',)
 
 
 
 
-admin.site.register(HostelAgent, HostelAgentAdmin)
+admin.site.register(Agent, AgentAdmin)

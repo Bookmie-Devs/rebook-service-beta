@@ -1,5 +1,5 @@
 from decouple import config
-from cryptography.fernet import Fernet
+from cryptography.fernet import Fernet, InvalidToken
 
 encryption_key: str = config('ENCRYPTION_KEY', cast=str)
 
@@ -12,6 +12,11 @@ def encrypt_data(data) -> str:
     return crypt.encrypt(str(data).encode()).decode()
 
 
-def decrypt_data(data: bytes | str) -> str:
-    return crypt.decrypt(data).decode()
+def decrypt_data(data: bytes | str) -> str | int:
+    try:
+        return crypt.decrypt(data).decode()
+    except:
+        return 000
+
+
 

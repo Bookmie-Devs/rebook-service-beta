@@ -1,3 +1,4 @@
+from datetime import timedelta
 from django.conf import settings
 from django.db import models
 
@@ -85,6 +86,28 @@ Banks = [
     ("120100", "Zenith Bank Ghana"),]
 
 
+class GuestHouseManager(models.Model):
+    manager_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    manager_code = models.CharField(max_length=10, editable=False, unique=True ,blank=True, null=True)
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    phone = models.CharField(max_length=10, blank=False, unique=True)
+    mobile_money = models.CharField(max_length=10, blank=False)
+    manager_profile_picture = models.ImageField(default="unknown_profile.jpg", upload_to="AgentsProfilePictures")
+    is_verified = models.BooleanField(default=False)
+    is_active =  models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = _("Guest House Manager")
+        verbose_name_plural = _("Guest House Managers")
+
+    def save(self, *args, **kwargs) -> None:
+        self.manager_code = f"{self.user.first_name[:2]}{self.user.last_name[:2]}-{str(self.manager_id)[:4]}-{self.user.first_name[:2]}-0912"
+        return super().save(*args, **kwargs)
+
+    def __str__(self):
+        return '%s || %s' % (self.manager_code, self.user.username)
+    
+
 class GuestHouse(models.Model):
     name = models.CharField(max_length=100, verbose_name="Name")
     house_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
@@ -102,17 +125,16 @@ class GuestHouse(models.Model):
     manager_contact = models.CharField(max_length=10, blank=True, verbose_name="Manager's Contact")
 
     location =models.CharField(max_length=10, verbose_name="Main location") 
-    manager = models.OneToOneField(CustomUser, on_delete=models.SET_NULL, null=True)
+    manager = models.OneToOneField(GuestHouseManager, on_delete=models.SET_NULL, null=True)
     address = map_fields.AddressField(max_length=200, blank=True, null=True)
     geolocation = map_fields.GeoLocationField(max_length=500, blank=True, null=True)
-
 
     verified = models.BooleanField(default=False)
     
 
     class Meta:
-        verbose_name = _("Motel/GuestHouse")
-        verbose_name_plural = _("Motels/GuestHouses")
+        verbose_name = _("Motel, GuestHouse")
+        verbose_name_plural = _("Motels, GuestHouses")
 
     def __str__(self):
         return self.name
@@ -120,33 +142,30 @@ class GuestHouse(models.Model):
     def get_absolute_url(self):
         return reverse("GuestHouse_detail", kwargs={"pk": self.pk})
 
-
 class GuestHouseRoom(models.Model):
     room_name = models.CharField(max_length=50, default='unavailable')
+    room_number = models.CharField(max_length=50, default='unavailable')
     room_id = models.UUIDField(default=uuid4, editable=False, unique=True)
     guest_house = models.ForeignKey(GuestHouse, on_delete=models.CASCADE)
     room_image = models.ImageField(upload_to="GuestHouse", default='unavailable.jpg')
-    room_image1 = models.ImageField(upload_to="GuestHouse", default='unavailable.jpg')
     room_image2 = models.ImageField(upload_to="GuestHouse", default='unavailable.jpg')
     room_image3 = models.ImageField(upload_to="GuestHouse", default='unavailable.jpg')
-    room_price = models.DecimalField(decimal_places=2, max_digits=10,)
-    previous_price_check = models.DecimalField(blank=True, editable=False,
-                                      null=True, decimal_places=2, max_digits=7)
+    room_image4 = models.ImageField(upload_to="GuestHouse", default='unavailable.jpg')
+    room_price_per_night = models.DecimalField(decimal_places=2, max_digits=10,)
+    previous_price_check = models.DecimalField(blank=True, editable=False, null=True, decimal_places=2, max_digits=7)
     ptf_room_price = models.DecimalField(default=0.0, editable=False, decimal_places=2, max_digits=8)
-    campus = models.ForeignKey(CampusProfile, on_delete=models.SET_NULL,
-                                verbose_name="Campus where Room is located",
-                                null=True)
+    campus = models.ForeignKey(CampusProfile, on_delete=models.SET_NULL, verbose_name="Campus where Room is located", null=True)
     occupied = models.BooleanField(default=False)
 
     class Meta:
-        verbose_name = _("GuestHouseRoom")
-        verbose_name_plural = _("GuestHouseRooms")
+        verbose_name = _("Guest house room")
+        verbose_name_plural = _("Guest house rooms")
 
     def __str__(self):
         return self.room_name
     
     def save(self, *args, **kwargs) -> None:
-            # CHECK IF ROOM PRICE IS SAME A PREVIOUS PRICE IF NOT UPDATE FIELDS
+        # CHECK IF ROOM PRICE IS SAME A PREVIOUS PRICE IF NOT UPDATE FIELDS
         # Without this check, anytime the save method is called the pft_room_price will
         # and upadte itself.
         if self.room_price!=self.previous_price_check:
@@ -175,7 +194,6 @@ class GuestHouseRoom(models.Model):
 class GuestBooking(models.Model):
     room = models.ForeignKey(GuestHouseRoom, on_delete=models.CASCADE)
     guest_house = models.ForeignKey(GuestHouse, on_delete=models.CASCADE)
-    campus = models.ForeignKey(CampusProfile, on_delete=models.PROTECT, null=True)
     guest_user = models.ForeignKey(AnonymousGuest, on_delete=models.CASCADE)
     booking_id = models.UUIDField(primary_key=True, default=uuid4, editable=False, unique=True)
     start_time = models.DateTimeField(auto_now_add=True)
@@ -189,14 +207,14 @@ class GuestBooking(models.Model):
         query = GuestBooking.objects.get(booking_id=self.booking_id)
         query.delete()
     
-    # def save(self, *args, **kwargs):
-    #     """
-    #     using timezone.now() instead of start_time because
-    #     start usese auto_now_add which is NoneType until the
-    #     the data is saved to the database
-    #     """
-    #     self.end_time = (timezone.now() + timedelta(minutes=60))
-    #     return super().save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        """
+        using timezone.now() instead of start_time because
+        start usese auto_now_add which is NoneType until the
+        the data is saved to the database
+        """
+        self.end_time = (timezone.now() + timedelta(minutes=60))
+        return super().save(*args, **kwargs)
 
     def __str__(self):
         return f'{self.user} || {self.room}'
@@ -224,6 +242,8 @@ class PaystackGuestHouseSubAccount(models.Model):
 
     class Meta:
         db_table = 'paystack_guesthouse_sub_accounts'
+        verbose_name = _("Paystack Account")
+        verbose_name_plural = _("Paystack Accounts")
 
     def save(self, *args, **kwargs):
         if self.is_updating_subaccount:
@@ -263,3 +283,5 @@ class GuestPaymentHistory(models.Model):
     
     def amount_value(self) -> int:
         return self.amount*100
+    
+

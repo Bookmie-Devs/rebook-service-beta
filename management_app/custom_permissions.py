@@ -1,6 +1,7 @@
-
+from agents_app.models import Agent
 from rest_framework.permissions import BasePermission
-
+from quick_rooms.models import GuestHouseManager
+from hostel_app.models import HostelManagement
 """Custom class to check is user is a manager"""
 class IsHostelManager(BasePermission):
 
@@ -14,19 +15,37 @@ class IsHostelManager(BasePermission):
 class IsHostelManagement(BasePermission):
 
     def has_permission(self, request, view):
+        try:
+            management = HostelManagement.objects.get(user=request.user)
+            # is a user and hostel worker/porter
+            is_portar = request.user and request.user.is_hostel_worker and management.is_active
+            return bool(is_portar or request.user.is_hostel_manager)
+        except HostelManagement.DoesNotExist:
+            return False
 
-        # is a user and hostel worker/porter
-        return bool(request.user and request.user.is_hostel_worker)
-
-# is a hostel agent
-class IsHostelAgent(BasePermission):
-
+# is a hostel manager
+class IsBookmieAgent(BasePermission):
     def has_permission(self, request, view):
-        # is a user and hostel worker/porter
-        return bool(request.user and request.user.is_hostel_agent)
-    
+        try:
+            agent = Agent.objects.get(user=request.user)
+            # is a user and hostel worker/porter
+            return bool(request.user and request.user.is_bookmie_agent and agent.is_verified and agent.is_active)
+        except Agent.DoesNotExist:
+            return False
+
+class IsGuestHouseManager(BasePermission):
+    def has_permission(self, request, view):
+        try:
+            manager = GuestHouseManager.objects.get(user=request.user)
+            # is a user and hostel worker/porter
+            return bool(request.user and request.user.is_guest_house_manager and manager.is_verified and manager.is_active)
+        except GuestHouseManager.DoesNotExist:
+            return False
+
+
+
 class CanRequestOtpCode(BasePermission):
 
     def has_permission(self, request, view):
-        worker = request.user.is_hostel_agent or request.user.is_hostel_worker or request.user.is_hostel_manager    
+        worker = request.user.is_bookmie_agent or request.user.is_hostel_worker or request.user.is_hostel_manager    
         return bool(request.user and worker)

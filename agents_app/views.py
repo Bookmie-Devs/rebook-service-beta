@@ -1,39 +1,40 @@
 from django.http import HttpRequest, HttpResponseForbidden
 from django.shortcuts import render
 from rest_framework.response import Response
-from agents_app.models import HostelAgent
+from agents_app.models import Agent
 from hostel_app.models import HostelProfile
 from rooms_app.models import RoomProfile
-from .serializers import AgentHostelSerializer,  AgentHostelListSerializer, HostelProfileSerializers, RoomListSerializer, RoomProfileSerializer
+from .serializers import AgentHostelProfileSerializer,  AgentHostelListSerializer, HostelCreationSerializer, RoomListSerializer, RoomProfileSerializer
 from rest_framework import status
 from rest_framework import generics
 from rest_framework.decorators import permission_classes, api_view, authentication_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import SessionAuthentication
+from management_app.custom_permissions import IsBookmieAgent
 from django.db.models import F
 # Create your views here.
 
 @api_view(['GET'])
-# @permission_classes([IsAuthenticated])
-@authentication_classes([SessionAuthentication])
+@permission_classes([IsAuthenticated, IsBookmieAgent])
+# @authentication_classes([SessionAuthentication])
 def agent_hostels(request: HttpRequest):
     try:
-        agent = HostelAgent.objects.get(user=request.user, is_verified=True, is_active=True)
+        agent = Agent.objects.get(user=request.user, is_verified=True, is_active=True)
         agent_hostels = HostelProfile.objects.filter(agent_affiliate=agent, verified=True).all()
         serializer = AgentHostelListSerializer(agent_hostels, many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
-    except HostelAgent.DoesNotExist:
+    except Agent.DoesNotExist:
         return Response(data={'message':'Not permitted'}, status=status.HTTP_403_FORBIDDEN)
     
 
 @api_view(['GET', 'POST',])
-# @permission_classes([IsAuthenticated])
-@authentication_classes([SessionAuthentication])
-def agent_hostel_profile(request: HttpRequest, hostel_id):
+@permission_classes([IsAuthenticated, IsBookmieAgent])
+# @authentication_classes([SessionAuthentication])
+def agent_hostel_profile(request: HttpRequest, hostel_code):
     from .registrations import register_room
     try:
-        agent = HostelAgent.objects.get(user=request.user, is_verified=True, is_active=True)
-        agent_hostel = HostelProfile.objects.get(agent_affiliate=agent, hostel_id=hostel_id, verified=True)
+        agent = Agent.objects.get(user=request.user, is_verified=True, is_active=True)
+        agent_hostel = HostelProfile.objects.get(agent_affiliate=agent, hostel_code=hostel_code, verified=True)
         if request.method=='POST':
             register = register_room(hostel=agent_hostel, room_no=request.data.get('room_number'), 
                           room_price=request.data.get('room_price'),agent=agent, gender=request.data.get('gender'),
@@ -43,22 +44,22 @@ def agent_hostel_profile(request: HttpRequest, hostel_id):
                 return Response(data={'message':'Room created'}, status=status.HTTP_201_CREATED)
             else:
                 return Response(data={'message':'Room not created'}, status=status.HTTP_400_BAD_REQUEST)
-        serializer = AgentHostelSerializer(agent_hostel)
+        serializer = AgentHostelProfileSerializer(agent_hostel)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
-    except HostelAgent.DoesNotExist:
+    except Agent.DoesNotExist:
         return Response(data={'message':'Not permitted'}, status=status.HTTP_403_FORBIDDEN)
     
 
 @api_view(['GET'])
-# @permission_classes([IsAuthenticated])
-@authentication_classes([SessionAuthentication])
+@permission_classes([IsAuthenticated, IsBookmieAgent])
+# @authentication_classes([SessionAuthentication])
 def agent_registered_rooms(request: HttpRequest):
     try:
-        agent = HostelAgent.objects.get(user=request.user, is_verified=True, is_active=True)
+        agent = Agent.objects.get(user=request.user, is_verified=True, is_active=True)
         agent_rooms = RoomProfile.objects.filter(hostel__agent_affiliate=agent)
         serializer = RoomListSerializer(agent_rooms, many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
-    except HostelAgent.DoesNotExist:
+    except Agent.DoesNotExist:
         return Response(status=status.HTTP_403_FORBIDDEN)
 
 
@@ -69,6 +70,6 @@ class RoomProfileView(generics.RetrieveUpdateAPIView):
 
 
 
-class HostelProfileView(generics.CreateAPIView):
-    serializer_class = HostelProfileSerializers
+class HostelCreationView(generics.CreateAPIView):
+    serializer_class = HostelCreationSerializer
     queryset = HostelProfile.objects.all()

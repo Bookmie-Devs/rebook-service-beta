@@ -132,7 +132,7 @@
 
     <input id="campus" type="hidden" value="{{ hostel.campus.campus_name }}">
 
-    <input id="hostel-url" type="hidden" value="{% url 'hostels:profile' hostel.hostel_id %}"/>
+    <input id="hostel-url" type="hidden" value="{% url 'hostels:profile' hostel.hostel_code %}"/>
 
     <input id="hostel-name" type="hidden" value="{{ hostel.hostel_name.title }}" />
 
