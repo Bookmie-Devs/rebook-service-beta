@@ -1,4 +1,4 @@
-from agents_app.models import AgentSales
+from agents_app.models import AgentSale
 from hostel_app.models import SalesStatistics
 from hostel_app.models import HostelProfile
 from django.utils.timezone import now
@@ -14,11 +14,11 @@ def calculate_year_sales(hostel: HostelProfile, amount_paid):
 
 
 
-def calculate_agent_year_sales(hostel: HostelProfile, amount_paid):
-    sales, created = AgentSales.objects.get_or_create(agent=hostel.agent_affiliate, year=now().year)
+def calculate_agent_year_sales(hostel: HostelProfile):
+    sales, created = AgentSale.objects.get_or_create(agent=hostel.agent_affiliate, year=now().year)
     if not created:
-        sales.amount_made = float(sales.amount_made) + (float(amount_paid)/0.003)
+        sales.number_of_sales = int(sales.number_of_sales) + 1
         sales.save()
     else:
-        sales.amount_made = float(sales.amount_made) + (float(amount_paid)/0.003)
+        sales.number_of_sales = int(sales.number_of_sales) + 1
         sales.save()

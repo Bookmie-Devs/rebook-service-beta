@@ -91,7 +91,7 @@ class TenantListSerializer(serializers.ModelSerializer):
         return obj.room.room_no
     
     def get_student_id(self, obj:Tenant):
-        return obj.student.student_id
+        return obj.student.student_id_number
 
 
 # VERIFICATION RESPONSE
