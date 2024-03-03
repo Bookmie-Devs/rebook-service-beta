@@ -201,7 +201,7 @@
                         </button>
                         </form>
                         
-                        <a href="{% url 'maps:hostel-direction' room.hostel.hostel_id %}">
+                        <a href="{% url 'maps:hostel-direction' room.hostel.hostel_code %}">
                             <button class="btn btn-secondary flex-shrink-0" type="button">
                                 <i class="bi bi-house-check"></i>
                                 Direction On Map
@@ -260,7 +260,7 @@
                         If payment is not made for a particular booking after one hour, room can be booked by another person and payed for</p>
                         <div class="d-flex">
                             <input class="form-control text-center me-3" id="inputQuantity" value="{{ room.room_capacity }} in a room" style="max-width: 7rem; margin: auto" />
-                        <a href="{% url 'hostels:profile' room.hostel.hostel_id %}" style="margin: auto;">
+                        <a href="{% url 'hostels:profile' room.hostel.hostel_code %}" style="margin: auto;">
                             {% comment %} <input type="hidden" name="room_id" value="{{ room.room_id }}"> {% endcomment %}
                             <button class="btn btn-secondary" type="submit">
                                 {{ room.hostel.hostel_name.title }}

@@ -262,7 +262,7 @@
               >
                 <a
                   style="text-decoration: none; color: rgb(255, 255, 255)"
-                  href="{% url 'hostels:profile' hostel.hostel_id %}"
+                  href="{% url 'hostels:profile' hostel.hostel_code %}"
                   >View Facilities</a
                 >
               </div>
@@ -302,7 +302,7 @@
               <div class="card-footer pb-3 pb-sm-4 pt-0 border-top-0 bg-transparent">
                 <div class="text-center">
                   <!-- location-->
-                  <a href="{% url 'maps:hostel-direction' hostel.hostel_id %}" class="btn mt-auto mb-1 smbtn">
+                  <a href="{% url 'maps:hostel-direction' hostel.hostel_code %}" class="btn mt-auto mb-1 smbtn">
                     Map Direction
                     <svg
                     xmlns="http://www.w3.org/2000/svg"

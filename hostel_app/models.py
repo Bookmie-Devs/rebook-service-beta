@@ -58,7 +58,6 @@ def genrate_hostel_code()-> str:
 class HostelProfile(models.Model): 
     hostel_name = models.CharField(max_length=50)
     # NOT THE PRIMARY KEY
-    hostel_router_id = models.CharField(max_length=10, default=genrate_hostel_code, null=True,)
     hostel_code = models.CharField(max_length=7, default=genrate_hostel_code, unique=True)
     hostel_image = models.ImageField(upload_to='HostelProfiles',
                                       default='unavailable.jpg')
@@ -133,10 +132,6 @@ class HostelProfile(models.Model):
     
 
     def save(self, *args, **kwargs):
-
-        #  create hostel router id code on save
-        self.hostel_router_id = f'{str(self.hostel_router_id)}{self.hostel_name[:3].lower()}'
-
         if self.send_management_sms and self.verified:
             msg = self.message
             # send_sms_task.delay(self.manager_contact,msg)
@@ -148,11 +143,11 @@ class HostelProfile(models.Model):
 
 
     def get_profile_url(self):
-        return reverse("hostels:profile", kwargs={'hostel_id':self.hostel_id})
+        return reverse("hostels:profile", kwargs={'hostel_code':self.hostel_code})
 
 
     def get_rooms(self):
-        return reverse("hostels:hostel-rooms", kwargs={"hostel_id":self.hostel_id})
+        return reverse("hostels:hostel-rooms", kwargs={"hostel_code":self.hostel_code})
     
 
     def __str__(self):
