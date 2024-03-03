@@ -24,9 +24,9 @@ def room_profile(request, room_id):
 
 """when user clicks on a campus card"""
 class CampusRoomListView(generic.ListView):
-    def get(self, request: HttpRequest, campus_id:str ,*args: Any, **kwargs: Any) -> HttpResponse:
+    def get(self, request: HttpRequest, campus_param_id:str ,*args: Any, **kwargs: Any) -> HttpResponse:
         # get campus code
-        campus = CampusProfile.objects.get(campus_id = campus_id)
+        campus = CampusProfile.objects.get(campus_param_id = campus_param_id)
         # Use if we expand to other campuses
         campus_rooms = RoomProfile.objects.filter(campus=campus, occupied=False).all()
         # context for all pages if no search is return or

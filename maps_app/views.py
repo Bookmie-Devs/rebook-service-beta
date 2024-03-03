@@ -18,8 +18,8 @@ def hostel_direction(request, hostel_code):
            context={'coordinate': coordinate,"campus_coordinates":campus_coordinates ,'user':request.user ,'hostel':hostel_profile, 'colleges':college_coordinates})
 
 
-def map_views(request, campus_id):
-    campus = CampusProfile.objects.get(campus_id=campus_id)
+def map_views(request, campus_param_id):
+    campus = CampusProfile.objects.get(campus_param_id=campus_param_id)
     hostel_profiles = HostelProfile.objects.filter(verified=True,campus=campus).all()
     colleges = CollegeProfile.objects.filter(campus_name=campus).all()
     # # hostel coordinates on map

@@ -581,7 +581,7 @@
 
       <div class="btn-box">
         <a
-          href="{% url 'rooms:campus-rooms' student.campus.campus_id %}"
+          href="{% url 'rooms:campus-rooms' student.campus.campus_param_id %}"
           class="fw-bold"
         >
           All Rooms
@@ -594,7 +594,7 @@
 
       <div class="btn-box">
         <a
-          href="{% url 'maps:map-views' student.campus.campus_id %}"
+          href="{% url 'maps:map-views' student.campus.campus_param_id %}"
           class="fw-bold">
           Hostels
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-building-check" viewBox="0 0 16 16">
