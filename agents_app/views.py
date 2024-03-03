@@ -15,8 +15,8 @@ from django.db.models import F
 # Create your views here.
 
 @api_view(['GET'])
-# @permission_classes([IsAuthenticated, IsBookmieAgent])
-@authentication_classes([SessionAuthentication])
+@permission_classes([IsAuthenticated, IsBookmieAgent])
+# @authentication_classes([SessionAuthentication])
 def agent_hostels(request: HttpRequest):
     try:
         agent = Agent.objects.get(user=request.user, is_verified=True, is_active=True)
@@ -28,8 +28,8 @@ def agent_hostels(request: HttpRequest):
     
 
 @api_view(['GET', 'POST',])
-# @permission_classes([IsAuthenticated, IsBookmieAgent])
-@authentication_classes([SessionAuthentication])
+@permission_classes([IsAuthenticated, IsBookmieAgent])
+# @authentication_classes([SessionAuthentication])
 def agent_hostel_profile(request: HttpRequest, hostel_code):
     from .registrations import register_room
     try:
@@ -51,8 +51,8 @@ def agent_hostel_profile(request: HttpRequest, hostel_code):
     
 
 @api_view(['GET'])
-# @permission_classes([IsAuthenticated, IsBookmieAgent])
-@authentication_classes([SessionAuthentication])
+@permission_classes([IsAuthenticated, IsBookmieAgent])
+# @authentication_classes([SessionAuthentication])
 def agent_registered_rooms(request: HttpRequest):
     try:
         agent = Agent.objects.get(user=request.user, is_verified=True, is_active=True)
