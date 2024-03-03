@@ -13,13 +13,13 @@ class AgenProfilesSerilizer(ModelSerializer):
 class AgentHostelListSerializer(ModelSerializer):
     class Meta:
         model = HostelProfile
-        fields = ('hostel_name', 'hostel_code', 'hostel_image', 'verified' ,'hostel_id')
+        fields = ('hostel_name', 'hostel_code', 'hostel_image', 'verified' )
 
 
-class AgentHostelSerializer(ModelSerializer):
+class AgentHostelProfileSerializer(ModelSerializer):
     class Meta:
         model = HostelProfile
-        fields = ('hostel_id', 'hostel_code' ,'hostel_name', 'number_of_rooms' ,'hostel_image', 'address', 'hostel_contact', )
+        fields = ('hostel_code' ,'hostel_name', 'number_of_rooms' ,'hostel_image', 'address', 'hostel_contact', )
 
 
 class RoomListSerializer(ModelSerializer):
@@ -48,7 +48,7 @@ class AgentRoomsSerializer(ModelSerializer):
         return obj.hostel.hostel_name
 
 
-class HostelProfileSerializers(ModelSerializer):
+class HostelCreationSerializer(ModelSerializer):
     class Meta:
         model = HostelProfile
         fields = ('hostel_name',
