@@ -1,0 +1,52 @@
+
+get guest house profile
+
+http://127.0.0.1:9000/management/guest-house/profile/
+
+response
+{
+  "name": "Asabek",
+  "house_id": "71dbcec4-1007-405a-84b7-5602d40df94d",
+  "house_code": "as123",
+  "phone": "0256646334",
+  "mobile_money": "unavailable",
+  "manager_contact": "",
+  "location": "hshs"
+}
+
+
+to get guest house rooms
+
+http://127.0.0.1:9000/management/guest-house/rooms
+
+response
+[
+  {
+    "room_id": "63c756d6-9684-463e-b048-52a1a25d7632",
+    "room_name": "Room Rbs",
+    "room_image": "/media/unavailable.jpg",
+    "room_image2": "/media/unavailable.jpg",
+    "room_image3": "/media/unavailable.jpg",
+    "room_image4": "/media/unavailable.jpg",
+    "room_price_per_night": "20334.00",
+    "occupied": false
+  }
+]
+list of rooms
+
+
+to get all active tenanst in the rooms
+
+http://127.0.0.1:9000/management/guest-house/bookings/
+
+response
+[
+  {
+    "user": "0256646334",
+    "start_time": "2024-02-23T22:56:11.070894Z",
+    "end_time": null,
+    "payed": false
+  }
+]
+
+list of tenants

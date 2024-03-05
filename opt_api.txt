@@ -1,15 +1,14 @@
 send a get request to this endpiont after 
 user logs in with bearer
 
+if the user logs in and selects Hostel Management
+
+send THE request HERE
 http://127.0.0.1:9000/management/request-office-otp/
 
 ##############response#############################
 status codes:
-code 403
-{
-  "detail": "You do not have permission to perform this action."
-}
-
+IF THE PERSON IS A HOSTEL MANAGER THEN
 code 200
 {
   "message": "Office Code Sent"
@@ -17,9 +16,75 @@ code 200
 NB: code has been sent to sms
 
 
+ELSE
+code 403
+{
+  "detail": "You do not have permission to perform this action."
+}
 
 
-After getting the code send a POST request to
+
+
+if the user logs in and selects GUEST HOUSE MANAGER
+
+send THE request HERE
+http://127.0.0.1:9000/quick-rooms/request-office-otp/
+
+##############response#############################
+status codes:
+IF THE PERSON IS A GUEST HOUSE MANAGER THEN
+code 200
+{
+  "message": "Office Code Sent"
+}
+NB: code has been sent to sms
+
+
+ELSE
+code 403
+{
+  "detail": "You do not have permission to perform this action."
+}
+
+
+
+
+
+if the user logs in and selects Agents
+
+send THE request HERE
+http://127.0.0.1:9000/agents/request-office-otp/
+
+##############response#############################
+status codes:
+IF THE PERSON IS A HOSTEL Agent THEN
+code 200
+{
+  "message": "Office Code Sent"
+}
+NB: code has been sent to sms
+
+
+ELSE
+code 403
+{
+  "detail": "You do not have permission to perform this action."
+}
+
+
+
+
+
+
+
+
+
+
+
+
+After getting the code all confirmation is done at this endpiont
+
+send a POST request to
 http://127.0.0.1:9000/management/confirm-office-otp/
 with data like this;
 {

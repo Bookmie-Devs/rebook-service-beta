@@ -130,13 +130,12 @@ def verify_payment(request: HttpRequest, reference_id, paystack_reference):
                                         amount_left_to_pay=payment.amount)
             tenant.save()
         else:
-            tenant = Tenant.objects.create(student=student, room=payment.room,
-                                        hostel=payment.hostel, payed=True, completed_payment=True)
+            tenant = Tenant.objects.create(student=student, room=payment.room, hostel=payment.hostel, payed=True, completed_payment=True)
             tenant.save()
         # calculate sales on each payment
         calculate_year_sales(hostel=payment.hostel,amount_paid=payment.room.room_price)
         # agent sales
-        calculate_agent_year_sales(hostel=payment.hostel, amount_paid=payment.room.room_price)
+        calculate_agent_year_sales(hostel=payment.hostel)
 
         #DECLARE SUCCESSFULL TRUE if PAYMENT WAS A SUCCESS
         payment.paystack_reference = paystack_reference

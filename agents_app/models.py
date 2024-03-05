@@ -1,4 +1,5 @@
 from collections.abc import Iterable
+from random import randint
 import uuid
 from django.db import models
 from accounts.models import CustomUser
@@ -7,35 +8,38 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 # Create your models here.
 
-class HostelAgent(models.Model):
-    agent_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
-    agent_code = models.CharField(max_length=10, editable=False, unique=True ,blank=True, null=True)
+def genrate_agent_code()-> str:
+    code = f"BA{randint(10000, 99999)}"
+    while Agent.objects.filter(agent_code=code).exists():
+         code = f"BA{randint(10000, 99999)}"
+    return code
+
+
+class Agent(models.Model):
+    agent_code = models.CharField(primary_key=True, max_length=7, editable=False, default=genrate_agent_code, unique=True)
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    campus_affiliation =  models.OneToOneField(CampusProfile, on_delete=models.CASCADE)
     phone = models.CharField(max_length=10, blank=False, unique=True)
-    mobile_money = models.CharField(max_length=10, blank=False)
-    agent_profile_picture = models.ImageField(default="unknown_profile.jpg", upload_to="AgentsProfilePictures")
+    mobile_money = models.CharField(max_length=10, blank=False, unique=True)
+    agent_profile_picture = models.ImageField(default="unknown_profile.jpg", upload_to="AgentProfilePictures")
+    ghana_card = models.ImageField(default="unknown_profile.jpg", upload_to="AgentIDPictures")
     is_verified = models.BooleanField(default=False)
     is_active =  models.BooleanField(default=False)
-
+    date_join = models.DateTimeField(auto_now=False, auto_now_add=True, null=True)
+    last_updated = models.DateTimeField(auto_now=True, null=True)
     class Meta:
-        verbose_name = _("Hostel Agent")
-        verbose_name_plural = _("Hostel Agents")
-
-    def save(self, *args, **kwargs) -> None:
-        self.agent_code = f"{self.user.first_name[:2]}{self.user.last_name[:2]}-{str(self.agent_id)[:4]}-{self.user.first_name[:2]}-0912"
-        return super().save(*args, **kwargs)
+        verbose_name = _("Agent")
+        verbose_name_plural = _("Agents")
 
     def __str__(self):
         return '%s || %s' % (self.agent_code, self.user.username)
 
-    # def get_absolute_url(self):
-    #     return reverse("HostelAgent_detail", kwargs={"pk": self.pk})
 
-
-class AgentSales(models.Model):
-    agent = models.ForeignKey(HostelAgent, on_delete=models.CASCADE)
+class AgentSale(models.Model):
+    agent = models.ForeignKey(Agent, on_delete=models.CASCADE)
     date = models.DateField(_("date recorded"), auto_now=False, auto_now_add=True)
     last_updated = models.DateField(_("last updated"), auto_now=True, auto_now_add=False)
     year = models.PositiveIntegerField(default=timezone.now().year)
-    amount_made = models.DecimalField(default=0.00, decimal_places=2, max_digits=10)
+    number_of_sales = models.IntegerField(default=0)
+
+    class Meta:
+        db_table = "agent_sales"

@@ -71,8 +71,8 @@ create the room and submit a Post request to that endpiont with
 the hostel id in the url( the url for the hostel profile)
 
 url for getting hostel profile
-http://127.0.0.1:9000/agents/agent-registered-hostels/<hostel_id>/
-url = http://127.0.0.1:9000/agents/agent-hostels/a6bcf064-bcf4-4e15-b0bd-ad4f9daa6926/
+http://127.0.0.1:9000/agents/agent-registered-hostels/<hostel_code>/
+url = http://127.0.0.1:9000/agents/agent-hostels/a6bbww/
 e.g:
 {
 "room_number" : "12RG",

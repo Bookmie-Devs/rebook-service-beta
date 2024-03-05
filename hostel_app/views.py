@@ -10,15 +10,15 @@ from django.contrib import messages
 from core.models import Booking
 
 
-def hostel_profile(request, hostel_id):
-    hostel_profile = HostelProfile.objects.get(hostel_id = hostel_id)
+def hostel_profile(request, hostel_code):
+    hostel_profile = HostelProfile.objects.get(hostel_code = hostel_code)
     context = {'hostel': hostel_profile,'user':request.user}
     
     return render(request, 'hostel_profile.html', context)
 
 
-def hostel_rooms(request: HttpRequest, hostel_id):
-    hostel_profile = HostelProfile.objects.get(hostel_id = hostel_id)
+def hostel_rooms(request: HttpRequest, hostel_code):
+    hostel_profile = HostelProfile.objects.get(hostel_code = hostel_code)
     # hostel coordinates on map
     coordinate:GeoPt = hostel_profile.geolocation 
     #get all unoccupied rooms in the hostel

@@ -218,10 +218,10 @@
                 <p class="para mb-0">1000+ Rooms
                 <i class="bi bi-house"></i>
                 </p>
-                <a href="{% url 'rooms:campus-rooms' campus.campus_id %}" 
+                <a href="{% url 'rooms:campus-rooms' campus.campus_param_id %}" 
                     class="btn">All Rooms Available 🏠</a>
 
-                <a class="btn" href="{% url 'core:hostels' campus.campus_id %}">
+                <a class="btn" href="{% url 'core:hostels' campus.campus_param_id %}">
                   View Hostels 🏢</a>
             {% else %}
             <p class="para mb-0">

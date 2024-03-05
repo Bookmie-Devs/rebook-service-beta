@@ -12,7 +12,7 @@ class CustomCampusAdminPanel(admin.ModelAdmin):
     fieldsets = (
         ('General', {
             "fields": (
-                'campus_id','campus_name','alias_name','campus_code','flag',
+                'campus_name','alias_name','campus_code','flag',
             ),
         }),
         ('Location', {'fields': ('location','address','geolocation',)}),
@@ -26,7 +26,7 @@ class CustomCampusAdminPanel(admin.ModelAdmin):
 
 
 class CustomCollegeAdminPanel(admin.ModelAdmin):
-    list_display = ("campus_name","college_name","college_id",)
+    list_display = ("campus","college_name","college_code",)
 
     formfield_overrides = {
         map_fields.AddressField: {'widget': map_widgets.GoogleMapsAddressWidget},

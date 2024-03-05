@@ -6,10 +6,15 @@ from rest_framework.decorators import api_view
 from accounts.task import send_sms_task
 from config.sms import send_sms_message
 from django.template.loader import render_to_string
+
+from quick_rooms.models import GuestHouse, GuestHouseRoom
 from .serializers import (RoomListSerializer,
                           RoomDetailSerializer,
-                          HostelDetialsSerializer,)
-
+                          HostelDetialsSerializer,
+                          GuestHouseProfileSerializer,
+                          GuestBookingProfileSerializer,
+                          GuestHouseRoomSerializer)
+from quick_rooms.models import GuestBooking
 from rest_framework.authentication import SessionAuthentication
 # from core.models import Booking
 from accounts.models import OtpCodeData
@@ -23,6 +28,7 @@ from rest_framework.permissions import (IsAuthenticatedOrReadOnly,
                                         IsAuthenticated,
                                         DjangoModelPermissions) 
 from .sales import convert_sales
+from hostel_app.models import HostelManagement
 from rest_framework.decorators import (permission_classes,
                                        authentication_classes)
 from rooms_app.models import RoomProfile
@@ -30,7 +36,7 @@ from django.db.models import Q
 from rest_framework import generics
 
 # custom permissions
-from .custom_permissions import IsHostelManager, IsHostelManagement, CanRequestOtpCode
+from .custom_permissions import IsGuestHouseManager, IsHostelManager, IsHostelManagement, CanRequestOtpCode
 
 
 class RoomListView(generics.ListAPIView):
@@ -145,7 +151,7 @@ class TenantListView(generics.ListAPIView):
 
     def get(self, request, *args, **kwargs):
         try:
-            get_hostel = HostelProfile.objects.get(hostel_manager=request.user)
+            get_hostel = HostelManagement.objects.get(user=request.user).hostel
             get_tenants = Tenant.objects.filter(hostel=get_hostel).all()
 
             if get_tenants is not None:
@@ -165,7 +171,7 @@ class SalesStatsView(generics.ListAPIView):
 
     # authentication_classes = [SessionAuthentication]
     def get(self, request: HttpRequest):
-        from .models import SalesStatistics
+        from hostel_app.models import SalesStatistics
         try:
             hostel = HostelProfile.objects.get(hostel_manager=request.user)
             sales = SalesStatistics.objects.filter(hostel=hostel).all()
@@ -183,15 +189,50 @@ def verify_tenant(request):
     return verify(request=request, verification_code=verification_code)
   
 
+############################Quest House####################################
 @api_view(['GET'])
-@permission_classes([IsAuthenticated, CanRequestOtpCode])  
+@permission_classes([IsAuthenticated, IsGuestHouseManager])  
+def guest_house_profile_view(request: HttpRequest):
+    house = GuestHouse.objects.get(manager__user=request.user)
+    serializer = GuestHouseProfileSerializer(house)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated, IsGuestHouseManager])  
+def guest_house_rooms(request: HttpRequest):
+    house = GuestHouse.objects.get(manager__user=request.user)
+    rooms = GuestHouseRoom.objects.filter(guest_house=house).all()
+    serializer = GuestHouseRoomSerializer(rooms, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class GuestHouseRoomProfile(generics.RetrieveUpdateAPIView):
+    permission_classes = [IsAuthenticated,
+                          IsGuestHouseManager, 
+                          DjangoModelPermissions,]
+    lookup_field = 'room_id'
+    serializer_class = GuestHouseRoomSerializer
+    queryset = GuestHouseRoom.objects.all()
+
+class GuestBookingsView(generics.ListAPIView):
+    permission_classes = [IsAuthenticated, IsGuestHouseManager, DjangoModelPermissions,]
+    queryset = GuestBooking.objects.all()
+    def get(self, request, *args, **kwargs):
+         queryset = GuestBooking.objects.filter(guest_house__manager__user=request.user)
+         serializer = GuestBookingProfileSerializer(queryset, many=True)
+         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+################################OTP###########################################
+@api_view(['GET'])
+@permission_classes([IsAuthenticated, IsHostelManager])  
 def get_otp_phone(request: HttpRequest):
     if OtpCodeData.objects.filter(user=request.user).exists():
         code = OtpCodeData.objects.get(user=request.user)
         code.delete()
     new_otp = OtpCodeData.objects.create(user=request.user)
     new_otp.save()  
-    message = f"Your Bookmie.Office Code is {new_otp.otp_code}"
+    message = f"Your Bookmie Management Code is {new_otp.otp_code}"
     # send_sms_task.delay(request.user.phone, msg)
     # for testing
     send_sms_task(request.user.phone, message)

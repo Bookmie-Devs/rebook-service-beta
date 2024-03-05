@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import HostelProfile
+from .models import HostelProfile, HostelManagement
 from django_google_maps import widgets as map_widgets
 from django_google_maps import fields as map_fields
 
@@ -9,7 +9,6 @@ class CustomHostelAdminPanel(admin.ModelAdmin):
     fieldsets = (
         ('General', {"fields":('hostel_name',
                           'category',
-                          'rating',
                           'price_range',
                           'number_of_rooms',
                           'campus','hostel_manager',
@@ -46,6 +45,19 @@ class CustomHostelAdminPanel(admin.ModelAdmin):
 
     list_display = ('hostel_name','hostel_code','hostel_manager','hostel_contact','verified',)
 
+class ManagementModalAdmin(admin.ModelAdmin):
+    list_display = ('hostel','user','management_code','is_active')
+    list_filter = ('is_active',)
 
 admin.site.register(HostelProfile, CustomHostelAdminPanel)
 
+admin.site.register(HostelManagement, ManagementModalAdmin)
+
+from .models import SalesStatistics
+
+class SalesStatModalAdmin(admin.ModelAdmin):
+    list_display = ('hostel','amount_made','year')
+    list_filter = ('year','hostel',)
+
+
+admin.site.register(SalesStatistics, SalesStatModalAdmin)

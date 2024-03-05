@@ -32,14 +32,15 @@ class CustomAdminPanel(UserAdmin):
         ),
         (('Extra Permissions'), {'fields':(
             "is_student",
+            "is_guest_house_manager",
             "is_hostel_manager",
             "is_hostel_worker",
-            "is_hostel_agent",
+            "is_bookmie_agent",
         )}),
         (_("Important dates"), {"fields": ("last_login", "date_joined")}),
     )
     # custom filter list
-    list_filter = ("is_staff", "is_superuser", "is_active", "groups",'is_hostel_manager','is_hostel_worker','is_hostel_agent',)
+    list_filter = ("is_staff", "is_superuser", "is_active", "groups",'is_hostel_manager','is_hostel_worker', 'is_guest_house_manager', 'is_bookmie_agent',)
 
     # custom search_fields
     search_fields = ("username", "first_name", "last_name", "email",'student_id',)

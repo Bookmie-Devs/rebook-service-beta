@@ -2,17 +2,15 @@ from django.db import models
 from campus_app.models import CampusProfile
 import uuid
 from random import randint
+from django.utils import timezone
 from config import sms
 from django.utils.translation import gettext_lazy as _
 from accounts.task import send_sms_task
 from django.urls import reverse
 from accounts.models import CustomUser
-from agents_app.models import HostelAgent
+from agents_app.models import Agent
 from django_google_maps import fields as map_fields
 
-
-rating = [(4,'⭐⭐⭐⭐'),(3,'⭐⭐⭐'),
-                 (2,'⭐⭐'), (1,'⭐')]
 
 Banks = [
     ("280100", "Access Bank"),
@@ -49,18 +47,18 @@ Banks = [
 category =[('Hostel','Hostel'),('Homestel','Homestel'),
                              ('Apartment','Apartment')]
 
+# Function to generate hostel code
+def genrate_hostel_code()-> str:
+    code = f"BH{randint(10000, 99999)}"
+    while HostelProfile.objects.filter(hostel_code=code).exists():
+         code = f"BH{randint(10000, 99999)}"
+    return code
+
+'''Hostel model for database'''
 class HostelProfile(models.Model): 
-
-    '''Hostel model for database'''
     hostel_name = models.CharField(max_length=50)
-
-    hostel_id = models.UUIDField(default=uuid.uuid4, 
-                                 editable=False, unique=True)
-    
-    hostel_code = models.CharField(max_length=100,
-                                   null=True, blank=True,
-                                   unique=True)
-
+    # NOT THE PRIMARY KEY
+    hostel_code = models.CharField(max_length=7, default=genrate_hostel_code, unique=True)
     hostel_image = models.ImageField(upload_to='HostelProfiles',
                                       default='unavailable.jpg')
     hostel_image2 = models.ImageField(upload_to='HostelProfiles',
@@ -71,10 +69,6 @@ class HostelProfile(models.Model):
                                       default='unavailable.jpg')
     hostel_image5 = models.ImageField(upload_to='HostelProfiles',
                                       default='unavailable.jpg')
-    
-    # for hostel managers
-    hostel_manager_profile_picture = models.ImageField(default="unknown_profile.jpg", upload_to="ManagersProfilePictures")
-
     # room image of the hostel
     room_image =  models.ImageField(upload_to='RoomImages',verbose_name="Image of one room",
                                       default='unavailable.jpg')
@@ -89,38 +83,28 @@ class HostelProfile(models.Model):
     room_image6 = models.ImageField(upload_to='RoomImages',verbose_name="Image6 of one room",
                                       default='unavailable.jpg')
     
-    category = models.CharField(max_length=15,
-                                    verbose_name='type',default='Hostel',
-                                    blank=False, choices=category)
-
-    rating = models.IntegerField(choices=rating, verbose_name='Stars',
-                                       default=1)
-    no_of_likes = models.IntegerField(verbose_name='Likes', default=randint(1, 35))
+    category = models.CharField(max_length=15, verbose_name='type',default='Hostel', blank=False, choices=category)
     
-    price_range = models.CharField(max_length=50, 
-                                   default='unavailable', 
-                                   blank=True)
+    no_of_likes = models.IntegerField(verbose_name='Likes', default=7)
+    
+    price_range = models.CharField(max_length=50, default='unavailable', blank=True)
     
     number_of_rooms = models.IntegerField(default=5)
     campus = models.ForeignKey(CampusProfile, on_delete=models.SET_NULL, null=True)
 
-    hostel_manager = models.OneToOneField(CustomUser, on_delete=models.SET_NULL,
-                                          related_name='hostels', null=True,)
-    
-    agent_affiliate = models.ForeignKey(HostelAgent, on_delete=models.SET_NULL, null=True, blank=True)
-    hostel_email = models.EmailField(blank=True)
+    hostel_manager = models.OneToOneField(CustomUser, on_delete=models.SET_NULL, related_name='hostels', null=True, blank=True)
+    hostel_manager_profile_picture = models.ImageField(upload_to='Management Images',verbose_name="Manager Profile", default='unavailable.jpg')
+    agent_affiliate = models.ForeignKey(Agent, on_delete=models.SET_NULL, null=True, blank=True)
+    hostel_email = models.EmailField(blank=True, null=True)
 
-    account_number = models.CharField(max_length=70,
-                                      default='unavailable',)
+    account_number = models.CharField(max_length=70, default='unavailable',)
 
     #Bank code for momo is MTN IF not specified
     bank_code = models.CharField(max_length=50, choices=Banks ,default='unavailable')
 
-    mobile_money = models.CharField(max_length=14,
-                                    default='unavailable',)
+    mobile_money = models.CharField(max_length=14, default='unavailable',)
     
-    manager_contact = models.CharField(max_length=10, blank=True,
-                                       verbose_name="Manager's Contact")
+    manager_contact = models.CharField(max_length=10, blank=True, verbose_name="Manager's Contact")
 
     hostel_contact = models.CharField(max_length=10, verbose_name="Hostel's Contact")
 
@@ -148,10 +132,6 @@ class HostelProfile(models.Model):
     
 
     def save(self, *args, **kwargs):
-
-        #  create hostel code on save
-        self.hostel_code = f'{self.hostel_name[:3].upper()}{str(self.hostel_id)[:4]}'
-
         if self.send_management_sms and self.verified:
             msg = self.message
             # send_sms_task.delay(self.manager_contact,msg)
@@ -163,13 +143,45 @@ class HostelProfile(models.Model):
 
 
     def get_profile_url(self):
-        return reverse("hostels:profile", kwargs={'hostel_id':self.hostel_id})
+        return reverse("hostels:profile", kwargs={'hostel_code':self.hostel_code})
 
 
     def get_rooms(self):
-        return reverse("hostels:hostel-rooms", kwargs={"hostel_id":self.hostel_id})
+        return reverse("hostels:hostel-rooms", kwargs={"hostel_code":self.hostel_code})
     
 
     def __str__(self):
         return f'{self.hostel_name}'
     
+
+class HostelManagement(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    management_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
+    management_code = models.CharField(max_length=100, unique=True, null=True, blank=True)
+    profile_picture =models.ImageField(upload_to='Management Images',verbose_name="Management Profile",default='unavailable.jpg')
+    hostel = models.OneToOneField(HostelProfile, on_delete=models.SET_NULL, related_name='hostels', null=True,)
+    is_manager = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=False)
+
+    def save(self, *args, **kwargs):
+        self.management_code = f"{self.user.first_name[:3]}{self.user.last_name[:3]}{str(self.management_id)[:6]}"
+        return super().save(*args, **kwargs)
+    
+    def __str__(self):
+        return f"{self.user.username}@{self.hostel.hostel_name}"
+    
+
+
+class SalesStatistics(models.Model):
+    hostel = models.ForeignKey(HostelProfile, on_delete=models.PROTECT)
+    date = models.DateField(_("date recorded"), auto_now=False, auto_now_add=True)
+    last_updated = models.DateField(_("last updated"), auto_now=True, auto_now_add=False)
+    year = models.PositiveIntegerField(default=timezone.now().year)
+    amount_made = models.DecimalField(default=0.00, decimal_places=2, max_digits=10)
+
+    class Meta:
+        verbose_name = _("Sales Stat")
+        verbose_name_plural = _("Sale Stats")
+
+    def __str__(self):
+        return f"{self.hostel.hostel_name} on {self.year}"

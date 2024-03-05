@@ -52,13 +52,8 @@ class Tenant(models.Model):
     hostel = models.ForeignKey(HostelProfile, on_delete=models.CASCADE)
     payed = models.BooleanField(default=False)
     checked_in = models.BooleanField(default=False)
-
     # verification_code for tenant
-    verification_code = models.CharField(max_length=700,
-                                        default='unavailable', 
-                                        unique=True,
-                                        editable=False)
-    room_number = models.CharField(max_length=10, default=000,verbose_name='Room number')
+    verification_code = models.CharField(max_length=700, default='unavailable', unique=True, editable=False)
     start_date = models.DateTimeField(auto_now_add=True)
     end_date = models.DateTimeField()
     made_part_payment = models.BooleanField(default=False, verbose_name="MADE PART PAYMENT")
