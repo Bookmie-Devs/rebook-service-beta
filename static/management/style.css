@@ -189,10 +189,16 @@ section {
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
-    justify-content: center;
-    align-items: center;
-    padding: 15px 0;
+    padding: 15px auto;
     flex-direction: row;
+}
+
+.contaner1 .cads{
+    justify-content: center;
+}
+
+.contaner2 .cads{
+    padding-left: 15px;
 }
 
 .contaner1 .search{
@@ -439,7 +445,7 @@ div > span{
 }
 
 .d::backdrop {
-    backdrop-filter: blur(3px);
+    background: #000000c0;
 }
 
 .d1 {

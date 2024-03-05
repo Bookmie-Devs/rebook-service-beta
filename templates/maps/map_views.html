@@ -143,19 +143,18 @@
     <input id="campus-lng" type="hidden" value="{{ campus.geolocation.lon }}">
     
     <input type="hidden" id="hostel-coordinates" value="{{coordinates }}">
+
+    <div class="load">
+      <div class="loader">
+        <div class="spinner"></div>
+      </div>
+    </div>
     
     <div class="d1">
       <dialog id="d" class="d">
        <form method="dialog">
-        <p>Please Click On <span style="
-          background-color: #051836;
-          border: 2px solid #FFFFFF;
-          border-radius: 8px;
-          color: #FFFFFF;
-          display: inline-block; padding: 5px;"
-          >
-          Blue Markers
-          <svg
+        <p>Please Click On The
+          Blue Markers<svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
           height="16"
@@ -169,7 +168,6 @@
             d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"
           />
         </svg>
-          </span> 
           To Select Hostel
         </p>
         {% comment %} <!-- <br> --> {% endcomment %}

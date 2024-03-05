@@ -29,17 +29,6 @@
   
     <title>Secure quest house booking | Bookmie.com</title>
   <link rel="icon" type="image/x-icon" href="{% static 'home/images/favicon.ico' %}">
-    <!-- Favicon-->
-    <link
-      rel="icon"
-      type="image/x-icon"
-      href="{% static 'home/assets/favicon.ico' %}"
-    />
-    <link
-      rel="icon"
-      type="image/x-icon"
-      href="BaseStaticFiles/home/assets/favicon.ico"
-    />
     <!-- Bootstrap icons-->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
@@ -48,6 +37,10 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link
       href="{% static 'list_staticfiles/css/styles.css' %}"
+      rel="stylesheet"
+    />
+    <link
+      href="{% static 'quickrooms/quickrooms.css' %}"
       rel="stylesheet"
     />
 
@@ -67,7 +60,7 @@
 
     <!-- Navigation-->
     <nav class="nav navbar navbar-expand-lg navbar-light">
-      <div class="container px-4 px-lg-5">
+      <div class="container">
         <h1>
           <a
             class="h1"
@@ -200,11 +193,6 @@
             </svg>
           </a>
         </div>
-        <!-- <div class="btn-box">
-          <a href="{% url 'accounts:booking-and-payments'%}" class="fw-bold">
-            Booking/Payment <i class="bi bi-person-circle"></i>
-          </a>
-        </div> -->
       </div>
 
       
@@ -218,28 +206,8 @@
             hx-target="#search-results"
             id="filter-form"
              data-action="Searching..." class="row g-2 align-items-center">
-             
-              <div class="col-6 col-sm-3">
-                <label class="visually-hidden" for="specificSizeSelect">Preference</label>
-                <select name="room_capacity" class="form-select" id="specificSizeSelect">
-                  <option value="">All</option>
-                  <option value="1">One in a room</option>
-                  <option value="2">Two in a room</option>
-                  <option value="3">Three in a room</option>
-                  <option selected value="4">Four in a room</option>
-                </select>
-              </div> 
 
-              <div class="col-6 col-sm-3">
-                <label class="visually-hidden" for="specificSizeSelect">Preference</label>
-                <select name="gender" class="form-select" id="specificSizeSelect">
-                  <option selected value="male">Male Room</option>
-                  <option value="female">Female Room</option>
-                  <option value="open">Open Room</option>
-                </select>
-              </div>  
-
-              <div class="col-sm-3">
+              <div class="col-sm-4 col-6">
                 <input class="form-control"
                 type="number"
                 name="ptf_room_price_min"
@@ -248,7 +216,7 @@
                 >
               </div>
 
-              <div class="col-sm-3">
+              <div class="col-sm-4 col-6">
                 <input class="form-control"
                 type="number"
                 name="ptf_room_price_max"
@@ -257,7 +225,7 @@
                 >
               </div>
             
-              <button type="submit" id='search-button' class="btn drop">
+              <button type="submit" id='search-button' class="btn drop col-sm-4">
                Search <i class="bi bi-search"></i>
                <img  id="loading-spinner" style="width: 25px; height: 25px;" class="htmx-indicator ml-2" src="{% static 'gifs/loading.gif' %}"/>
               </button> 
@@ -271,75 +239,97 @@
       <div class="container px-4 px-lg-5 mt-5">
         <div
           id="search-results"
-          class="row gx-sm-2 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
+          class="row justify-content-center"
         >
           {% if rooms %} {% for room in rooms %}
-          <div class="col mb-5">
-            <div class="card h-100">
+          <div class="col mb-5 d-flex justify-content-center">
+            <div class="card h-100" style="width: 20rem;">
               <div
                 class="badge bg-dark text-white position-absolute"
-                style="top: 0.5rem; right: 0.5rem"
+                style="top: 0.5rem; left: 0.5rem"
               >
                 <a
                   style="text-decoration: none; color: rgb(255, 255, 255)"
-                  href=""
-                  >View Facilities</a
+                  href="{% url 'maps:quick-room-direction' room.guest_house.house_id %}"
+                  > Map Direction
+                  <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-geo-alt"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"
+                  />
+                  <path
+                    d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"
+                  />
+                </svg></a
                 >
               </div>
-              <!-- Product image-->
+              <div id="like-form">
+                <form 
+                hx-post="{% url 'reviews:like-hostel' %}"
+                hx-trigger="submit"
+                hx-target="#like-form"
+                hx-indicator="#loading-spinner"
+                class="likes">
+                {% csrf_token %}
+                {% comment %} <input type="checkbox" name="like" id="like"> {% endcomment %}
+                <input type="hidden" name="hostel_id" value="{{ hostel.hostel_id}}">
+                <button>
+                    <label>
+                        <i class="bi bi-heart" id="icon"></i>
+                    </label>
+                </button>
+                <div class="extra">
+                    <img  id="loading-spinner" style="width: 22px; height: 22px;" class="htmx-indicator ml-2" src="{% static 'gifs/loading.gif' %}"/>
+                  </div>
+                </form>    
+            </div>
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-touch="false" style="position: relative;">
+              <div class="carousel-indicators">
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+              </div>
+              <div class="carousel-inner">
+                  <a href="{{ room.hostel.room_image.url }}">
+                  <div class="carousel-item active">
+                      <img src="{{ room.room_image.url }}" class="card-img-top mb-5 mb-md-0 img" alt="...">
+                  </div>
+                  </a>
+                  <a href="{{ room.hostel.room_image2.url }}">
+                  <div class="carousel-item">
+                      <img src="{{ room.room_image.url }}" class="card-img-top mb-5 mb-md-0 img" alt="...">
+                  </div>
+                  </a>
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev" onclick="checkBgb()">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next" onclick="checkBgf()">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
               
-              <a href="{{ room.room_image.url }}">
-                <img
-                  class="card-img-top"
-                  src="{{ room.room_image.url }}"
-                  alt="Guest_room_image"
-                />
-              </a>
-
               <!-- Product details-->
-              <div class="card-body p-2">
-                <div class="text-center">
-                  <!-- Sale badge-->
-
-                  <!-- hostel name name-->
-                  <h6 class="fw-bold">{{ room.guest_house.name.title }}</h6>
-                  <!-- <div
-                    id="star-rating"
-                    class="d-flex justify-content-center small text-warning mb-2"
-                  >
-                    <div class="bi-star-fill"></div>
-                    <div class="bi-star-fill"></div>
-                    <div class="bi-star-fill"></div>
-                    <div class="bi-star-fill"></div>
-                    <div class="bi-star-fill"></div>
-                  </div> -->
-
-                  
+              <div class="card-body p-2 px-4">
+                <div class="text-left">
+                  <div class="row">
+                    <h4 class="fw-bold mb-0 col-10">{{ room.guest_house.name.title }}</h4>
+                    <p class="col-2 px-0" style="text-align: right; display: flex; align-items: center; gap: 3px;"><i class="bi bi-heart" id="icon"></i> 30</p>
+                  </div>
+                  <p class="about-info mb-0">Lorem ipsum dolor sit amet conser, adiicing el fhu ireriio it.</p>
                 </div>
               </div>
-
+              
               <!-- Product actions-->
-              <div class="card-footer pb-3 pb-sm-4 pt-0 border-top-0 bg-transparent">
+              <div class="card-footer pb-3 pt-0 border-top-0 bg-transparent">
                 <div class="text-center">
-                  <!-- location-->
-                  <a href="{% url 'maps:quick-room-direction' room.guest_house.house_id %}" class="btn mt-auto mb-1 smbtn">
-                    Map Direction
-                    <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    class="bi bi-geo-alt"
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"
-                    />
-                    <path
-                      d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"
-                    />
-                  </svg>
-                </a>
                 <form
                   hx-post="{% url 'quick-rooms:booking'  %}"
                   hx-target="#htmx-message-{{room.room_id}}"
@@ -349,9 +339,12 @@
                   {% csrf_token %}
                   <input type="hidden", name="room_id" value="{{ room.room_id }}">
                   <div id="htmx-message-{{room.room_id}}" class="text-center">
-                  <button type="submit" class="btn mt-auto">
-                    Book🏷️
-                  </button>
+                    <div class="row px-4">
+                      <h6 class="room-price fw-bold mb-0 px-2 col-6" style="display: grid; place-items: center;">- GH&#8373;200.00</h6>
+                      <button type="submit" class="btn mt-auto col-6">
+                        Book <i class="bi bi-box-arrow-in-right"></i>
+                      </button>
+                </div>
                   </form>
                 </div>
               </div>

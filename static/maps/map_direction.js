@@ -258,3 +258,8 @@ initMap();
 window.addEventListener('load', ()=>{
   document.getElementById('d').showModal()
 })
+
+  document.querySelector('.load').style.display = "flex";
+  setTimeout(function () {
+  document.querySelector('.load').style.display = 'none';
+  }, 4000);

@@ -24,7 +24,7 @@
   transform: translateY(0);
 }
 
-/*
+
 .section .d {
   visibility: hidden;
   opacity: 0;
@@ -78,7 +78,7 @@
 
 .section.fade-in .d5 {
   transition-delay: 2s;
-} */
+}
 
 /* Animation end */
 

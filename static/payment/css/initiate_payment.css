@@ -257,7 +257,7 @@ span{
 /* Card Ends */
 
 .container {
-    background: var(--dark);
+    background: var(--light);
     padding: 20px;
     border-radius: 5px;
     width: 350px;
@@ -269,7 +269,7 @@ span{
 
 .container:hover {
     cursor: pointer;
-    background: var(--dark) ;
+    background: var(--light) ;
     color: var(--light);
     transition-delay: 1.5s;
 }

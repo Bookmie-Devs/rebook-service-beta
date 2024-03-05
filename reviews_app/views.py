@@ -56,13 +56,13 @@ def like_hostel(request: HttpRequest):
         hostel.no_of_likes-=1
         hostel.save()
         HostelLike.objects.get(user=request.user, hostel=hostel).delete()
-        return render(request, 'htmx_message_templates/like_htmx.html', {'hostel':hostel})
+        return render(request, 'htmx_message_templates/like_htmx.html', {'hostel':hostel,'decreasing':True})
     else:
         liked = HostelLike.objects.create(hostel=hostel, user=request.user)
         liked.save()
         hostel.no_of_likes+=1
         hostel.save() 
-        return render(request, 'htmx_message_templates/like_htmx.html', {'hostel':hostel})
+        return render(request, 'htmx_message_templates/like_htmx.html', {'hostel':hostel,'decreasing':False})
 
 
 

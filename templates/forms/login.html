@@ -55,9 +55,8 @@
     </div>
 
     <div class="container">
-      <p>Are you new here?  <a type="button" class="btn btn-warning" href="{% url 'accounts:signup' %}"> Sign up <i class="bi bi-person-check"></i></a></p>
-
-      <h2 class="h2a">Log In</h2>
+      
+      <h2 class="h2">Log In</h2>
       {% if messages %} {% for message in messages %}
       <div class="alert alert-{{message.extra_tags}}" role="alert">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-x-fill" viewBox="0 0 16 16">
@@ -95,12 +94,13 @@
 </svg>
     </div>
         </div>
-        <div class="bttn">
-          <button type="submit" id="login-button">Log In <i class="bi bi-box-arrow-in-right"></i></button>
-        </div>
         <div class="log">
-          <p><a href="{% url 'reset_password' %}">Forgotten password?</a></p>
+          <p class="mb-0 px-3" style="text-align: right;"><a href="{% url 'reset_password' %}" style="font-size: 0.9rem;">Forgotten password?</a></p>
         </div>
+        <div class="bttn">
+          <button type="submit" id="login-button" class="mt-0 mb-2">Log In <i class="bi bi-box-arrow-in-right"></i></button>
+        </div>
+        <p class="mb-0">Are you new here?  <a class="" href="{% url 'accounts:signup' %}"> Sign up </a></p>
       </form>
     </div>
 

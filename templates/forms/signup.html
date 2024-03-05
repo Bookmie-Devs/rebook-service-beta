@@ -56,11 +56,7 @@
     </div>
 
     <div class="container">
-      <p>
-        Already have an account?
-        <a type="button" class="btn btn-warning" href="{% url 'accounts:login' %}">Log In  <i class="bi bi-box-arrow-in-right"></i></a>
-      </p>
-
+      
       <div id="htmx-message">
         <!-- space for htmx messages -->
       </div>
@@ -75,7 +71,7 @@
         {% csrf_token %}
 
         <div class="section" id="section1">
-          <p>Personal Information</p>
+          <p class="fw-bold">Personal Information</p>
           <div class="input-container mb-2">
             <input
               type="text"
@@ -124,20 +120,18 @@
             -->
           </div>
           <!-- space between msg and button -->
-          <br />
 
 
-          <div class="bttn">
+          <div class="bttn my-2">
             <button type="button" onclick="showSection2(2)">
               Next <i class="bi bi-arrow-right"></i>
             </button>
           </div>
-          <br />
 
         </div>
 
         <div class="section" id="section2" style="display: none">
-          <p>Campus and Basic Info</p>
+          <p class="fw-bold">Campus and Basic Info</p>
           <!-- Section 2: Campus and Basic Info -->
           <div class="input-container mb-2">
             <select name="campus" id="campus" class="section2c">
@@ -186,7 +180,7 @@
 
         <!-- Section 3: Password -->
         <div class="section" id="section3" style="display: none">
-          <p>Authentication</p>
+          <p class="fw-bold">Authentication</p>
           <div class="input-container">
             <div class="password-container">
             <input
@@ -255,6 +249,10 @@
           </div>
           <br />
         </div>
+        <p class="mb-0">
+          Already have an account?
+          <a class="" href="{% url 'accounts:login' %}">Log In</a>
+        </p>
       </form>
     </div>
 
