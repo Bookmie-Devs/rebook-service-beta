@@ -112,22 +112,41 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  color: #000;
+  gap: 5px;
 }
 
-.likes label{
-  font-size: 2rem;
-  display: flex;
-  justify-content: center;
+.likes button{
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  background: white;
+  border: none !important;
+}
+
+.likes button label{
+  font-size: 1rem;
   cursor: pointer;
+  color: red;
+  padding-top: 2px;
+}
+
+.likes .extra{
+  display: grid;
+  width: 100%;
+  grid-template-columns: 50% 50%;
+  transform: translateX(-10px);
+}
+
+.likes .extra small{
+  background: white;
+  color: #000;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
 }
 
 .likes input{
   display: none;
-}
-
-#like:checked~label i{
-  color: red;
 }
 
 .section{

@@ -9,11 +9,17 @@ class="likes">
 {% comment %} <input type="checkbox" name="like" id="like"> {% endcomment %}
 <input type="hidden" name="hostel_code" value="{{ hostel.hostel_code}}">
 <button>
-    <label for="like" class="like">
-        <i class="bi bi-heart" id="icon" onclick="fill()"></i>
+    <label>
+        {% if decreasing %}
+        <i class="bi bi-heart" id="icon"></i>
+        {% else %}
+        <i class="bi bi-heart-fill" id="icon" style="color: red;"></i>
+        {% endif %}
     </label>
+</button>
+<div class="extra">
     <img  id="loading-spinner" style="width: 22px; height: 22px;" class="htmx-indicator ml-2" src="{% static 'gifs/loading.gif' %}"/>
     <small>{{ hostel.no_of_likes }}</small>
-</button>
+</div>
 </form>    
 </div>

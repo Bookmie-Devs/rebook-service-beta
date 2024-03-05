@@ -1,114 +1,104 @@
-        /* 
+/* 
  * Always set the map height explicitly to define the size of the div element
  * that contains thepy map. 
  */
 
+#map {
+  height: 100%;
+  width: 100%;
+}
 
- #map {
-    height: 100%;
-    width: 100%;
-  }
-  
-  /* 
+/* 
    * Optional: Makes the sample page fill the window. 
    */
-  html,
-  body {
-    background-color: var(--dark);
-    height: 100%;
-    margin: 0;
-    padding: 0;
-  }
+html,
+body {
+  background-color: var(--dark);
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 
-  .nav{
-    display: grid;
-    grid-template-columns: 10% 85%;
-    gap: 5%;
-    padding-left: 20px;
-    padding-right: 20px;
-  }
+.nav {
+  display: grid;
+  grid-template-columns: 10% 85%;
+  gap: 5%;
+  padding-left: 20px;
+  padding-right: 20px;
+}
 
-  h1{
-    display: inline-block;
-  }
 
-  .select{
+.select {
+  padding: 8px;
+  background: var(--dark);
+  width: 100%;
+}
+
+h1 {
+  display: none;
+}
+
+.logo {
+  display: inline;
+}
+
+@media (min-width: 600px) {
+  .select {
     padding: 8px;
     background: var(--dark);
-    width: 100%;
-    /* position: fixed; */
-    /* left: 50%; */
-    /* transform: translateX(-50%); */
-    /* z-index: 1;
-    border-radius: 0 0 10px 10px;
-    /* width: 80%; */
+    border-radius: 10px 10px 0 0;
   }
 
-  h1{
+  #map {
+    height: 92%;
+  }
+
+  .nav {
+    grid-template-columns: 45% 50%;
+    gap: 5%;
+    padding-right: 40px;
+  }
+
+  .logo {
     display: none;
   }
 
-  .logo{
+  h1 {
     display: inline;
   }
+}
 
-  @media (min-width: 600px) {
-    .select{
-      padding: 8px;
-      background: var(--dark);
-      border-radius: 10px 10px 0 0;
-    }
-
-    #map{
-      height: 92%;
-    }
-
-    .nav{
-      grid-template-columns: 45% 50%;
-      gap: 5%;
-      padding-right: 40px;
-    }
-
-    .logo {
-      display: none;
-    }
-
-    h1{
-      display: inline;
-    }
-  }
-
- 
 /* ROTAION BUTTONS */
 .ui-button {
-  background-color: #1459f0; 
-  color: #FFFFFF;; 
+  background-color: #1459f0;
+  color: #ffffff;
   border: none;
   border-radius: 4px;
   margin: 10px;
   padding: 1em;
   font: 400 16px sans-serif;
-  transition: background-color 0.3s ease; 
+  transition: background-color 0.3s ease;
   height: 40px;
   cursor: pointer;
-  display: flex; 
-  align-items: center; 
+  display: flex;
+  align-items: center;
 }
 
 /* remove blue border around map */
-.gm-style iframe + div { border:none!important; }
-
+.gm-style iframe + div {
+  border: none !important;
+}
 
 .ui-button:hover {
-  background-color: #2980b9; 
+  background-color: #2980b9;
 }
 
 /* ORIGIN MARKER DESIGN */
 .origin-marker-content {
   background-color: #1459f0;
-  border: 2px solid #FFFFFF;
+  border: 2px solid #ffffff;
   border-radius: 10px;
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 16px;
   padding: 12px;
   position: relative;
@@ -122,12 +112,18 @@
 }
 
 @keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
     transform: translateY(0);
   }
+
   40% {
     transform: translateY(-10px);
   }
+
   60% {
     transform: translateY(-5px);
   }
@@ -147,7 +143,7 @@
   z-index: 1;
 }
 
-.origin-marker-content:hover:after{
+.origin-marker-content:hover:after {
   border-top: 12px solid #ff5722;
 }
 
@@ -160,20 +156,17 @@
   width: 20px;
   height: 20px;
   background-color: #ff5722;
-  border: 2px solid #FFFFFF;
+  border: 2px solid #ffffff;
   border-radius: 50%;
   z-index: 0;
 }
 
-
-
-
 /* HOSTEL MARKER DESIGN */
 .hostel-marker-content {
   background-color: #051836;
-  border: 2px solid #FFFFFF;
+  border: 2px solid #ffffff;
   border-radius: 8px;
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 14px;
   padding: 10px;
   position: relative;
@@ -200,7 +193,7 @@
   z-index: 1;
 }
 
-.hostel-marker-content:hover::after{
+.hostel-marker-content:hover::after {
   border-top: 8px solid #ffb006;
 }
 
@@ -224,22 +217,22 @@
   top: -100%;
   transition: all 1s;
   border-radius: 10px;
-  z-index: 99;
+  z-index: 50;
   display: flex;
   width: 300px;
   text-align: center;
   background: #ffffff;
-  padding: 20px ;
+  padding: 20px;
   border: none;
 }
 
-#d form{
+#d form {
   width: 100%;
   font-weight: bold;
 }
 
-#d button{
-  padding: 10px 20px;
+#d button {
+  padding: 7px 15px;
   border: none !important;
   border-radius: 10px;
   background: #ffb006;
@@ -254,9 +247,65 @@
 }
 
 #d::backdrop {
-  backdrop-filter: blur(2px);
+  background: #000000b4;
 }
 
+/* Loader */
+.load {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.9);
+  display: none;
+}
+
+.loader {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader p {
+  font-size: 1.5rem;
+  color: var(--light);
+}
+
+.spinner {
+  width: 56px;
+  height: 56px;
+  display: grid;
+  border: 4px solid #0000;
+  border-radius: 50%;
+  border-right-color: var(--primary);
+  animation: spinner-a4dj62 1s infinite linear;
+}
+
+.spinner::before,
+.spinner::after {
+  content: "";
+  grid-area: 1/1;
+  margin: 2px;
+  border: inherit;
+  border-radius: 50%;
+  animation: spinner-a4dj62 2s infinite;
+}
+
+.spinner::after {
+  margin: 8px;
+  animation-duration: 3s;
+}
+
+@keyframes spinner-a4dj62 {
+  100% {
+    transform: rotate(1turn);
+  }
+}
 
 .custom-card {
   max-width: 18rem;
@@ -290,17 +339,22 @@
 
 .custom-btn {
   display: inline-block;
-  padding: 6px 12px; /* Adjusted padding for a smaller button */
-  font-size: 14px; /* Adjusted font size for a smaller button */
+  padding: 6px 12px;
+  /* Adjusted padding for a smaller button */
+  font-size: 14px;
+  /* Adjusted font size for a smaller button */
   font-weight: bold;
   text-align: center;
   text-decoration: none;
   border: 2px solid transparent;
-  border-radius: 3px; /* Adjusted border radius for a smaller button */
+  border-radius: 3px;
+  /* Adjusted border radius for a smaller button */
   cursor: pointer;
   transition: all 0.3s ease;
-  min-width: 100px; /* Set a minimum width for the buttons */
-  margin-right: 10px; /* Add some spacing between buttons */
+  min-width: 100px;
+  /* Set a minimum width for the buttons */
+  margin-right: 10px;
+  /* Add some spacing between buttons */
 }
 
 .custom-btn-primary {
@@ -325,35 +379,42 @@
 
 .custom-btn-secondary:hover {
   background-color: #545b62;
-  color: #ffF;
+  color: #fff;
 }
 
 .btn-container {
   display: flex;
-  align-items: center; /* Align buttons vertically */
+  align-items: center;
+  /* Align buttons vertically */
 }
 
 .love-container {
   display: flex;
-  align-items: center; /* Align items vertically */
+  align-items: center;
+  /* Align items vertically */
   margin-left: auto;
 }
 
 .bi-heart {
-  color: red; /* Set the color of the heart icon to red */
-  margin-right: 5px; /* Add some spacing between the heart icon and the value */
+  color: red;
+  /* Set the color of the heart icon to red */
+  margin-right: 5px;
+  /* Add some spacing between the heart icon and the value */
 }
-
-
 
 @media (max-width: 576px) {
   .custom-card {
     max-width: 100%;
   }
+
   .custom-btn {
-    padding: 4px 8px; /* Further adjusted padding for smaller screens */
-    font-size: 11px; /* Further adjusted font size for smaller screens */
-    min-width: auto; /* Allow buttons to shrink on smaller screens */
-    margin-right: 5px; /* Reduce spacing between buttons */
+    padding: 4px 8px;
+    /* Further adjusted padding for smaller screens */
+    font-size: 11px;
+    /* Further adjusted font size for smaller screens */
+    min-width: auto;
+    /* Allow buttons to shrink on smaller screens */
+    margin-right: 5px;
+    /* Reduce spacing between buttons */
   }
 }
