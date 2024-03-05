@@ -11,7 +11,7 @@ def hostel_direction(request, hostel_code):
     coordinate:GeoPt = hostel_profile.geolocation
     # coordinate of campus
     campus_coordinates: GeoPt = hostel_profile.campus.geolocation
-    colleges = CollegeProfile.objects.filter(campus_name=hostel_profile.campus).all()
+    colleges = CollegeProfile.objects.filter(campus=hostel_profile.campus).all()
     college_coordinates = [{'coordinate':{'lat':college.geolocation.lat, 'lng':college.geolocation.lon,}, 'name':college.college_name} for college in colleges]
     return render(request=request,
            template_name= 'maps/map_direction.html/',
@@ -21,7 +21,7 @@ def hostel_direction(request, hostel_code):
 def map_views(request, campus_param_id):
     campus = CampusProfile.objects.get(campus_param_id=campus_param_id)
     hostel_profiles = HostelProfile.objects.filter(verified=True,campus=campus).all()
-    colleges = CollegeProfile.objects.filter(campus_name=campus).all()
+    colleges = CollegeProfile.objects.filter(campus=campus).all()
     # # hostel coordinates on map
     # coordinatet = hostel_profile.geolocation
     # coordinate. 
