@@ -28,7 +28,7 @@ class CampusRoomListView(generic.ListView):
         # get campus code
         campus = CampusProfile.objects.get(campus_param_id = campus_param_id)
         # Use if we expand to other campuses
-        campus_rooms = RoomProfile.objects.filter(campus=campus, occupied=False).all()
+        campus_rooms = RoomProfile.objects.filter(campus=campus, occupied=False, verified=True).all()
         # context for all pages if no search is return or
         # if there no qs for search data 
         context = {'rooms': campus_rooms, 'campus':campus, 'user':request.user,}        
