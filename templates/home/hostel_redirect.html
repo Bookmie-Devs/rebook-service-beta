@@ -4,35 +4,26 @@
 {% block 'router' %}
 
 {% for campus in campuses %}
-  {% if campus.available_on_campus %}
-    <a href="{% url 'core:hostels' campus.campus_param_id %}">
-    <div class="card">
-      <div class="content">
-        <img src="{{ campus.flag.url }}" alt="">
-        <p class="heading">{{ campus.campus_name }}</p>
-        <!--<p class="para">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi
-          laboriosam at voluptas
-        </p> -->
-        <button class="btn">View Hostels Available</button>
-      </div>
-    </div>
-    </a>
-  {% else %}
-    <a href="#!">
-      <div class="card">
-        <div class="content">
-          <img src="{{ campus.flag.url }}" alt="">
-          <p class="heading">{{ campus.campus_name }}</p>
-          <!--<p class="para">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi
-            laboriosam at voluptas
-          </p> -->
-            <button class="btn">Coming Soon🏢</button>
-        </div>
-      </div>
+<div class="card">
+  <img src="{{ campus.flag.url }}" alt="Image" class="card-image">
+  <div class="card-content">
+      <h2 class="card-title">{{ campus.campus_name }}</h2>
+      {% if campus.available_on_campus %}
+      <p class="card-description">All hostels available on campus</p>
+      <div class="card-buttons">
+        <a href="{% url 'core:hostels' campus.campus_id %}">
+        <button class="btn btn-warning">All Hostels</button>
       </a>
-  {% endif %}
+      </div>
+      {% else %}
+      <p class="card-description">Currently not available.</p>
+      <div class="card-buttons" style="float: right;">
+          <!-- <button class="btn btn-primary">Button 1</button> -->
+          <button class="btn btn-warning">Coming Soon</button>
+      </div>
+      {% endif %}
+  </div>
+</div>
 
 {% endfor %}
 
