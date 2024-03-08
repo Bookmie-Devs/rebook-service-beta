@@ -30,11 +30,12 @@ from django.views.decorators.http import require_http_methods
 require_http_methods(["POST"])
 def signup(request: HttpRequest):
     """ CustomUser signup View"""
-
+    campuses = CampusProfile.objects.filter(available_on_campus=True).all()
     if request.method == 'POST':
-        if CampusProfile.objects.filter(campus_code=str(request.POST.get('campus')).upper().strip()).exists():
+        campus_code = str(request.POST.get('campus_code')).upper().strip()
+        if CampusProfile.objects.filter(campus_code=campus_code,  available_on_campus=True).exists():
             ##Getting campus model for quering hostels related to it
-            get_campus=CampusProfile.objects.get(campus_code=str(request.POST.get('campus')).upper().strip())
+            get_campus=CampusProfile.objects.get(campus_code=campus_code)
             email =request.POST.get('email').lower()
             ##checks if password if equal
             if request.POST.get('password') == request.POST.get('confirm_password'):
@@ -47,7 +48,7 @@ def signup(request: HttpRequest):
                         return render(request,'htmx_message_templates/message.html', message)
                     
                     #existance of phone number 
-                    elif CustomUser.objects.filter(phone=request.POST.get('phone')).exists():
+                    elif CustomUser.objects.filter(phone=request.POST.get('ph   one')).exists():
                         # htmx message for signup
                         message ={'message':'Phone Number has already been registered','tag':'info'}
                         return render(request,'htmx_message_templates/message.html', message)
@@ -57,7 +58,7 @@ def signup(request: HttpRequest):
                         message ={'message':'Email has already been registered','tag':'warning'}
                         return render(request,'htmx_message_templates/message.html', message)
 
-                    elif Student.objects.filter(student_id = request.POST.get('student_id')).exists():
+                    elif Student.objects.filter(student_id_number = request.POST.get('student_id_number')).exists():
                         # messages.info(request, 'Stundent has already been registered')
                         # return redirect('accounts:signup')
                         # htmx message for signup
@@ -74,7 +75,7 @@ def signup(request: HttpRequest):
                             gender=request.POST.get('gender').lower() ,is_active=False)
                         new_user.save()
 
-                        student = Student.objects.create(user=new_user, student_id_number=request.POST.get('student_id'), campus=get_campus,)
+                        student = Student.objects.create(user=new_user, student_id_number=request.POST.get('student_id_number'), campus=get_campus,)
                         student.save()
                           
                         # Send verification email
@@ -102,7 +103,7 @@ def signup(request: HttpRequest):
             return render(request,'htmx_message_templates/message.html', message)
         
         
-    return render(request, 'forms/signup.html',)  
+    return render(request, 'forms/signup.html', {'campuses':campuses})  
 
 
 
