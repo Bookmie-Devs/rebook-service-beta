@@ -14,7 +14,16 @@
         <a href="{% url 'core:hostels' campus.campus_param_id %}">
         <button class="btn btn-warning">All Hostels</button>
       </a>
-  {% endif %}
+      </div>
+      {% else %}
+      <p class="card-description">Currently not available.</p>
+      <div class="card-buttons" style="float: right;">
+          <!-- <button class="btn btn-primary">Button 1</button> -->
+          <button class="btn btn-warning">Coming Soon</button>
+      </div>
+      {% endif %}
+  </div>
+</div>
 
 {% endfor %}
 
