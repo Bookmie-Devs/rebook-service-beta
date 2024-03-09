@@ -89,7 +89,7 @@ class PhysicalPaymentHistory(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, null=True)
     email = models.EmailField()
     amount = models.DecimalField(decimal_places=2, max_digits=7)
-    account_payed_to = models.CharField(max_length=20, deafult=settings.BOOKMIE_ACCOUNT)
+    account_payed_to = models.CharField(max_length=20, default=settings.BOOKMIE_ACCOUNT)
     room = models.ForeignKey(RoomProfile, on_delete=models.SET_NULL, null=True)
     hostel = models.ForeignKey(HostelProfile, on_delete=models.SET_NULL, null=True)
     successful = models.BooleanField(default=False)
