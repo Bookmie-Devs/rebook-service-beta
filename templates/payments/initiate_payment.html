@@ -5,73 +5,78 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/x-icon" href="{% static 'home/images/favicon.ico' %}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'payment/css/initiate_payment.css' %}" />
-    <title>Room Payment-Bookmie.com | Bookmie.com</title>
-   
-  </head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="{% static 'payment/css/make_p.css' %}" />
+    <title>Complete Room Payment-Bookmie.com | Bookmie.com</title>
   </head>
   <body>
     <header>
-      <h1><img src="{% static 'home/images/favicon1.png' %}" alt="" style="height: 60px; width: 60px; margin-top: -5px;">Bookmie.com</h1>
+      <h1><img src="{% static 'home/images/favicon1.png' %}" alt="" style="height: 50px; width: 50px; margin-top: -5px;">Bookmie.com</h1>
     </header>
 
     <div class="container">
-    
-        <div class="first-content">
-            <div class="container1">
-                <h2 class="label">Tap to pay... </h2> 
-                <!-- Card -->
-                <div class="left-side">
-                 <div class="card">
-                  <div class="card-line"></div>
-                  <div class="buttons"></div>
-                 </div>
-                 <div class="post">
-                  <div class="post-line"></div>
-                  <div class="screen">
-                   <div class="dollar">$</div>
-                  </div>
-                  <div class="numbers"></div>
-                  <div class="numbers-line2"></div>
-                 </div>
-                </div>
-               </div>
-          </div>
-          <div class="second-content">
-          {% comment %} <!-- Second Page --> {% endcomment %}
-      <h2 class="label">₵
-      {% if is_part_payment %}{{ room.half_pricing }}{% else %}{{ room.ptf_room_price }}{% endif %} to {{ room.hostel.hostel_name}}</h2>
+      <h3>Payment Options</h3>
+
       <form data-action="Proceeding.." id="paymentForm" method="POST" action="
       {% if is_part_payment %}{% url 'payments:init-part-payment' room.room_id %}{% else %}{% url 'payments:init-payment' room.room_id %}{% endif %}">
         {% csrf_token %}
         <div class="input-container">
           <input
-            type="email"
+            type="hidden"
             id="email"
             name="email"
             placeholder="Email"
             value="{{ student.user.email }}" 
             required />
         </div>
-        
-        
+         
         <div class="bttn">
-          
-            <button>
-              <a  id="hold-on" href="{% url 'accounts:booking-and-payments' %}">
-                Hold On
-              </a>
-            </button>
-        
-          <button type="submit">Proceed</button>
-        </div>  
-      </div>
+          <button id="pay">Pay With Card</button>
+        </div>
       </form>
-    </div>
+      <form data-action="Proceeding.." id="paymentForm" method="POST" action="
+      {% if is_part_payment %}{% url 'payments:init-part-payment' room.room_id %}{% else %}{% url 'payments:init-payment' room.room_id %}{% endif %}">
+        {% csrf_token %}
+        <div class="input-container">
+          <input
+            type="hidden"
+            id="email"
+            name="email"
+            placeholder="Email"
+            value="{{ student.user.email }}" 
+            required />
+        </div>
+         
+        <div class="bttn">
+          <button id="pay2">Pay With Momo</button>
+        </div>
+      </form>
+      <form data-action="Proceeding.." id="paymentForm" method="POST" action="
+      {% if is_part_payment %}{% url 'payments:init-part-payment' room.room_id %}{% else %}{% url 'payments:init-payment' room.room_id %}{% endif %}">
+        {% csrf_token %}
+        <div class="input-container">
+          <input
+            type="hidden"
+            id="email"
+            name="email"
+            placeholder="Email"
+            value="{{ student.user.email }}" 
+            required />
+        </div>
+         
+        <div class="bttn">
+          <button id="pay3">Pay With Cash</button>
+        </div>
+      </form>
+
     </div>
     <footer>
-        <span>Copyright &copy; Bookmie 2023</span>
+      <span>Copyright &copy; Bookmie 2023</span>
     </footer>
   </body>
 </html>

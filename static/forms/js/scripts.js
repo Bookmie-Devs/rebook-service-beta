@@ -180,9 +180,12 @@ try {
   
 }
 
-
-//Phone Validators For quest house quick rooms
-phoneInput.addEventListener("input", validatePhone);
+try {
+  // Phone Validators For quest house quick rooms
+  phoneInput.addEventListener("input", validatePhone); 
+} catch (error) {
+  
+}
 
 function validatePhone() {
   const phone = phoneInput.value.trim();
