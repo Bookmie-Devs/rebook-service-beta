@@ -134,12 +134,11 @@
           <p class="fw-bold">Campus and Basic Info</p>
           <!-- Section 2: Campus and Basic Info -->
           <div class="input-container mb-2">
-            <select name="campus" id="campus" class="section2c">
+            <select name="campus_code" id="campus" class="section2c">
               <option value="">Your Campus</option>
-              <option value="KNUST">KNUST Campus</option>
-              <option value="UG">UG Campus</option>
-              <option value="UHAS">UHAS Campus</option>
-              <option value="UMAT">UMAT Campus</option>
+              {% for campus in campuses %}
+              <option value="{{ campus.campus_code }}">{{ campus.alias_name.title }} Campus</option>
+              {% endfor %}
             </select>
           </div>
 
@@ -147,7 +146,7 @@
             <input
               type="text"
               id="student-id"
-              name="student_id"
+              name="student_id_number"
               placeholder="Student ID Number"
               class="section2a"
             />
