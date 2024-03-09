@@ -11,10 +11,9 @@ from .task import send_email_task, send_sms_task
 
 """Built in packages"""
 from django.contrib.sites.shortcuts import get_current_site
-from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
+from django.http import HttpRequest, HttpResponse
 from django.utils import timezone
 from django.contrib.auth.password_validation import validate_password
-from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import ValidationError
 from django.shortcuts import redirect
 from django.shortcuts import render
@@ -22,8 +21,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.conf import settings
 from django.contrib import auth
-from django.contrib.auth.forms import UserCreationForm
-from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.views.decorators.http import require_http_methods
 

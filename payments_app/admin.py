@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import PaymentHistory, PaystackSubAccount
+from .models import PaymentHistory, PaystackSubAccount, PhysicalPaymentHistory
 
 # Register your models here.
 def update_hostel_percentage_charge(modeladmin, request, queryset:PaystackSubAccount):
@@ -36,6 +36,11 @@ class CustomPaymentsAdminPanel(admin.ModelAdmin):
         # 'access_code_used',
         'successful','date_of_payment',
     )
+
+class PhysicalPaymentAdmin(admin.ModelAdmin):
+    list_display = ('student', 'reference', 'successful')
+
+admin.site.register(PhysicalPaymentHistory, PhysicalPaymentAdmin)
 
 admin.site.register(PaymentHistory, CustomPaymentsAdminPanel)
 
