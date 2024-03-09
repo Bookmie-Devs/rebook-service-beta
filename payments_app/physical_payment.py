@@ -41,6 +41,7 @@ def physical_payment(request: HttpRequest, room_id):
     student = Student.objects.get(user=request.user)
     booking = Booking.objects.get(student=student)
     room = RoomProfile.objects.get(room_id=room_id)
+    email = request.POST.get('email')
     if booking._has_expired():
         booking.delete()
         messages.info(request, 'Sorry, Booking has expired please book another room', extra_tags="danger")
@@ -53,7 +54,7 @@ def physical_payment(request: HttpRequest, room_id):
     if booking.is_updating_vcode:
         #save payment details
         payment = PhysicalPaymentHistory.objects.create(student=student,
-                            email=request.POST.get('email'),
+                            email=email,
                             amount=room.ptf_room_price,
                             account_payed_to=room.hostel.account_number,
                             room=room,
