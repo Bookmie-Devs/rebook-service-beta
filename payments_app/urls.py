@@ -17,6 +17,6 @@ urlpatterns = [
 
     # physical payments
     path('physical-payments/', physical_payment.physical_payment, name='physical-init'),
-    path("physical-payments/payment_id/", physical_payment.phy, name="physical-payment-confirm"),
+    path("physical-payments/payment_id/", physical_payment.physical_payment_confirm, name="physical-payment-confirm"),
     path('physical-payments/verification/', physical_payment.generate_physical_payemnt_details, name='generate-details')
 ]
