@@ -1,8 +1,9 @@
 from django.http import HttpRequest
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
-
 from rooms_app.models import RoomProfile
 from .models import Agent
+from rest_framework.reverse import reverse
+from django.contrib.sites.shortcuts import get_current_site
 from hostel_app.models import HostelProfile
 
 class AgenProfilesSerilizer(ModelSerializer):
@@ -24,9 +25,14 @@ class AgentHostelProfileSerializer(ModelSerializer):
 
 class RoomListSerializer(ModelSerializer):
     hostel_name = SerializerMethodField(read_only=True)
+    room_link =  SerializerMethodField(read_only=True)
     class Meta:
         model = RoomProfile
-        fields = ('hostel_name', 'room_no', 'bed_space_left' ,'occupied', 'verified','room_id',)
+        fields = ('hostel_name', 'room_no', 'bed_space_left' ,'occupied', 'verified','room_id', 'room_link')
+
+    def get_room_link(self, obj:RoomProfile):
+        url = f"https://bookmie.com{reverse('rooms:profile', kwargs={'room_id':obj.room_id})}" 
+        return url
 
     def get_hostel_name(self, obj:RoomProfile):
         return obj.hostel.hostel_name
