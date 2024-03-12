@@ -82,7 +82,7 @@
         {% else %}
         <br>
         {% comment %} <!-- message if there no room available --> {% endcomment %}
-        <a style="text-decoration: none;" href="{% url 'rooms:campus-rooms' campus.campus_code %}" class="w-75">
+        <a style="text-decoration: none;" href="{% url 'rooms:campus-rooms' campus.campus_param_id %}" class="w-75">
           <div class="col w-100 mb-5">
 
             {% comment %} <!-- class = "border border-danger" from boostrap --> {% endcomment %}

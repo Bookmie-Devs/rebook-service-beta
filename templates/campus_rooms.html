@@ -20,12 +20,12 @@
   {% comment %} <!-- for social media sharing --> {% endcomment %}
   <meta property="og:title" content="Bookmie.com">
   <meta property="og:description" content="Explore comfortable and affordable accommodation in Ghana. Explore our website and easily book a room now.">
-  <meta property="og:image" content="../static/home/images/favicon.ico">
+  <meta property="og:image" content="{% static 'home/images/favicon.ico' %}">
   <meta property="og:url" content="https://bookmie.com">
-  <meta name="twitter:card" content="../static/home/images/favicon.ico">
+  <meta name="twitter:card" content="{% static 'home/images/favicon.ico' %}">
   <meta name="twitter:title" content="Bookmie.com">
   <meta name="twitter:description" content="Explore comfortable and affordable accommodation in Ghana. Book your stay now at Bookmie.com.">
-  <meta name="twitter:image" content="../static/home/images/favicon.ico">
+  <meta name="twitter:image" content="{% static 'home/images/favicon.ico' %}">
   
     <title>Get All Available Rooms on Campus | Bookmie.com</title>
   <link rel="icon" type="image/x-icon" href="{% static 'home/images/favicon.ico' %}">
@@ -33,7 +33,7 @@
     <link
       rel="icon"
       type="image/x-icon"
-      href="{% static 'home/assets/favicon.ico' %}"
+      href="{% static 'home/images/favicon.ico' %}"
     />
     {% comment %} <!-- Bootstrap icons--> {% endcomment %}
     <link
@@ -174,7 +174,7 @@
         <div class="text-center text-white filter">
           <a class="nav-link active" aria-current="page" href="#!"><h3 class="fw-bolder" style="color: orange;">Lets Help You Get A Room🏠</h3></a>
             <form 
-            hx-get="{% url 'rooms:campus-rooms' campus.campus_code %}"
+            hx-get="{% url 'rooms:campus-rooms' campus.campus_param_id %}"
             hx-trigger="submit, change"
             hx-indicator="#loading-spinner"
             hx-target="#search-results"
@@ -318,7 +318,7 @@
         {% else %}
         <br>
         {% comment %} <!-- message if there no room available --> {% endcomment %}
-        <a style="text-decoration: none;" href="{% url 'rooms:campus-rooms' campus.campus_code %}" class="w-75">
+        <a style="text-decoration: none;" href="{% url 'rooms:campus-rooms' campus.campus_param_id %}" class="w-75">
           <div class="col w-100 mb-5">
 
             {% comment %} <!-- class = "border border-danger" from boostrap --> {% endcomment %}
