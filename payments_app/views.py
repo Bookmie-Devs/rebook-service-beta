@@ -102,7 +102,9 @@ def make_payment(request: HttpRequest, reference_id,  room_id):
     subaccount = PaystackSubAccount.objects.get(hostel=room.hostel)
     # make payment ot subaccount
     return render(request=request,template_name='payments/make_payment.html', 
-                  context={'amount':payment.amount,'reference_id': reference_id, 
+                  context={'amount':payment.amount,
+                           'amount_value': payment.get_amount_value(),
+                           'reference_id': reference_id, 
                            'subaccount':subaccount.subaccount_code,
                            'student':student, 'is_completing_payment':False,
                            'paystack_public_key':settings.PAYSTACK_PUBLIC_KEY })
