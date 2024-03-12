@@ -217,8 +217,8 @@
             {% if campus.available_on_campus %}
             <p class="card-description">All hostels rooms available on campus</p>
             <div class="card-buttons">
-              <button class="btn btn-dark">All Hostels</button>
-              <button class="btn btn-warning">All Rooms</button>
+              <a href="{% url 'core:hostels' campus.campus_param_id %}" class="btn btn-dark">All Hostels</a>
+              <a href="{% url 'rooms:campus-rooms' campus.campus_param_id %}" class="btn btn-warning">All Rooms</a>
             </div>
             {% else %}
             <p class="card-description">Currently not available. Please come back later</p>
