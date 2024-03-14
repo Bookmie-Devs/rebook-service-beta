@@ -42,9 +42,13 @@ def index(request):
     campuses = CampusProfile.objects.all()
     # random a list of hostels to display
     # campuses = random.sample(population=list(campuses), k=len(list(campuses)))
-
     feedbacks = RecomendationFeedBacks.objects.all()
-    return render(request, 'index.html', {'campuses':campuses,'user':request.user, 'feedbacks':feedbacks})
+    context = {
+    'campuses':campuses,
+    'user':request.user, 
+    'feedbacks':feedbacks
+    }
+    return render(request, 'index.html', context)
 
 
 class HostelListView(generic.ListView):
@@ -62,7 +66,14 @@ class HostelListView(generic.ListView):
             search_data = request.GET['search_data']            
             campus = CampusProfile.objects.get(campus_param_id=campus_param_id)
             #query of search 
-            query = HostelProfile.objects.filter(Q(verified=True) & Q(campus=campus) & (Q(hostel_name__icontains=search_data) | Q(location__icontains=search_data)))
+            query = HostelProfile.objects.filter(
+            Q(verified=True) & 
+            Q(campus=campus) & 
+            (
+            Q(hostel_name__icontains=search_data) |
+            Q(location__icontains=search_data)
+            )
+            )
             #context containg search query page
             context['hostels']=query
             return render(request, 'htmx_templates/hostel_search_result.html', context)
