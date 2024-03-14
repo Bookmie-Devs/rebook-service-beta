@@ -53,12 +53,13 @@ def initiate_payment(request: HttpRequest, room_id):
         """
         if booking.is_updating_vcode:
             #save payment details
-            payment = PaymentHistory.objects.create(student=student,
-                                email=request.POST.get('email'),
-                                amount=room.ptf_room_price,
-                                account_payed_to=room.hostel.account_number,
-                                room=room,
-                                hostel=room.hostel,)
+            payment = PaymentHistory.objects.create(
+            student=student,
+            email=request.POST.get('email'),
+            amount=room.ptf_room_price,
+            account_payed_to=room.hostel.account_number,
+            room=room,
+            hostel=room.hostel,)
             payment.save()            
             return redirect('payments:make-payment', reference_id=payment.reference_id, room_id=room.room_id)
 
@@ -72,21 +73,26 @@ def initiate_payment(request: HttpRequest, room_id):
                 # check if there is an unsuccessful payment
                 PaymentHistory.objects.filter(student=student, successful=False).delete()
                     #save payment details
-                payment = PaymentHistory.objects.create(student=student,
-                                    email=request.POST.get('email'),amount=room.ptf_room_price,
-                                    account_payed_to=room.hostel.account_number,
-                                    room=room,hostel=room.hostel,)
+                payment = PaymentHistory.objects.create(
+                student=student,
+                email=request.POST.get('email'),
+                amount=room.ptf_room_price,
+                account_payed_to=room.hostel.account_number,
+                room=room,
+                hostel=room.hostel
+                )
                 payment.save()
                 return redirect('payments:make-payment', reference_id=payment.reference_id, room_id=room.room_id)
             else:
                 #save payment details
-                payment = PaymentHistory.objects.create(student=student,
-                                    email=request.POST.get('email'),
-                                    amount=room.ptf_room_price,
-                                    account_payed_to=room.hostel.account_number,
-                                    room=room,
-                                    hostel=room.hostel,
-                                    )
+                payment = PaymentHistory.objects.create(
+                student=student,
+                email=request.POST.get('email'),
+                amount=room.ptf_room_price,
+                account_payed_to=room.hostel.account_number,
+                room=room,
+                hostel=room.hostel,
+                )
                 payment.save()            
                 return redirect('payments:make-payment', reference_id=payment.reference_id, room_id=room.room_id)
             
@@ -98,16 +104,22 @@ def initiate_payment(request: HttpRequest, room_id):
 def make_payment(request: HttpRequest, reference_id,  room_id):
     student = Student.objects.get(user=request.user)
     room = RoomProfile.objects.get(room_id=room_id)
-    payment = get_object_or_404(PaymentHistory, student=student, reference_id=reference_id)
+    payment = get_object_or_404(
+    PaymentHistory, 
+    student=student, 
+    reference_id=reference_id
+    )
     subaccount = PaystackSubAccount.objects.get(hostel=room.hostel)
     # make payment ot subaccount
-    return render(request=request,template_name='payments/make_payment.html', 
-                  context={'amount':payment.amount,
-                           'amount_value': payment.get_amount_value(),
-                           'reference_id': reference_id, 
-                           'subaccount':subaccount.subaccount_code,
-                           'student':student, 'is_completing_payment':False,
-                           'paystack_public_key':settings.PAYSTACK_PUBLIC_KEY })
+    context={
+    'amount':payment.amount,
+    'amount_value': payment.get_amount_value(),
+    'reference_id': reference_id, 
+    'subaccount':subaccount.subaccount_code,
+    'student':student, 
+    'is_completing_payment':False,
+    'paystack_public_key':settings.PAYSTACK_PUBLIC_KEY }
+    return render(request, 'payments/make_payment.html', context)
 
 @login_required()
 def verify_payment(request: HttpRequest, reference_id, paystack_reference):  
@@ -127,12 +139,23 @@ def verify_payment(request: HttpRequest, reference_id, paystack_reference):
     if payment_is_confirm(data=response_data, amount=payment.amount):
         # create tenent object if reponse is positive
         if payment.is_half_payment:
-            tenant = Tenant.objects.create(student=student, room=payment.room,
-                                        hostel=payment.hostel, payed=True, made_part_payment=True,
-                                        amount_left_to_pay=payment.amount)
+            tenant = Tenant.objects.create(
+            student=student, 
+            room=payment.room,
+            hostel=payment.hostel, 
+            payed=True, 
+            made_part_payment=True,
+            amount_left_to_pay=payment.amount
+            )
             tenant.save()
         else:
-            tenant = Tenant.objects.create(student=student, room=payment.room, hostel=payment.hostel, payed=True, completed_payment=True)
+            tenant = Tenant.objects.create(
+            student=student, 
+            room=payment.room, 
+            hostel=payment.hostel, 
+            payed=True, 
+            completed_payment=True
+            )
             tenant.save()
         # calculate sales on each payment
         calculate_year_sales(hostel=payment.hostel,amount_paid=payment.room.room_price)
