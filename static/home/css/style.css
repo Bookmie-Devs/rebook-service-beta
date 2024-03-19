@@ -573,6 +573,7 @@ opacity: 0;
   border: 1px solid #ccc;
   border-radius: 10px;
   overflow: hidden;
+  background-color: #c1c5fd;
 }
 
 .card-image {
@@ -851,17 +852,21 @@ opacity: 0;
 }
 
 .contact_section .container-fluid {
-  background-color: var(--dark);
-  color: #ffffff;
+  background-color: #c1c5fd;
 }
 
 .contact_section .form_container {
   padding: 45px 0 45px 15px;
 }
 
+.contact_section .form_container form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .inputbox {
   position: relative;
-  margin-bottom: 25px;
 }
 
 .inputbox input {
@@ -884,7 +889,6 @@ opacity: 0;
   left: 0;
   padding: 20px 10px 10px;
   font-size: 1em;
-  color: #8f8f8f;
   letter-spacing: 00.05em;
   transition: 0.5s;
   pointer-events: none;
