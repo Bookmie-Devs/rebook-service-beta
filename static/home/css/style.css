@@ -101,7 +101,7 @@ a{
 }
 
 section :not(:last-of-type) > img{
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 html{
@@ -116,6 +116,14 @@ body {
   max-width: 100vw !important;
   background-color: #dcdef8;
 }
+
+/* section.tone :is(.container, .container-fluid){
+  background: #c1c5fd;
+  border-radius: 10px;
+  width: 90%;
+  margin: auto;
+  padding: 30px;
+} */
 
 .layout_padding {
   padding-top: 90px;
@@ -162,7 +170,7 @@ body {
 
 /*header section*/
 .hero_area {
-  background-image: linear-gradient(rgb(0, 0, 0), rgba(0, 0, 0, 0.5)), url(../images/12.jpg);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(../images/12.jpg);
   position: relative;
   background-repeat: no-repeat;
   background-position: center;
@@ -428,7 +436,7 @@ opacity: 0;
 /* slider section */
 .slider_section {
   text-align: center;
-  padding: 75px 0;
+  padding: 75px 20px;
   color: #0b0b0b;
 }
 
@@ -444,13 +452,13 @@ opacity: 0;
 }
 
 .slider_section .detail-box h1 {
-  color: #fea1169c;
+  color: #fff8;
   font-weight: bold;
   font-size: 4rem;
 }
 
 .slider_section .detail-box h1 span {
-  color: #FEA116;
+  color: #fff;
 }
 
 .slider_section .detail-box p {
@@ -474,10 +482,10 @@ opacity: 0;
 .slider_section .detail-box .btn-box a {
   padding: 5px 25px;
   background-color: transparent;
-  color: var(--primary);
+  color: #fff;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
-  border: 1px solid #fa7900;
+  border: 1px solid #fff;
   border-radius: 25px;
   margin-bottom: 10px;
 }
@@ -485,7 +493,6 @@ opacity: 0;
 .slider_section .detail-box .btn-box a:hover {
   background-color: #FEA116;
   border-color: transparent;
-  color: #ffffff;
 }
 
 .find_section {
@@ -495,41 +502,22 @@ opacity: 0;
 
 .find_section .quick-search {
   padding: 20px 45px;
-  background: rgba(0, 0, 0, 0.692);
-  border-radius: 10px;
 }
 
-/* .form-control {
-  outline: none;
-  -webkit-box-shadow: none;
-          box-shadow: none;
-  border-radius: 0;
-  height: 45px;
-  margin: 10px 0;
-  color: var(--light);
-  background: transparent;
-  border: none;
-  border-bottom: 2px solid var(--primary);
-} */
-
-/* .find_section form .form-control option{
-  color: var(--dark);
-} */
-
 .find_section .quick-search button {
-  background-color: #f97616;
+  background-color: var(--primary);
   color: #ffffff;
   text-transform: uppercase;
   border: none;
-  border-radius: 10px;
+  border-radius: 20px;
   height: 45px;
   width: 100%;
   margin: 10px 0;
+  transition: 0.4s;
 }
 
 .find_section .quick-search button:hover{
-  background: rgb(65, 64, 64);
-  color: var(--primary);
+  background: var(--dark);
 }
 
 .about_section {
@@ -585,7 +573,6 @@ opacity: 0;
   border: 1px solid #ccc;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .card-image {
@@ -623,6 +610,12 @@ opacity: 0;
 
 .btn-warning {
   background-color: var(--primary);
+  color: #fff;
+}
+
+.btn-outline-warning {
+ border: 1px solid var(--primary);
+ color: var(--primary);
 }
 
 .sale_section{
@@ -640,7 +633,7 @@ opacity: 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  gap: 10px;
+  gap: 20px;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -650,7 +643,6 @@ opacity: 0;
 
 .deal_section {
   overflow-x: hidden;
-  padding-top: 90px;
 }
 
 .deal_section .row {
