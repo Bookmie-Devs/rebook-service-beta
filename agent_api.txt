@@ -181,3 +181,77 @@ CODE 200
     "bed_space_left": 2,
     "occupied": false
 }
+
+
+
+
+HOSTEL REGISTRATION
+
+send a POST TO THIS URL WITH THE FOLLOWING data
+
+http://127.0.0.1:9000/agents/register-hostel/
+
+
+BANK CODE IS TO BE SUBMITTED ALONG WITH THE ACCOUNT NUMBER
+THE FOLLOWING ARE THE BANKS WE SUPPORT WITH THIER BANK CODES
+SUBMIT THE BANK CODE AS THE VALUE AND DISPLAY THE BANK NAME TO AGENT
+
+SEDN A GET REQUEST TO
+http://127.0.0.1:9000/agents/get-registered-banks/
+TO GET BANKS AND BANK CODES
+
+Response
+{
+    "280100": "Access Bank",
+    "080100": "ADB Bank Limited",
+    "030100": "Absa Bank Ghana Ltd",
+    "MTN": "MTN",
+    "VOD": "Vodafone",
+    "ATL": "AirtelTigo",
+    "070101": "ARB Apex Bank",
+    "210100": "Bank of Africa Ghana",
+    "010100": "Bank of Ghana",
+    "300335": "Best Point Savings and Loans",
+    "140100": "CAL Bank Limited",
+    "340100": "Consolidated Bank Ghana Limited",
+    "130100": "Ecobank Ghana Limited",
+    "200100": "FBNBank Ghana Limited",
+    "240100": "Fidelity Bank Ghana Limited",
+    "170100": "First Atlantic Bank Limited",
+    "330100": "First National Bank Ghana Limited",
+    "040100": "GCB Bank Limited",
+    "230100": "Guaranty Trust Bank (Ghana) Limited",
+    "050100": "National Investment Bank Limited",
+    "360100": "OmniBSCI Bank",
+    "180100": "Prudential Bank Limited",
+    "110100": "Republic Bank (GH) Limited",
+    "300361": "Services Integrity Savings and Loans",
+    "090100": "Société Générale Ghana Limited",
+    "190100": "Stanbic Bank Ghana Limited",
+    "020100": "Standard Chartered Bank Ghana Limited",
+    "060100": "United Bank for Africa Ghana Limited",
+    "100100": "Universal Merchant Bank Ghana Limited",
+    "120100": "Zenith Bank Ghana"
+}
+
+NOTE: FOR THIS REQUEST YOU NEED TO ADD THE bearer TO THE REQUEST
+
+
+DISPLAY THE BANK NAME AND WHEN SELECTED SUBMIT THE CODE AS VALUE
+
+
+WHEN YOUR REACH THE PART FOR CAMPUS SELECTION, YOU WILL HAVE TO SEND THE 
+PRIMARY KEY OF THE CAMPUS AS A VALUE (TO GET CAMPUS NAME AND PK)
+make a get request to this url
+
+http://127.0.0.1:9000/agents/get-registered-campus/
+
+{
+    "1": "Knust"
+}
+
+NOTE NO bearer IS NEEDED FOR THIS REQUEST
+
+DISPLAY THE CAMPUS NAME TO AGENT AND SEND THE PK_NUMBER AS VALUE
+WHEN SUBMITING FORM.
+

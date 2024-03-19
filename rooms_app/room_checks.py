@@ -3,7 +3,6 @@ room check logics and functions here to avoid
 circular import errors with importing
 classes
 """
-from campus_app.models import CampusProfile
 from core.models import Booking, Tenant
 from rooms_app.models import RoomProfile
 from django.utils import timezone

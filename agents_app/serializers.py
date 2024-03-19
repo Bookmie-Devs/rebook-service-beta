@@ -62,7 +62,6 @@ class HostelCreationSerializer(ModelSerializer):
                   'other_contact',
                   'bank_code',
                   'account_number',
-                  'number_of_rooms',
                   'campus',
                   'agent_affiliate',
                   'hostel_image', 
