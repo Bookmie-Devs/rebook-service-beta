@@ -90,6 +90,7 @@ def complete_part_payment(request: HttpRequest):
         # make payment ot subaccount
         return render(request=request,template_name='payments/make_payment.html', 
                     context={'amount':payment.amount,'reference_id': payment.reference_id, 
+                             'ammount_value':payment.get_amount_value(),
                             'subaccount':subaccount.subaccount_code,
                             'student':student, 'is_completing_payment':True,
                             'paystack_public_key':settings.PAYSTACK_PUBLIC_KEY })

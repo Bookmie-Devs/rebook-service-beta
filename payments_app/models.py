@@ -1,4 +1,5 @@
 from collections.abc import Iterable
+from random import randint
 from django.db import models
 from accounts.models import CustomUser, Student
 from hostel_app.models import HostelProfile
@@ -75,3 +76,26 @@ class PaystackSubAccount(models.Model):
 
     def __str__(self) -> str:
         return f'{self.hostel} SubAccount'
+
+def genrate_reference()-> str:
+    code = f"BPAY{randint(100000, 999999)}"
+    while PhysicalPaymentHistory.objects.filter(reference=code).exists():
+         code = f"BPAY{randint(100000, 999999)}"
+    return code
+
+class PhysicalPaymentHistory(models.Model):
+    payment_id = models.UUIDField(primary_key=True, unique=True, editable=False, default=uuid.uuid4)
+    reference = models.CharField(max_length=10, unique=True, editable=False,default=genrate_reference)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, null=True)
+    email = models.EmailField()
+    amount = models.DecimalField(decimal_places=2, max_digits=7)
+    account_payed_to = models.CharField(max_length=20, default=settings.BOOKMIE_ACCOUNT)
+    room = models.ForeignKey(RoomProfile, on_delete=models.SET_NULL, null=True)
+    hostel = models.ForeignKey(HostelProfile, on_delete=models.SET_NULL, null=True)
+    successful = models.BooleanField(default=False)
+    date_of_payment = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self) -> str:
+        return f'{self.student.user} payed on {self.date_of_payment.date()} @{self.date_of_payment.hour}:{self.date_of_payment.minute}'
+
+    # def save(self, *args, **kwargs):

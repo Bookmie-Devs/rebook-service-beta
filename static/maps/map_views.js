@@ -226,6 +226,9 @@ function calculateAndDisplayRoutes(origin, destinations, map) {
               newRenderer.setMap(map);
               newRenderer.setDirections(result);
             directionsRenderers.push(newRenderer);
+
+            const durationInSeconds = result.routes[0].legs[0].duration.value;
+            const durationInMinutes = Math.round(durationInSeconds / 60);
           } else {
               console.error('Error fetching directions:', status);
           }
