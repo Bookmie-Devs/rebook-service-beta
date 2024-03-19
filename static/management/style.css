@@ -616,7 +616,8 @@ div > span{
 
     .contaner2 .cads {
         height: calc(100% - 50px);
-        row-gap: -20px;
+        flex-direction: column;
+        gap: 15px;
     }
 
     .contaner2 .cads .cad {
