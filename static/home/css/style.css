@@ -83,7 +83,7 @@
 /* Animation end */
 
 
-.h5, .h2{
+.h2{
   color: orangered ;
 }
 
@@ -674,16 +674,20 @@ opacity: 0;
   border-radius: 10px !important;
 }
 
-.us_section {
-  background-color: var(--dark);
-  color: #ffffff;
-}
-
 .us_section .heading_container {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   margin-bottom: 45px;
+}
+
+.us_section .container .row{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
 .us_section .box {
@@ -698,8 +702,19 @@ opacity: 0;
       -ms-flex-align: center;
           align-items: center;
   text-align: center;
-  color: #ffffff;
-  margin: 25px 0;
+  margin: 15px auto;
+  background: #c1c5fd;
+  width: 180px;
+  height: 180px;
+  border-radius: 10px;
+  padding: 20px;
+  transform: scale(0.8);
+  transition: all 0.3s;
+}
+
+.us_section .box:hover{
+  border: 1px solid #c1c5fd;
+  background: transparent;
 }
 
 .us_section .box .img-box {
@@ -708,10 +723,6 @@ opacity: 0;
 
 .us_section .box .img-box img {
   width: 100%;
-}
-
-.us_section .box h3 {
-  font-weight: bold;
 }
 
 .client_section .heading_container {
