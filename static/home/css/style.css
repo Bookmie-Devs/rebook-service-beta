@@ -401,8 +401,6 @@ opacity: 0;
 }
 
 .overlay a {
-  width: 150px;
-  margin: 0 auto;
   display: block;
  font-size: 18px;
   color: var(--light);
@@ -420,11 +418,11 @@ opacity: 0;
 }
 
 .overlay-content {
-  position: relative;
+  position: absolute;
   top: 30%;
-  width: 100%;
-  text-align: center;
-  margin-top: 30px;
+  width: 400px;
+  top: 10%;
+  left: 50px;
 }
 
 .menu_width {
