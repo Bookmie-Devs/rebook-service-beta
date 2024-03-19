@@ -42,9 +42,13 @@ def index(request):
     campuses = CampusProfile.objects.all()
     # random a list of hostels to display
     # campuses = random.sample(population=list(campuses), k=len(list(campuses)))
-
     feedbacks = RecomendationFeedBacks.objects.all()
-    return render(request, 'index.html', {'campuses':campuses,'user':request.user, 'feedbacks':feedbacks})
+    context = {
+    'campuses':campuses,
+    'user':request.user, 
+    'feedbacks':feedbacks
+    }
+    return render(request, 'index.html', context)
 
 
 class HostelListView(generic.ListView):
@@ -62,7 +66,14 @@ class HostelListView(generic.ListView):
             search_data = request.GET['search_data']            
             campus = CampusProfile.objects.get(campus_param_id=campus_param_id)
             #query of search 
-            query = HostelProfile.objects.filter(Q(verified=True) & Q(campus=campus) & (Q(hostel_name__icontains=search_data) | Q(location__icontains=search_data)))
+            query = HostelProfile.objects.filter(
+            Q(verified=True) & 
+            Q(campus=campus) & 
+            (
+            Q(hostel_name__icontains=search_data) |
+            Q(location__icontains=search_data)
+            )
+            )
             #context containg search query page
             context['hostels']=query
             return render(request, 'htmx_templates/hostel_search_result.html', context)
@@ -71,6 +82,7 @@ class HostelListView(generic.ListView):
     
 
 # IN DEVELOPMENT 
+@login_required()
 def update_vcode(request):
     """update tenant year of staying"""
 
@@ -85,13 +97,17 @@ def update_vcode(request):
         else:
             tenant.delete_if_expired()
             booked_room = RoomProfile.objects.get(room_id=request.POST.get('room_id')) 
-            booking=Booking.objects.create(room=booked_room, user=request.user, 
-                                    room_number=booked_room.room_no, hostel=booked_room.hostel, 
-                                    student_id=request.user.student_id, status='Booked',
-                                    end_time=(timezone.now() + timedelta(seconds=40)),
-                                    campus=booked_room.campus,
-                                    #for payment app to what type of booking
-                                    is_updating_vcode=True)
+            booking=Booking.objects.create(
+            room=booked_room, 
+            user=request.user, 
+            room_number=booked_room.room_no,
+            hostel=booked_room.hostel, 
+            student_id=request.user.student_id, 
+            status='Booked',
+            end_time=(timezone.now() + timedelta(seconds=40)),
+            campus=booked_room.campus,
+            #for payment app to what type of booking
+            is_updating_vcode=True)
             booking.save()
             messages.error(request,"Please proceed to payment")
             return redirect("accounts:booking-and-payments")
@@ -138,10 +154,16 @@ class AboutView(TemplateView):
 def free_booking(request, room_id):
     acquired_room = RoomProfile.objects.get(room_id=room_id)
     student = Student.objects.get(user=request.user)
-    tenant = Tenant.objects.create(student=student, room=acquired_room,
-                                        hostel=acquired_room.hostel, payed=True, completed_payment=True)
+    tenant = Tenant.objects.create(
+    payed=True, 
+    student=student, 
+    room=acquired_room,                                    
+    hostel=acquired_room.hostel, 
+    completed_payment=True)
     tenant.save()
-    count_members: int = Tenant.objects.filter(room=acquired_room, end_date__gt=acquired_room.campus.end_of_acadamic_year).count()
+    count_members: int = Tenant.objects.filter(
+    room=acquired_room, 
+    end_date__gt=acquired_room.campus.end_of_acadamic_year).count()
 
     # SET ROOM TO FULL IF CAPACITY HAS BEEN FIELED OR REDUCE BED SPACE LEFT
     acquired_room.reduce_bed_spaces(count_members=count_members)
@@ -153,8 +175,10 @@ def free_booking(request, room_id):
     # msg = render_to_string('emails/tenant_sms.html',{"user":request.user,"tenant":tenant,"amount":payment.amount,"domain":current_domain})
     # send_sms_message(user_contact=request.user.phone, msg=msg)
     # send sms to manager
-    manager_msg = render_to_string('emails/hostel_manager_msg.html',{'manager':tenant.hostel.hostel_manager,
-                                                                        'tenant':tenant})
+    manager_msg = render_to_string(
+    'emails/hostel_manager_msg.html',
+    {'manager':tenant.hostel.hostel_manager,
+    'tenant':tenant})
     send_sms_message(user_contact=tenant.hostel.hostel_manager.phone,msg=manager_msg)
 
     # send emails

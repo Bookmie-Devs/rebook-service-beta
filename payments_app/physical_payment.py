@@ -53,12 +53,14 @@ def physical_payment(request: HttpRequest, room_id):
     """
     if booking.is_updating_vcode:
         #save payment details
-        payment = PhysicalPaymentHistory.objects.create(student=student,
-                            email=email,
-                            amount=room.ptf_room_price,
-                            account_payed_to=room.hostel.account_number,
-                            room=room,
-                            hostel=room.hostel,)
+        payment = PhysicalPaymentHistory.objects.create(
+        student=student,
+        email=email,
+        amount=room.ptf_room_price,
+        account_payed_to=room.hostel.account_number,
+        room=room,
+        hostel=room.hostel,
+        )
         payment.save()            
         return redirect('payments:physical-payment-confirm', payment_id=payment.payment_id)
 
@@ -72,21 +74,25 @@ def physical_payment(request: HttpRequest, room_id):
             # check if there is an unsuccessful payment
             PaymentHistory.objects.filter(student=student, successful=False).delete()
             # save payment details
-            payment = PhysicalPaymentHistory.objects.create(student=student,
-                                email=request.POST.get('email'),amount=room.ptf_room_price,
-                                account_payed_to=room.hostel.account_number,
-                                room=room,hostel=room.hostel,)
+            payment = PhysicalPaymentHistory.objects.create(
+            student=student,
+            email=request.POST.get('email'),
+            amount=room.ptf_room_price,
+            account_payed_to=room.hostel.account_number,
+            room=room,
+            hostel=room.hostel,)
             payment.save()
             return redirect('payments:physical-payment-confirm', payment_id=payment.payment_id)
         else:
             #save payment details
-            payment = PhysicalPaymentHistory.objects.create(student=student,
-                                email=request.POST.get('email'),
-                                amount=room.ptf_room_price,
-                                account_payed_to=room.hostel.account_number,
-                                room=room,
-                                hostel=room.hostel,
-                                )
+            payment = PhysicalPaymentHistory.objects.create(
+            student=student,
+            email=request.POST.get('email'),
+            amount=room.ptf_room_price,
+            account_payed_to=room.hostel.account_number,
+            room=room,
+            hostel=room.hostel,
+            )
             payment.save()            
             return  redirect('payments:physical-payment-confirm', payment_id=payment.payment_id)
 

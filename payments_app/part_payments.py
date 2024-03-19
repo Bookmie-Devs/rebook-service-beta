@@ -32,12 +32,14 @@ def initiate_part_payment(request: HttpRequest, room_id):
         """
         if booking.is_updating_vcode:
             #save payment details
-            payment = PaymentHistory.objects.create(student=student,
-                                email=request.POST.get('email'),
-                                amount=room.half_pricing,
-                                account_payed_to=room.hostel.account_number,
-                                room=room,
-                                hostel=room.hostel, is_half_payment=True)
+            payment = PaymentHistory.objects.create(
+            student=student,
+            email=request.POST.get('email'),
+            amount=room.half_pricing,
+            account_payed_to=room.hostel.account_number,
+            room=room,
+            hostel=room.hostel, is_half_payment=True
+            )
             payment.save()            
             return redirect('payments:make-payment', reference_id=payment.reference_id, room_id=room.room_id)
 
@@ -51,21 +53,27 @@ def initiate_part_payment(request: HttpRequest, room_id):
                 # check if there is an unsuccessful payment
                 PaymentHistory.objects.filter(student=student, successful=False).delete()
                     #save payment details
-                payment = PaymentHistory.objects.create(student=student,
-                                    email=request.POST.get('email'),amount=room.half_pricing,
-                                    account_payed_to=room.hostel.account_number,
-                                    room=room,hostel=room.hostel,  is_half_payment=True)
+                payment = PaymentHistory.objects.create(
+                student=student,
+                amount=room.half_pricing,
+                room=room,
+                hostel=room.hostel,  
+                is_half_payment=True,
+                email=request.POST.get('email'),
+                account_payed_to=room.hostel.account_number,
+                )
                 payment.save()
                 return redirect('payments:make-payment', reference_id=payment.reference_id, room_id=room.room_id)
             else:
                 #save payment details
                 payment = PaymentHistory.objects.create(student=student,
-                                    email=request.POST.get('email'),
-                                    amount=room.half_pricing,
-                                    account_payed_to=room.hostel.account_number,
-                                    room=room,
-                                    hostel=room.hostel,  is_half_payment=True
-                                    )
+                email=request.POST.get('email'),
+                amount=room.half_pricing,
+                account_payed_to=room.hostel.account_number,
+                room=room,
+                hostel=room.hostel,  
+                is_half_payment=True
+                )
                 payment.save()            
                 return redirect('payments:make-payment', reference_id=payment.reference_id, room_id=room.room_id)
     is_part_payment = True       
@@ -79,21 +87,27 @@ def complete_part_payment(request: HttpRequest):
         tenant=Tenant.objects.get(student=student, made_part_payment=True)
         # payment = get_object_or_404(PaymentHistory, user=request.user, reference_id=reference_id)
          #save payment details
-        payment = PaymentHistory.objects.create(student=student,
-                            email=request.user.email,
-                            amount=tenant.amount_left_to_pay,
-                            account_payed_to=tenant.room.hostel.account_number,
-                            room=tenant.room,
-                            hostel=tenant.room.hostel, completed_full_payment=True)
+        payment = PaymentHistory.objects.create(
+        student=student,
+        email=request.user.email,
+        amount=tenant.amount_left_to_pay,
+        account_payed_to=tenant.room.hostel.account_number,
+        room=tenant.room,
+        hostel=tenant.room.hostel, completed_full_payment=True
+        )
         payment.save()    
         subaccount = PaystackSubAccount.objects.get(hostel=tenant.room.hostel)
         # make payment ot subaccount
-        return render(request=request,template_name='payments/make_payment.html', 
-                    context={'amount':payment.amount,'reference_id': payment.reference_id, 
-                             'ammount_value':payment.get_amount_value(),
-                            'subaccount':subaccount.subaccount_code,
-                            'student':student, 'is_completing_payment':True,
-                            'paystack_public_key':settings.PAYSTACK_PUBLIC_KEY })
+        context={
+        'amount':payment.amount,
+        'reference_id': payment.reference_id, 
+        'ammount_value':payment.get_amount_value(),
+        'subaccount':subaccount.subaccount_code,
+        'student':student, 'is_completing_payment':True,
+        'paystack_public_key':settings.PAYSTACK_PUBLIC_KEY 
+        }
+        return render(request,'payments/make_payment.html', context)
+    
     except Tenant.DoesNotExist:
         messages.info(request, 'You dont have any outstanding debt', extra_tags='danger')
         return redirect('accounts:booking-and-payments')

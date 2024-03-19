@@ -155,21 +155,21 @@ def booking_and_payments(request: HttpRequest):
         booking = Booking.objects.get(student=student)
         tenant = False
         context.update({'tenant':tenant,'booking': booking,})
-        return render(request, 'booking_and_payments.html',context=context)
+        return render(request, 'booking_and_payments.html', context)
     
     elif Tenant.objects.filter(student=student).exists():
         tenant = Tenant.objects.get(student=student)
         booking = False
         context.update({'tenant':tenant,'booking': booking,})
-        return render(request, 'booking_and_payments.html',context=context)
+        return render(request, 'booking_and_payments.html', context)
     
     else:
-        return render(request, 'booking_and_payments.html', context=context)
+        return render(request, 'booking_and_payments.html', context)
 
 # EMAIL VERIFICATION
 from .tokens import account_activation_token
 
-def send_verification_email(request, user: CustomUser):
+def send_verification_email(request, user: CustomUser) -> None:
     from django.core.mail import EmailMessage
     from django.contrib.sites.shortcuts import get_current_site
     from django.template.loader import render_to_string
