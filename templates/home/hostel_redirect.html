@@ -11,7 +11,7 @@
       {% if campus.available_on_campus %}
       <p class="card-description">All hostels available on campus</p>
       <div class="card-buttons">
-        <a href="{% url 'core:hostels' campus.campus_id %}">
+        <a href="{% url 'core:hostels' campus.campus_param_id %}">
         <button class="btn btn-warning">All Hostels</button>
       </a>
       </div>
