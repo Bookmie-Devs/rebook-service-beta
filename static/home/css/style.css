@@ -83,7 +83,7 @@
 /* Animation end */
 
 
-.h5, .h2{
+.h2{
   color: orangered ;
 }
 
@@ -401,8 +401,6 @@ opacity: 0;
 }
 
 .overlay a {
-  width: 150px;
-  margin: 0 auto;
   display: block;
  font-size: 18px;
   color: var(--light);
@@ -420,11 +418,11 @@ opacity: 0;
 }
 
 .overlay-content {
-  position: relative;
+  position: absolute;
   top: 30%;
-  width: 100%;
-  text-align: center;
-  margin-top: 30px;
+  width: 400px;
+  top: 10%;
+  left: 50px;
 }
 
 .menu_width {
@@ -573,6 +571,7 @@ opacity: 0;
   border: 1px solid #ccc;
   border-radius: 10px;
   overflow: hidden;
+  background-color: #c1c5fd;
 }
 
 .card-image {
@@ -674,16 +673,20 @@ opacity: 0;
   border-radius: 10px !important;
 }
 
-.us_section {
-  background-color: var(--dark);
-  color: #ffffff;
-}
-
 .us_section .heading_container {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   margin-bottom: 45px;
+}
+
+.us_section .container .row{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
 .us_section .box {
@@ -698,8 +701,19 @@ opacity: 0;
       -ms-flex-align: center;
           align-items: center;
   text-align: center;
-  color: #ffffff;
-  margin: 25px 0;
+  margin: 15px auto;
+  background: #c1c5fd;
+  width: 180px;
+  height: 180px;
+  border-radius: 10px;
+  padding: 20px;
+  transform: scale(0.8);
+  transition: all 0.3s;
+}
+
+.us_section .box:hover{
+  border: 1px solid #c1c5fd;
+  background: transparent;
 }
 
 .us_section .box .img-box {
@@ -708,10 +722,6 @@ opacity: 0;
 
 .us_section .box .img-box img {
   width: 100%;
-}
-
-.us_section .box h3 {
-  font-weight: bold;
 }
 
 .client_section .heading_container {
@@ -840,17 +850,21 @@ opacity: 0;
 }
 
 .contact_section .container-fluid {
-  background-color: var(--dark);
-  color: #ffffff;
+  background-color: #c1c5fd;
 }
 
 .contact_section .form_container {
   padding: 45px 0 45px 15px;
 }
 
+.contact_section .form_container form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .inputbox {
   position: relative;
-  margin-bottom: 25px;
 }
 
 .inputbox input {
@@ -873,7 +887,6 @@ opacity: 0;
   left: 0;
   padding: 20px 10px 10px;
   font-size: 1em;
-  color: #8f8f8f;
   letter-spacing: 00.05em;
   transition: 0.5s;
   pointer-events: none;
