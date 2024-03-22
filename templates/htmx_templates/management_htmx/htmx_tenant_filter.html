@@ -6,15 +6,15 @@
 </svg>
     </span></div>
   <div class="details">
-    <p class="head">{{ tenant.user.username }}</p>
+    <p class="head">{{ tenant.student.user.username }}</p>
     <p>Room Number: {{ tenant.room.room_no }}</p>
-    <p>student ID: {{ tenant.user.student_id}}</p>
+    <p>student ID: {{ tenant.student.student_id_number}}</p>
     {% if tenant.checked_in %}
       <p>Checked In: True</p>
     {% else %}
     <p>Checked In: False</p>
     {% endif %}
-    <p>Phone Number: {{ tenant.user.phone }}</p>
+    <p>Phone Number: {{ tenant.student.user.phone }}</p>
   </div>
 </div>
 {% endfor %}

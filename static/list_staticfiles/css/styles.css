@@ -51,7 +51,7 @@
   --bs-body-font-weight: 400;
   --bs-body-line-height: 1.5;
   --bs-body-color: #212529;
-  --bs-body-bg: #dcdef8;
+  --bs-body-bg: #fff;
   --bs-border-width: 1px;
   --bs-border-style: solid;
   --bs-border-color: #dee2e6;
@@ -66,9 +66,11 @@
   --bs-link-hover-color: #0a58ca;
   --bs-code-color: #d63384;
   --bs-highlight-bg: #fff3cd;
-  --primary: #fea116;
+  --primary: #FEA116;
+  --primary-variant: #ff4500;
     --light: #F1F8FF;
-    --dark: #0F172B;
+    --light-variant: #fea11625;
+    --dark: #000000;
 }
 
 *,
@@ -98,7 +100,7 @@ body {
 
 .header{
   position: relative;
-  background: linear-gradient(rgb(15, 23, 43), rgba(15, 23, 43, 0.562)),url(../img/room.jpg);
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(../img/room.jpg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -167,7 +169,7 @@ body {
 
 .footer{
   position: relative;
-  background: linear-gradient(rgba(15, 23, 43, 0.26), rgba(15, 23, 43, .9)),url(../img/room.jpg);
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(../img/room.jpg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -191,7 +193,7 @@ body {
 }
 
 .custom-shape-divider-top-1695573055 .shape-fill {
-  fill: #dcdef8;
+  fill: var(--light);
 }
 
 .card{
@@ -200,16 +202,16 @@ body {
 }
 
 .card-body:hover{
-  color: var(--light);
+  color: var(--dark);
   transition: 300ms;
 }
 
 .card:hover{
-  color: var(--light);
-  background: var(--primary);
+  color: var(--dark);
+  background: var(--light-variant);
   transition: 300ms;
   transform: translateY(-10px);
-  border: none;
+  border: 1px solid var(--light-variant);
 }
 
 .card .type{
@@ -217,15 +219,15 @@ body {
   border: 1px solid var(--primary) !important;
   width: 75%;
 }
-
+/* 
 .card .type.part{
   color: var(--bs-success) !important;
   border: 1px solid var(--bs-success) !important;
-}
+} */
 
 .card:hover .type{
-  color: var(--light) !important;
-  border: 1px solid var(--light) !important;
+  color: var(--dark) !important;
+  border: 1px solid var(--dark) !important;
 }
 
 .btn:hover{
@@ -237,14 +239,14 @@ body {
 
 .card-footer .btn{
   background: var(--primary);
-  color: var(--dark) !important;
-  border:1px solid var(--light);
+  color: var(--light) !important;
+  border:1px solid transparent;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .card-footer .btn:hover{
-  border: none !important;
-  background: var(--light) !important;
+  background: var(--dark) !important;
+  color: var(--light) !important;
 }
 
 .nav {
@@ -275,12 +277,23 @@ body {
 
 .drop{
   color: var(--light) !important;
-  background: gray !important;
+  background: var(--dark) !important;
 }
 
 .drop:hover{
   background-color: var(--primary) !important;
   transition: 300ms;
+  border: 1px solid var(--primary);
+}
+
+.btn-outline-warning {
+  border: 1px solid var(--primary) !important;
+  color: var(--primary) !important;
+}
+
+.btn-outline-warning:hover{
+  background-color: var(--primary) !important;
+  color: var(--light) !important;
 }
 
 .btns{
@@ -313,7 +326,7 @@ section {
   display: block;
   height: 3px;
   border-radius: 10px;
-  background-color: #fff;
+  background-color: var(--light);
   -webkit-transition: all .3s;
   transition: all .3s;
 }
@@ -349,15 +362,14 @@ section {
   top: 50%;
 }
 
-.h1 {
-  color: orangered !important;
-  font-weight: 800;
-  text-shadow: 2px 2px 2px black;
+.h2 {
+  color: var(--primary-variant) !important;
+  font-weight: 800 !important;
   text-decoration: none;
   vertical-align: center !important;
 }
 
-h1 {
+h2 {
   margin: 0 !important;
 }
 

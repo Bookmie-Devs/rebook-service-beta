@@ -66,9 +66,11 @@
   --bs-link-hover-color: #0a58ca;
   --bs-code-color: #d63384;
   --bs-highlight-bg: #fff3cd;
-  --primary: #fea116;
+  --primary: #FEA116;
+  --primary-variant: #ff4500;
     --light: #F1F8FF;
-    --dark: #0F172B;
+    --light-variant: #fea11625;
+    --dark: #000000;
 }
 
 *,
@@ -211,17 +213,18 @@ body {
 }
 
 .footer{
-  position: relative
+  position: relative;
+  background: var(--dark) !important;
 }
 
 .card-body:hover{
-  color: var(--light);
+  color: var(--dark);
   transition: 300ms;
 }
 
 .card:hover{
-  color: var(--light);
-  background: var(--primary);
+  color: var(--dark);
+  background: var(--light-variant);
   transition: 300ms;
   transform: translateY(-10px);
   border: none;
@@ -229,7 +232,7 @@ body {
 
 .drop{
   color: var(--light) !important;
-  background: gray !important;
+  background: var(--dark) !important;
 }
 
 .drop:hover{
@@ -239,13 +242,13 @@ body {
 
 .card-footer .btn{
   background: var(--primary);
-  color: var(--dark) !important;
-  border:1px solid var(--light);
+  color: var(--light) !important;
+  border:1px solid transparent;
 }
 
 .card-footer .btn:hover{
   border: none !important;
-  background: var(--light) !important;
+  background: var(--dark) !important;
 }
 
 .nav {
@@ -268,6 +271,28 @@ body {
 .collapse .navbar-nav .nav-item .nav-link:hover{
   color: var(--primary);
   transition: 300ms;
+}
+
+.drop{
+  color: var(--light) !important;
+  background: var(--dark) !important;
+  border: 1px solid var(--dark) !important;
+}
+
+.drop:hover{
+  background-color: var(--primary) !important;
+  transition: 300ms;
+  border: 1px solid var(--primary) !important;
+}
+
+.btn-outline-warning {
+  border: 1px solid var(--primary) !important;
+  color: var(--primary) !important;
+}
+
+.btn-outline-warning:hover{
+  background-color: var(--primary) !important;
+  color: var(--light) !important;
 }
 
 section {
@@ -296,7 +321,7 @@ section {
   display: block;
   height: 3px;
   border-radius: 10px;
-  background-color: #fff;
+  background-color: var(--light);
   -webkit-transition: all .3s;
   transition: all .3s;
 }
@@ -336,15 +361,14 @@ section {
   position: relative;
 }
 
-.h1 {
-  color: orangered !important;
-  font-weight: 800;
-  text-shadow: 2px 2px 2px black;
+.h2 {
+  color: var(--primary-variant) !important;
+  font-weight: 800 !important;
   text-decoration: none;
   vertical-align: center !important;
 }
 
-h1 {
+h2 {
   margin: 0 !important;
 }
 
