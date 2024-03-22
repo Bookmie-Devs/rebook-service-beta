@@ -20,13 +20,13 @@
   <body>
     <nav class="nav navbar navbar-expand-lg navbar-light">
       {% comment %} <!-- <div class="container px-4 px-lg-5"> --> {% endcomment %}
-        <h1>
-          <a class="h1" href="{% url 'core:index' %}"
+        <h2>
+          <a class="h2" href="{% url 'core:index' %}"
             ><img src="{% static 'home/images/favicon1.png' %}" alt="" style="height: 40px; width: 40px; margin-top: -5px;">Bookmie.com</a
           >
-        </h1>
+        </h2>
         <div class="logo">
-          <a class="h1" href="{% url 'core:index' %}">
+          <a class="h2" href="{% url 'core:index' %}">
           <img src="{% static 'home/images/favicon.ico' %}" alt="" style="height: 40px; width: 40px; border-radius: 10px;">
           </a>
         </div>
@@ -171,7 +171,7 @@
            To Change Origin
         </p>
         {% comment %} <br> {% endcomment %}
-        <button onclick="d.close()">Close 
+        <button class="btn" onclick="d.close()">Close 
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
             <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
           </svg>

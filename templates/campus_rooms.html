@@ -65,7 +65,7 @@
     {% comment %} <!-- Navigation--> {% endcomment %}
     <nav class="nav navbar navbar-expand-lg navbar-light ">
       <div class="container px-4 px-lg-5">
-<h1><a class="h1" href="{% url 'core:index' %}"><img src="{% static 'home/images/favicon1.png' %}" alt="" style="height: 40px; width: 40px; margin-top: -5px;">Bookmie.com</a></h1> 
+<h2><a class="h2" href="{% url 'core:index' %}"><img src="{% static 'home/images/favicon1.png' %}" alt="" style="height: 40px; width: 40px; margin-top: -5px;">Bookmie.com</a></h2> 
        <div id="menu-btn" class="custom_menu-btn">
               <button>
                 <span class="s-1">
@@ -172,7 +172,7 @@
 
       <div class="container px-4 px-lg-5 my-5" style="padding-bottom: 30px;">
         <div class="text-center text-white filter">
-          <a class="nav-link active" aria-current="page" href="#!"><h3 class="fw-bolder" style="color: orange;">Lets Help You Get A Room🏠</h3></a>
+          <a class="nav-link active" aria-current="page" href="#!"><h3 class="fw-bolder" style="color: #fea116;">Lets Help You Get A Room🏠</h3></a>
             <form 
             hx-get="{% url 'rooms:campus-rooms' campus.campus_param_id %}"
             hx-trigger="submit, change"

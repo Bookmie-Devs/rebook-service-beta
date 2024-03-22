@@ -20,7 +20,7 @@
         <nav class="nav navbar navbar-expand-lg navbar-light">
 
             <div class="container px-4 px-lg-5">
-<h1><a class="h1" href="{% url 'core:index' %}"><img src="{% static 'home/images/favicon1.png' %}" alt="" style="height: 40px; width: 40px; margin-top: -5px;">Bookmie.com</a></h1> 
+<h2><a class="h2" href="{% url 'core:index' %}"><img src="{% static 'home/images/favicon1.png' %}" alt="" style="height: 40px; width: 40px; margin-top: -5px;">Bookmie.com</a></h2> 
              <div id="menu-btn" class="custom_menu-btn">
               <button>
                 <span class="s-1">
@@ -181,7 +181,7 @@
                     </div>
                     <div class="col-md-6 text-center">
 
-                        <h1 class="display-5 fw-bolder" style="color: orange;">{{ hostel.hostel_name.upper }}</h1>
+                        <h1 class="display-5 fw-bolder" style="color: #fea116;">{{ hostel.hostel_name.upper }}</h1>
                         <div class="small mb-1"><h6>&#x2713;Registered to {{ hostel.campus.alias_name.upper }}</h6> </div>
                         <span><strong>Price range: GH&#8373;: {{ hostel.price_range }}</strong></span>
                         {% comment %} <!-- <h4 class="fw-bolder">Contact {{ hostel.hostel_contact }}</h4> --> {% endcomment %}
@@ -189,7 +189,7 @@
                         <hr>
                         <div class="fs-5 mb-5">
 
-                            <a href="{% url 'hostels:hostel-rooms' hostel.hostel_code %}" class="btn btn-secondary flex-shrink-0" type="button">
+                            <a href="{% url 'hostels:hostel-rooms' hostel.hostel_code %}" class="btn btn-secondary flex-shrink-0 drop" type="button">
                                 Book A Room
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-check" viewBox="0 0 16 16">
                                 <path d="M7.293 1.5a1 1 0 0 1 1.414 0L11 3.793V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v3.293l2.354 2.353a.5.5 0 0 1-.708.708L8 2.207l-5 5V13.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 2 13.5V8.207l-.646.647a.5.5 0 1 1-.708-.708z"/>
@@ -200,7 +200,7 @@
                         <br/>
 
                         <div>
-                            <a href="{% url 'maps:hostel-direction' hostel.hostel_code %}" class="btn btn-secondary flex-shrink-0" type="button">
+                            <a href="{% url 'maps:hostel-direction' hostel.hostel_code %}" class="btn btn-secondary flex-shrink-0 drop" type="button">
                                 <i class="bi bi-house-check"></i>
                                 Direction On Map
                                 <svg
@@ -227,7 +227,7 @@
                         </div>
                         </div>
                         <hr>
-                        <p class="lead"><h2 class="fw-bolder" style="color: orange;">Facilities</h2>
+                        <p class="lead"><h2 class="fw-bolder" style="color: #fea116;">Facilities</h2>
                            {{ hostel.facilities }}
                         <br/>
                     </div>
@@ -236,7 +236,7 @@
         </section>
         
         {% comment %} <!-- Footer--> {% endcomment %}
-        <footer class="py-5 bg-dark footer">
+        <footer class="py-5 footer">
 
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Bookmie 2023</p></div>
         </footer>

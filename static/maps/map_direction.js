@@ -259,7 +259,14 @@ window.addEventListener('load', ()=>{
   document.getElementById('d').showModal()
 })
 
-  document.querySelector('.load').style.display = "flex";
-  setTimeout(function () {
-  document.querySelector('.load').style.display = 'none';
-  }, 4000);
+  // document.querySelector('.load').style.display = "flex";
+  // setTimeout(function () {
+  // document.querySelector('.load').style.display = 'none';
+  // }, 4000);
+
+  setInterval(() => {
+    if (document. readyState === 'complete') {
+     document.querySelector('.load').style.display = 'none';
+     clearInterval(stateCheck);  
+    } 
+  }, 100);

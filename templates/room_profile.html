@@ -28,7 +28,7 @@
         {% comment %} <!-- Navigation--> {% endcomment %}
         <nav class="nav navbar navbar-expand-lg navbar-light">
             <div class="container px-4 px-lg-5">
-            <h1><a class="h1" href="{% url 'core:index' %}"><img src="{% static 'home/images/favicon1.png' %}" alt="" style="height: 40px; width: 40px; margin-top: -5px;">Bookmie.com</a></h1>
+            <h2><a class="h2" href="{% url 'core:index' %}"><img src="{% static 'home/images/favicon1.png' %}" alt="" style="height: 40px; width: 40px; margin-top: -5px;">Bookmie.com</a></h2>
             <div id="menu-btn" class="custom_menu-btn">
               <button>
                 <span class="s-1">
@@ -182,7 +182,7 @@
                         {% comment %} <!-- <a href="{{ room.hostel.room_image.url }}"><img class="card-img-top mb-5 mb-md-0 img" src="{{ room.hostel.room_image.url}}" alt="..." /></a> --> {% endcomment %}
                     <div class="col-md-6 text-center">
                         <div class="small mb-1">Registered to {{ room.campus.alias_name.upper}}: BST-498</div>
-                        <h3 class="display-5 fw-bolder" style="color: orange;">{{ room.hostel.hostel_name.upper }}</h3>
+                        <h3 class="display-5 fw-bolder" style="color: #fea116;">{{ room.hostel.hostel_name.upper }}</h3>
                         <h1>Room {{ room.room_no }}</h1>
                         <h3><b>{{ room.gender.capitalize }}</b> Room</h3>
                         <h3>{{ room.room_capacity }} in a room</h3>
@@ -196,13 +196,13 @@
                         style="margin: auto;">
                         {% csrf_token %}
                         <input type="hidden" name="room_id" value="{{ room.room_id }}">
-                        <button id="htmx-message-{{room.room_id}}" class="btn btn-secondary" type="submit">
+                        <button id="htmx-message-{{room.room_id}}" class="btn btn-secondary drop" type="submit">
                             Book Now🏷️
                         </button>
                         </form>
                         
                         <a href="{% url 'maps:hostel-direction' room.hostel.hostel_code %}">
-                            <button class="btn btn-secondary flex-shrink-0" type="button">
+                            <button class="btn btn-secondary flex-shrink-0 drop" type="button">
                                 <i class="bi bi-house-check"></i>
                                 Direction On Map
                                 <svg
@@ -255,14 +255,14 @@
 
                             {% comment %} <!-- <span>GH&#8373;2687</span> --> {% endcomment %}
                         </div>
-                        <p class="lead"><h1 style="color: orange;">Important Notice</h1>
+                        <p class="lead"><h1 style="color: #fea116;">Important Notice</h1>
 
                         If payment is not made for a particular booking after one hour, room can be booked by another person and payed for</p>
                         <div class="d-flex">
                             <input class="form-control text-center me-3" id="inputQuantity" value="{{ room.room_capacity }} in a room" style="max-width: 7rem; margin: auto" />
                         <a href="{% url 'hostels:profile' room.hostel.hostel_code %}" style="margin: auto;">
                             {% comment %} <input type="hidden" name="room_id" value="{{ room.room_id }}"> {% endcomment %}
-                            <button class="btn btn-secondary" type="submit">
+                            <button class="btn btn-secondary drop" type="submit">
                                 {{ room.hostel.hostel_name.title }}
                                 <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -290,7 +290,7 @@
       
 
         {% comment %} <!-- Footer--> {% endcomment %}
-        <footer class="py-5 bg-dark footer">
+        <footer class="py-5 footer">
 
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Bookmie 2023</p></div>
         </footer>
