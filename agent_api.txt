@@ -252,6 +252,63 @@ http://127.0.0.1:9000/agents/get-registered-campus/
 
 NOTE NO bearer IS NEEDED FOR THIS REQUEST
 
-DISPLAY THE CAMPUS NAME TO AGENT AND SEND THE PK_NUMBER AS VALUE
+DISPLAY THE CAMPUS NAME TO THE AGENT AND SEND THE PK_NUMBER AS VALUE
 WHEN SUBMITING FORM.
 
+SEND THE THE HOSTEL DETAILS IS A JSON FORMAT
+WITH CAMPUS NAME AND BANNK CODE
+
+{
+  "hostel_name": "SYstem Hostel",
+  "hostel_contact": "02543453", ###Must be a 10 Characters
+  "other_contact": "", ###Must be a 10 Characters
+  "bank_code": "unavailable", #### MAKE REQUEST TO SELECT BANK
+  "account_number": "unavailable", ##### ENTER ACCOUNT NUMBER
+  "campus": null, ###### MAKE REQUEST TO GET CAMPUSES
+  "agent_affiliate": null, ##### MAKE AGENT ENTER THIS AGENT CODE HERE
+
+  ########IMAGE FILES############
+  "hostel_image": "",
+  "hostel_image2": "",
+  "hostel_image3": "",
+  "hostel_image4": "",
+  "hostel_image5": "",
+  "room_image": "",
+  "room_image2": "",
+  "room_image3": "",
+  "room_image4": "",
+  "room_image5": "",
+  "room_image6": "",
+  "address": null, ###### ADDRESS FROM GOOGLE MAP
+  "location": "Kumasi APasa", ### ALIAS LOCATION FROM AGENT
+  "geolocation": "5.575520945144308,-0.4229223234558166"  ###### GEOLOCATION IN THE FORMAT "lat, long" WHERE lat and long are float values from GOOGLE
+}
+
+
+
+if the status code returned is 201:
+meaing it was created 
+RSPONSE LOOKS SOMETHING LIKE THIS
+{
+  "hostel_name": "ajaolus Hostel",
+  "hostel_contact": "02543453", ###Must be a 10 Characters
+  "other_contact": "", ###Must be a 10 Characters
+  "bank_code": "MTN",
+  "account_number": "0256646334"
+  "campus": 1,
+  "agent_affiliate": "BA77176",
+  "hostel_image": "http://127.0.0.1:9000/media/unavailable.jpg",
+  "hostel_image2": "http://127.0.0.1:9000/media/unavailable.jpg",
+  "hostel_image3": "http://127.0.0.1:9000/media/unavailable.jpg",
+  "hostel_image4": "http://127.0.0.1:9000/media/unavailable.jpg",
+  "hostel_image5": "http://127.0.0.1:9000/media/unavailable.jpg",
+  "room_image": "http://127.0.0.1:9000/media/unavailable.jpg",
+  "room_image2": "http://127.0.0.1:9000/media/unavailable.jpg",
+  "room_image3": "http://127.0.0.1:9000/media/unavailable.jpg",
+  "room_image4": "http://127.0.0.1:9000/media/unavailable.jpg",
+  "room_image5": "http://127.0.0.1:9000/media/unavailable.jpg",
+  "room_image6": "http://127.0.0.1:9000/media/unavailable.jpg",
+  "address": null,
+  "location": "location unavailable",
+  "geolocation": null
+}
