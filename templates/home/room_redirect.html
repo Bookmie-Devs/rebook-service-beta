@@ -14,8 +14,8 @@
       <h2 class="card-title">{{ campus.campus_name }}</h2>
       <p class="card-description">All hostels available on campus</p>
       <div class="card-buttons" style="float: right;">
-        <a href="{% url 'core:hostels' campus.campus_param_id %}">
-        <button class="btn btn-warning">All Hostels</button>
+        <a href="{% url 'rooms:campus-rooms' campus.campus_param_id %}">
+        <button class="btn btn-warning">All Campus Rooms</button>
       </a>
       </div>
   </div>
