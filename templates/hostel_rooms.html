@@ -157,7 +157,7 @@
                 style="color: orangered"
                 href="{% url 'hostels:profile' hostel_code=hostel.hostel_code %}"
                 >{{ hostel.hostel_name.title }}</a
-              >🏢
+              >
             </h1>
 
             {% comment %} <!-- Room filter forms  --> {% endcomment %}
@@ -283,10 +283,10 @@
                     </div>
                     {% endcomment %}
                     <div>
-                      {{ room.room_capacity }} in a Room🏠
+                      {{ room.room_capacity }} in a Room
                     </div>
                     {% comment %} <!-- Room price--> {% endcomment %}
-                    &#8373;{{ room.ptf_room_price }}💵
+                    &#8373;{{ room.ptf_room_price }}
                   </div>
                 </div>
                 {% if room.is_free %}
@@ -309,7 +309,7 @@
                 <div class="card-footer p-3 pt-0 border-top-0 bg-transparent">
                   <div id="htmx-message-{{room.room_id}}" class="text-center">
                     <button type="submit" class="btn mt-auto">
-                      Book🏷️
+                      Book
                     </button>
                   </div>
                 </div>
@@ -328,7 +328,7 @@
               <div class="card w-100 h-100 border border-danger">
                 <div class="card-body p-4">
                   <div class="text-center">
-                    <h5 class="fw-bolder">Hostel is currently full😭</h5>
+                    <h5 class="fw-bolder">Hostel is currently full</h5>
                   </div>
                 </div>
 

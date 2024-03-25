@@ -230,7 +230,7 @@ body {
   border: none;
 }
 
-.drop{
+/* .drop{
   color: var(--light) !important;
   background: var(--dark) !important;
 }
@@ -238,7 +238,7 @@ body {
 .drop:hover{
   background-color: var(--primary) !important;
   transition: 300ms;
-}
+} */
 
 .card-footer .btn{
   background: var(--primary);

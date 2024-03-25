@@ -196,13 +196,13 @@
                         style="margin: auto;">
                         {% csrf_token %}
                         <input type="hidden" name="room_id" value="{{ room.room_id }}">
-                        <button id="htmx-message-{{room.room_id}}" class="btn btn-secondary drop" type="submit">
+                        <button id="htmx-message-{{room.room_id}}" class="btn btn-secondary " type="submit">
                             Book Now🏷️
                         </button>
                         </form>
                         
                         <a href="{% url 'maps:hostel-direction' room.hostel.hostel_code %}">
-                            <button class="btn btn-secondary flex-shrink-0 drop" type="button">
+                            <button class="btn btn-secondary flex-shrink-0 " type="button">
                                 <i class="bi bi-house-check"></i>
                                 Direction On Map
                                 <svg
@@ -225,31 +225,32 @@
                         </div>
                         <hr>
                         <h3 class="fw-bolder">{{ room.bed_space_left}} bed(s) left</h3>
-                        
+                        <div class="details mx-auto" style="text-align: left; width: 200px;">
                         {% if room.inbuilt_kitchen %}
-                            <p>Inbuilt Kitchen <span class="badge text-bg-success">Check &#x2713;</span></p>
+                            <h5><i class="bi bi-check2-circle"></i> Inbuilt Kitchen </h5>
                         {% else %}
-                            <p>No Inside Kitchen/Shared Kitchen <span class="badge text-bg-danger">&#x2718;</span></p>
+                            <h5><i class="bi bi-x-circle"></i> No Inside Kitchen/Shared Kitchen </h5>
                         {% endif %}
 
                         {% if room.inbuilt_bathroom %}
-                            <p>Personal Bathrooom <span class="badge text-bg-success">Check &#x2713;</span></p>
+                            <h5><i class="bi bi-check2-circle"></i> Personal Bathrooom </h5>
                         {% else %}
-                            <p>Shared bathroom <span class="badge text-bg-warning">&#x2713;</span></p>
+                            <h5><i class="bi bi-check2-circle"></i> Shared bathroom</h5>
                         {% endif %}
 
                         {% if room.inbuilt_balcony %}
-                            <p>Inbuilt Balcony<span class="badge text-bg-success">Check &#x2713;</span></p>
+                            <h5><i class="bi bi-check2-circle"></i> Inbuilt Balcony</h5>
                         {% else %}
-                        <p>No Balcony<span class="badge text-bg-danger"> &#x2718;</span></p>
+                        <h5><i class="bi bi-x-circle"></i> No Balcony</h5>
                         {% endif %}
 
                         {% if room.air_condition %}
-                            <p>Air condition <span class="badge text-bg-success">Check &#x2713;</span></p>
+                            <h5><i class="bi bi-check2-circle"></i> Air condition </h5>
                         {% else %}
-                            <p>No air condition <span class="badge text-bg-danger">&#x2718;</span></p>
+                            <h5><i class="bi bi-x-circle"></i> No air condition </h5>
                         {% endif %}
-                        <div class="fs-5 mb-5">
+                    </div>
+                        <div class="fs-5 mb-2">
                             {% comment %} <!-- Dynamic room price --> {% endcomment %}
                             {% comment %} <!-- <span>GH&#8373;{{ Room.Room_Price }}</span> --> {% endcomment %}
 
@@ -262,7 +263,7 @@
                             <input class="form-control text-center me-3" id="inputQuantity" value="{{ room.room_capacity }} in a room" style="max-width: 7rem; margin: auto" />
                         <a href="{% url 'hostels:profile' room.hostel.hostel_code %}" style="margin: auto;">
                             {% comment %} <input type="hidden" name="room_id" value="{{ room.room_id }}"> {% endcomment %}
-                            <button class="btn btn-secondary drop" type="submit">
+                            <button class="btn btn-secondary " type="submit">
                                 {{ room.hostel.hostel_name.title }}
                                 <svg
                                 xmlns="http://www.w3.org/2000/svg"

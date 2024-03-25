@@ -447,13 +447,13 @@ opacity: 0;
 }
 
 .slider_section .detail-box h1 {
-  color: #fff8;
+  color: #fff;
   font-weight: bold;
   font-size: 4rem;
 }
 
 .slider_section .detail-box h1 span {
-  color: var(--light);
+  color: #fff;
 }
 
 .slider_section .detail-box p {
