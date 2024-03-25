@@ -1,188 +1,395 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <!-- Site Metas -->
-  <meta name="description" content="Welcome to Bookmie.com, offering comfortable and affordable accommodation in Ghana. Explore our website and easily book a room now.">
-  <meta name="keywords" content="hostel, accommodation, rooms, Student hostel, budget stay">
-  <meta name="author" content="Bookmie.com">
-  <meta http-equiv="content-language" content="en-US">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://bookmie.com">
-  <meta name="revisit-after" content="1 day">
-  <meta name="rating" content="General">
+  {% load static %}
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="utf-8" />
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no"
+      />
+      <!-- Site Metas -->
+    <meta name="description" content="Welcome to Bookmie.com, offering comfortable and affordable accommodation in Ghana. Explore our website and easily book a room now.">
+    <meta name="keywords" content="hostel, accommodation, rooms, Student hostel, budget stay">
+    <meta name="author" content="Bookmie.com">
+    <meta http-equiv="content-language" content="en-US">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://bookmie.com">
+    <meta name="revisit-after" content="1 day">
+    <meta name="rating" content="General">
 
-  <!-- for social media sharing -->
-  <meta property="og:title" content="Bookmie.com">
-  <meta property="og:description" content="Explore comfortable and affordable accommodation in Ghana. Explore our website and easily book a room now.">
-  <meta property="og:image" content="{% static 'home/images/favicon.ico' %}">
-  <meta property="og:url" content="https://bookmie.com">
-  <meta name="twitter:card" content="{% static 'home/images/favicon.ico' %}">
-  <meta name="twitter:title" content="Bookmie.com">
-  <meta name="twitter:description" content="Explore comfortable and affordable accommodation in Ghana. Book your stay now at Bookmie.com.">
-  <meta name="twitter:image" content="{% static 'home/images/favicon.ico' %}">
-  
-    <title>Book Campus Hostels | Bookmie</title>
-  <link rel="icon" type="image/x-icon" href="{% static 'home/images/favicon.ico' %}">
-    <!-- Favicon-->
-    <link
-      rel="icon"
-      type="image/x-icon"
-      href="{% static 'home/images/favicon.ico' %}"
-    />
-    <!-- Bootstrap icons-->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
-      rel="stylesheet"
-    />
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <link
-      href="{% static 'list_staticfiles/css/styles.css' %}"
-      rel="stylesheet"
-    />
+    <!-- for social media sharing -->
+    <meta property="og:title" content="Bookmie.com">
+    <meta property="og:description" content="Explore comfortable and affordable accommodation in Ghana. Explore our website and easily book a room now.">
+    <meta property="og:image" content="{% static 'home/images/favicon.ico' %}">
+    <meta property="og:url" content="https://bookmie.com">
+    <meta name="twitter:card" content="{% static 'home/images/favicon.ico' %}">
+    <meta name="twitter:title" content="Bookmie.com">
+    <meta name="twitter:description" content="Explore comfortable and affordable accommodation in Ghana. Book your stay now at Bookmie.com.">
+    <meta name="twitter:image" content="{% static 'home/images/favicon.ico' %}">
+    
+      <title>Book Campus Hostels | Bookmie</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'home/images/favicon.ico' %}">
+      <!-- Favicon-->
+      <link
+        rel="icon"
+        type="image/x-icon"
+        href="{% static 'home/images/favicon.ico' %}"
+      />
+      <!-- Bootstrap icons-->
+      <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+        rel="stylesheet"
+      />
+      <!-- Core theme CSS (includes Bootstrap)-->
+      <link
+        href="{% static 'list_staticfiles/css/styles.css' %}"
+        rel="stylesheet"
+      />
 
-    <!-- USING THIS LINK JUST FOR THE LOADER IN THE PAYMENT CSS -->
-    <!-- <link rel="stylesheet" href="{% static 'payment/css/make_p.css' %}" /> -->
-  </head>
-  <body onload="hideLoader()">
-    <!-- Loader -->
-    <div id="hostel-loader" class="load">
-      <div class="loader">
-        <div class="spinner"></div>
-        <p id="loading-option"></p>
+      <!-- USING THIS LINK JUST FOR THE LOADER IN THE PAYMENT CSS -->
+      <!-- <link rel="stylesheet" href="{% static 'payment/css/make_p.css' %}" /> -->
+    </head>
+    <body onload="hideLoader()">
+      <!-- Loader -->
+      <div id="hostel-loader" class="load">
+        <div class="loader">
+          <div class="spinner"></div>
+          <p id="loading-option"></p>
+        </div>
       </div>
-    </div>
 
-    <!-- Navigation-->
-    <nav class="nav navbar navbar-expand-lg navbar-light">
-      <div class="container px-4 px-lg-5">
-        <h2>
-          <a
-            class="h2"
-            href="{% url 'core:index' %}">
-             <img src="{% static 'home/images/favicon1.png' %}" alt="" style="height: 40px; width: 40px; margin-top: -5px;">Bookmie.com
-</a
+      <!-- Navigation-->
+      <nav class="nav navbar navbar-expand-lg navbar-light">
+        <div class="container px-4 px-lg-5">
+          <h2>
+            <a
+              class="h2"
+              href="{% url 'core:index' %}">
+              <img src="{% static 'home/images/favicon1.png' %}" alt="" style="height: 40px; width: 40px; margin-top: -5px;">Bookmie.com
+  </a
+            >
+          </h2>
+          <div id="menu-btn" class="custom_menu-btn">
+                <button>
+                  <span class="s-1">
+
+                  </span>
+                  <span class="s-2">
+
+                  </span>
+                  <span class="s-3">
+
+                  </span>
+                </button>
+              </div>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+            style="z-index: 10; opacity: 0;"
+            onclick="openNav()"
           >
-        </h2>
-        <div id="menu-btn" class="custom_menu-btn">
-              <button>
-                <span class="s-1">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  aria-current="page"
+                  href="{% url 'core:about' %}"
+                  >About</a
+                >
+              </li>
 
-                </span>
-                <span class="s-2">
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  aria-current="page"
+                  href="{% url 'reviews:contact' %}"
+                  >Report</a
+                >
+              </li>
+            </ul>
+            {% if user.is_anonymous %}
+            <!-- <form > -->
+            <div class="bttn">
+              <a
+                class="d-flex justify-content-center"
+                href="{% url 'accounts:signup' %}"
+              >
+                <button class="btn btn-outline-warning px-4" type="submit">
+                  Sign up
+                  <i class="bi bi-person-circle"></i>
+                </button>
+              </a>
 
-                </span>
-                <span class="s-3">
-
-                </span>
-              </button>
+              <a
+                class="d-flex justify-content-center"
+                href="{% url 'accounts:login' %}"
+              >
+                <button class="btn btn-outline-warning px-4" type="submit">
+                  Log in
+                  <i class="bi bi-box-arrow-in-left"></i>
+                </button>
+              </a>
             </div>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-          style="z-index: 10; opacity: 0;"
-          onclick="openNav()"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-            <li class="nav-item">
-              <a
-                class="nav-link active"
-                aria-current="page"
-                href="{% url 'core:about' %}"
-                >About</a
-              >
-            </li>
 
-            <li class="nav-item">
-              <a
-                class="nav-link active"
-                aria-current="page"
-                href="{% url 'reviews:contact' %}"
-                >Report</a
-              >
-            </li>
-          </ul>
-          {% if user.is_anonymous %}
-          <!-- <form > -->
-          <div class="bttn">
-            <a
-              class="d-flex justify-content-center"
-              href="{% url 'accounts:signup' %}"
-            >
+            {% else %}
+            <div class="bttn">
+              <a class="d-flex justify-content-center" href="{% url 'accounts:booking-and-payments' %}">
               <button class="btn btn-outline-warning px-4" type="submit">
-                Sign up
-                <i class="bi bi-person-circle"></i>
+                Profile
+                <i class="bi bi-person-circle "></i>
               </button>
             </a>
-
             <a
               class="d-flex justify-content-center"
-              href="{% url 'accounts:login' %}"
+              href="{% url 'accounts:logout' %}"
             >
               <button class="btn btn-outline-warning px-4" type="submit">
-                Log in
-                <i class="bi bi-box-arrow-in-left"></i>
+                Log out
+                <i class="bi bi-box-arrow-right"></i>
               </button>
+            </a>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </nav>
+      <!-- Header-->
+      <header class="bg-dark header">
+        <div class="box bg-outline-dark">
+          <div class="btn-box">
+            <a href="{% url 'core:index' %}" class="fw-bold"> Home 
+            <i class="bi bi-house"></i>
             </a>
           </div>
 
-          {% else %}
-          <div class="bttn">
-            <a class="d-flex justify-content-center" href="{% url 'accounts:booking-and-payments' %}">
-            <button class="btn btn-outline-warning px-4" type="submit">
-              Profile
-              <i class="bi bi-person-circle "></i>
-            </button>
-          </a>
-          <a
-            class="d-flex justify-content-center"
-            href="{% url 'accounts:logout' %}"
-          >
-            <button class="btn btn-outline-warning px-4" type="submit">
-              Log out
-              <i class="bi bi-box-arrow-right"></i>
-            </button>
-          </a>
+          <div class="btn-box">
+            <a
+              href="{% url 'maps:map-views' campus.campus_param_id %}"
+              class="fw-bold"
+            >
+              Map View
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-geo-alt"
+                viewBox="0 0 16 16"
+              > 
+              <path
+                d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"
+              />
+              <path
+                d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"
+                />
+              </svg>
+            </a>
           </div>
-          {% endif %}
-        </div>
-      </div>
-    </nav>
-    <!-- Header-->
-    <header class="bg-dark header">
-      <div class="box bg-outline-dark">
-        <div class="btn-box">
-          <a href="{% url 'core:index' %}" class="fw-bold"> Home 
-          <i class="bi bi-house"></i>
-          </a>
+          <!-- <div class="btn-box">
+            <a href="{% url 'accounts:booking-and-payments'%}" class="fw-bold">
+              Booking/Payment <i class="bi bi-person-circle"></i>
+            </a>
+          </div> -->
         </div>
 
-        <div class="btn-box">
-          <a
-            href="{% url 'maps:map-views' campus.campus_param_id %}"
-            class="fw-bold"
+        <div class="container px-4 px-lg-5 my-5">
+          <div class="text-center text-white filter">
+            <div class="container-fluid">
+              <!-- <form
+                data-action="Searching..."
+                action="{% url 'core:hostels' campus.campus_code %}"
+                class="d-flex"
+                role="search"
+              > -->
+
+              <!-- HTMX for getting search data -->
+              <input
+                class="form-control me-2 mb-2"
+                type="search"
+                required
+                name="search_data"
+                placeholder="Search for hostels"
+                aria-label="Search"
+                hx-get="{% url 'core:hostels' campus.campus_code %}"
+                hx-trigger="keyup delay:100ms changed"
+                hx-target="#search-results"
+                hx-indicator="#loading-spinner"
+              />
+              <img  id="loading-spinner" style="width: 25px; height: 25px;" class="htmx-indicator ml-2" src="{% static 'gifs/loading.gif' %}"/>
+              <!-- <button  class="drop btn mb-2" id="search-button" type="submit">
+                  Search
+                </button> -->
+              <!-- </form> -->
+              <p class="lead fw-normal text-white-50 mb-0">
+                Want a quick room?
+                <a
+                  href="{% url 'rooms:campus-rooms' campus.campus_param_id %}"
+                  style="color: orange"
+                  >click me!</a
+                >
+              </p>
+            </div>
+          </div>
+          <br />
+        </div>
+      </header>
+      <!-- Section-->
+      <section class="">
+        <div class="container px-4 px-lg-5 mt-5">
+          <div
+            id="search-results"
+            class="row gx-sm-2 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
           >
-            Map View
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-geo-alt"
-              viewBox="0 0 16 16"
+            {% if hostels %} {% for hostel in hostels %}
+            <div class="col mb-5">
+              <div class="card h-100">
+                <div
+                  class="badge bg-dark text-white position-absolute"
+                  style="top: 0.5rem; right: 0.5rem"
+                >
+                  <a
+                    style="text-decoration: none; color: rgb(255, 255, 255)"
+                    href="{% url 'hostels:profile' hostel.hostel_code %}"
+                    >View Facilities</a
+                  >
+                </div>
+                <!-- Product image-->
+                
+                <a href="{{ hostel.get_profile_url }}">
+                  <img
+                    class="card-img-top"
+                    src="{{ hostel.hostel_image.url }}"
+                    alt="Hostel_image"
+                  />
+                </a>
+
+                <!-- Product details-->
+                <div class="card-body p-2">
+                  <div class="text-center">
+                    <!-- Sale badge-->
+
+                    <!-- hostel name name-->
+                    <h6 class="fw-bold">{{ hostel.hostel_name.title }}</h6>
+                    <!-- <div
+                      id="star-rating"
+                      class="d-flex justify-content-center small text-warning mb-2"
+                    >
+                      <div class="bi-star-fill"></div>
+                      <div class="bi-star-fill"></div>
+                      <div class="bi-star-fill"></div>
+                      <div class="bi-star-fill"></div>
+                      <div class="bi-star-fill"></div>
+                    </div> -->
+
+                    
+                  </div>
+                </div>
+
+                <!-- Product actions-->
+                <div class="card-footer pb-3 pb-sm-4 pt-0 border-top-0 bg-transparent">
+                  <div class="text-center">
+                    <!-- location-->
+                    <a href="{% url 'maps:hostel-direction' hostel.hostel_code %}" class="btn mt-auto mb-1 smbtn">
+                      Map Direction
+                      <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      class="bi bi-geo-alt"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"
+                      />
+                      <path
+                        d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"
+                      />
+                    </svg>
+                  </a>
+                    <a
+                      class="btn mt-auto smbtn px-3"
+                      href="{{ hostel.get_rooms  }}"
+                      >View Rooms</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+            <!-- next hostel card in the loop -->
+            {% else %}
+
+            <a
+              style="text-decoration: none; color: rgba(5, 5, 5, 0.938)"
+              href="{% url 'rooms:campus-rooms' campus.campus_code %}" class="w-75"
+            >
+              <div class="col w-100 mb-5">
+                <!-- class = "border border-danger" from boostrap -->
+                <div class="card w-100 h-100 border border-danger">
+                  <div class="card-body p-4">
+                    <div class="text-center">
+                      <h5 class="fw-bolder">No Result</h5>
+                    </div>
+                  </div>
+
+                  <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-outline-dark mt-auto">
+                        Search all rooms
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+
+            {% endif %}
+          </div>
+        </div>
+      </section>
+      <!-- Footer-->
+      <footer class="py-5 bg-dark footer">
+        <div class="custom-shape-divider-top-1695573055">
+          <svg
+            data-name="Layer 1"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 1200 120"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z"
+              opacity=".25"
+              class="shape-fill"
+            ></path>
+            <path
+              d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z"
+              opacity=".5"
+              class="shape-fill"
+            ></path>
+            <path
+              d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z"
+              class="shape-fill"
+            ></path>
+          </svg>
+        </div>
+        <a href="{% url 'maps:map-views' campus.campus_param_id %}" class="map-link">
+          Go to Map
+           <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-geo-alt"
+            viewBox="0 0 16 16"
             > 
             <path
               d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"
@@ -191,217 +398,28 @@
               d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"
               />
             </svg>
-          </a>
+        </a>
+
+        <div class="container">
+          <p class="m-0 text-center text-white filter">
+            Copyright &copy; Bookmie 2023
+          </p>
         </div>
-        <!-- <div class="btn-box">
-          <a href="{% url 'accounts:booking-and-payments'%}" class="fw-bold">
-            Booking/Payment <i class="bi bi-person-circle"></i>
-          </a>
-        </div> -->
-      </div>
+      </footer>
+      {% comment %} <!-- HTMX SCRIPTS --> {% endcomment %}
+      <script
+        src="https://unpkg.com/htmx.org@1.9.8"
+        integrity="sha384-rgjA7mptc2ETQqXoYC3/zJvkU7K/aP44Y+z7xQuJiVnB/422P/Ak+F/AqFR7E4Wr"
+        crossorigin="anonymous"
+      ></script>
 
-      <div class="container px-4 px-lg-5 my-5">
-        <div class="text-center text-white filter">
-          <div class="container-fluid">
-            <!-- <form
-              data-action="Searching..."
-              action="{% url 'core:hostels' campus.campus_code %}"
-              class="d-flex"
-              role="search"
-            > -->
+      {% comment %} <!-- Core theme JS--> {% endcomment %}
+      <script src="{% static 'list_staticfiles/js/scripts.js' %}"></script>
 
-            <!-- HTMX for getting search data -->
-            <input
-              class="form-control me-2 mb-2"
-              type="search"
-              required
-              name="search_data"
-              placeholder="Search for hostels"
-              aria-label="Search"
-              hx-get="{% url 'core:hostels' campus.campus_code %}"
-              hx-trigger="keyup delay:100ms changed"
-              hx-target="#search-results"
-              hx-indicator="#loading-spinner"
-            />
-            <img  id="loading-spinner" style="width: 25px; height: 25px;" class="htmx-indicator ml-2" src="{% static 'gifs/loading.gif' %}"/>
-            <!-- <button  class="drop btn mb-2" id="search-button" type="submit">
-                Search
-              </button> -->
-            <!-- </form> -->
-            <p class="lead fw-normal text-white-50 mb-0">
-              Want a quick room?
-              <a
-                href="{% url 'rooms:campus-rooms' campus.campus_param_id %}"
-                style="color: orange"
-                >click me!</a
-              >
-            </p>
-          </div>
-        </div>
-        <br />
-      </div>
-    </header>
-    <!-- Section-->
-    <section class="">
-      <div class="container px-4 px-lg-5 mt-5">
-        <div
-          id="search-results"
-          class="row gx-sm-2 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
-        >
-          {% if hostels %} {% for hostel in hostels %}
-          <div class="col mb-5">
-            <div class="card h-100">
-              <div
-                class="badge bg-dark text-white position-absolute"
-                style="top: 0.5rem; right: 0.5rem"
-              >
-                <a
-                  style="text-decoration: none; color: rgb(255, 255, 255)"
-                  href="{% url 'hostels:profile' hostel.hostel_code %}"
-                  >View Facilities</a
-                >
-              </div>
-              <!-- Product image-->
-              
-              <a href="{{ hostel.get_profile_url }}">
-                <img
-                  class="card-img-top"
-                  src="{{ hostel.hostel_image.url }}"
-                  alt="Hostel_image"
-                />
-              </a>
+      {% comment %} <!-- loader js --> {% endcomment %}
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
-              <!-- Product details-->
-              <div class="card-body p-2">
-                <div class="text-center">
-                  <!-- Sale badge-->
-
-                  <!-- hostel name name-->
-                  <h6 class="fw-bold">{{ hostel.hostel_name.title }}</h6>
-                  <!-- <div
-                    id="star-rating"
-                    class="d-flex justify-content-center small text-warning mb-2"
-                  >
-                    <div class="bi-star-fill"></div>
-                    <div class="bi-star-fill"></div>
-                    <div class="bi-star-fill"></div>
-                    <div class="bi-star-fill"></div>
-                    <div class="bi-star-fill"></div>
-                  </div> -->
-
-                  
-                </div>
-              </div>
-
-              <!-- Product actions-->
-              <div class="card-footer pb-3 pb-sm-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center">
-                  <!-- location-->
-                  <a href="{% url 'maps:hostel-direction' hostel.hostel_code %}" class="btn mt-auto mb-1 smbtn">
-                    Map Direction
-                    <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    class="bi bi-geo-alt"
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"
-                    />
-                    <path
-                      d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"
-                    />
-                  </svg>
-                </a>
-                  <a
-                    class="btn mt-auto smbtn px-3"
-                    href="{{ hostel.get_rooms  }}"
-                    >View Rooms</a
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
-          {% endfor %}
-          <!-- next hostel card in the loop -->
-          {% else %}
-
-          <a
-            style="text-decoration: none; color: rgba(5, 5, 5, 0.938)"
-            href="{% url 'rooms:campus-rooms' campus.campus_code %}" class="w-75"
-          >
-            <div class="col w-100 mb-5">
-              <!-- class = "border border-danger" from boostrap -->
-              <div class="card w-100 h-100 border border-danger">
-                <div class="card-body p-4">
-                  <div class="text-center">
-                    <h5 class="fw-bolder">No Result</h5>
-                  </div>
-                </div>
-
-                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                  <div class="text-center">
-                    <button type="submit" class="btn btn-outline-dark mt-auto">
-                      Search all rooms
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </a>
-
-          {% endif %}
-        </div>
-      </div>
-    </section>
-    <!-- Footer-->
-    <footer class="py-5 bg-dark footer">
-      <div class="custom-shape-divider-top-1695573055">
-        <svg
-          data-name="Layer 1"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 1200 120"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z"
-            opacity=".25"
-            class="shape-fill"
-          ></path>
-          <path
-            d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z"
-            opacity=".5"
-            class="shape-fill"
-          ></path>
-          <path
-            d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z"
-            class="shape-fill"
-          ></path>
-        </svg>
-      </div>
-
-      <div class="container">
-        <p class="m-0 text-center text-white filter">
-          Copyright &copy; Bookmie 2023
-        </p>
-      </div>
-    </footer>
-    <!-- HTMX SCRIPTS -->
-    <script
-      src="https://unpkg.com/htmx.org@1.9.8"
-      integrity="sha384-rgjA7mptc2ETQqXoYC3/zJvkU7K/aP44Y+z7xQuJiVnB/422P/Ak+F/AqFR7E4Wr"
-      crossorigin="anonymous"
-    ></script>
-
-    <!-- Core theme JS-->
-    <script src="{% static 'list_staticfiles/js/scripts.js' %}"></script>
-
-    <!-- loader js -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-  </body>
-</html>
+      {% comment %} <!-- Bootstrap core JS--> {% endcomment %}
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+  </html>

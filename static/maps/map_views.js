@@ -125,8 +125,9 @@ function handleMarkerHover(map, marker, infoWindow) {
   infoWindows.push(infoWindow);
 
   marker.addListener('click', () => {
-    //  window.location.href = (place.url);
+    
     infoWindow.open(map, marker);
+    
     setTimeout(() => {
       infoWindow.close()
     }, 5000);
