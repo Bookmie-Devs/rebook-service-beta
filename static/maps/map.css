@@ -343,21 +343,16 @@ h2 {
 .custom-btn {
   display: inline-block;
   padding: 6px 12px;
-  /* Adjusted padding for a smaller button */
   font-size: 14px;
-  /* Adjusted font size for a smaller button */
   font-weight: bold;
   text-align: center;
   text-decoration: none;
   border: 2px solid transparent;
   border-radius: 3px;
-  /* Adjusted border radius for a smaller button */
   cursor: pointer;
   transition: all 0.3s ease;
   min-width: 100px;
-  /* Set a minimum width for the buttons */
   margin-right: 10px;
-  /* Add some spacing between buttons */
 }
 
 .custom-btn-primary {
@@ -372,7 +367,6 @@ h2 {
 
 .custom-btn:hover {
   opacity: 0.8;
-  animation: bounce 0.6s ease infinite;
 }
 
 .custom-btn-primary:hover {
@@ -388,21 +382,17 @@ h2 {
 .btn-container {
   display: flex;
   align-items: center;
-  /* Align buttons vertically */
 }
 
 .love-container {
   display: flex;
   align-items: center;
-  /* Align items vertically */
   margin-left: auto;
 }
 
 .bi-heart {
   color: red;
-  /* Set the color of the heart icon to red */
   margin-right: 5px;
-  /* Add some spacing between the heart icon and the value */
 }
 
 @media (max-width: 576px) {
@@ -412,32 +402,28 @@ h2 {
 
   .custom-btn {
     padding: 4px 8px;
-    /* Further adjusted padding for smaller screens */
     font-size: 11px;
-    /* Further adjusted font size for smaller screens */
     min-width: auto;
-    /* Allow buttons to shrink on smaller screens */
     margin-right: 5px;
-    /* Reduce spacing between buttons */
   }
 }
 
 
 .float-link {
   position: fixed;
-  bottom: 20px; /* Adjust as needed */
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #007bff; /* Button background color */
-  color: white; /* Button text color */
-  padding: 10px 20px; /* Button padding */
-  border-radius: 20px; /* Button border radius */
-  text-decoration: none; /* Remove underline */
-  font-weight: bold; /* Make text bold */
-  z-index: 9999; /* Ensure it's above other elements */
+  background-color: #007bff; 
+  color: white; 
+  padding: 10px 20px; 
+  border-radius: 20px; 
+  text-decoration: none; 
+  font-weight: bold; 
+  z-index: 49; 
 }
 
 .float-link:hover {
-  background-color: #0056b3; /* Change background color on hover */
-  color: white;
+  background-color: #0056b3; 
+  color: white; 
 }

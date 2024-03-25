@@ -154,7 +154,7 @@
           <div>
             <h1 class="fw-bolder">
               <a
-                style="color: orangered"
+                style="color: #fea116"
                 href="{% url 'hostels:profile' hostel_code=hostel.hostel_code %}"
                 >{{ hostel.hostel_name.title }}</a
               >
@@ -170,7 +170,7 @@
                 hx-indicator="#loading-spinner"
               >
                 <input type="hidden" value="1" name="capacity" />
-                <button class="btn btn-secondary">1 in a room</button>
+                <button class="btn btn-secondary" style="border: none;">1 in a room</button>
               </form>
 
               <form
@@ -181,7 +181,7 @@
                 hx-indicator="#loading-spinner"
               >
                 <input type="hidden" value="2" name="capacity" />
-                <button class="btn btn-secondary">2 in a room</button>
+                <button class="btn btn-secondary" style="border: none;">2 in a room</button>
               </form>
 
               <form
@@ -192,7 +192,7 @@
                 hx-indicator="#loading-spinner"
               >
                 <input type="hidden" value="3" name="capacity" />
-                <button class="btn btn-secondary">3 in a room</button>
+                <button class="btn btn-secondary" style="border: none;">3 in a room</button>
               </form>
 
               <form
@@ -203,7 +203,7 @@
                 hx-indicator="#loading-spinner"
               >
                 <input type="hidden" name="capacity" value="4" />
-                <button type="submit" class="btn btn-secondary">4 in a room</button>
+                <button type="submit" class="btn btn-secondary" style="border: none;">4 in a room</button>
               </form>
             </div>
           </div>

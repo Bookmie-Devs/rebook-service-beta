@@ -13,7 +13,7 @@
     --light-variant: #fea11625;
     --dark: #000000;
     --logo: #ff4500;
-    --bg2: #ff7b0025;
+    --bg2: #fea11625;
     --bg: #F1F8FF;
     --gray: #afafaf;
     --gray-light: #e0e0e0;
@@ -182,6 +182,7 @@ section {
     justify-content: center;
     flex-wrap: wrap;
     gap: 20px;
+    background: var(--light);
 }
 
 .contaner1, .contaner2, .contaner3{
@@ -418,6 +419,7 @@ div > span{
     border: 1px solid var(--gray);
     border-radius: 5px;
     width: 300px;
+    background: var(--bg);
 }
 
 .d form{
@@ -426,6 +428,7 @@ div > span{
     flex-direction: column;
     gap: 10px;
     align-items: center;
+    background: var(--bg);
 }
 
 .d form .fhead{
