@@ -46,6 +46,10 @@
         rel="stylesheet"
       />
 
+    
+    <link href=   
+"http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
+        rel="stylesheet" type="text/css" />   
       <!-- USING THIS LINK JUST FOR THE LOADER IN THE PAYMENT CSS -->
       <!-- <link rel="stylesheet" href="{% static 'payment/css/make_p.css' %}" /> -->
     </head>
@@ -223,12 +227,13 @@
               <!-- HTMX for getting search data -->
               <input
                 class="form-control me-2 mb-2"
+                id="tags"
                 type="search"
                 required
                 name="search_data"
                 placeholder="Search for hostels"
                 aria-label="Search"
-                hx-get="{% url 'core:hostels' campus.campus_code %}"
+                hx-get="{% url 'core:hostels' campus.campus_param_id %}"
                 hx-trigger="keyup delay:100ms changed"
                 hx-target="#search-results"
                 hx-indicator="#loading-spinner"
@@ -271,7 +276,7 @@
                     >View Facilities</a
                   >
                 </div>
-                <!-- Product image-->
+                {% comment %} <!-- Product image--> {% endcomment %}
                 
                 <a href="{{ hostel.get_profile_url }}">
                   <img
@@ -281,7 +286,7 @@
                   />
                 </a>
 
-                <!-- Product details-->
+                {% comment %} <!-- Product details--> {% endcomment %}
                 <div class="card-body p-2">
                   <div class="text-center">
                     <!-- Sale badge-->
@@ -335,7 +340,7 @@
               </div>
             </div>
             {% endfor %}
-            <!-- next hostel card in the loop -->
+            {% comment %} <!-- next hostel card in the loop --> {% endcomment %}
             {% else %}
 
             <a
@@ -343,7 +348,7 @@
               href="{% url 'rooms:campus-rooms' campus.campus_code %}" class="w-75"
             >
               <div class="col w-100 mb-5">
-                <!-- class = "border border-danger" from boostrap -->
+                {% comment %} <!-- class = "border border-danger" from boostrap --> {% endcomment %}
                 <div class="card w-100 h-100 border border-danger">
                   <div class="card-body p-4">
                     <div class="text-center">
@@ -431,5 +436,25 @@
 
       {% comment %} <!-- Bootstrap core JS--> {% endcomment %}
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+      
+
+
+
+      {% comment %} autom complete {% endcomment %}
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>   
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>   
+    <script> 
+      $( function() { 
+      var availableTags = [ 
+          {% for hostel in hostels %} 
+              "{{hostel.hostel_name}}"{% if not loop.last %},{% endif %}
+          {% endfor %} 
+      ]; 
+      $( "#tags" ).autocomplete({ 
+        source: availableTags 
+      }); 
+    } ); 
+    </script> 
     </body>
   </html>
