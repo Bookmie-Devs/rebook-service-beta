@@ -4,6 +4,21 @@ from accounts.models import CustomUser
 from hostel_app.models import HostelProfile
 from rooms_app.models import RoomProfile
 
+
+class FAQ(models.Model):
+    question = models.TextField()
+    answer = models.TextField()
+    date_added = models.DateTimeField(auto_now=False, auto_now_add=True)
+    last_updated = models.DateTimeField(auto_now=True, auto_now_add=False)
+    class Meta:
+        verbose_name = _("FAQ")
+        verbose_name_plural = _("FAQs")
+
+    def __str__(self):
+        return self.question
+
+
+
 # feedback model
 class FeedBackMessage(models.Model):
     name = models.CharField(max_length=70)

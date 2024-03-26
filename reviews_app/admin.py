@@ -4,6 +4,7 @@ from .models import (FeedBackMessage,
                      HostelLike,
                      RecomendationFeedBacks,
                      RecomendationFeedBacks,
+                     FAQ,
                      GeneralNewsLetter,)
 # Register your models here.
 
@@ -37,4 +38,5 @@ class ReccomendationAdmin(admin.ModelAdmin):
 admin.site.register(RecomendationFeedBacks, ReccomendationAdmin)
 admin.site.register(HostelLike)
 # MESSAGES
+admin.site.register(FAQ)
 admin.site.register(GeneralNewsLetter)

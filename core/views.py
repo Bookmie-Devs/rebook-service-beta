@@ -10,7 +10,7 @@ from .filters import HostelFilter
 from rooms_app.models import RoomProfile
 from campus_app.models import CampusProfile
 from hostel_app.models import HostelProfile
-from reviews_app.models import RecomendationFeedBacks
+from reviews_app.models import RecomendationFeedBacks, FAQ
 from rest_framework.decorators import api_view
 
 """Built in Packages"""
@@ -46,7 +46,8 @@ def index(request):
     context = {
     'campuses':campuses,
     'user':request.user, 
-    'feedbacks':feedbacks
+    'feedbacks':feedbacks,
+    'faqs': FAQ.objects.all(),
     }
     return render(request, 'index.html', context)
 
