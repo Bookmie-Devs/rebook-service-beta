@@ -25,7 +25,7 @@ const section8 = document.getElementById('8');
 
 const options = {
     rootMargin: '0px',
-    threshold: 0.2,
+    threshold: 0.1,
 }
 
 function observeFunc(entries) {

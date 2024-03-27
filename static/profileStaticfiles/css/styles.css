@@ -346,15 +346,15 @@ section {
 }
 
 .custom_menu-btn .s-1 {
-  top: 0;
+  top: 0 !important;
 }
 
 .custom_menu-btn .s-2 {
-  top: 25%;
+  top: 25% !important;
 }
 
 .custom_menu-btn .s-3 {
-  top: 50%;
+  top: 50% !important;
 }
 
 .nav .container {
