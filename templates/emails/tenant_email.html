@@ -1,40 +1,118 @@
-Dear {{user.username}},
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room Booking Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+            color: #555;
+            text-align: center;
+        }
 
-Congratulations! Your room booking at Bookmie.com is now confirmed, and we're thrilled to be hosting you. We appreciate your trust in us for your accommodation needs.
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
 
-Booking Details:
+        .header {
+            font-size: 24px;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
 
-NOTE: Keep this link private
-Get Verification Qrcode here https://{{domain}}/payments/tenant-authentication/
+        .content {
+            margin-bottom: 20px;
+        }
 
-Hostel: {{ tenant.hostel.hostel_name }}
-Check-In Date: {{ tenant.start_date }}
-Check-Out Date: {{ tenant.end_date }}
-Room Number: {{ tenant.room.room_no }}
-Total Amount Paid: {{ amount }}
-Confirmation Number: {{ tenant.tenant_id }}
+        .booking-details {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
 
+        .important-details {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
 
-Here are a few important details to ensure a smooth and enjoyable stay:
+        .action-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
 
-Check-In Information:
+        .contact-info {
+            margin-top: 20px;
+        }
 
-Check-in begins at {{ tenant.start_date }}. Please make sure to arrive during this window.
-If you have any special requests or specific requirements, feel free to let us know in advance by replying to this email.
-Cancellation Policy:
-
-Review our cancellation policy [provide a link] for any changes to your booking.
-Contact Information:
-
-In case you need to reach us during your stay, our front desk is available at [Front Desk Contact Number].
-Explore Our Amenities:
-
-{% comment %} Take advantage of our [list any notable amenities] during your stay to make it even more memorable. {% endcomment %}
-We hope your experience with https://Bookmie.com exceeds your expectations. If you have any questions or concerns, our dedicated customer service team is here to assist you. Simply reply to this email or contact us at customer.bookmie@gmail.com.
-
-Thank you again for choosing https://Bookmie.com . We look forward to providing you with a comfortable and enjoyable stay.
-
-Safe travels, and see you soon!
-
-Best regards,
-Contact; customer.bookmie@gmail.com
+        /* Text logo styling */
+        .logo {
+            font-size: 40px;
+            font-weight: bold;
+            color: orangered;
+            text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="logo">Bookmie.com</h1>
+        <h2 class="header">Room Booking Confirmation</h2>
+        <p class="content">Dear {{ user.username }},</p>
+        <p class="content">Congratulations! Your room booking at Bookmie.com is now confirmed, and we're thrilled to be hosting you. We appreciate your trust in us for your accommodation needs.</p>
+        
+        <div class="booking-details">
+            <h3>Booking Details:</h3>
+            <p>NOTE: Keep this link private</p>
+            <p>Get Verification Qrcode here <a href="https://{{ domain }}/payments/tenant-authentication/" class="action-button">Verification Qrcode</a></p>
+            <p>Hostel: {{ tenant.hostel.hostel_name }}</p>
+            <p>Check-In Date: {{ tenant.start_date }}</p>
+            <p>Check-Out Date: {{ tenant.end_date }}</p>
+            <p>Room Number: {{ tenant.room.room_no }}</p>
+            <p>Total Amount Paid: {{ amount }}</p>
+            <p>Confirmation Number: {{ tenant.tenant_id }}</p>
+        </div>
+        
+        <div class="important-details">
+            <h3>Important Details:</h3>
+            <p><strong>Check-In Information:</strong></p>
+            <p>Check-in begins at {{ tenant.start_date }}. Please make sure to arrive during this window.</p>
+            <p>If you have any special requests or specific requirements, feel free to let us know in advance by replying to this email.</p>
+            
+            <p><strong>Cancellation Policy:</strong></p>
+            <p>Review our cancellation policy <a href="#">here</a> for any changes to your booking.</p>
+            
+            <p><strong>Contact Information:</strong></p>
+            <p>In case you need to reach us during your stay, our front desk is available at [Front Desk Contact Number].</p>
+            
+            {% comment %} <p><strong>Explore Our Amenities:</strong></p>
+            <!-- Take advantage of our [list any notable amenities] during your stay to make it even more memorable. --> {% endcomment %}
+        </div>
+        
+        <p class="content">We hope your experience with <a href="https://Bookmie.com" style="color: #007bff;">Bookmie.com</a> exceeds your expectations. If you have any questions or concerns, our dedicated customer service team is here to assist you. Simply reply to this email or contact us at <a href="mailto:customer.bookmie@gmail.com" style="color: #007bff;">customer.bookmie@gmail.com</a>.</p>
+        <p class="content">Thank you again for choosing <a href="https://Bookmie.com" style="color: #007bff;">Bookmie.com</a>. We look forward to providing you with a comfortable and enjoyable stay.</p>
+        <p class="content">Safe travels, and see you soon!</p>
+        <p class="content">Best regards,</p>
+        <div class="contact-info">Contact: customer.bookmie@gmail.com</div>
+    </div>
+</body>
+</html>

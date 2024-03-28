@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Room Booking Notification</title>
+    <title>Account Security Alert</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -42,24 +42,31 @@
             border-radius: 5px;
         }
 
-        .text-logo {
+        .logo {
             font-size: 40px;
             font-weight: bold;
             color: orangered;
             text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
-            margin-bottom: 20px;
+        }
+
+        .contact-info {
+            margin-top: 20px;
+            color: #555;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 class="text-logo">Bookmie.com</h1>
-        <h2 class="header">Room Booking Notification</h2>
-        <p class="content">Dear {{ booking.user.username }},</p>
-        <p class="content">You have successfully booked a room at {{ booking.hostel.hostel_name }}.</p>
-        <p class="content">Kindly note your room number is {{ booking.room.room_no }}.</p>
-        <p class="content">Payment must be made immediately or the booking is not secure.</p>
-        <a href="http://127.0.0.1:8000/payments/payment/{{ booking.room.room_id }}" class="action-button">Proceed to Payments</a>
+        <h2 class="header">Account Security Alert</h2>
+        <p class="content">Dear {{ user.username }},</p>
+        <p class="content">Your Bookmie.com account was accessed @ {{ time }}. If it was you, no action needed.</p>
+        <p class="content">If not, secure your account:</p>
+        <a href="https://{{ domain }}/reset-password/" class="action-button"><strong>Change password</strong></a>
+        <p class="content">Check for unauthorized activity.</p>
+        <p class="content">Questions? Contact <a href="mailto:customer.bookmie@gmail.com">customer.bookmie@gmail.com</a> or 0256646334.</p>
+        <p class="content">Thanks for keeping your account secure,</p>
+        <p class="logo">Bookmie.com</p>
+        <div class="contact-info">Contact: 0206237060</div>
     </div>
 </body>
 </html>
