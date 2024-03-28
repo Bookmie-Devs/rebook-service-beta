@@ -1,0 +1,8 @@
+[Units]
+Description=Bookmie.com Celery Service
+
+[Service]
+ExecStart=/bin/bash /home/bookmie_com/config/celery/celery.sh
+
+[Install]
+Wanted-By=multi-user.target

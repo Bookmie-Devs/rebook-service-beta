@@ -117,19 +117,19 @@ def login(request: HttpRequest):
             # current_domain == get_current_site(request)
             # send user notice of login
             current_domain = request.META.get('HTTP_X_FORWARDED_HOST', request.META['HTTP_HOST'])
-            msg = render_to_string("emails/login_sms.html", {'user':request.user,'time':timezone.now(),'domain':current_domain})
+            msg = render_to_string("emails/login_email.html", {'user':request.user,'time':timezone.now(),'domain':current_domain})
             if request.user.is_hostel_worker or request.user.is_hostel_manager:
                 # send_sms_task.delay(request.user.phone, msg)
-                # for testing
-                send_sms_task(request.user.phone, msg)
+                subject = 'Account Alert'
+                send_email_task(subject, msg, settings.EMAIL_HOST_USER, [request.user.email])
                 return redirect("management:portar-office")
             # send_sms_message
             """
             Send sms with celery
             """
-            # send_sms_task.delay(request.user.phone, msg)
-            # for testing
-            send_sms_task(request.user.phone, msg)
+            current_site = get_current_site(request)
+            subject = 'Account Alert'
+            send_email_task(subject, msg, settings.EMAIL_HOST_USER, [request.user.email])
             return redirect('accounts:booking-and-payments')
         else:
             messages.error(request, 'Credentials invalid', extra_tags="danger")

@@ -4,7 +4,7 @@ from celery import shared_task
 from config.sms import send_sms_message
 
 @shared_task()
-def send_email_task(subject, message, from_email, recipient_list,) -> None:
+def send_email_task(subject, message, from_email, recipient_list: list,) -> None:
     """
     let celery send the email
     """
