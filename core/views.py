@@ -188,3 +188,7 @@ def free_booking(request, room_id):
     # recipient_list=[request.user.email], subject=subject, 
     # message=render_to_string('emails/tenant_email.html',{"user":request.user,"tenant":tenant,"amount":payment.amount,"domain":current_domain})),
     return redirect('core:success')
+
+
+def site_map(request):
+    return render(request, 'sitemap.xml', content_type="application/xhtml+xml")

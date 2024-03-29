@@ -25,4 +25,5 @@ urlpatterns =[
 
     # APIS
     path('api/hostels/<str:campus_code>/', api_views.HostelListView.as_view(), name='api_hostels'),
+    path('bookmie-google-seos/site-map/', views.site_map),
 ]
