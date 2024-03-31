@@ -42,8 +42,7 @@ def customer_care(request: HttpRequest):
                 problem=request.POST.get("message")
                 )
     message.save()
-    send_email_task(f'The Bookmie Support Team, 
-    {request.user.username} Your signup was successful.', 
+    send_email_task('The Bookmie Support Team', 
     render_to_string('emails/customer_care_reponse.html'), 
     settings.EMAIL_HOST_USER, 
     [message.email,]
