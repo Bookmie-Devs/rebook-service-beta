@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Issue Report Acknowledgement</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 600px;
+            background-color: #fff;
+            padding: 40px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            text-align: center;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .header {
+            font-size: 28px;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            font-size: 36px;
+            font-weight: bold;
+            color: #ff6347;
+            text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .message {
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .support-text {
+            font-size: 14px;
+            color: #888;
+            margin-top: 20px;
+        }
+
+        .contact-info a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .icon {
+            font-size: 24px;
+            margin-right: 10px;
+            color: #007bff;
+        }
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ccc;
+            text-align: center;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="logo">Bookmie.com | Support Team</h1>
+        <h2 class="header">Issue Report Acknowledgement</h2>
+        <p class="message">Dear User,</p>
+        <p class="message">Thank you for reaching out to us regarding the issue you encountered. We have received your email, and our team is actively working on resolving it.</p>
+        <p class="message">We understand the importance of resolving this matter promptly and will keep you updated on our progress.</p>
+        <p class="message">If you have any additional information or questions, please feel free to reply to this email, and we'll be happy to assist you further.</p>
+        <p class="message">Thank you for your patience and understanding.</p>
+        <p class="message">Best regards,<br> Bookmie.com</p>
+        <div class="support-text">
+            <i class="icon fas fa-envelope"></i>Contact: <a href="mailto:support@bookmie.com">support@bookmie.com</a>
+        </div>
+           <div class="footer">
+        <p>Bookmie.com &copy; <span id="currentYear"></span>. All rights reserved.</p>
+        {% comment %} <p>373 Oxford Street, Booktown, BK</p> {% endcomment %}
+    </div>
+    </div>
+ 
+    <script>
+        document.getElementById("currentYear").innerHTML = new Date().getFullYear();
+    </script>
+</body>
+</html>

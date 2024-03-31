@@ -20,7 +20,7 @@ class NotifyMe:
                    "subject":self.subject}
         
         send_mail(from_email=settings.EMAIL_HOST_USER, 
-                  recipient_list=[settings.EMAIL_HOST_USER], 
+                  recipient_list=['support@bookmie.com'], 
                   subject=self.subject, message=render_to_string(
                   template_name='emails/notify_me.html',
                   context=context),fail_silently=True

@@ -1,15 +1,12 @@
+from django.conf import settings
 from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
-
+from django.template.loader import render_to_string
+from accounts.task import send_email_task
 from hostel_app.models import HostelProfile
-from rooms_app.models import RoomProfile
 from .models import FeedBackMessage, CustomerCare, HostelLike
 from core.decorators import login_required_htmx
-from django.http import (HttpRequest, 
-                         HttpResponse, 
-                         JsonResponse)
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from django.http import HttpRequest
 from .notify import NotifyMe
 from django.views.generic import TemplateView
 from django.views.decorators.http import require_http_methods
@@ -45,6 +42,12 @@ def customer_care(request: HttpRequest):
                 problem=request.POST.get("message")
                 )
     message.save()
+    send_email_task(f'The Bookmie Support Team, 
+    {request.user.username} Your signup was successful.', 
+    render_to_string('emails/customer_care_reponse.html'), 
+    settings.EMAIL_HOST_USER, 
+    [message.email,]
+    )
 
     # send nofification
     notify = NotifyMe(name=request.POST.get("name"),

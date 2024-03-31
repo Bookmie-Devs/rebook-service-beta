@@ -71,6 +71,14 @@
             text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
             margin-bottom: 20px;
         }
+
+               .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ccc;
+            text-align: center;
+            color: #777;
+        }
     </style>
 </head>
 <body>
@@ -94,12 +102,14 @@
         
         <div class="important-details">
             <h3>Important Details:</h3>
-            <p><strong>Check-In Information:</strong></p>
+            <p><strong>Check-In Informati
+
+on:</strong></p>
             <p>Check-in begins at {{ tenant.start_date }}. Please make sure to arrive during this window.</p>
             <p>If you have any special requests or specific requirements, feel free to let us know in advance by replying to this email.</p>
             
             <p><strong>Cancellation Policy:</strong></p>
-            <p>Review our cancellation policy <a href="#">here</a> for any changes to your booking.</p>
+            <p>To review our cancellation policy contact us <a href="mailto:support@bookmie.com">here</a> for any changes to your booking.</p>
             
             <p><strong>Contact Information:</strong></p>
             <p>In case you need to reach us during your stay, our front desk is available at [Front Desk Contact Number].</p>
@@ -108,11 +118,22 @@
             <!-- Take advantage of our [list any notable amenities] during your stay to make it even more memorable. --> {% endcomment %}
         </div>
         
-        <p class="content">We hope your experience with <a href="https://Bookmie.com" style="color: #007bff;">Bookmie.com</a> exceeds your expectations. If you have any questions or concerns, our dedicated customer service team is here to assist you. Simply reply to this email or contact us at <a href="mailto:info@bookmie.com" style="color: #007bff;">info@bookmie.com</a>.</p>
-        <p class="content">Thank you again for choosing <a href="https://Bookmie.com" style="color: #007bff;">Bookmie.com</a>. We look forward to providing you with a comfortable and enjoyable stay.</p>
+        <p class="content">We hope your experience with <a href="https://bookmie.com" style="color: #007bff;">Bookmie.com</a> exceeds your expectations. If you have any questions or concerns, our dedicated customer service team is here to assist you. Simply reply to this email or contact us at <a href="mailto:support@bookmie.com" style="color: #007bff;">support@bookmie.com</a>.</p>
+        <p class="content">Thank you again for choosing <a href="https://bookmie.com" style="color: #007bff;">Bookmie.com</a>. We look forward to providing you with a comfortable and enjoyable stay.</p>
         <p class="content">Safe travels, and see you soon!</p>
         <p class="content">Best regards,</p>
-        <div class="contact-info">Contact: info@bookmie.com</div>
+        <div class="contact-info">Contact: <a href="mailto:support@bookmie.com">support@bookmie.com</a></div>
+         <div class="footer" id="footer">
+            <p>Bookmie.com &copy; <span id="year"></span>. All rights reserved.</p>
+            {% comment %} <p>123 Book Street, Booktown, BK</p> {% endcomment %}
+        </div>
+    
     </div>
+  
+
+      <script>
+        // Get the current year and update the footer
+        document.getElementById("year").innerText = new Date().getFullYear();
+    </script>
 </body>
 </html>
