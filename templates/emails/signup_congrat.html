@@ -56,6 +56,14 @@
         .info {
             color: orangered ;
         }
+
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ccc;
+            text-align: center;
+            color: #777;
+        }
     </style>
 </head>
 <body>
@@ -66,18 +74,24 @@
         <p>Dear {{ user.username }},</p>
         <p>We're thrilled to have you on board and want to extend our warmest greetings. Thank you for choosing us.</p>
 
-        <h3>Here are a few steps to get started:</h3>
-        <ol>
-            <li><strong>Complete Your Profile:</strong> Take a moment to complete your profile to personalize your experience. This helps us tailor our services to your needs.</li>
-            <li><strong>Explore Our Features:</strong> Dive into our platform and explore the various features we offer. Whether it's <strong class="info">All Available Rooms</strong>, <strong class="info">Room Filters</strong> or <strong class="info">Map Navigations</strong>, we're confident you'll find value in what we provide.</li>
-        </ol>
+        <p><strong>Explore Our Features:</strong> Dive into our platform and explore the various features we offer. Whether it's <strong class="info">All Available Rooms</strong>, <strong class="info">Room Filters</strong>, or <strong class="info">Map Navigations</strong>, we're confident you'll find value in what we provide.</p>
 
-        <p><strong>Need Help?</strong> If you have any questions or need assistance, our support team is here to help. Feel free to reach out at <a href="mailto:customer@bookmie.com">customer@bookmie.com</a>.</p>
+        <p><strong>Need Help?</strong> If you have any questions or need assistance, our support team is here to help. Feel free to reach out at <a href="mailto:support@bookmie.com">support@bookmie.com</a>.</p>
 
         <p>Once again, welcome to Bookmie.com! We're excited to have you as part of our community.</p>
 
         <p>Best regards,</p>
         <strong class="info">The Bookmie.com Team</strong>
+
+        <div class="footer" id="footer">
+            <p>Bookmie.com &copy; <span id="year"></span>. All rights reserved.</p>
+            {% comment %} <p>123 Book Street, Booktown, BK</p> {% endcomment %}
+        </div>
     </div>
+
+    <script>
+        // Get the current year and update the footer
+        document.getElementById("year").innerText = new Date().getFullYear();
+    </script>
 </body>
 </html>

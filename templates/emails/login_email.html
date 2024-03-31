@@ -63,10 +63,21 @@
         <p class="content">If not, secure your account:</p>
         <a href="https://{{ domain }}/reset-password/" class="action-button"><strong>Change password</strong></a>
         <p class="content">Check for unauthorized activity.</p>
-        <p class="content">Questions? Contact <a href="mailto:customer@bookmie.com">customer@bookmie.com</a> or 0256646334.</p>
+        <p class="content">Questions? Contact <a href="mailto:support@bookmie.com">support@bookmie.com</a> or 0256646334.</p>
         <p class="content">Thanks for keeping your account secure,</p>
         <p class="logo">Bookmie.com</p>
         <div class="contact-info">Contact: 0206237060</div>
+        
+
+        <div class="footer" id="footer">
+            <p>Bookmie.com &copy; <span id="year"></span>. All rights reserved.</p>
+            {% comment %} <p>123 Book Street, Booktown, BK</p> {% endcomment %}
+        </div>
+    
     </div>
+        <script>
+        // Get the current year and update the footer
+        document.getElementById("year").innerText = new Date().getFullYear();
+    </script>
 </body>
 </html>
