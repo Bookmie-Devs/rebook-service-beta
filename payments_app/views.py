@@ -212,11 +212,12 @@ def tenant_auth(request):
         #qrcode name for user after payments
         qrcode_name = f'media/auth_qrcodes/{request.user.username}-{get_tenant.tenant_id}-qrcode.png'
 
+        
         #tittle of pdf page to be generated
-        title = f"{request.user.username} Authentication details@Bookmie.com"
+        title = f"{request.user.username} Authentication"
 
         #subtittle of the pdf 
-        subtitle = f"Congratulation On Securing A Room @{get_tenant.hostel.hostel_name.capitalize()}"
+        subtitle = f"Congratulation On Securing A Room at {get_tenant.hostel.hostel_name.capitalize()}"
 
         """Fucntions to generate a list strings containing booking details for every user"""
         booker_details= tenant_auth_details(student=student, 
@@ -232,8 +233,8 @@ def tenant_auth(request):
 
         #Title of auth pdf
         pdf.setTitle(title)
-        pdf.setFont("Helvetica", 20)
-        pdf.drawString(87, 730, title)
+        pdf.setFont("Helvetica", 25)
+        pdf.drawString(145, 730, title)
 
         #Subtitle of auth pdf
         pdf.setFont('Helvetica', 17)
