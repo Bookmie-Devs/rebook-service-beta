@@ -1,7 +1,9 @@
 :root {
     --primary: #FEA116;
+  --primary-variant: #ff4500;
     --light: #F1F8FF;
-    --dark: #0F172B;
+    --light-variant: #fea11625;
+    --dark: #000000;
 }
 
 *{
@@ -24,6 +26,27 @@ body {
     width: 100vw;
     z-index: 10;
     padding-right: 10px;
+}
+
+form a {
+    border: 1px solid var(--primary) !important;
+    columns: var(--primary) !important;
+    background: transparent !important;
+    transition: all 0.3s;
+}
+
+form a i{
+    color: var(--primary) !important;
+}
+
+form a:hover{
+    background: var(--primary) !important;
+    color: var(--light) !important;
+}
+
+form a:hover i{
+    transition: all 0.3s;
+    color: var(--light) !important;
 }
 
 .collapse .navbar-nav .nav-link:hover{
@@ -177,41 +200,18 @@ hr {
     color: #ffffff;
 }
 
+.btn-box a:hover *{
+    transition: all 0.3s;
+    color: var(--light) !important;
+}
+
 .empty{
     border-top: 3px solid black;
     border-bottom: 3px solid black;
 }
 
-/* .direction{
-    width: 100vw;
-    height: 100vh;
-    background-color: #000000e7;
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: none;
-    z-index: 20;
-    padding: 75px 2px;
-}
-
-.close{
-    position: fixed;
-    top: 0;
-    right: 0;
-    z-index: 25;
-    cursor: pointer;
-}
-
-.x{
-    z-index: 25;
-}
-
-.close:hover .x{
-    color: red !important;
-} */
-
 .footer_section {
-    background-color: #1f222b;
+    background-color: var(--dark);
     height: 75px;
 }
 

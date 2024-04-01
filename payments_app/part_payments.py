@@ -101,7 +101,7 @@ def complete_part_payment(request: HttpRequest):
         context={
         'amount':payment.amount,
         'reference_id': payment.reference_id, 
-        'ammount_value':payment.get_amount_value(),
+        'amount_value':payment.get_amount_value(),
         'subaccount':subaccount.subaccount_code,
         'student':student, 'is_completing_payment':True,
         'paystack_public_key':settings.PAYSTACK_PUBLIC_KEY 
