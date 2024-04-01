@@ -1,7 +1,9 @@
 :root{
     --primary: #FEA116;
-    --light: #fff;
-    --dark: #0F172B;
+  --primary-variant: #ff4500;
+    --light: #ffffff;
+    --light-variant: #fea11625;
+    --dark: #000000;
 }
 *{
   box-sizing: border-box;
@@ -9,7 +11,7 @@
 
 body {
     font-family: Arial, sans-serif;
-    background: linear-gradient(rgba(0, 0, 0, 0.616), rgba(0, 0, 0, 0.781)), url(../img/dorm.jpg);
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/dorm.jpg);
     /* background: #dcdef8; */
     background-position: center center;
     background-repeat: no-repeat;

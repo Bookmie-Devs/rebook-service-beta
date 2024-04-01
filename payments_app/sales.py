@@ -15,10 +15,13 @@ def calculate_year_sales(hostel: HostelProfile, amount_paid):
 
 
 def calculate_agent_year_sales(hostel: HostelProfile):
-    sales, created = AgentSale.objects.get_or_create(agent=hostel.agent_affiliate, year=now().year)
-    if not created:
-        sales.number_of_sales = int(sales.number_of_sales) + 1
-        sales.save()
-    else:
-        sales.number_of_sales = int(sales.number_of_sales) + 1
-        sales.save()
+    try:
+        sales, created = AgentSale.objects.get_or_create(agent=hostel.agent_affiliate, year=now().year)
+        if not created:
+            sales.number_of_sales = int(sales.number_of_sales) + 1
+            sales.save()
+        else:
+            sales.number_of_sales = int(sales.number_of_sales) + 1
+            sales.save()
+    except:
+        pass
