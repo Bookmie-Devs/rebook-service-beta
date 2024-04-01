@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookmie Profile Confirmation</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* Added new class for button container */
+        .button-container {
+            display: flex;
+            justify-content: flex-end; /* Align items to the end (right side) of the container */
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+
+
+
+
+                /* Loader */
+        .load{
+            /* opacity: 0; */
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            top: 0;
+        }
+
+
+        /* loader css for htmx */
+        .htmx-request .load{
+            display:flex;
+        }
+        .htmx-request.load{
+            display:flex;
+        }
+
+
+
+        .loader{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loader p{
+            font-size: 1.5rem;
+            color: #fff;
+        }
+
+        .spinner {
+        width: 56px;
+        height: 56px;
+        display: grid;
+        border: 4px solid #0000;
+        border-radius: 50%;
+        border-right-color: #FEA116;
+        animation: spinner-a4dj62 1s infinite linear;
+        }
+        
+        .spinner::before,
+        .spinner::after {
+        content: "";
+        grid-area: 1/1;
+        margin: 2px;
+        border: inherit;
+        border-radius: 50%;
+        animation: spinner-a4dj62 2s infinite;
+        }
+        
+        .spinner::after {
+        margin: 8px;
+        animation-duration: 3s;
+        }
+        
+        @keyframes spinner-a4dj62 {
+        100% {
+        transform: rotate(1turn);
+        }
+        }
+    </style>
+</head>
+<body>
+      {% comment %} <!-- Loader --> {% endcomment %}
+    <div id="loading-indicator" class="load">
+      <div class="loader">
+        <div class="spinner"></div>
+        <p id="signup-p-tag">Please wait...</p>
+      </div>
+    </div>
+
+    <div class="container">
+        
+        <h1>Profile Confirmation</h1>
+        <form 
+        hx-post="{% url 'accounts:complete-profile' user.user_uuid %}"
+        hx-target="#htmx-message"
+        hx-trigger="submit"
+        hx-indicator="#loading-indicator"
+        id="verificationForm" 
+        method="POST"
+        >
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" name="first_name" value="{{user.first_name}}" required>
+        </div>
+        <div class="form-group">
+            <label for="middleName">Middle Name:</label>
+            <input type="text" id="middleName" name="middle_name" value="{{user.middle_name}}">
+        </div>
+        <div class="form-group">
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" name="last_name" value="{{user.last_name}}" required>
+        </div>
+
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-info" id="htmx-message">
+                {{message}}
+            <!-- space for htmx messages -->
+            </div>
+            {% endfor %}
+        {% else %}
+        <div id="htmx-message">
+        <!-- space for htmx messages -->
+        </div>
+        {% endif %}
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="{{user.email}}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Phone:</label>
+            <input type="tel" id="phone" name="phone" value="{{user.phone}}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="referenceNumber">Reference Number:</label>
+            <input type="text" id="referenceNumber" name="student_id_number" value="{{student.student_id_number}}" required>
+        </div>
+        <div class="form-group">
+            <label for="selectField">Campus:</label>
+            <select id="selectField" name="campus_code">
+                <option selected value="{{student.campus.campus_code}}">{{student.campus.alias_name}}</option>
+                {% for campus in campuses %}
+                <option value="{{campus.campus_param_id}}">{{campus.alias_name}}</option>
+                {% endfor %}
+            </select>
+        </div>
+            <!-- Button container with flexbox -->
+            <div class="button-container">
+                <button type="submit">Confirm</button>
+            </div>
+        </form>
+    </div>
+
+        <!-- HTMX SCRIPTS -->
+    <script
+      src="https://unpkg.com/htmx.org@1.9.8"
+      integrity="sha384-rgjA7mptc2ETQqXoYC3/zJvkU7K/aP44Y+z7xQuJiVnB/422P/Ak+F/AqFR7E4Wr"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="script.js"></script>
+</body>
+</html>

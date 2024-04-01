@@ -11,6 +11,7 @@ import uuid
 
 #User extention
 class CustomUser(AbstractUser):
+    user_uuid = models.UUIDField(default=uuid.uuid4, null=True, unique=True, blank=True, editable=False)
     middle_name = models.CharField(max_length=50, null=True, blank=True,)
     username = models.CharField(max_length=150, unique=False)
     email = models.EmailField(blank=False, unique=True)

@@ -24,85 +24,130 @@ from django.contrib import auth
 from django.template.loader import render_to_string
 from django.views.decorators.http import require_http_methods
 
-require_http_methods(["POST"])
+def render_message(request, message, tag):
+    return render(request, 'htmx_message_templates/message.html', {'message': message, 'tag': tag})
+
+
 def signup(request: HttpRequest):
     """ CustomUser signup View"""
     campuses = CampusProfile.objects.filter(available_on_campus=True).all()
+
     if request.method == 'POST':
-        campus_code = str(request.POST.get('campus_code')).upper().strip()
-        if CampusProfile.objects.filter(campus_code=campus_code,  available_on_campus=True).exists():
-            ##Getting campus model for quering hostels related to it
-            get_campus=CampusProfile.objects.get(campus_code=campus_code)
-            email =request.POST.get('email').lower()
-            ##checks if password if equal
-            if request.POST.get('password') == request.POST.get('confirm_password'):
-                try:
-                    validate_password(request.POST.get('confirm_password'))
+        campus_code = request.POST.get('campus_code', '').upper().strip()
+        email = request.POST.get('email', '').lower()
+        password = request.POST.get('password', '')
+        confirm_password = request.POST.get('confirm_password', '')
+        phone = request.POST.get('phone', '')
+        student_id_number = request.POST.get('student_id_number', '')
 
-                    # checking if number is valid
-                    if check_number(request.POST.get('phone')) == 400:
-                        message ={'message':'Phone number incorrect, please go back and check','tag':'danger'}
-                        return render(request,'htmx_message_templates/message.html', message)
-                    
-                    #existance of phone number 
-                    elif CustomUser.objects.filter(phone=request.POST.get('ph   one')).exists():
-                        # htmx message for signup
-                        message ={'message':'Phone Number has already been registered','tag':'info'}
-                        return render(request,'htmx_message_templates/message.html', message)
-                    
-                    elif CustomUser.objects.filter(email=email).exists():
-                        # htmx message for signup
-                        message ={'message':'Email has already been registered','tag':'warning'}
-                        return render(request,'htmx_message_templates/message.html', message)
+        # Check if campus exists
+        if CampusProfile.objects.filter(campus_code=campus_code, available_on_campus=True).exists():
+            get_campus = CampusProfile.objects.get(campus_code=campus_code)
 
-                    elif Student.objects.filter(student_id_number = request.POST.get('student_id_number')).exists():
-                        # messages.info(request, 'Stundent has already been registered')
-                        # return redirect('accounts:signup')
-                        # htmx message for signup
-                        message ={'message':'Account with studnet ID already exists(check ID)','tag':'danger'}
-                        return render(request,'htmx_message_templates/message.html', message)
-                        
-                    else:
-                        """Creation of user model with details submitted"""
-                        new_user = CustomUser.objects.create_user(first_name=request.POST.get('first_name'), 
-                            last_name=request.POST.get('last_name'), middle_name=request.POST.get('middle_name') ,
-                            email=email, is_student=True,
-                            username=f"{request.POST.get('first_name')}_{request.POST.get('middle_name')} {request.POST.get('last_name')}",
-                            password=request.POST.get('password'), phone=check_number(request.POST.get('phone')), 
-                            gender=request.POST.get('gender').lower() ,is_active=False)
-                        new_user.save()
+            # Check if passwords match
+            if password != confirm_password:
+                return render_message(request, 'Password is not matching', 'danger')
 
-                        student = Student.objects.create(user=new_user, student_id_number=request.POST.get('student_id_number'), campus=get_campus,)
-                        student.save()
-                          
-                        # Send verification email
-                        send_verification_email(request=request, user=new_user)
-                        
-                        messages.success(request, 'Please check your email to complete the registration.', extra_tags='success')
-                        response = HttpResponse()
-                        response['HX-Redirect'] = '/accounts/login/'
-                        return response
-                    
-                except ValidationError as e:
-                    for err in e:
-                        message ={'message':f'{err}','tag':'warning'}
-                        return render(request,'htmx_message_templates/message.html', message)
+            try:
+                validate_password(confirm_password)
 
-            else:
-                # htmx message for signup
-                message ={'message':'Password is not matching','tag':'danger'}
-                return render(request,'htmx_message_templates/message.html', message)
+                # Check if phone number is valid
+                if check_number(phone) == 400:
+                    return render_message(request, 'Phone number incorrect, please go back and check', 'danger')
+                
+                # Check if email exists
+                if CustomUser.objects.filter(email=email, is_active=True).exists():
+                    return render_message(request, 'Email has already been registered', 'warning')
 
+                if CustomUser.objects.filter(email=email, is_active=False).exists():
+                    user = CustomUser.objects.get(phone=phone, is_active=False)
+                    messages.success(request, 'Please complete profile.', extra_tags='success')
+                    response = HttpResponse()
+                    response['HX-Redirect'] = f'/accounts/complete-profile/{user.user_uuid}'
+                    return response
+
+                if CustomUser.objects.filter(phone=phone, is_active=False).exists():
+                    user = CustomUser.objects.get(phone=phone, is_active=False)
+                    messages.success(request, 'Please complete profile.', extra_tags='success')
+                    response = HttpResponse()
+                    response['HX-Redirect'] = f'/accounts/complete-profile/{user.user_uuid}'
+                    return response
+                
+                # Check if phone number exists
+                if CustomUser.objects.filter(phone=phone, is_active=True).exists():
+                    return render_message(request, 'Phone Number has already been registered', 'info')
+
+                # Check if student ID exists
+                if Student.objects.filter(student_id_number=student_id_number, user__is_active=False).exists():
+                    user = Student.objects.get(student_id_number=student_id_number, user__is_active=False).user
+                    messages.success(request, 'Please complete profile.', extra_tags='success')
+                    response = HttpResponse()
+                    response['HX-Redirect'] = f'/accounts/complete-profile/{user.user_uuid}'
+                    return response
+                
+                # Check if student ID exists and is_active
+                if Student.objects.filter(student_id_number=student_id_number, user__is_active=True).exists():
+                    return render_message(request, 'Account with student ID already exists (check ID)', 'danger')
+
+                # Create user and student
+                new_user: CustomUser = CustomUser.objects.create_user(
+                    first_name=request.POST.get('first_name'),
+                    last_name=request.POST.get('last_name'),
+                    middle_name=request.POST.get('middle_name'),
+                    email=email,
+                    is_student=True,
+                    username=f"{request.POST.get('first_name')}_{request.POST.get('middle_name')} {request.POST.get('last_name')}",
+                    password=password,
+                    phone=check_number(phone),
+                    gender=request.POST.get('gender', '').lower(),
+                    is_active=False
+                )
+                new_user.save()
+
+                student = Student.objects.create(user=new_user, student_id_number=student_id_number, campus=get_campus)
+                student.save()
+                messages.success(request, 'Please confirm your details.', extra_tags='success')
+                response = HttpResponse()
+                response['HX-Redirect'] = f'/accounts/complete-profile/{new_user.user_uuid}/'
+                return response
             
+            except ValidationError as e:
+                error_message = e.messages[0] if e.messages else 'Invalid password'
+                return render_message(request, error_message, 'warning')
+
         else:
-            # htmx message for signup
-            message ={'message':'Bookmie.com is not yet registered on your campus','tag':'info'}
-            return render(request,'htmx_message_templates/message.html', message)
-        
-        
-    return render(request, 'forms/signup.html', {'campuses':campuses})  
+            return render_message(request, 'Bookmie.com is not yet registered on your campus', 'info')
+
+    return render(request, 'forms/signup.html', {'campuses': campuses})
 
 
+def complete_profile(request: HttpRequest, user_uuid):
+    campuses = CampusProfile.objects.filter(available_on_campus=True).all()
+    student = Student.objects.get(user__user_uuid=user_uuid)
+    if request.method == "POST":
+        if student.user.is_active:
+            messages.success(request, 'Account active, please login.', extra_tags='success')
+            response = HttpResponse()
+            response['HX-Redirect'] = f'/accounts/booking-and-payments'
+        campus_code = request.POST.get('campus_code')
+        campus = CampusProfile.objects.get(campus_code=campus_code)
+        # Update user profile data based on form submission
+        student.user.first_name = request.POST.get('first_name')
+        student.user.email = request.POST.get('email')
+        student.user.middle_name = request.POST.get('middle_name', '')
+        student.user.last_name = request.POST.get('last_name')
+        student.user.phone = request.POST.get('phone', '')
+        student.campus = campus
+        student.student_id_number = request.POST.get('student_id_number')
+        # Repeat for other fields  return response
+        student.user.save()
+
+        # Send verification email
+        send_verification_email(request=request, user=student.user)
+
+        return render_message(request, 'Please check your email to complete the registration.', 'info')
+    context = {'user':student.user, 'campuses':campuses, 'student':student}
+    return render(request, 'complete_profile.html',context)
 
 
 @authenticated_or_not

@@ -10,6 +10,7 @@ urlpatterns = [
     path('activate/<uidb64>/<token>/', views.activate, name='activate_account'),
     path('login/', views.login, name='login'),
     path('logout/', views.logout, name='logout'),
+    path("complete-profile/<user_uuid>/", views.complete_profile, name="complete-profile"),
     path('booking-and-payments/', views.booking_and_payments, name='booking-and-payments'),
     
     # Apis
