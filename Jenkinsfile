@@ -5,26 +5,26 @@ pipeline {
         stage ('Cloning and Building') {
             steps {
             echo "Building"
-            sh "/bin/source /var/.venv/bin/activate"
-            git url: "https://github.com/LhilEthen/Rebook.git", branch: "main"
+            // sh "/bin/source /var/.venv/bin/activate"
+            // git url: "https://github.com/LhilEthen/Rebook.git", branch: "main"
             }
         }
         
-        stage ('Collect StaticFiles') {
-            steps {
-            echo "Collecting static files"
-            // sh "python manage.py collectstatic"
-            }
-        }
+        // stage ('Collect StaticFiles') {
+        //     steps {
+        //     echo "Collecting static files"
+        //     // sh "python manage.py collectstatic"
+        //     }
+        // }
 
-        stage ('Test') {
+        stage ('Testing') {
             steps {
             echo "Testing"
             sh "python3 manage.py test"
             }
         }
         
-        stage ('Deploy') {
+        stage ('Deploying') {
             steps {
             echo "Deploying"
             }
