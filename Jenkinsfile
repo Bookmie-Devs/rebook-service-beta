@@ -6,7 +6,7 @@ pipeline {
             steps {
             echo "Building"
             sh "/bin/source /var/.venv/bin/activate"
-            // git url: "https://github.com/LhilEthen/Rebook.git", branch: "main"
+            git url: "https://github.com/LhilEthen/Rebook.git", branch: "main"
             }
         }
         
