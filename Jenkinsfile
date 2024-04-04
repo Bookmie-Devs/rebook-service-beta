@@ -5,7 +5,7 @@ pipeline {
         stage ('Cloning and Building') {
             steps {
             echo "Building"
-            git url: "https://github.com/LhilEthen/Rebook.git", branch: "main"
+            // git url: "https://github.com/LhilEthen/Rebook.git", branch: "main"
             }
         }
         
