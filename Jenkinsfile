@@ -5,7 +5,7 @@ pipeline {
         stage ('Cloning and Building') {
             steps {
             echo "Building"
-            // sh "/bin/source /var/.venv/bin/activate"
+            sh ". /var/.venv/bin/activate"
             // git url: "https://github.com/LhilEthen/Rebook.git", branch: "main"
             }
         }
@@ -22,7 +22,7 @@ pipeline {
             echo "Testing"
             sh "python3 manage.py test"
             }
-        }
+        }   
         
         stage ('Deploying') {
             steps {
