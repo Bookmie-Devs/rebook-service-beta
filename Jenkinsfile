@@ -12,14 +12,14 @@ pipeline {
         stage ('Collect StaticFiles') {
             steps {
             echo "Collecting static files"
-            sh "python manage.py collectstatic"
+            // sh "python manage.py collectstatic"
             }
         }
 
         stage ('Test') {
             steps {
             echo "Testing"
-            sh "python manage.py test"
+            sh "python3 manage.py test"
             }
         }
         
