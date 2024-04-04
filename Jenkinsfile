@@ -10,8 +10,10 @@ pipeline {
         }
         
         stage ('Collect StaticFiles') {
+            steps {
             echo "Collecting static files"
             sh "python manage.py collectstatic"
+            }
         }
 
         stage ('Test') {
