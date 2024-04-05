@@ -5,7 +5,7 @@ pipeline {
         stage ('Cloning and Building') {
             steps {
             echo "Building"
-            sh ". /var/.venv/bin/activate"
+            // sh ". /var/.venv/bin/activate"
             // git url: "https://github.com/LhilEthen/Rebook.git", branch: "main"
             }
         }
