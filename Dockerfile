@@ -7,9 +7,6 @@ FROM python:3.11.4-slim-buster
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-# create root directory for our project in the container
-RUN mkdir -p /app
-
 # Set the working directory to /music_service
 WORKDIR /app
 
