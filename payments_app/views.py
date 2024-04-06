@@ -8,12 +8,10 @@ from .payStack import (paystack_verification,
                        payment_is_confirm,
                     #    redirect_payment
                        )
-from core import forms
 from .sales import calculate_year_sales, calculate_agent_year_sales
 from core.models import Tenant
 from core.models import Booking
 from accounts.models import Student
-from hostel_app.models import HostelProfile
 from .tenant_auth import (tenant_auth_details, 
                           tenant_auth_message)
 
@@ -21,12 +19,11 @@ from .tenant_auth import (tenant_auth_details,
 from reportlab.lib.pagesizes import letter
 from django.conf import settings
 from django.shortcuts import get_object_or_404
-from django.utils import timezone
 from django.template.loader import render_to_string
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMessage
 from django.shortcuts import HttpResponse
 from io import BytesIO
 from reportlab.pdfgen import canvas
@@ -189,9 +186,11 @@ def verify_payment(request: HttpRequest, reference_id, paystack_reference):
 
         # send emails
         subject = f'Confirmation: Your Room Booking is Complete!'
-        send_mail(from_email=settings.EMAIL_HOST_USER, fail_silently=True,
-        recipient_list=[request.user.email], subject=subject, 
-        message=render_to_string('emails/tenant_email.html',{"user":request.user,"tenant":tenant,"amount":payment.amount,"domain":current_domain})),
+        emessage=render_to_string('emails/tenant_email.html',{"user":request.user,"tenant":tenant,"amount":payment.amount,"domain":current_domain})
+        email = EmailMessage(subject, emessage, from_email=settings.EMAIL_HOST_USER, to=[request.user.email])
+        email.content_subtype = "html"
+        email.send(fail_silently=True)
+        
         return redirect('core:success')
     
     else:
