@@ -30,7 +30,7 @@ def render_message(request, message, tag):
 def redirect_To_complete_profile(request, user):
     messages.success(request, 'Please confirm and complete profile.', extra_tags='success')
     response = HttpResponse()
-    response['HX-Redirect'] = f'/accounts/complete-profile/{user.user_uuid}'
+    response['HX-Redirect'] = f'/accounts/complete-profile/{user.user_uuid}/'
     return response
 
 
