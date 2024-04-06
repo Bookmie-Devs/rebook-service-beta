@@ -7,7 +7,7 @@ from campus_app.models import CampusProfile
 from .models import Student
 from core.models import Booking, Tenant
 from core.phone import check_number
-from .task import send_email_task, send_sms_task
+from .task import send_email_task
 
 """Built in packages"""
 from django.contrib.sites.shortcuts import get_current_site
@@ -22,10 +22,16 @@ from django.contrib import messages
 from django.conf import settings
 from django.contrib import auth
 from django.template.loader import render_to_string
-from django.views.decorators.http import require_http_methods
 
 def render_message(request, message, tag):
     return render(request, 'htmx_message_templates/message.html', {'message': message, 'tag': tag})
+
+
+def redirect_To_complete_profile(request, user):
+    messages.success(request, 'Please confirm and complete profile.', extra_tags='success')
+    response = HttpResponse()
+    response['HX-Redirect'] = f'/accounts/complete-profile/{user.user_uuid}'
+    return response
 
 
 def signup(request: HttpRequest):
@@ -56,39 +62,30 @@ def signup(request: HttpRequest):
                     return render_message(request, 'Phone number incorrect, please go back and check', 'danger')
                 
                 # Check if email exists
-                if CustomUser.objects.filter(email=email, is_active=True).exists():
+                elif CustomUser.objects.filter(email=email, is_active=True).exists():
                     return render_message(request, 'Email has already been registered', 'warning')
 
-                if CustomUser.objects.filter(email=email, is_active=False).exists():
-                    user = CustomUser.objects.get(phone=phone, is_active=False)
-                    messages.success(request, 'Please complete profile.', extra_tags='success')
-                    response = HttpResponse()
-                    response['HX-Redirect'] = f'/accounts/complete-profile/{user.user_uuid}'
-                    return response
-
-                if CustomUser.objects.filter(phone=phone, is_active=False).exists():
-                    user = CustomUser.objects.get(phone=phone, is_active=False)
-                    messages.success(request, 'Please complete profile.', extra_tags='success')
-                    response = HttpResponse()
-                    response['HX-Redirect'] = f'/accounts/complete-profile/{user.user_uuid}'
-                    return response
+                elif CustomUser.objects.filter(email=email, is_active=False).exists():
+                    user = CustomUser.objects.get(email=email, is_active=False)
+                    return redirect_To_complete_profile(request, user)
                 
                 # Check if phone number exists
-                if CustomUser.objects.filter(phone=phone, is_active=True).exists():
+                elif CustomUser.objects.filter(phone=phone, is_active=True).exists():
                     return render_message(request, 'Phone Number has already been registered', 'info')
 
-                # Check if student ID exists
-                if Student.objects.filter(student_id_number=student_id_number, user__is_active=False).exists():
-                    user = Student.objects.get(student_id_number=student_id_number, user__is_active=False).user
-                    messages.success(request, 'Please complete profile.', extra_tags='success')
-                    response = HttpResponse()
-                    response['HX-Redirect'] = f'/accounts/complete-profile/{user.user_uuid}'
-                    return response
-                
-                # Check if student ID exists and is_active
-                if Student.objects.filter(student_id_number=student_id_number, user__is_active=True).exists():
+                elif CustomUser.objects.filter(phone=phone, is_active=False).exists():
+                    user = CustomUser.objects.get(phone=phone, is_active=False)
+                    return redirect_To_complete_profile(request, user)
+
+                   # Check if student ID exists and is_active
+                elif Student.objects.filter(student_id_number=student_id_number, user__is_active=True).exists():
                     return render_message(request, 'Account with student ID already exists (check ID)', 'danger')
 
+                # Check if student ID exists
+                elif Student.objects.filter(student_id_number=student_id_number, user__is_active=False).exists():
+                    user = Student.objects.get(student_id_number=student_id_number, user__is_active=False).user
+                    return redirect_To_complete_profile(request, user)
+                
                 # Create user and student
                 new_user: CustomUser = CustomUser.objects.create_user(
                     first_name=request.POST.get('first_name'),
@@ -106,10 +103,7 @@ def signup(request: HttpRequest):
 
                 student = Student.objects.create(user=new_user, student_id_number=student_id_number, campus=get_campus)
                 student.save()
-                messages.success(request, 'Please confirm your details.', extra_tags='success')
-                response = HttpResponse()
-                response['HX-Redirect'] = f'/accounts/complete-profile/{new_user.user_uuid}/'
-                return response
+                return redirect_To_complete_profile(request, new_user)
             
             except ValidationError as e:
                 error_message = e.messages[0] if e.messages else 'Invalid password'
@@ -145,7 +139,7 @@ def complete_profile(request: HttpRequest, user_uuid):
         # Send verification email
         send_verification_email(request=request, user=student.user)
 
-        return render_message(request, 'Please check your email to complete the registration.', 'info')
+        return render_message(request, 'Please check your email to activate your account.', 'info')
     context = {'user':student.user, 'campuses':campuses, 'student':student}
     return render(request, 'complete_profile.html',context)
 
@@ -228,7 +222,7 @@ def send_verification_email(request, user: CustomUser) -> None:
         'token': account_activation_token.make_token(user),
     })  
     to_email = user.email
-    email = EmailMessage(subject, message, to=[to_email])
+    email = EmailMessage(subject, message, settings.EMAIL_HOST_USER, to=[to_email])
     email.content_subtype = "html"
     email.send(fail_silently=True)
 
