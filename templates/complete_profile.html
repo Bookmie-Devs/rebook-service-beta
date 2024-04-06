@@ -157,7 +157,6 @@
         hx-trigger="submit"
         hx-indicator="#loading-indicator"
         id="verificationForm" 
-        method="POST"
         >
         {% csrf_token %}
 
@@ -178,12 +177,12 @@
             {% for message in messages %}
             <div class="alert alert-info" id="htmx-message">
                 {{message}}
-            <!-- space for htmx messages -->
+            {% comment %} <!-- space for htmx messages --> {% endcomment %}
             </div>
             {% endfor %}
         {% else %}
         <div id="htmx-message">
-        <!-- space for htmx messages -->
+        {% comment %} <!-- space for htmx messages --> {% endcomment %}
         </div>
         {% endif %}
         <div class="form-group">
@@ -216,13 +215,13 @@
         </form>
     </div>
 
-        <!-- HTMX SCRIPTS -->
+        {% comment %} <!-- HTMX SCRIPTS --> {% endcomment %}
     <script
       src="https://unpkg.com/htmx.org@1.9.8"
       integrity="sha384-rgjA7mptc2ETQqXoYC3/zJvkU7K/aP44Y+z7xQuJiVnB/422P/Ak+F/AqFR7E4Wr"
       crossorigin="anonymous"
     ></script>
 
-    <script src="script.js"></script>
+    {% comment %} <script src="script.js"></script> {% endcomment %}
 </body>
 </html>
